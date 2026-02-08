@@ -20,14 +20,6 @@ Automatically create an isolated git worktree for manual work, then optionally c
 - Automatically `cd` into the created worktree
 - Only ask user ONE question: cleanup at the end
 
-## Context
-
-### Optional hint
-
-```text
-$ARGUMENTS
-```
-
 ## Steps
 
 ### Step 1: Determine Branch Name
@@ -68,6 +60,8 @@ You are now inside the worktree. When done, tell me "done" or "cleanup".
 Wait for user to signal completion (any message like "done", "finished", "cleanup", etc.).
 
 ### Step 5: Cleanup Prompt
+
+> Warning: If branch has not been pushed, it will be deleted permanently, then ask user if he wants to merge it in main branch first.
 
 Ask user: **"Delete the worktree `worktrees/<branch-name>/`?"**
 
