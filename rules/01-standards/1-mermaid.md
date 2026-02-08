@@ -8,7 +8,7 @@ alwaysApply: false
 
 ## Header
 
-- Use "---" to define header title
+- Always have title in schema using "---" to define it
 
 ## States and nodes
 
