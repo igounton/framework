@@ -1,77 +1,92 @@
-# Guide de contribution - Framework AIDD
+# Contribution Guide - AIDD Framework
 
-Ce guide explique comment contribuer au framework AIDD — la source de vérité pour les agents, commandes, règles, skills et templates.
+This guide explains how to contribute to the AIDD framework — the source of truth for agents, commands, rules, skills, and templates.
 
-> **Rôles et permissions** : Voir le [CONTRIBUTING principal](../CONTRIBUTING.md#rôles)
+> **Roles and repository access**: see the [main CONTRIBUTING](../CONTRIBUTING.md).
 
 ---
 
-## Prérequis
+- [Contribution process](#contribution-process)
+- [Existing templates](#existing-templates)
+- [Syntax and conventions](#syntax-and-conventions)
+  - [Placeholders](#placeholders)
+  - [Frontmatter and metadata](#frontmatter-and-metadata)
+- [IDE-specific rules](#ide-specific-rules)
+- [CLI and installation](#cli-and-installation)
 
-Le framework vit dans le dépôt AIDD : <https://github.com/ai-driven-dev/aidd/>
+---
 
-Si vous avez reçu le framework en tant que fichier zip, hébergez-le d'abord dans votre propre dépôt. Puis suivez le même workflow de contribution ci-dessous.
+## Contribution process
 
-## Comment contribuer
+Every change requires a **Pull Request**. Changes impact all teams using the framework and must be reviewed before merge.
 
-### 1. Comprendre la structure
+---
 
-Le dossier `framework/` est la **source unique de vérité**. Tout le contenu est indépendant de l'outil (`tool-agnostic`) — aucune syntaxe spécifique à un IDE. Le CLI gère l'installation dans les projets et génère des copies adaptées à chaque IDE supporté (Claude Code, Cursor, GitHub Copilot, etc.).
+## Existing templates
 
-```text
-framework/
-├── agents/       # Définitions des agents IA
-├── commands/     # Commandes SDLC organisées par phase (01-10)
-├── config/       # Fichiers de configuration (config.yml, mcp.json, .vscode/)
-├── rules/        # Règles de codage par catégorie
-├── skills/       # Définitions de skills réutilisables
-├── templates/    # Templates (aidd, dev, pm, vcs, AGENTS.md, etc.)
-└── README.md     # Documentation utilisateur
-```
+When adding or modifying content, always follow the existing templates:
 
-### 2. Toujours créer une Pull Request
+| Content | Template                    | Examples    |
+| ------- | --------------------------- | ----------- |
+| Agent   | `templates/aidd/agent.md`   | `agents/`   |
+| Command | `templates/aidd/command.md` | `commands/` |
+| Skill   | `templates/aidd/skill.md`   | `skills/`   |
+| Rule    | `templates/aidd/rule.md`    | `rules/`    |
 
-Toute modification nécessite une Pull Request. Les changements impactent toutes les équipes utilisant le framework et doivent donc être revus avant merge.
+---
 
-### 3. Suivre les templates existants
+## Syntax and conventions
 
-Lors de l'ajout ou la modification de contenu, toujours suivre les templates existants :
+The framework must remain **tool-agnostic** — the CLI handles all syntactic adaptation at install time.
 
-| Contenu  | Template                    | Exemples    |
-| -------- | --------------------------- | ----------- |
-| Agent    | `templates/aidd/agent.md`   | `agents/`   |
-| Commande | `templates/aidd/command.md` | `commands/` |
-| Skill    | `templates/aidd/skill.md`   | `skills/`   |
-| Règle    | `templates/aidd/rule.md`    | `rules/`    |
+> **IMPORTANT**: Source files use **Claude Code** syntax by default (`/command`, `@path`).
 
-### 4. Syntaxe et conventions
+### Placeholders
 
-Tous les fichiers source du framework utilisent la syntaxe Claude Code par défaut (`/command`, `@path`).
+| Placeholder  | Role                                                      | Resolution                         |
+| ------------ | --------------------------------------------------------- | ---------------------------------- |
+| `{{TOOLS}}/` | Tool-specific content (commands, agents, rules, etc)      | `.claude/`, `.cursor/`, `.github/` |
+| `{{DOCS}}/`  | Documentation (templates, memory, tasks, etc)             | `aidd_docs/`                       |
+| `$ARGUMENTS` | User input in commands                                    | Value provided at runtime          |
 
-**Important** : Ne pas ajouter de syntaxe ou mots-clés spécifiques à un outil dans les fichiers source du framework. Le framework doit rester indépendant de l'outil — le CLI gère toute l'adaptation syntaxique lors de l'installation. En particulier :
+For file inclusions, use `@{{TOOLS}}/path` or `@{{DOCS}}/path`: the CLI rewrites these paths based on the target tool.
 
-- **Frontmatter** : uniquement des propriétés agnostiques — `name`, `description`, `argument-hint`
-- **Placeholders de chemins** : les fichiers source utilisent deux placeholders résolus au build :
-  - `{{TOOLS}}/` — contenu spécifique à l'outil (commands, agents, rules, skills). Résolu par IDE : `.claude/`, `.cursor/`, `.github/`.
-  - `{{DOCS}}/` — chemins de documentation (templates, memory, internal, external, tasks). Résolu en `aidd_docs/`.
-- **Syntaxe d'inclusion** : utiliser `@{{TOOLS}}/path` ou `@{{DOCS}}/path` — le CLI réécrit ces chemins par outil
-- **`$ARGUMENTS`** : placeholder universel pour les entrées utilisateur dans les commandes
-- **Pas de métadonnées spécifiques à un outil** : pas de `color`, `docs`, `model`, `alwaysApply` ou clés spécifiques à un IDE
+### Frontmatter and metadata
 
-### 5. Règles spécifiques par IDE
+All framework elements use YAML frontmatter. Some properties are universal, others are specific to certain tools.
 
-Les fichiers de référence syntaxique par outil vivent dans `rules/04-tooling/` :
+| Property        | Used by                 | Supported everywhere |
+| --------------- | ----------------------- | -------------------- |
+| `name`          | agents, commands        | yes                  |
+| `description`   | agents, commands, rules | yes                  |
+| `argument-hint` | commands                | yes                  |
+| `model`         | agents, commands        | no                   |
+| `color`         | agents                  | no                   |
+| `docs`          | agents                  | no                   |
+| `globs`         | rules                   | no                   |
+| `alwaysApply`   | rules                   | no                   |
+| `paths`         | rules                   | no                   |
 
-- `ide-mapping.claude.md` — Chemins, syntaxe et frontmatter Claude Code
-- `ide-mapping.cursor.md` — Chemins, syntaxe et frontmatter Cursor
-- `ide-mapping.copilot.md` — Chemins, syntaxe et frontmatter GitHub Copilot
+> Properties marked **no** can be added but will not be interpreted by all target tools. See the `rules/04-tooling/ide-mapping.*.md` files for detailed per-tool support.
 
-Ces fichiers décrivent ce qui fonctionne pour chaque outil (extensions de fichier, format frontmatter, configuration MCP).
+---
 
-## CLI et installation
+## IDE-specific rules
 
-Le CLI gère le cycle de vie complet de l'installation : sélection des outils, génération de copies adaptées avec la syntaxe appropriée, suivi de l'intégrité des fichiers via les hash dans `.aidd/config.yml`, et gestion des mises à jour.
+Syntax reference files per tool live in `rules/04-tooling/`:
 
-Lorsque vous contribuez du nouveau contenu au framework, le CLI le détectera automatiquement et générera les copies appropriées pour chaque outil installé lors de la prochaine mise à jour.
+- `ide-mapping.claude.md` — Paths, syntax, and frontmatter for Claude Code
+- `ide-mapping.cursor.md` — Paths, syntax, and frontmatter for Cursor
+- `ide-mapping.copilot.md` — Paths, syntax, and frontmatter for GitHub Copilot
 
-← [Retour au framework](./README.md)
+---
+
+## CLI and installation
+
+The CLI manages the full installation lifecycle: tool selection, generation of adapted copies, file integrity tracking via hashes in `.aidd/config.yml`, and update management.
+
+When you contribute new content to the framework, the CLI will automatically detect it and generate the appropriate copies for each installed tool on the next update.
+
+---
+
+← [Back to framework](./README.md)
