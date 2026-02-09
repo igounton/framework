@@ -63,5 +63,5 @@ List all files:
 Then:
 
 - READ every files in `{{DOCS}}/memory/*` on load
-- If needed: load files from `{{DOCS}}/external/*` when user request it
-- If needed: load files from `{{DOCS}}/internal/*`, you have to think about it
+- If needed: load files from `{{DOCS}}/memory/external/*` when user request it
+- If needed: load files from `{{DOCS}}/memory/internal/*`, you have to think about it

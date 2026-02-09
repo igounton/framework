@@ -17,7 +17,7 @@ These commands use the scaffolds in `{{DOCS}}/templates/aidd/` and output files 
 
 ## Templates
 
-All templates live in `{{DOCS}}/templates/` and can be modified to match your team's conventions. Changes are tracked via hashes in `{{DOCS}}/config.yml` — the CLI will warn before overwriting modified files on update.
+All templates live in `{{DOCS}}/templates/` and can be modified to match your team's conventions. Changes are tracked via hashes in `.aidd/config.yml` — the CLI will warn before overwriting modified files on update.
 
 ### Framework scaffolds (`aidd/`)
 

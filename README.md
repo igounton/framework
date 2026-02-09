@@ -72,16 +72,16 @@ project/
 
 ## 🔄 Framework Flow Map
 
-| Step   | Prompt(s)                             | When to use                             |
-| ------ | ------------------------------------- | --------------------------------------- |
-| Init   | `/init`                               | Start a session, load context           |
-| Plan   | `/plan` or `/elaborate`               | Build the technical plan                |
-| Build  | `/implements`                         | Implement the plan                      |
-| Verify | `/assert`                             | Verify, fix, and iterate                |
-| Review | `/review_code` + `/review_functional` | Review quality and behavior             |
-| Commit | `/commit`                             | Commit changes                          |
-| PR     | `/create_request`                     | Open a pull request                     |
-| Learn  | `/learn`                              | Update memory and rules                 |
+| Step      | Prompt(s)                             | When to use                             |
+| --------- | ------------------------------------- | --------------------------------------- |
+| Clarify   | `/brainstorm`                         | Clarify a fuzzy need before coding      |
+| Issue     | `/new_issue`                          | Create a GitHub issue from requirements |
+| Plan      | `/plan`                               | Build the technical plan                |
+| Isolate   | `/isolate`                            | Create an isolated worktree             |
+| Build     | `/implement` + `/assert` + `/commit`  | Implement, verify, and commit per phase |
+| Review    | `/review_code` + `/review_functional` | Review quality and behavior             |
+| PR        | `/create_request`                     | Open a pull request                     |
+| Learn     | `/learn`                              | Update memory and rules                 |
 
 ---
 
