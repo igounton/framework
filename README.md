@@ -89,4 +89,4 @@ project/
 
 To add or modify elements (agents, commands, rules, skills, or templates), see the [contribution guide](./CONTRIBUTING.md).
 
-← [Back to main repo](../README.md)
+← [Back to main repo](https://github.com/ai-driven-dev/aidd/blob/main/README.md)

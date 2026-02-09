@@ -2,7 +2,7 @@
 
 This guide explains how to contribute to the AIDD framework — the source of truth for agents, commands, rules, skills, and templates.
 
-> **Roles and repository access**: see the [main CONTRIBUTING](../CONTRIBUTING.md).
+> **Roles and repository access**: see the [main CONTRIBUTING](https://github.com/ai-driven-dev/aidd/blob/main/CONTRIBUTING.md).
 
 ---
 
