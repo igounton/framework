@@ -3,8 +3,7 @@ name: new_issue
 description: Create GitHub issues with interactive template filling
 argument-hint: "Describe the problem you want to create an issue for"
 allowed-tools: Bash(date), gh
-documentations:
-  - https://github.com/steipete/agent-rules/blob/main/global-rules/github-issue-creation.mdc
+docs: https://github.com/steipete/agent-rules/blob/main/global-rules/github-issue-creation.mdc
 model: sonnet
 ---
 

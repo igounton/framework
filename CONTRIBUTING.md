@@ -28,10 +28,10 @@ When adding or modifying content, always follow the existing templates:
 
 | Content | Template                    | Examples    |
 | ------- | --------------------------- | ----------- |
-| Agent   | `templates/aidd/agent.md`   | `agents/`   |
-| Command | `templates/aidd/command.md` | `commands/` |
-| Skill   | `templates/aidd/skill.md`   | `skills/`   |
-| Rule    | `templates/aidd/rule.md`    | `rules/`    |
+| Agent   | `aidd_docs/templates/aidd/agent.md`   | `agents/`   |
+| Command | `aidd_docs/templates/aidd/command.md` | `commands/` |
+| Skill   | `aidd_docs/templates/aidd/skill.md`   | `skills/`   |
+| Rule    | `aidd_docs/templates/aidd/rule.md`    | `rules/`    |
 
 ---
 

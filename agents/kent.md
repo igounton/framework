@@ -1,8 +1,7 @@
 ---
 name: kent
 description: Use this agent when explicitly asked to perform test-driven development.
-docs:
-    https://tidyfirst.substack.com/p/augmented-coding-beyond-the-vibes
+docs: https://tidyfirst.substack.com/p/augmented-coding-beyond-the-vibes
 model: sonnet
 ---
 

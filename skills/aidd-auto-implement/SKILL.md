@@ -1,7 +1,7 @@
 ---
 name: auto-implement
 description: Autonomously run the AI-Driven Development workflow to code an high quality feature.
-argument-hints: The URL or file path of the issue or task to implement.
+argument-hint: The URL or file path of the issue or task to implement.
 ---
 
 # Auto Implement
