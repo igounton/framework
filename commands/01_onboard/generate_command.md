@@ -93,7 +93,7 @@ Generate a production-ready prompt that maximizes LLM performance argument.
 6. Challenge it is necessary, then summarize it to user.
 7. Valide with user.
 8. Output newly generated prompt following the IDE mapping conventions for file path and naming.
-9. Add the new prompt into the `@{{DOCS}}/README.md` to keep documentation up to date.
+9. Add the new prompt into the `@{{DOCS}}/CATALOG.md` to keep documentation up to date.
 
 ## Validation checklist
 

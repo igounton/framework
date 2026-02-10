@@ -67,6 +67,6 @@ Edit `.cursor/mcp.json` to configure MCP servers.
 Edit `.vscode/mcp.json` to configure MCP servers.
 {{/IF_COPILOT}}
 
-See [`README.md`](README.md) for the full reference (commands, agents, development flows, templates).
+See [`README.md`](README.md) for development flows and [`CATALOG.md`](CATALOG.md) for the full reference.
 
 EXECUTE NOW: Complete the above TODO list to achieve: AIDD framework installed and initialized for {{TOOL_NAME}}.

@@ -46,4 +46,4 @@ Mandatory mapping for IDE integration (file paths, naming, extensions):
 3. **Wait for user confirmation before finalizing the agent.**
 4. Propose 3 real first names for the agent, each name must be short and catchy, making sense with the agent's purpose (could be word game, acronym, etc.).
 5. Provide the completed agent template as the final output into `{{TOOLS}}/agents/<generated-agent-name>.md`.
-6. Add the new prompt into the `@{{DOCS}}/README.md` to keep documentation up to date.
+6. Add the new prompt into the `@{{DOCS}}/CATALOG.md` to keep documentation up to date.
