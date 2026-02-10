@@ -36,7 +36,7 @@ Auto-generated framework content: agents, commands, rules, skills, and templates
 | File | Description | Docs |
 |------|---|---|
 | [alexia.md](../../agents/alexia.md) | `Autonomous end-to-end feature implementation without human intervention` | - |
-| [claire.md](../../agents/claire.md) | `Product discovery agent — from fuzzy idea to Prompt Package ready for prototyping (Reverse Flip)` | - |
+| [claire.md](../../agents/claire.md) | `Clarity challenger — challenges and questions until the request is ultra-clear` | - |
 | [iris.md](../../agents/iris.md) | `Frontend specialist with 3 modes - implement from Figma, verify UI conformity, validate user journeys.` | - |
 | [kent.md](../../agents/kent.md) | `Use this agent when explicitly asked to perform test-driven development.` | `https://tidyfirst.substack.com/p/augmented-coding-beyond-the-vibes` |
 | [martin.md](../../agents/martin.md) | `Every time you need to run a command to ensure code is correct, still builds are that tests pass, you must call this agent.` | - |
@@ -103,9 +103,10 @@ Auto-generated framework content: agents, commands, rules, skills, and templates
 
 | File | Description | Argument Hint |
 |------|---|---|
-| [brainstorm.md](../../commands/02_context/brainstorm.md) | `Create an interactive brainstorming session to refine feature requests with the user.` | - |
+| [brainstorm.md](../../commands/02_context/brainstorm.md) | `Interactive brainstorming session to clarify and refine feature requests` | - |
 | [challenge.md](../../commands/02_context/challenge.md) | `Rethink and challenge previous work for improvements` | - |
 | [create_user_stories.md](../../commands/02_context/create_user_stories.md) | `Create user stories through iterative questioning` | `Feature description or requirements for user story generation` |
+| [ticket_info.md](../../commands/02_context/ticket_info.md) | `Get ticket information from the project's ticketing tool` | `Ticket URL or number` |
 
 #### `commands/03_plan`
 
@@ -144,11 +145,10 @@ Auto-generated framework content: agents, commands, rules, skills, and templates
 
 #### `commands/07_documentation`
 
-| File | Description | Argument Hint |
-|------|---|---|
-| [jira_info.md](../../commands/07_documentation/jira_info.md) | `Get JIRA ticket info from current branch` | `Jira URL or number` |
-| [learn.md](../../commands/07_documentation/learn.md) | `Update memory bank or rules with new information or requirements.` | - |
-| [mermaid.md](../../commands/07_documentation/mermaid.md) | `When need to generate Mermaid diagrams` | - |
+| File | Description |
+|------|---|
+| [learn.md](../../commands/07_documentation/learn.md) | `Update memory bank or rules with new information or requirements.` |
+| [mermaid.md](../../commands/07_documentation/mermaid.md) | `When need to generate Mermaid diagrams` |
 
 #### `commands/08_deploy`
 

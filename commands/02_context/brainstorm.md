@@ -1,45 +1,26 @@
 ---
 name: brainstorm
-description: Create an interactive brainstorming session to refine feature requests with the user.
+description: Interactive brainstorming session to clarify and refine feature requests
 model: opus
 ---
 
-# Goal
+# Brainstorm
 
-**Create and refine feature requests through interactive dialogue with the user**, then delegate plan generation to the plan command.
+## Goal
+
+Clarify and refine a feature request through iterative questioning until no ambiguity remains.
 
 ## Rules
 
-- Ask short, focused questions (max 3-5 at a time)
 - Never assume technical solutions upfront
-- Identify edge cases, inconsistencies, and missing context
 - Use bullet points for clarity
-- Challenge user assumptions when needed
-- Iterate until no more questions remain
 
 ## Steps
 
-### Step 1: Gather and Refine Feature Request
-
-> Do not analyze codebase yet
-
-Make this iteration until no more questions are raised:
-
-1. With no technical aspect, detail the feature request in bullet points understanding user intentions and requirements
-2. List inconsistencies, ambiguities and answers them
-3. Review your work and list check for edge cases
-4. Replay steps 2-3 until no more questions
-5. Display final feature requirements to user
-
-- **WAIT FOR USER APPROVAL** before proceeding
-
-### Step 2: Delegate to Plan Command
-
-After user approves the feature request:
-
-1. Format the approved requirements as structured text
-2. Run and execute
-
-```md
-@{{TOOLS}}/commands/03_plan/plan.md
-```
+1. Detail the feature request in bullet points (no technical aspect)
+2. Ask probing questions to challenge assumptions, edge cases, and missing context
+3. **WAIT FOR USER RESPONSE**
+4. Integrate answers, update the feature request
+5. Repeat from step 2 until no ambiguity remains
+6. Display final refined feature request
+7. **WAIT FOR USER APPROVAL**

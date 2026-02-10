@@ -18,6 +18,23 @@ Generate well-structured user stories from feature requirements through systemat
 - Lean, concise approach
 - 3 max questions per iteration
 - Sort by implementation priority
+- All checklists must be satisfied
+
+### INVEST Checklist
+
+- [ ] **I**ndependent — can be developed without other stories
+- [ ] **N**egotiable — details can be discussed
+- [ ] **V**aluable — delivers value to the user
+- [ ] **E**stimable — team can estimate the effort
+- [ ] **S**mall — fits in a single sprint
+- [ ] **T**estable — acceptance criteria are verifiable
+
+### Definition of Ready
+
+- [ ] Acceptance criteria defined
+- [ ] Dependencies identified
+- [ ] Story points estimated
+- [ ] No blocking questions
 
 ## Context
 
@@ -34,4 +51,4 @@ Generate well-structured user stories from feature requirements through systemat
 3. Iterate until you are both satisfied
 4. Prioritize
 5. Format stories using user story template
-6. Save to `aidd_docs/stories/<yyyy-mm>/<yyyy-mm-dd>-<slugified-title>.md`
+6. **Save it to the ticketing system**
