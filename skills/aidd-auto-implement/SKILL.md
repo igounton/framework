@@ -18,9 +18,7 @@ Autonomously code a high quality feature.
 
 ### Steps
 
-**Do those step by step in dedicated sub-agent task** (all commands with `cwd: worktrees/<branch>`):
-
-1. Run @{{TOOLS}}/commands/04_code/isolate.md
+1. Brainstorm implementation approach: @{{TOOLS}}/commands/02_context/brainstorm.md
 2. Generate technical plan: @{{TOOLS}}/commands/03_plan/plan.md
 3. Implement changes: @{{TOOLS}}/commands/04_code/implement.md
 4. Run tests: Execute test suite if applicable
