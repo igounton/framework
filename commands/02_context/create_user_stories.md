@@ -19,6 +19,14 @@ Generate well-structured user stories from feature requirements through systemat
 - 3 max questions per iteration
 - Sort by implementation priority
 
+## Context
+
+### User Story Template
+
+```markdown
+@{{DOCS}}/templates/pm/user_story.md
+```
+
 ## Steps
 
 1. Ask clarifying questions to understand completeness (problem, features, criteria, scope, constraints)
@@ -26,5 +34,4 @@ Generate well-structured user stories from feature requirements through systemat
 3. Iterate until you are both satisfied
 4. Prioritize
 5. Format stories using user story template
-6. Output final stories from this template: @{{DOCS}}/templates/pm/user_story.md
-7. Save to docs/product/USER_STORIES.md
+6. Save to `aidd_docs/stories/<yyyy-mm>/<yyyy-mm-dd>-<slugified-title>.md`
