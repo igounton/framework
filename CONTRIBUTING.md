@@ -33,7 +33,7 @@ This repository uses [Conventional Commits](https://www.conventionalcommits.org/
 | `fix` | Bug fix or correction | Patch |
 | `perf` | Performance improvement | Patch |
 | `revert` | Revert a previous commit | Patch |
-| `docs` | Documentation only | None |
+| `docs` | Documentation, templates | None |
 | `style` | Formatting, whitespace | None |
 | `refactor` | Restructuring without behavior change | None |
 | `test` | Adding or updating tests | None |
