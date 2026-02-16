@@ -101,31 +101,7 @@ You're set up. Here's how you work with AIDD every day.
 
 ### Build a Feature
 
-Pick the flow that matches your situation:
-
-#### 🟢 Minimal — Clear task, small scope
-
-```mermaid
-graph LR
-    P["/plan"] --> I["/implement"] --> C["/commit"]
-```
-
-#### 🟡 Standard — Needs validation and review
-
-```mermaid
-graph LR
-    P["/plan"] --> I["/implement"] --> A["/assert"]
-    A --> RC["/review_code"] --> C["/commit"] --> CR["/create_request"]
-```
-
-#### 🔴 Full — Vague requirements or complex feature
-
-```mermaid
-graph LR
-    B["/brainstorm"] --> P["/plan"] --> I["/implement"] --> A["/assert"]
-    A --> RC["/review_code"] --> RF["/review_functional"]
-    RF --> C["/commit"] --> CR["/create_request"] --> L["/learn"]
-```
+> See [`CATALOG.md`](CATALOG.md) for the full command reference.
 
 **All available commands:**
 
@@ -139,7 +115,47 @@ graph LR
 8. **`/create_request`** — Creates draft PR/MR. _Skip if working on main._
 9. **`/learn`** — Routes knowledge to memory, rules, or skills. _Skip for routine changes._
 
-See [`CATALOG.md`](CATALOG.md) for the full command reference.
+Pick the flow that matches your situation:
+
+#### 🔺 Minimal — Clear task, small scope
+
+```mermaid
+graph LR
+    P["/plan"] --> I["/implement"] --> C["/learn"]
+```
+
+#### 🔷 Standard — Needs validation and review
+
+```mermaid
+graph LR
+    P["/plan"] --> I["/implement"] --> A["/assert"] --> C["/commit"] --> CR["/create_request"] --> L["/learn"]
+```
+
+#### 🟢 Full — Vague requirements or complex feature
+
+```mermaid
+graph LR
+    B["/brainstorm"] --> P["/plan"] --> I["/implement"] --> A["/assert"]
+    A --> RC["/review_code"] --> RF["/review_functional"]
+    RF --> C["/commit"] --> CR["/create_request"] --> L["/learn"]
+```
+
+#### ♎ Advanced - Full e2e flow
+
+Same flow but using agents to assert quality and build faster.
+
+```mermaid
+graph TD
+  User["You"] --> A
+  User --> B
+  User --> C
+  User --> D
+
+  A["@alexia"] --> A1["implement feature X"]
+  B["@martin"] --> B1["assert tests, types, build, lint"]
+  C["@kent"] --> C1["write tests for feature X using TDD"]
+  D["@iris"] --> D1["generate UI components based on Figma designs"]
+```
 
 ### Fix a Bug
 
