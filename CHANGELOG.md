@@ -1,5 +1,33 @@
 # Changelog
 
+## [3.1.0](https://github.com/ai-driven-dev/aidd-framework/compare/v3.0.1...v3.1.0) (2026-02-17)
+
+
+### Features
+
+* add scaffoldEmptyRuleCategories and brand prefix for commands ([3cc6dc4](https://github.com/ai-driven-dev/aidd-framework/commit/3cc6dc4a928888e47e0cfebf054f960e9bc19415))
+
+
+### Documentation
+
+* add aidd.sh script with aliases and utility functions for enhanced productivity ([7000eac](https://github.com/ai-driven-dev/aidd-framework/commit/7000eac7e22a1a11bb0cf4ea6c577bd6f9b34b34))
+* add auto-accept command documentation and enhance VSCode settings ([2b6b37c](https://github.com/ai-driven-dev/aidd-framework/commit/2b6b37c54518ad7a4245c7a39a4e62cb53f399e1))
+* add auto-accept command documentation and update CATALOG.md with framework content ([cb8ae2a](https://github.com/ai-driven-dev/aidd-framework/commit/cb8ae2adae98c4d3b6a938eac589a97026282898))
+* clarify assertion listing in assert.md and add new audit.md for codebase analysis ([fbcd4d3](https://github.com/ai-driven-dev/aidd-framework/commit/fbcd4d313f3e3fd53509cdca2cc29be59c3721a9))
+* enhance behavior guidelines in AGENTS.md for clarity and effectiveness ([14623f4](https://github.com/ai-driven-dev/aidd-framework/commit/14623f453f6f0345f44da96e6811b3053839db6a))
+* simplify file path patterns in ide-mapping files for consistency ([1d01ae7](https://github.com/ai-driven-dev/aidd-framework/commit/1d01ae72f10226c9cbe0491a726824db4c51804c))
+* update command reference and enhance feature building workflows in README ([b70b529](https://github.com/ai-driven-dev/aidd-framework/commit/b70b529c7eb937bce1e047c1f8f5f828cf16d68f))
+* update file path patterns in ide-mapping files for consistency ([dcae122](https://github.com/ai-driven-dev/aidd-framework/commit/dcae1221b5a0decd923ae332f9f0705f0673dbe5))
+* update generate_rules documentation for clarity and detail ([a1493dd](https://github.com/ai-driven-dev/aidd-framework/commit/a1493ddfafb59543fc42b7f103ce935be76a0dad))
+* update README to enhance clarity and structure ([62d1292](https://github.com/ai-driven-dev/aidd-framework/commit/62d1292d3956404045d204c81911a8bfb76a0511))
+
+
+### Refactoring
+
+* codebase audit, remove PM ([9665604](https://github.com/ai-driven-dev/aidd-framework/commit/96656043f34f266db0c4bc079c381eb13baa1be6))
+* consolidate templates into aidd_docs and rewrite README ([758a7ce](https://github.com/ai-driven-dev/aidd-framework/commit/758a7cea186192ca7eb624abb4b5b6d0d008495c))
+* move sync-dist build into framework and add per-tool tarballs to release ([9949658](https://github.com/ai-driven-dev/aidd-framework/commit/994965874ae7575d1394b71a2d494d90fb50666d))
+
 ## [3.0.1](https://github.com/ai-driven-dev/aidd-framework/compare/v3.0.0...v3.0.1) (2026-02-12)
 
 
