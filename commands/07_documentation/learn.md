@@ -33,6 +33,7 @@ Capture and store new learnings from recently implemented feature in memory bank
 - Less is more, documentation needs to be concise and to the point.
 - Avoid putting too much information.
 - Focus on important changes or non-alignments with existing doc.
+- Documentation MUST BE up-to-date
 
 ## Steps
 
@@ -79,18 +80,18 @@ Then AI asks user:
 
 AI categorizes each learning by destination, goal is to update the files caused by the decision.
 
-| Category      | Destination                     | Examples                                |
-| ------------- | ------------------------------- | --------------------------------------- |
+| Category      | Destination                    | Examples                                |
+| ------------- | ------------------------------ | --------------------------------------- |
 | **Decisions** | `{{DOCS}}/internal/decisions/` | Tech decisions                          |
-| **Rules**     | `{{TOOLS}}/rules/`              | Coding conventions, patterns to enforce |
-| **Skills**    | `{{TOOLS}}/skills/`             | Reusable prompts, workflows             |
+| **Rules**     | `{{TOOLS}}/rules/`             | Coding conventions, patterns to enforce |
+| **Skills**    | `{{TOOLS}}/skills/`            | Reusable prompts, workflows             |
 | **Memory**    | `{{DOCS}}/memory/`             | Project context, stack updates          |
+| **Templates** | `{{DOCS}}/templates/`          | Project templates                       |
 
 Propose where to save each learning.
 
 ### Phase 3: Create/Update Files
 
-1. **Decisions** → Create file in `{{DOCS}}/internal/decisions/XXX-<title>.md` using decision template + update ADR table in `ADR.md`
-2. **Rules** → Update or create rule file
-3. **Skills** → Create skill file if new pattern
-4. **Memory** → Update relevant memory file
+1. Create file in `{{DOCS}}/internal/decisions/XXX-<title>.md` using decision template
+2. Update ADR table in `ADR.md`
+3. Create/update files in their categories as needed

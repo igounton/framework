@@ -110,11 +110,22 @@ describe("sync-dist", () => {
       assert.ok(!existsInDist("claude", "README.md"));
     });
 
-    it("does NOT contain .cursor/, .github/, .vscode/, AGENTS.md", () => {
+    it("does NOT contain .cursor/, .github/, AGENTS.md", () => {
       assert.ok(!existsInDist("claude", ".cursor"));
       assert.ok(!existsInDist("claude", ".github"));
-      assert.ok(!existsInDist("claude", ".vscode"));
       assert.ok(!existsInDist("claude", "AGENTS.md"));
+    });
+
+    it("has .vscode/settings.json with valid JSON", () => {
+      assert.ok(existsInDist("claude", ".vscode", "settings.json"));
+      const raw = readFromDist("claude", ".vscode", "settings.json");
+      const parsed = JSON.parse(raw);
+      assert.ok(parsed["editor.formatOnSave"] === true, "should contain editor.formatOnSave");
+    });
+
+    it(".vscode/ contains only settings.json", () => {
+      const entries = fs.readdirSync(path.join(DIST_DIR, "claude", ".vscode"));
+      assert.deepStrictEqual(entries, ["settings.json"]);
     });
 
     it("INSTALL.md contains no unresolved {{...}} placeholders", () => {

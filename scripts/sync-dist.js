@@ -490,6 +490,55 @@ function ensureDir(dir) {
 }
 
 /**
+ * Strip JSONC comments and trailing commas to produce valid JSON.
+ * Uses a state machine to skip string literals so that // and /* inside
+ * strings (e.g. glob patterns like "**\/.git\/objects\/**") are preserved.
+ */
+function stripJsoncComments(content) {
+  let result = "";
+  let i = 0;
+  const len = content.length;
+
+  while (i < len) {
+    const ch = content[i];
+
+    // String literal — copy verbatim, respecting escapes
+    if (ch === '"') {
+      let j = i + 1;
+      while (j < len && content[j] !== '"') {
+        if (content[j] === "\\") j++; // skip escaped char
+        j++;
+      }
+      result += content.slice(i, j + 1);
+      i = j + 1;
+      continue;
+    }
+
+    // Single-line comment
+    if (ch === "/" && content[i + 1] === "/") {
+      // Skip to end of line
+      while (i < len && content[i] !== "\n") i++;
+      continue;
+    }
+
+    // Block comment
+    if (ch === "/" && content[i + 1] === "*") {
+      i += 2;
+      while (i < len && !(content[i] === "*" && content[i + 1] === "/")) i++;
+      i += 2; // skip closing */
+      continue;
+    }
+
+    result += ch;
+    i++;
+  }
+
+  // Remove trailing commas before } and ]
+  result = result.replace(/,(\s*[}\]])/g, "$1");
+  return result;
+}
+
+/**
  * Recursively copy .md/.mdc files from src to dst, applying a transform
  * function to content. Preserves .gitkeep files as-is.
  * @param {Set<string>} [exclude] - filenames to skip (e.g. AGENTS.md)
@@ -1465,6 +1514,29 @@ function generateClaudeMd() {
   return true;
 }
 
+/**
+ * Generate .vscode/settings.json for Claude Code per-tool dist.
+ * Reads framework/config/.vscode/settings.json (JSONC), strips comments,
+ * and writes clean JSON to toolDistDir/.vscode/settings.json.
+ */
+function generateClaudeVscodeSettings(toolDistDir) {
+  const src = path.join(ROOT, "config", ".vscode", "settings.json");
+  if (!fs.existsSync(src)) {
+    console.warn("  SKIP .vscode/settings.json (claude): source not found");
+    return false;
+  }
+  const raw = fs.readFileSync(src, "utf8");
+  const stripped = stripJsoncComments(raw);
+  const parsed = JSON.parse(stripped);
+  const dst = path.join(toolDistDir, ".vscode");
+  ensureDir(dst);
+  fs.writeFileSync(
+    path.join(dst, "settings.json"),
+    JSON.stringify(parsed, null, 2) + "\n",
+  );
+  return true;
+}
+
 // ---------------------------------------------------------------------------
 // 12. Per-tool distribution assembly
 // ---------------------------------------------------------------------------
@@ -1720,6 +1792,11 @@ function assemblePerToolDist(toolKey) {
     if (fs.existsSync(srcFile)) {
       fs.copyFileSync(srcFile, path.join(toolDistDir, file));
     }
+  }
+
+  // Claude-specific: generate .vscode/settings.json (clean JSON, no JSONC comments)
+  if (toolKey === "claude") {
+    generateClaudeVscodeSettings(toolDistDir);
   }
 
   // Generate per-tool config.yml (before INSTALL.md/CATALOG.md so hashes don't include them)

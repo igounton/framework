@@ -52,6 +52,7 @@ IMPORTANT: Iterate on those steps until nothing more can be done.
    5. Validate the implementation against the rules
    6. Repeat until no more discrepancies
 6. Spawn a new sub-agent task to check the final validation
+   1. Feature frontend shall be tested with browser testing tool
 
 ## Final validation
 
