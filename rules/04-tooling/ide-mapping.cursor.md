@@ -1,6 +1,6 @@
 ---
 description: Cursor file locations, syntax and frontmatter reference
-globs: ["**/*.md", "**/*.mdc"]
+alwaysApply: true
 ---
 
 # Cursor — Syntax Reference

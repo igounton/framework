@@ -1,7 +1,5 @@
 ---
 paths:
-  - "**/*.md"
-  - "**/*.mdc"
 ---
 
 # Claude Code — Syntax Reference

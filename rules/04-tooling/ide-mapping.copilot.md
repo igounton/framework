@@ -1,5 +1,5 @@
 ---
-applyTo: "**/*.md,**/*.mdc"
+applyTo: "**"
 ---
 
 # GitHub Copilot — Syntax Reference
