@@ -17,7 +17,7 @@ Every file has its own template to follow.
 ### Hard copy into memory bank (always generated)
 
 ```text
-@{{DOCS}}/templates/aidd/agents_coordination.md
+{{DOCS}}/templates/aidd/agents_coordination.md
 ```
 
 ### Memory templates

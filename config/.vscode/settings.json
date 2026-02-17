@@ -184,6 +184,8 @@
   // Git display info (everywhere)
   "scm.diffDecorations": "all",
   "workbench.editor.decorations.badges": true,
+  // Show as tree
+  "scm.defaultViewMode": "tree",
 
   /**
    ** WORKBENCH
