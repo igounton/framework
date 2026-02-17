@@ -27,6 +27,10 @@ Conduct comprehensive codebase audit to identify quality issues and improvement 
 
 Code to Analyze: "$ARGUMENTS" (default: entire codebase)
 
+## Rules
+
+- Never suppose dead code without dedicated tools to identify it
+
 ## Elements to check
 
 - Code not needed anymore & Dead code
