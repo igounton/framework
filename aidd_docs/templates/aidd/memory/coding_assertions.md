@@ -17,26 +17,49 @@ scope: all
 
 1. Check their is no duplication
 2. Ensure code is re-used
-3. Run all those commands, in order to ensure code is perfect:
+3. Run all those commands, in order to ensure code is perfect.
+
+## Commands to run
+
+### Before commit
+
+<!--
+<aidd_instructions>
+
+Example:
+- typecheck
+- lint
+- unit tests
+</aidd_instructions>
+-->
+
+- format
+- unused code detection
+- duplication
+
+</rule_for_ai_to_delete>
+-->
 
 ```markdown
 | Order | Command | Description |
 | ----- | ------- | ----------- |
 ```
 
-<!-- IMPORTANT: THOSE ARE RULES FOR AI, DO NOT USE THOSE INTO FILLED TEMPLATE.
+### Before push
 
-In order to complete a feature at its best, always check at the end of the implementation:
+<!--
+<aidd_instructions>
 
 Example:
-- typecheck
-- lint
-- tests
-- format
+- functional tests
 - build
-- unused code detection
 - documentation generation
 - security analysis
-- duplication
 
+</aidd_instructions>
 -->
+
+```markdown
+| Order | Command | Description |
+| ----- | ------- | ----------- |
+```

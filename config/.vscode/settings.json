@@ -322,12 +322,12 @@
   // Instructions templates
   "github.copilot.chat.pullRequestDescriptionGeneration.instructions": [
     {
-      "file": ".aidd/templates/vcs/pull_request.md"
+      "file": "aidd_docs/templates/vcs/pull_request.md"
     }
   ],
   "github.copilot.chat.commitMessageGeneration.instructions": [
     {
-      "file": ".aidd/templates/vcs/commit.md"
+      "file": "aidd_docs/templates/vcs/commit.md"
     }
   ],
   "github.copilot.chat.codeGeneration.useInstructionFiles": true,
