@@ -524,6 +524,35 @@ function copyDirRecursive(src, dst, transform, exclude) {
 }
 
 /**
+ * Scaffold empty rule category directories with .gitkeep.
+ * Reads all subdirectories from rules/ and creates them in outDir.
+ * Writes a .gitkeep file in categories that have no .md/.mdc rule files.
+ */
+function scaffoldEmptyRuleCategories(outDir) {
+  const rulesDir = path.join(ROOT, "rules");
+  if (!fs.existsSync(rulesDir)) return;
+
+  const dirs = fs
+    .readdirSync(rulesDir, { withFileTypes: true })
+    .filter((d) => d.isDirectory())
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+  for (const dir of dirs) {
+    const categoryDir = path.join(rulesDir, dir.name);
+    const hasRules = fs
+      .readdirSync(categoryDir)
+      .some((f) => (f.endsWith(".md") || f.endsWith(".mdc")) && f !== ".gitkeep");
+
+    const outCategoryDir = path.join(outDir, dir.name);
+    ensureDir(outCategoryDir);
+
+    if (!hasRules) {
+      fs.writeFileSync(path.join(outCategoryDir, ".gitkeep"), "");
+    }
+  }
+}
+
+/**
  * Join frontmatter and body with exactly one blank line separator.
  */
 function joinFmBody(fm, body) {
@@ -637,7 +666,7 @@ function generateAtToolAgents(toolDir, rewriteFn) {
  * Keeps original directory structure (phase folders).
  * Frontmatter: name, description, argument-hint.
  */
-function generateAtToolCommands(toolDir, rewriteFn) {
+function generateAtToolCommands(toolDir, rewriteFn, brandPrefix = null) {
   const srcDir = path.join(ROOT, "commands");
   const outDir = path.join(DIST_DIR, toolDir, "commands");
   ensureDir(outDir);
@@ -651,7 +680,14 @@ function generateAtToolCommands(toolDir, rewriteFn) {
 
   for (const phaseDir of phaseDirs) {
     const cmdDir = path.join(srcDir, phaseDir.name);
-    const cmdOutDir = path.join(outDir, phaseDir.name);
+
+    let cmdOutDir;
+    if (brandPrefix) {
+      const phase = extractPhase(phaseDir.name);
+      cmdOutDir = path.join(outDir, brandPrefix, phase || phaseDir.name);
+    } else {
+      cmdOutDir = path.join(outDir, phaseDir.name);
+    }
     ensureDir(cmdOutDir);
 
     const cmdFiles = fs
@@ -670,8 +706,9 @@ function generateAtToolCommands(toolDir, rewriteFn) {
       }
 
       const body = stripFrontmatter(content);
+      const phase = brandPrefix ? extractPhase(phaseDir.name) : null;
       const fmObj = {
-        name: fm.name,
+        name: brandPrefix ? `${brandPrefix}:${phase}:${fm.name}` : fm.name,
         description: fm.description || "",
       };
       if (fm["argument-hint"]) {
@@ -782,6 +819,8 @@ function generateClaudeRules() {
     return 0;
   }
 
+  scaffoldEmptyRuleCategories(outDir);
+
   const dirs = fs
     .readdirSync(rulesDir, { withFileTypes: true })
     .filter((d) => d.isDirectory())
@@ -876,6 +915,8 @@ function generateCursorRules() {
     console.warn("  SKIP rules: rules/ not found");
     return 0;
   }
+
+  scaffoldEmptyRuleCategories(outDir);
 
   const dirs = fs
     .readdirSync(rulesDir, { withFileTypes: true })
@@ -1714,7 +1755,7 @@ function main() {
   console.log("\nClaude Code (.claude/):");
   const claudeAgents = generateAtToolAgents(".claude", rewriteClaude);
   console.log(`  agents:   ${claudeAgents}`);
-  const claudeCommands = generateAtToolCommands(".claude", rewriteClaude);
+  const claudeCommands = generateAtToolCommands(".claude", rewriteClaude, "aidd");
   console.log(`  commands: ${claudeCommands}`);
   const claudeRules = generateClaudeRules();
   console.log(`  rules:    ${claudeRules}`);
