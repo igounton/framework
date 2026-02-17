@@ -1,5 +1,5 @@
 ---
-name: codebase_audit
+name: audit
 description: Perform deep codebase analysis for technical debt and improvements
 argument-hint: Scope to audit (optional - defaults to full codebase)
 model: opus
@@ -8,12 +8,6 @@ model: opus
 # Codebase Audit Prompt
 
 ## Ressources
-
-### Code to Analyze
-
-```plaintext
-$ARGUMENTS
-```
 
 ### Coding rules
 
@@ -31,6 +25,8 @@ $ARGUMENTS
 
 Conduct comprehensive codebase audit to identify quality issues and improvement opportunities.
 
+Code to Analyze: "$ARGUMENTS" (default: entire codebase)
+
 ## Elements to check
 
 - Code not needed anymore & Dead code
@@ -45,4 +41,4 @@ Conduct comprehensive codebase audit to identify quality issues and improvement 
 
 1. Scan source code for duplication patterns
 2. For each rules, check compliance and document findings
-3. Output detailed audit report based on template
+3. Output detailed audit report based on template in `{{DOCS}}/tasks/audits/<yyyy>_<mm>_<slug>.md`
