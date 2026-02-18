@@ -266,6 +266,33 @@ describe("sync-dist", () => {
   });
 
   // -------------------------------------------------------------------------
+  // MCP config format validation
+  // -------------------------------------------------------------------------
+
+  describe("MCP config format per IDE", () => {
+    it("claude .mcp.json has mcpServers wrapper key", () => {
+      const raw = readFromDist("claude", ".mcp.json");
+      const parsed = JSON.parse(raw);
+      assert.ok(parsed.mcpServers, "claude .mcp.json should have mcpServers key");
+      assert.ok(!parsed.servers, "claude .mcp.json should NOT have servers key");
+    });
+
+    it("cursor .cursor/mcp.json has mcpServers wrapper key", () => {
+      const raw = readFromDist("cursor", ".cursor", "mcp.json");
+      const parsed = JSON.parse(raw);
+      assert.ok(parsed.mcpServers, "cursor mcp.json should have mcpServers key");
+      assert.ok(!parsed.servers, "cursor mcp.json should NOT have servers key");
+    });
+
+    it("copilot .vscode/mcp.json has servers wrapper key", () => {
+      const raw = readFromDist("copilot", ".vscode", "mcp.json");
+      const parsed = JSON.parse(raw);
+      assert.ok(parsed.servers, "copilot mcp.json should have servers key");
+      assert.ok(!parsed.mcpServers, "copilot mcp.json should NOT have mcpServers key");
+    });
+  });
+
+  // -------------------------------------------------------------------------
   // @ file-include rewriting per tool
   // -------------------------------------------------------------------------
 

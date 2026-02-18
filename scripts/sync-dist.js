@@ -1392,7 +1392,7 @@ function generateConfig(fileHashes) {
 }
 
 /**
- * Parse mcp.json, wrap with { "servers": {...} }, write to .vscode/mcp.json (Copilot).
+ * Parse mcp.json, extract from mcpServers, wrap with { "servers": {...} }, write to .vscode/mcp.json (Copilot).
  * Also copies other .vscode files (extensions.json, keybindings.json, settings.json).
  */
 function generateCopilotMcpConfig() {
@@ -1408,14 +1408,15 @@ function generateCopilotMcpConfig() {
     }
   }
 
-  // mcp.json: wrap with { servers: {...} }
+  // mcp.json: extract from mcpServers, wrap with { servers: {...} }
   const src = path.join(ROOT, "config", "mcp.json");
   if (!fs.existsSync(src)) {
     console.warn("  SKIP mcp (copilot): mcp.json not found");
     return false;
   }
   const content = JSON.parse(fs.readFileSync(src, "utf8"));
-  const wrapped = { servers: content };
+  const servers = content.mcpServers || content;
+  const wrapped = { servers };
   fs.writeFileSync(
     path.join(dst, "mcp.json"),
     JSON.stringify(wrapped, null, 2) + "\n",
@@ -1424,7 +1425,7 @@ function generateCopilotMcpConfig() {
 }
 
 /**
- * Copy mcp.json as-is (flat format) to .mcp.json (Claude Code).
+ * Copy mcp.json as-is ({ mcpServers: {...} }) to .mcp.json (Claude Code).
  */
 function generateClaudeMcpConfig() {
   const src = path.join(ROOT, "config", "mcp.json");
@@ -1441,7 +1442,7 @@ function generateClaudeMcpConfig() {
 }
 
 /**
- * Parse mcp.json, wrap with { "mcpServers": {...} }, write to .cursor/mcp.json (Cursor).
+ * Copy mcp.json as-is ({ mcpServers: {...} }) to .cursor/mcp.json (Cursor).
  */
 function generateCursorMcpConfig() {
   const src = path.join(ROOT, "config", "mcp.json");
@@ -1450,12 +1451,11 @@ function generateCursorMcpConfig() {
     return false;
   }
   const content = JSON.parse(fs.readFileSync(src, "utf8"));
-  const wrapped = { mcpServers: content };
   const dst = path.join(DIST_DIR, ".cursor");
   ensureDir(dst);
   fs.writeFileSync(
     path.join(dst, "mcp.json"),
-    JSON.stringify(wrapped, null, 2) + "\n",
+    JSON.stringify(content, null, 2) + "\n",
   );
   return true;
 }
