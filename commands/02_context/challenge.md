@@ -14,6 +14,8 @@ Is this 100% correct based on what we agreed on earlier?
 
 ## Rules
 
+When no "Deal breakers", then correctness is 100%.
+
 ### Already existing content
 
 - Challenge your assumptions.
@@ -40,26 +42,21 @@ My confidence level of correctness now: XX%
 
 # Previous work to review
 
-## ✅ What is 100% correct
+## ✅ 100% correctness
 
 -
 -
 
-## ❌ What is 100% wrong that I am sure
+## ❌ Deal breakers
 
 -
 -
 -
 
-## 🙏 What could be optimized (feel free to refused it)
+## 🙏 Suggestions (enhancements only)
 
 -
 -
-
-# New structure proposal
-
-// detailed structure with #, ##, ###, etc title, bullet points with only main ideas.
-
 ```
 
 ## Steps
