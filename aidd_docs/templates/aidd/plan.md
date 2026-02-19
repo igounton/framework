@@ -35,8 +35,9 @@ argument-hint: N/A
 
 ## User Journey
 
-```text
-{ASCII user journey diagram}
+```mermaid
+flowchart TD
+  A[TODO]
 ```
 
 ## Implementation phases

@@ -72,10 +72,11 @@ You will try to fine "what could go wrong?" and anticipate as early as possible 
 
 Spawn a new sub-agent task to:
 
-1. **List implicit assumptions** about the user's infrastructure
-2. **Verify API feasibility** before committing to an approach
-3. **Find flag blockers early** identify issues and risks that will certainly occur during implementation if not addressed in the plan.
-4. **Check against official documentation** to validate assumptions and identify potential issues
+1. **Explore the codebase** to inform plan generation
+2. **List implicit assumptions** about the user's infrastructure
+3. **Verify API feasibility** before committing to an approach
+4. **Find flag blockers early** identify issues and risks that will certainly occur during implementation if not addressed in the plan.
+5. **Check against official documentation** to validate assumptions and identify potential issues
 
 ### Step 4: Task Planning
 
@@ -90,8 +91,8 @@ Spawn a new sub-agent task to:
 
 1. Use current !`date`
 2. Determine feature name from requirements
-3. Explore the codebase to inform plan generation
-4. Fill the appropriate template based on Step 2 decision
+3. Insert user journey in mermaid syntax in plan for better visualization and validation
+4. Fill the appropriate template based on decisions
 5. **Save to file**:
    - Simple plan: `{{DOCS}}/tasks/<yyyy_mm>/<yyyy_mm_dd>-<feature_name>.md`
    - Master plan: `{{DOCS}}/tasks/<yyyy_mm>/<yyyy_mm_dd>-<feature_name>-master.md`
