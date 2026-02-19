@@ -16,6 +16,12 @@ Autonomously code a high quality feature.
 - Do not work in parallel
 - Make sure each step is fully completed before moving to the next
 
+## Process
+
+1. List available MCP tools in bullet list, remember that they can be used.
+2. Create a TODO of sequential steps bellow and display in the chat to inform human what you are going to do.
+3. For each step bellow, spawn a new sub-agent task to execute the required commands
+
 ### Steps
 
 1. Brainstorm implementation approach: @{{TOOLS}}/commands/02_context/brainstorm.md
