@@ -21,8 +21,11 @@ $ARGUMENTS
 - Each step must be validated before proceeding to the next
 - Do not stop until all steps have been attempted
 - Report actual behavior even when it differs from expected
+- If you fail at some phase, **WARN the user** and attempt to continue if possible
 
 ## Steps
+
+Spawn a new sub-agent task to:
 
 1. Parse the user's journey description to extract ordered steps with expected outcomes.
    1. List each step: action + expected result.
