@@ -33,6 +33,12 @@ argument-hint: N/A
 
 - {not found in current project - no comments}
 
+## User Journey
+
+```text
+{ASCII user journey diagram}
+```
+
 ## Implementation phases
 
 ### {Phase n}

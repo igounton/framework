@@ -44,6 +44,7 @@ $ARGUMENTS
    - For GitHub issue: fetch and parse issue content
    - For raw text: clean and structure the requirements
 3. Normalize text (handle vocal dictation issues)
+4. Print user journey simplified in ASCII diagram for better understanding and validation
 
 ### Step 2: Risk/Impact Assessment
 
@@ -74,6 +75,7 @@ Spawn a new sub-agent task to:
 1. **List implicit assumptions** about the user's infrastructure
 2. **Verify API feasibility** before committing to an approach
 3. **Find flag blockers early** identify issues and risks that will certainly occur during implementation if not addressed in the plan.
+4. **Check against official documentation** to validate assumptions and identify potential issues
 
 ### Step 4: Task Planning
 
