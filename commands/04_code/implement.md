@@ -25,18 +25,12 @@ Implement following development plan following project rules with complete valid
 $ARGUMENTS
 ```
 
-### Assertions
-
-```md
-@{{DOCS}}/memory/coding_assertions.md
-```
-
 ## Process steps
 
 Code the whole feature based on the implementation plan, phase by phase, sequentially.
 
 1. Create new branch if provided in the plan.
-2. Spawn a new agent to take care of the whole phase
+2. Spawn a new agent `Martin` agent to take care of the whole phase
 3. Wait for 100% completeness until process to next phase
 4. IMPORTANT: Iterate on those steps until nothing more can be done.
 5. Verify the feature has been correctly made using any necessary means.
