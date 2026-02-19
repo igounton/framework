@@ -15,8 +15,8 @@ Generate technical implementation plans from requirements, save to task file, di
 - DO NOT CODE ANYTHING
 - Create plan from provided requirements
 - Save plan to task file before displaying
-- Wait for user confirmation after displaying plan
 - Handle vocal dictation inconsistencies
+- Configurations (e.g. api keys etc) must be prepared asap in phase 0
 
 ## Context
 

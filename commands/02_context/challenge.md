@@ -36,6 +36,8 @@ Is this 100% correct based on what we agreed on earlier?
 ### Output to review
 
 ```text
+My confidence level of correctness now: XX%
+
 # Previous work to review
 
 ## ✅ What is 100% correct
