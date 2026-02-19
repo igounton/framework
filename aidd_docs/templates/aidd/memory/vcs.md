@@ -7,9 +7,9 @@ scope: all
 
 # Versioning Control System (VCS) Guidelines
 
-- Main Branch: <main, master, trunk>
-- Platform: <gitlab, github, bitbucket>
-- CLI or MCP: <gh, glab, bb-cli, mcp...>
+- Main Branch: `<main, master, trunk>`
+- Platform: `<gitlab, github, bitbucket>`
+- CLI or MCP: `<gh, glab, bb-cli, mcp...>`
 
 ## Branch Naming Convention
 

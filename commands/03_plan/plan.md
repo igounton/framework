@@ -65,7 +65,17 @@ Determine: simple plan or master plan?
 - Score < 3 → **simple plan** (`plan.md` template)
 - Score >= 3 → **master plan** (`master_plan.md` + child plans)
 
-### Step 3: Technical Analysis and Task Planning
+### Step 3: Validate Technical Assumptions
+
+You will try to fine "what could go wrong?" and anticipate as early as possible any potential issue, risk, or blocker that could arise during the implementation of the plan.
+
+Spawn a new sub-agent task to:
+
+1. **List implicit assumptions** about the user's infrastructure
+2. **Verify API feasibility** before committing to an approach
+3. **Find flag blockers early** identify issues and risks that will certainly occur during implementation if not addressed in the plan.
+
+### Step 4: Task Planning
 
 > Define main phases, do not mention specific files, have macro-level vision.
 
