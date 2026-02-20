@@ -10,6 +10,10 @@ alwaysApply: false
 
 - Always have title in schema using "---" to define it
 
+## Global
+
+- NEVER use "\n"
+
 ## States and nodes
 
 - Define groups, parents, children
@@ -25,7 +29,6 @@ alwaysApply: false
 - Consistent naming throughout
 - Descriptive names (no "A", "B")
 - Surround names with quotes
-- NEVER use "\n"
 - Replace ":" with "$" in state names
 
 ## Links

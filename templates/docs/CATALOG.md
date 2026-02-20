@@ -29,6 +29,7 @@ Auto-generated framework content: agents, commands, rules, skills, and templates
 - [`scripts`](#scripts)
 - [`skills`](#skills)
   - [`skills/aidd-auto-implement`](#skillsaidd-auto-implement)
+  - [`skills/challenge`](#skillschallenge)
 - [`templates`](#templates)
   - [`templates/docs`](#templatesdocs)
 
@@ -155,9 +156,8 @@ No files found.
 
 | File | Description | Argument Hint |
 |------|---|---|
-| [list_untested.md](../../commands/06_tests/list_untested.md) | `List all untested behaviors in codebase` | - |
 | [test_journey.md](../../commands/06_tests/test_journey.md) | `Test a user journey end-to-end by navigating and validating each step in the browser.` | `The user journey steps to validate and the URL to test on.` |
-| [write.md](../../commands/06_tests/write.md) | `Iterate on test creation and improvement until perfect test passes with best practices` | - |
+| [test.md](../../commands/06_tests/test.md) | `List untested behaviors and iterate on test creation until tests pass with best practices` | - |
 
 #### `commands/07_documentation`
 
@@ -223,6 +223,12 @@ No files found.
 | File | Description | Argument Hint |
 |------|---|---|
 | [SKILL.md](../../skills/aidd-auto-implement/SKILL.md) | `Autonomously run the AI-Driven Development workflow to code an high quality feature.` | `The URL or file path of the issue or task to implement.` |
+
+#### `skills/challenge`
+
+| File | Description |
+|------|---|
+| [SKILL.md](../../skills/challenge/SKILL.md) | `Review and challenge previous work for improvements and correctness. Use when the user says 'challenge this', 'review my work', 'is this correct', asks for a critical review, or wants to rethink a decision.` |
 
 ### `templates`
 

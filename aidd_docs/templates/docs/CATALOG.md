@@ -139,9 +139,8 @@ Auto-generated framework content: agents, commands, rules, skills, and templates
 
 | File                                                         | Description                                                                              | Argument Hint                                                |
 | ------------------------------------------------------------ | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
-| [list_untested.md](../../commands/06_tests/list_untested.md) | `List all untested behaviors in codebase`                                                | -                                                            |
-| [test_journey.md](../../commands/06_tests/test_journey.md)   | `Test a user journey end-to-end by navigating and validating each step in the browser.`  | `The user journey steps to validate and the URL to test on.` |
-| [write.md](../../commands/06_tests/write.md)                 | `Iterate on test creation and improvement until perfect test passes with best practices` | -                                                            |
+| [test.md](../../commands/06_tests/test.md)                   | `List untested behaviors and iterate on test creation until tests pass with best practices` | -                                                            |
+| [test_journey.md](../../commands/06_tests/test_journey.md)   | `Test a user journey end-to-end by navigating and validating each step in the browser.`    | `The user journey steps to validate and the URL to test on.` |
 
 #### `commands/07_documentation`
 
