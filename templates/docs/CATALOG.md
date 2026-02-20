@@ -136,6 +136,7 @@ No files found.
 
 | File | Description | Argument Hint |
 |------|---|---|
+| [assert_architecture.md](../../commands/04_code/assert_architecture.md) | `Verify code conforms to architecture diagrams, ADRs, and project structure.` | `[Optional scope to verify (module, service, or layer name)]` |
 | [assert_frontend.md](../../commands/04_code/assert_frontend.md) | `Assert a frontend feature works as intended.` | `The frontend behavior you need to assert and validate.` |
 | [assert.md](../../commands/04_code/assert.md) | `Assert that a feature must work as intended.` | - |
 | [implement_from_design.md](../../commands/04_code/implement_from_design.md) | `Implement a frontend component from a Figma design with pixel-perfect accuracy.` | `The Figma file URL and frame/component to implement.` |
