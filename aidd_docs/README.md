@@ -91,11 +91,11 @@ This guide follows a progressive structure. Each phase builds on the previous on
 
 ```mermaid
 graph LR
-    P1["🏗️ Phase 1\nSetup"] --> P2["⚙️ Phase 2\nConfigure"] --> FS{"🗺️ Flow\nSelector"}
-    FS --> P3["🔺 Phase 3\nMinimal"]
-    FS --> P4["🔷 Phase 4\nStandard"]
-    FS --> P5["🟢 Phase 5\nFull"]
-    P3 --> P4 --> P5 --> P6["🔧 Phase 6\nMaintenance"]
+    P1["🏗️ Phase 1 Setup"] --> P2["⚙️ Phase 2 Configure"] --> FS{"🗺️ Flow Selector"}
+    FS --> P3["🔺 Phase 3 Minimal"]
+    FS --> P4["🔷 Phase 4 Standard"]
+    FS --> P5["🟢 Phase 5 Full"]
+    P3 --> P4 --> P5 --> P6["🔧 Phase 6 Maintenance"]
 ```
 
 Start at Phase 1, follow the setup, then use the **Flow Selector** to jump to the phase that matches your task.
