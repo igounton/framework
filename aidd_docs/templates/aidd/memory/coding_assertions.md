@@ -33,14 +33,13 @@ Example:
 - typecheck
 - lint
 - unit tests
-</aidd_instructions>
--->
 
+Example to go further:
 - format
 - unused code detection
 - duplication
 
-</rule_for_ai_to_delete>
+</aidd_instructions>
 -->
 
 ```markdown
