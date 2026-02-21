@@ -53,6 +53,27 @@ The framework is built on 6 building blocks:
 | 🔧 Skills    | Context-matched          | Reusable workflows loaded when context matches          |
 | 📐 Templates | `{{DOCS}}/templates/`    | Scaffolding to generate agents, commands, rules, skills |
 
+> See the [Full catalog]({{DOCS}}/CATALOG.md) — exhaustive list of all commands, agents, rules, skills
+
+#### Commands structure
+
+We have decided to put those into categories that serve the **Software Development Lifecycle** (`SDLC`).
+
+| Phase | Category      | Examples                                               |
+| ----- | ------------- | ------------------------------------------------------ |
+| 01    | Onboard       | Framework setup, generators, prompt scaffolding        |
+| 02    | Context       | Discovery, PRD, user stories, brainstorming, flows     |
+| 03    | Plan          | Technical planning, component behavior, image analysis |
+| 04    | Code          | Implementation, assertions, frontend validation        |
+| 05    | Review        | Code review, functional review                         |
+| 06    | Tests         | Test writing, user journey testing, untested listing   |
+| 07    | Documentation | Learning, JIRA info, Mermaid diagrams                  |
+| 08    | Deploy        | Commits, pull/merge requests, tagging                  |
+| 09    | Refactor      | Performance optimization, security refactoring         |
+| 10    | Maintenance   | Debugging, issue tracking, codebase audits             |
+
+> See more here: [Command SDLC phases]({{TOOLS}}/rules/01-standards/1-command-structure.md) — the 10 phases from Onboard to Maintenance
+
 ### Framework Structure
 
 AIDD installs alongside your code. Commands, agents, and rules go into your IDE's configuration directory (`.claude/`, `.cursor/`, or `.github/`). Documentation and memory go into `{{DOCS}}/`.
@@ -106,7 +127,7 @@ Start at Phase 1, follow the setup, then use the **Flow Selector** to jump to th
 
 ### Step by Step
 
-1. Install [the AI-Driven Development framework]({{DOCS}}/templates/docs/INSTALL.md).
+1. Install the AI-Driven Development framework using the [CLI](https://github.com/ai-driven-dev/aidd-cli) or by copying the dist files to your project root.
 
 2. Analyze your project and generate memory files.
 
@@ -168,6 +189,23 @@ graph LR
    ```
 
 Your project is configured, assertions pass. Now pick the right workflow for your task.
+
+#### Where will rules be stored?
+
+> See full [Rule categories]({{TOOLS}}/rules/01-standards/1-rule-structure.md) — the 10 rule directories from Architecture to Other
+
+| #    | Category                   | Content                     | Examples                        |
+| ---- | -------------------------- | --------------------------- | ------------------------------- |
+| `00` | `architecture`             | System-level code patterns  | Clean, Hexagonal, API design    |
+| `01` | `standards`                | Code style, naming          | camelCase, imports              |
+| `02` | `programming-languages`    | Language-specific rules     | TypeScript strict mode          |
+| `03` | `frameworks-and-libraries` | Framework/lib code patterns | React hooks, Prisma, Express    |
+| `04` | `tooling`                  | Tool/infra configuration    | ESLint, Docker, Webpack, CI/CD  |
+| `05` | `testing`                  | Test code patterns          | Structure, fixtures, mocking    |
+| `06` | `design-patterns`          | Code design patterns        | Repository, Factory, Observer   |
+| `07` | `quality`                  | Perf & security in code     | Caching, auth patterns, headers |
+| `08` | `domain`                   | Business logic code         | Validation, entities, DTOs      |
+| `09` | `other`                    | Miscellaneous               | Edge cases                      |
 
 ### Which Flow Should I Use?
 
@@ -633,7 +671,6 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on modifying or contributi
 
 ## 📚 References
 
-- [`CATALOG.md`](CATALOG.md) — Full reference: all commands, agents, rules, skills, and templates.
+- [`CATALOG.md`]({{DOCS}}/CATALOG.md) — Full reference: all commands, agents, rules, skills, and templates.
 - [`CONTRIBUTING.md`](CONTRIBUTING.md) — Guidelines for adding or modifying content.
-- [`INSTALL.md`]({{DOCS}}/templates/docs/INSTALL.md) — Installation guide.
 - [Agents Coordination]({{DOCS}}/templates/aidd/agents_coordination.md) — Multi-agent workflows and communication flow.

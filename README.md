@@ -27,7 +27,7 @@ framework/
 | `templates/` | Document templates by usage (dev, pm, vcs, docs)                 |
 | `config/`    | Configuration files (MCP, IDE)                                   |
 
-> See the [full catalog](./CATALOG.md) for an exhaustive list of all framework elements.
+> See the [full catalog](aidd_docs/CATALOG.md) for an exhaustive list of all framework elements.
 
 ---
 

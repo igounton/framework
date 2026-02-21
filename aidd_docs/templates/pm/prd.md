@@ -26,22 +26,22 @@ argument-hint: N/A
 
 ### Primary Persona: [Name]
 
-| Attribute | Description |
-| --------- | ----------- |
-| **Role** | [Job title or user type] |
-| **Goals** | [What they want to achieve] |
-| **Motivations** | [Why they use the product] |
-| **Frustrations** | [Current pain points] |
+| Attribute                 | Description                   |
+| ------------------------- | ----------------------------- |
+| **Role**                  | [Job title or user type]      |
+| **Goals**                 | [What they want to achieve]   |
+| **Motivations**           | [Why they use the product]    |
+| **Frustrations**          | [Current pain points]         |
 | **Technical Environment** | [Devices, tools, constraints] |
 
 ### Secondary Persona: [Name]
 
-| Attribute | Description |
-| --------- | ----------- |
-| **Role** | [Job title or user type] |
-| **Goals** | [What they want to achieve] |
-| **Motivations** | [Why they use the product] |
-| **Frustrations** | [Current pain points] |
+| Attribute        | Description                 |
+| ---------------- | --------------------------- |
+| **Role**         | [Job title or user type]    |
+| **Goals**        | [What they want to achieve] |
+| **Motivations**  | [Why they use the product]  |
+| **Frustrations** | [Current pain points]       |
 
 ## 3. Goals & Objectives
 
@@ -109,10 +109,10 @@ Scenario: [Error case description]
 
 > What we are intentionally NOT building in this version. This prevents scope creep.
 
-| Non-Goal | Rationale |
-| -------- | --------- |
-| [Feature X] | [Why we're not building it] |
-| [Feature Y] | [Why it's out of scope] |
+| Non-Goal    | Rationale                      |
+| ----------- | ------------------------------ |
+| [Feature X] | [Why we're not building it]    |
+| [Feature Y] | [Why it's out of scope]        |
 | [Feature Z] | [Why it's explicitly excluded] |
 
 ## 7. Non-Functional Requirements
@@ -181,24 +181,24 @@ For every given features:
 
 ### Business KPIs
 
-| Metric | Current | Target | Date |
-| ------ | ------- | ------ | ---- |
+| Metric     | Current    | Target   | Date   |
+| ---------- | ---------- | -------- | ------ |
 | [Metric 1] | [Baseline] | [Target] | [Date] |
 | [Metric 2] | [Baseline] | [Target] | [Date] |
 
 ### Technical KPIs
 
-| Metric | Current | Target |
-| ------ | ------- | ------ |
+| Metric          | Current    | Target   |
+| --------------- | ---------- | -------- |
 | [Response time] | [Baseline] | [Target] |
-| [Uptime] | [Baseline] | [Target] |
+| [Uptime]        | [Baseline] | [Target] |
 
 ### User KPIs
 
-| Metric | How Measured | Target |
-| ------ | ------------ | ------ |
-| [User satisfaction] | [Method] | [Target] |
-| [Task completion] | [Method] | [Target] |
+| Metric              | How Measured | Target   |
+| ------------------- | ------------ | -------- |
+| [User satisfaction] | [Method]     | [Target] |
+| [Task completion]   | [Method]     | [Target] |
 
 ## 11. Dependencies
 
@@ -206,26 +206,26 @@ For every given features:
 
 ### Technical Dependencies
 
-| Dependency | Owner | Status | Risk |
-| ---------- | ----- | ------ | ---- |
-| [API from Team X] | [Team/Person] | [Available/Pending] | [High/Medium/Low] |
-| [Database migration] | [Team/Person] | [Status] | [Risk level] |
+| Dependency           | Owner         | Status              | Risk              |
+| -------------------- | ------------- | ------------------- | ----------------- |
+| [API from Team X]    | [Team/Person] | [Available/Pending] | [High/Medium/Low] |
+| [Database migration] | [Team/Person] | [Status]            | [Risk level]      |
 
 ### External Dependencies
 
-| Dependency | Provider | Status | Fallback |
-| ---------- | -------- | ------ | -------- |
-| [Third-party API] | [Provider] | [Available/Pending] | [Alternative] |
-| [SaaS integration] | [Provider] | [Status] | [Fallback plan] |
+| Dependency         | Provider   | Status              | Fallback        |
+| ------------------ | ---------- | ------------------- | --------------- |
+| [Third-party API]  | [Provider] | [Available/Pending] | [Alternative]   |
+| [SaaS integration] | [Provider] | [Status]            | [Fallback plan] |
 
 ## 12. Experiments / A/B Testing
 
 > Hypotheses to validate and experiments to run.
 
-| Hypothesis | Experiment | Metric | Success Criteria |
-| ---------- | ---------- | ------ | ---------------- |
+| Hypothesis                        | Experiment             | Metric            | Success Criteria     |
+| --------------------------------- | ---------------------- | ----------------- | -------------------- |
 | [If we do X, then Y will improve] | [A/B test description] | [Metric to track] | [Target improvement] |
-| [Users prefer X over Y] | [Test approach] | [Metric] | [Success threshold] |
+| [Users prefer X over Y]           | [Test approach]        | [Metric]          | [Success threshold]  |
 
 ### Experiment Plan
 
@@ -235,11 +235,11 @@ For every given features:
 
 ## 13. Timeline & Milestones
 
-| Milestone | Objective | Deliverable | Target Date | Go/No-Go Criteria |
-| --------- | --------- | ----------- | ----------- | ----------------- |
-| M1: [Name] | [What we achieve] | [What we deliver] | [Date] | [Criteria to proceed] |
-| M2: [Name] | [What we achieve] | [What we deliver] | [Date] | [Criteria to proceed] |
-| M3: [Name] | [What we achieve] | [What we deliver] | [Date] | [Criteria to proceed] |
+| Milestone  | Objective         | Deliverable       | Target Date | Go/No-Go Criteria     |
+| ---------- | ----------------- | ----------------- | ----------- | --------------------- |
+| M1: [Name] | [What we achieve] | [What we deliver] | [Date]      | [Criteria to proceed] |
+| M2: [Name] | [What we achieve] | [What we deliver] | [Date]      | [Criteria to proceed] |
+| M3: [Name] | [What we achieve] | [What we deliver] | [Date]      | [Criteria to proceed] |
 
 ### Critical Path
 
@@ -251,11 +251,11 @@ flowchart LR
 
 ## 14. Risks & Mitigations
 
-| Risk | Probability | Impact | Mitigation Plan | Owner |
-| ---- | ----------- | ------ | --------------- | ----- |
+| Risk             | Probability     | Impact          | Mitigation Plan         | Owner    |
+| ---------------- | --------------- | --------------- | ----------------------- | -------- |
 | [Technical risk] | High/Medium/Low | High/Medium/Low | [How to prevent/handle] | [Person] |
-| [Business risk] | High/Medium/Low | High/Medium/Low | [How to prevent/handle] | [Person] |
-| [Timeline risk] | High/Medium/Low | High/Medium/Low | [How to prevent/handle] | [Person] |
+| [Business risk]  | High/Medium/Low | High/Medium/Low | [How to prevent/handle] | [Person] |
+| [Timeline risk]  | High/Medium/Low | High/Medium/Low | [How to prevent/handle] | [Person] |
 
 ### Contingency Plans
 
@@ -268,8 +268,8 @@ flowchart LR
 
 > What is included in the first release.
 
-| Feature | Rationale |
-| ------- | --------- |
+| Feature     | Rationale      |
+| ----------- | -------------- |
 | [Feature 1] | [Why it's MVP] |
 | [Feature 2] | [Why it's MVP] |
 
@@ -277,17 +277,17 @@ flowchart LR
 
 > What is explicitly deferred to V2. Each feature has a promotion trigger.
 
-| Feature | Rationale | Promotion Trigger |
-| ------- | --------- | ----------------- |
+| Feature     | Rationale      | Promotion Trigger                          |
+| ----------- | -------------- | ------------------------------------------ |
 | [Feature X] | [Why deferred] | [Metric or condition to promote to Tier 1] |
-| [Feature Y] | [Why deferred] | [Metric or condition] |
+| [Feature Y] | [Why deferred] | [Metric or condition]                      |
 
 ### Tier 3 — Never (Won't Have)
 
 > What we will never build.
 
-| Feature | Rationale |
-| ------- | --------- |
+| Feature          | Rationale   |
+| ---------------- | ----------- |
 | [Anti-pattern X] | [Why never] |
 | [Anti-pattern Y] | [Why never] |
 

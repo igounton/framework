@@ -151,13 +151,13 @@ function stripFrontmatter(content) {
  * Values are single-quoted with internal single quotes escaped.
  */
 function serializeFrontmatter(obj) {
-  const lines = ["---"];
+  const lines = [];
   for (const [key, value] of Object.entries(obj)) {
-    if (value === undefined || value === null) continue;
+    if (value === undefined || value === null || value === "") continue;
     lines.push(`${key}: '${String(value).replace(/'/g, "''")}'`);
   }
-  lines.push("---");
-  return lines.join("\n");
+  if (lines.length === 0) return null;
+  return `---\n${lines.join("\n")}\n---`;
 }
 
 /**
@@ -603,9 +603,14 @@ function scaffoldEmptyRuleCategories(outDir) {
 
 /**
  * Join frontmatter and body with exactly one blank line separator.
+ * If frontmatter is null/empty (just delimiters with no properties), output body only.
  */
 function joinFmBody(fm, body) {
-  return `${fm}\n\n${body.replace(/^\n+/, "")}`;
+  const cleanBody = body.replace(/^\n+/, "");
+  if (!fm || fm === "---\n---" || fm === "---\npaths:\n---") {
+    return cleanBody;
+  }
+  return `${fm}\n\n${cleanBody}`;
 }
 
 /**
@@ -634,8 +639,6 @@ function toHyphenated(name) {
  */
 const BUILD_TEMPLATES = [
   path.join("templates", "AGENTS.md"),
-  path.join("templates", "docs", "INSTALL.md"),
-  path.join("templates", "docs", "CATALOG.md"),
 ];
 
 /**
@@ -1580,7 +1583,6 @@ function buildFileTree(dir) {
       .filter((e) => {
         // Skip meta-files from tree at root level
         if (depth === 0 && e.name === ".aidd") return false;
-        if (depth === 0 && e.name === "INSTALL.md") return false;
         return true;
       })
       .sort((a, b) => {
@@ -1660,33 +1662,18 @@ function resolveToolTemplate(templateFileName, toolKey) {
 }
 
 /**
- * Generate the installation guide for a per-tool dist directory.
- */
-function generateInstallMd(toolKey, toolDistDir) {
-  let content = resolveToolTemplate("INSTALL.md", toolKey);
-  if (!content) {
-    console.warn("  SKIP INSTALL.md: template not found");
-    return false;
-  }
-
-  // INSTALL.md-specific: insert file tree
-  const fileTree = buildFileTree(toolDistDir);
-  content = content.replace(/\{\{FILE_TREE\}\}/g, fileTree);
-
-  fs.writeFileSync(path.join(toolDistDir, "INSTALL.md"), content);
-  return true;
-}
-
-/**
  * Generate the catalog reference for a per-tool dist directory.
+ * Reads from framework/CATALOG.md and adjusts relative links
+ * (from framework root → aidd_docs/ which is 1 level deeper).
  */
 function generateCatalogMd(toolKey, toolDistDir) {
-  const content = resolveToolTemplate("CATALOG.md", toolKey);
-  if (!content) {
-    console.warn("  SKIP CATALOG.md: template not found");
+  const catalogPath = path.join(ROOT, DOCS_DIR, "CATALOG.md");
+  if (!fs.existsSync(catalogPath)) {
+    console.warn("  SKIP CATALOG.md: source not found");
     return false;
   }
-
+  const content = fs.readFileSync(catalogPath, "utf8");
+  // Links already have ../ prefix (generated relative to aidd_docs/), copy as-is
   fs.writeFileSync(path.join(toolDistDir, "aidd_docs", "CATALOG.md"), content);
   return true;
 }
@@ -1711,7 +1698,6 @@ function generatePerToolConfig(toolKey, toolDistDir) {
         walkForHashes(fullPath, baseDir);
       } else if (
         relPath !== toPosix(path.join(".aidd", "config.json")) &&
-        relPath !== "INSTALL.md" &&
         relPath !== toPosix(path.join("aidd_docs", "CATALOG.md"))
       ) {
         hashes[relPath] = hashFile(fullPath);
@@ -1799,12 +1785,11 @@ function assemblePerToolDist(toolKey) {
     generateClaudeVscodeSettings(toolDistDir);
   }
 
-  // Generate per-tool config.yml (before INSTALL.md/CATALOG.md so hashes don't include them)
+  // Generate per-tool config.json (before CATALOG.md so hashes don't include it)
   generatePerToolConfig(toolKey, toolDistDir);
 
-  // Generate catalog first (so it appears in INSTALL.md file tree)
+  // Generate catalog for the per-tool dist
   generateCatalogMd(toolKey, toolDistDir);
-  generateInstallMd(toolKey, toolDistDir);
 }
 
 // ---------------------------------------------------------------------------

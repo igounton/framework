@@ -1,7 +1,13 @@
 #
 # AI-Driven Dev : Scripts and Aliases
 # -----------------------------------
-# 
+#
+# Install:
+#   cp aidd.sh ~/.aidd.sh
+#   echo 'source ~/.aidd.sh' >> ~/.zshrc   # zsh
+#   echo 'source ~/.aidd.sh' >> ~/.bashrc  # bash
+#   source ~/.aidd.sh
+#
 
 ## Tools
 
