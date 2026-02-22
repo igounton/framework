@@ -2,6 +2,7 @@
 name: test
 description: List untested behaviors and iterate on test creation until tests pass with best practices
 model: sonnet
+argument-hint: [things you want to test]
 ---
 
 # Test Iterator Prompt
@@ -21,6 +22,12 @@ Identify untested behaviors in the feature, then create and iterate on tests unt
 @{{TOOLS}}/rules/
 ```
 
+### Scope to test
+
+```text
+$ARGUMENTS
+```
+
 ## Rules
 
 - Focus on ONE test at a time
@@ -37,7 +44,7 @@ Identify untested behaviors in the feature, then create and iterate on tests unt
    3. Group them by distinct sections
    4. Prioritize based on score and impact
    5. Display organized minimal bullet list of untested behaviors
-2. Pick the highest-priority untested behavior
+2. **Wait for user approval**
 3. Generate initial test with best practices
 4. Run test and capture results
    1. If test fails: analyze failure, improve test, repeat from step 4

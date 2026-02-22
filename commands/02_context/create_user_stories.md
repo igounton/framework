@@ -1,7 +1,7 @@
 ---
 name: create_user_stories
 description: Create user stories through iterative questioning
-argument-hint: Feature description or requirements for user story generation
+argument-hint: [Feature description or requirements for user story generation]
 model: sonnet
 ---
 
@@ -49,6 +49,6 @@ Generate well-structured user stories from feature requirements through systemat
 1. Ask clarifying questions to understand completeness (problem, features, criteria, scope, constraints)
 2. Refine story understanding to user
 3. Iterate until you are both satisfied
-4. Prioritize
-5. Format stories using user story template
-6. **Save it to the ticketing system**
+4. Format stories using user story template
+5. **Wait for user validation**
+6. Save it to the ticketing system
