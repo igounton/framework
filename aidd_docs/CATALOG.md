@@ -103,8 +103,8 @@ Auto-generated framework content: agents, commands, rules, skills, and templates
 |------|---|---|
 | [brainstorm.md](../commands/02_context/brainstorm.md) | `Interactive brainstorming session to clarify and refine feature requests` | - |
 | [challenge.md](../commands/02_context/challenge.md) | `Rethink and challenge previous work for improvements` | - |
-| [create_user_stories.md](../commands/02_context/create_user_stories.md) | `Create user stories through iterative questioning` | `Feature description or requirements for user story generation` |
-| [ticket_info.md](../commands/02_context/ticket_info.md) | `Get ticket information from the project's ticketing tool` | `Ticket URL or number` |
+| [create_user_stories.md](../commands/02_context/create_user_stories.md) | `Create user stories through iterative questioning` | `[Feature description or requirements for user story generation]` |
+| [ticket_info.md](../commands/02_context/ticket_info.md) | `Get ticket information from the project's ticketing tool` | `[Ticket URL or number]` |
 
 #### `commands/03_plan`
 
@@ -137,7 +137,7 @@ Auto-generated framework content: agents, commands, rules, skills, and templates
 | File | Description | Argument Hint |
 |------|---|---|
 | [test_journey.md](../commands/06_tests/test_journey.md) | `Test a user journey end-to-end by navigating and validating each step in the browser.` | `The user journey steps to validate and the URL to test on.` |
-| [test.md](../commands/06_tests/test.md) | `List untested behaviors and iterate on test creation until tests pass with best practices` | - |
+| [test.md](../commands/06_tests/test.md) | `List untested behaviors and iterate on test creation until tests pass with best practices` | `[things you want to test]` |
 
 #### `commands/07_documentation`
 
