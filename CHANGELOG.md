@@ -1,5 +1,24 @@
 # Changelog
 
+## [3.2.1](https://github.com/ai-driven-dev/aidd-framework/compare/v3.2.0...v3.2.1) (2026-02-23)
+
+
+### Bug Fixes
+
+* add argument hint and scope section to test iterator prompt ([7f8c03a](https://github.com/ai-driven-dev/aidd-framework/commit/7f8c03aeab39c8d31a63fe0403aaea84f036567d))
+* correct formatting in CATALOG.md for better readability ([d13da18](https://github.com/ai-driven-dev/aidd-framework/commit/d13da18732f73371e27f0340c83a700d43af9e06))
+* improve formatting of commit type table in README.md for better readability ([aac2695](https://github.com/ai-driven-dev/aidd-framework/commit/aac269588f345dffe90bf7ca2697eb8881ac6f76))
+* refine clarity checklist instructions and remove redundant steps ([f23123f](https://github.com/ai-driven-dev/aidd-framework/commit/f23123f6e75d4ebf8523761ba4eba7c80db9f185))
+* remove outdated steps from coding assertions and update reference path ([55c2538](https://github.com/ai-driven-dev/aidd-framework/commit/55c2538abfbe64ba3942665c83296e638c6a3f26))
+* update argument hints in CATALOG.md for clarity ([353a5e5](https://github.com/ai-driven-dev/aidd-framework/commit/353a5e5b30e234efaffe09defb60336d74ce8818))
+* update coding assertions to include additional examples for clarity ([34f765b](https://github.com/ai-driven-dev/aidd-framework/commit/34f765bb0f58ff47c60654291f8513522a99d4d3))
+* update links in documentation for clarity and consistency ([3b802c6](https://github.com/ai-driven-dev/aidd-framework/commit/3b802c67d322b1f720c1c0b16b971dface4cb6b3))
+
+
+### Refactoring
+
+* outsource PM, change folder structure ([856fe61](https://github.com/ai-driven-dev/aidd-framework/commit/856fe61407e0b20a913db69c575e1b031fe8f73a))
+
 ## [3.2.0](https://github.com/ai-driven-dev/aidd-framework/compare/v3.1.0...v3.2.0) (2026-02-20)
 
 
