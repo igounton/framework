@@ -87,11 +87,11 @@ Flow map is available here in the [aidd_docs](./aidd_docs/README.md).
 
 This repository follows [Semantic Versioning](https://semver.org/) with automated releases via [Release Please](https://github.com/googleapis/release-please).
 
-| Commit type | Version bump | Example |
-| --- | --- | --- |
-| `fix:` | Patch | 3.0.0 → 3.0.1 |
-| `feat:` | Minor | 3.0.0 → 3.1.0 |
-| `feat!:` / `BREAKING CHANGE:` | Major | 3.0.0 → 4.0.0 |
+| Commit type                   | Version bump | Example       |
+| ----------------------------- | ------------ | ------------- |
+| `fix:`                        | Patch        | 3.0.0 → 3.0.1 |
+| `feat:`                       | Minor        | 3.0.0 → 3.1.0 |
+| `feat!:` / `BREAKING CHANGE:` | Major        | 3.0.0 → 4.0.0 |
 
 **How it works:**
 
