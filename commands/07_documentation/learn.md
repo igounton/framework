@@ -33,7 +33,7 @@ Capture and store new learnings from recently implemented feature in memory bank
 - Less is more, documentation needs to be concise and to the point.
 - Avoid putting too much information.
 - Focus on important changes or non-alignments with existing doc.
-- Documentation MUST BE up-to-date
+- Memory should ALWAYS be up-to-date
 
 ## Steps
 
@@ -44,6 +44,8 @@ List all files in `{{DOCS}}/` and pin relevant ones for reference:
 ```shell
 ! ls -1tr {{DOCS}}/
 ```
+
+> You should be able to show the user which files need to be updated.
 
 ### Phase 1: Auto-Analysis (AI answers these questions)
 
@@ -80,13 +82,13 @@ Then AI asks user:
 
 AI categorizes each learning by destination, goal is to update the files caused by the decision.
 
-| Category      | Destination                    | Examples                                |
-| ------------- | ------------------------------ | --------------------------------------- |
-| **Decisions** | `{{DOCS}}/internal/decisions/` | Tech decisions                          |
-| **Rules**     | `{{TOOLS}}/rules/`             | Coding conventions, patterns to enforce |
-| **Skills**    | `{{TOOLS}}/skills/`            | Reusable prompts, workflows             |
-| **Memory**    | `{{DOCS}}/memory/`             | Project context, stack updates          |
-| **Templates** | `{{DOCS}}/templates/`          | Project templates                       |
+| Category               | Destination                    | Examples                                |
+| ---------------------- | ------------------------------ | --------------------------------------- |
+| **Decisions**          | `{{DOCS}}/internal/decisions/` | Tech decisions                          |
+| **Memory** (mandatory) | `{{DOCS}}/memory/`             | Project context, stack updates          |
+| **Rules**              | `{{TOOLS}}/rules/`             | Coding conventions, patterns to enforce |
+| **Skills**             | `{{TOOLS}}/skills/`            | Reusable prompts, workflows             |
+| **Templates**          | `{{DOCS}}/templates/`          | Project templates                       |
 
 Propose where to save each learning.
 
