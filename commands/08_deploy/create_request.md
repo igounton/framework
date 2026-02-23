@@ -24,7 +24,7 @@ Fill a PR/MR template with recent changes in the current branch and create a req
 ### Contributing
 
 ```markdown
-@{{DOCS}}/templates/vcs/CONTRIBUTING.md
+@CONTRIBUTING.md
 ```
 
 ### Use this template
