@@ -34,6 +34,7 @@ export CLAUDE_PATH=$(which claude)
 
 npm_update () {
   npm outdated -g --depth=0 ; npm install -g npm ; npm -g update
+  corepack install -g pnpm@latest
 }
 
 
