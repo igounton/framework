@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.2.2](https://github.com/ai-driven-dev/aidd-framework/compare/v3.2.1...v3.2.2) (2026-02-27)
+
+
+### Bug Fixes
+
+* update npm_update function to install latest pnpm using corepack ([fa6e313](https://github.com/ai-driven-dev/aidd-framework/commit/fa6e313be70fcb58b64ae784e97541061d8f3bfe))
+
 ## [3.2.1](https://github.com/ai-driven-dev/aidd-framework/compare/v3.2.0...v3.2.1) (2026-02-23)
 
 
