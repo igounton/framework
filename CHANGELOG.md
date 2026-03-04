@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.2.3](https://github.com/ai-driven-dev/aidd-framework/compare/v3.2.2...v3.2.3) (2026-03-04)
+
+
+### Bug Fixes
+
+* clarify mermaid node ID and label naming rules ([94f4611](https://github.com/ai-driven-dev/aidd-framework/commit/94f46112fd070e21c550e2e98b20516d92dc2034)), closes [#10](https://github.com/ai-driven-dev/aidd-framework/issues/10)
+* correct review_code template path from aidd/ to dev/ ([4118de9](https://github.com/ai-driven-dev/aidd-framework/commit/4118de932c308185da71f471ea5f78545fe93cd2)), closes [#11](https://github.com/ai-driven-dev/aidd-framework/issues/11)
+* update globs to include Markdown files for Mermaid diagram rules ([91727cf](https://github.com/ai-driven-dev/aidd-framework/commit/91727cf9920066241b8f18b925c915854290ca73))
+
+
+### CI
+
+* add statuses write permission to lint-pr workflow ([4ad953f](https://github.com/ai-driven-dev/aidd-framework/commit/4ad953fbf4dd455c3a8d2999ff5fc956d6766d1a))
+
 ## [3.2.2](https://github.com/ai-driven-dev/aidd-framework/compare/v3.2.1...v3.2.2) (2026-02-27)
 
 
