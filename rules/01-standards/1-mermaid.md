@@ -28,7 +28,8 @@ alwaysApply: false
 - Declare elements only (no links) at top
 - Consistent naming throughout
 - Descriptive names (no "A", "B")
-- Surround names with quotes
+- Node IDs: unquoted alphanumeric (`MyNode`, not `"MyNode"`)
+- Labels: in brackets with quotes (`MyNode["My Label"]`)
 - Replace ":" with "$" in state names
 
 ## Links
