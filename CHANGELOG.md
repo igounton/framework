@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.3.1](https://github.com/ai-driven-dev/aidd-framework/compare/v3.3.0...v3.3.1) (2026-03-05)
+
+
+### Bug Fixes
+
+* correct broken agents coordination guide link in aidd_docs README ([72985d0](https://github.com/ai-driven-dev/aidd-framework/commit/72985d0872b94ba95afc6c0b9a53f40c7e1b5821)), closes [#7](https://github.com/ai-driven-dev/aidd-framework/issues/7)
+
 ## [3.3.0](https://github.com/ai-driven-dev/aidd-framework/compare/v3.2.2...v3.3.0) (2026-03-05)
 
 
