@@ -673,4 +673,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on modifying or contributi
 
 - [`CATALOG.md`]({{DOCS}}/CATALOG.md) — Full reference: all commands, agents, rules, skills, and templates.
 - [`CONTRIBUTING.md`](CONTRIBUTING.md) — Guidelines for adding or modifying content.
-- [Agents Coordination]({{DOCS}}/templates/aidd/agents_coordination.md) — Multi-agent workflows and communication flow.
+- [Agents Coordination](templates/aidd/agents_coordination.md) — Multi-agent workflows and communication flow.
