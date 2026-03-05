@@ -46,7 +46,6 @@ jobs:
             config/ \
             rules/ \
             skills/ \
-            templates/ \
             aidd_docs/ \
             version.txt
 
