@@ -1,8 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "prepare": "lefthook install || true",
-    "preinstall": "node preinstall.js"
+    "prepare": "lefthook install || true"
   },
   "devDependencies": {
     "lefthook": "^1.13.1"
