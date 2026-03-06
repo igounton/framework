@@ -1,5 +1,25 @@
 # Changelog
 
+## [3.3.2](https://github.com/ai-driven-dev/aidd-framework/compare/v3.3.1...v3.3.2) (2026-03-06)
+
+
+### Bug Fixes
+
+* update flowchart in README for clarity and accuracy ([8bd7e6f](https://github.com/ai-driven-dev/aidd-framework/commit/8bd7e6f032a0de47f92720112a4e084b97f6f8dc))
+
+
+### Documentation
+
+* update CONTRIBUTING and README to clarify versioning and release process ([843ba73](https://github.com/ai-driven-dev/aidd-framework/commit/843ba73f942546139d23a2b6388c1b1e3ebe252e))
+
+
+### CI
+
+* add commitlint pre-commit hook and GitHub Actions workflow ([9c9711c](https://github.com/ai-driven-dev/aidd-framework/commit/9c9711c3b556a27867b43d98a57e0fa4f43efd12))
+* make pre-commit and pre-push hooks blocking ([39dddcd](https://github.com/ai-driven-dev/aidd-framework/commit/39dddcd9022e3a01ee6eba79bbbcca1d590d74a8))
+* rename commitlint config to .cjs ([9b881bb](https://github.com/ai-driven-dev/aidd-framework/commit/9b881bb3de97c7db7287a9ed12125ec239b86b10))
+* update commitlint workflow to use .cjs config ([66d0485](https://github.com/ai-driven-dev/aidd-framework/commit/66d0485b0a7e2e237a993a4b480f8373b8db3fbc))
+
 ## [3.3.1](https://github.com/ai-driven-dev/aidd-framework/compare/v3.3.0...v3.3.1) (2026-03-05)
 
 
