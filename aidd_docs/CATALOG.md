@@ -6,6 +6,7 @@ Auto-generated framework content: agents, commands, rules, skills, and templates
 
 ## Table of Contents
 
+- [`.specstory`](#specstory)
 - [`agents`](#agents)
 - [`aidd_docs`](#aidd_docs)
   - [`aidd_docs/templates`](#aidd_docstemplates)
@@ -31,6 +32,9 @@ Auto-generated framework content: agents, commands, rules, skills, and templates
 
 ---
 
+### `.specstory`
+
+No files found.
 ### `agents`
 
 | File | Description | Docs |
