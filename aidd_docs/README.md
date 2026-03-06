@@ -5,7 +5,7 @@ AIDD structures your AI coding assistant with commands, agents, rules, and memor
 - [📦 What You Get](#-what-you-get)
   - [Concepts](#concepts)
   - [Framework Structure](#framework-structure)
-  - [Your Learning Path](#your-learning-path)
+  - [Your AI-Driven Dev path](#your-ai-driven-dev-path)
 - [🏗️ Phase 1 — Setup \& Initialization](#️-phase-1--setup--initialization)
   - [Step by Step](#step-by-step)
 - [⚙️ Phase 2 — Configure Your Project](#️-phase-2--configure-your-project)
@@ -106,22 +106,25 @@ my-project/
 
 ```
 
-### Your Learning Path
+### Your AI-Driven Dev path
 
 This guide follows a progressive structure. Each phase builds on the previous one and introduces new commands as they become relevant.
 
 ```mermaid
-flowchart TD
+flowchart LR
     S["🏠 <b>Initialization</b><br/><small><code>/init</code> · generate memory files</small>"]
-    S --> B["🧠 <b>Configuration</b><br/><small><code>/audit</code> → <code>/generate_rules</code> → <code>/assert</code></small>"]
-    B --> CTX["📋 <b>Context</b><br/><small><code>/ticket_info</code> · <code>/brainstorm</code></small>"]
-    CTX --> P["🗺️ <b>Plan & Implement</b><br/><small><code>/plan</code> → <code>/implement</code> → <code>/review_code</code> → <code>/commit</code></small>"]
-    P --> T["🧪 <b>Test & Learn</b><br/><small><code>/test</code> → <code>/assert</code> → <code>/learn</code></small>"]
-    T -. "@agent: tests fail → fix & retry" .-> P
+    S --> CFG["🧠 <b>Configuration</b><br/><small><code>/audit</code> → <code>/generate_rules</code> → <code>/assert</code></small>"]
+    CFG --> CTX["📋 <b>Context</b><br/><small><code>/ticket_info</code></small>"]
+    CTX --> P["🗺️ <b>Plan</b><br/><small><code>/brainstorm</code> → <code>/plan</code></small>"]
+    P --> I["⚙️ <b>Implement</b><br/><small><code>/implement</code> → <code>/assert</code> → <code>/review_code</code> → <code>/commit</code></small>"]
+    I --> T["🧪 <b>Test</b><br/><small><code>/test</code> → <code>/assert</code></small>"]
+    T -. "tests fail → fix & retry" .-> I
     T --> SH["🚀 <b>Ship</b><br/><small><code>/create_request</code> · CLI / MCP</small>"]
-    SH --> DBG["🔧 <b>Debug & Evolve</b><br/><small><code>/debug</code> → <code>/generate_rules</code> · <code>/new_issue</code></small>"]
-    DBG -. "evolve rules" .-> B
-    DBG -. "next ticket" .-> CTX
+    SH --> L["📖 <b>Learn</b><br/><small><code>/learn</code></small>"]
+    L -. "next ticket" .-> CTX
+
+    T -. "bug found" .-> DBG["🔧 <b>Debug</b><br/><small><code>/debug</code> · <code>/new_issue</code></small>"]
+    DBG -. "evolve rules" .-> CFG
 ```
 
 Start at **Initialization**, then follow the path step by step. Each box shows the key commands you'll use at that stage.
