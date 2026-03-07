@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.3.3](https://github.com/ai-driven-dev/aidd-framework/compare/v3.3.2...v3.3.3) (2026-03-07)
+
+
+### Bug Fixes
+
+* link to coding assertions documentation ([593f3ad](https://github.com/ai-driven-dev/aidd-framework/commit/593f3adc550db7835df16b767b316d1b6d4f1bbe))
+
 ## [3.3.2](https://github.com/ai-driven-dev/aidd-framework/compare/v3.3.1...v3.3.2) (2026-03-06)
 
 
