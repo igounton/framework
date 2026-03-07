@@ -15,7 +15,7 @@ Assert that this feature works as intended.
 Based on the current context, use relevant coding assertions to validate correctness.
 
 ```markdown
-@{{DOCS}}/aidd_docs/memory/coding_assertions.md
+@{{DOCS}}/memory/coding_assertions.md
 ```
 
 ## Rules
