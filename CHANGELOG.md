@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.4.2](https://github.com/ai-driven-dev/aidd-framework/compare/v3.4.1...v3.4.2) (2026-03-09)
+
+
+### Miscellaneous
+
+* remove sync-dist.js replaced by aidd-cli ([a78e004](https://github.com/ai-driven-dev/aidd-framework/commit/a78e004968ac2dae3c9c1b4096143d2130fd4fcf))
+
 ## [3.4.1](https://github.com/ai-driven-dev/aidd-framework/compare/v3.4.0...v3.4.1) (2026-03-09)
 
 
