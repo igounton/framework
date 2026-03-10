@@ -53,7 +53,7 @@ The framework is built on 6 building blocks:
 | 🔧 Skills    | Context-matched          | Reusable workflows loaded when context matches          |
 | 📐 Templates | `{{DOCS}}/templates/`    | Scaffolding to generate agents, commands, rules, skills |
 
-> See the [Full catalog]({{DOCS}}/CATALOG.md) — exhaustive list of all commands, agents, rules, skills
+> See the [Full catalog](CATALOG.md) — exhaustive list of all commands, agents, rules, skills
 
 #### Commands structure
 
@@ -72,7 +72,7 @@ We have decided to put those into categories that serve the **Software Developme
 | 09    | Refactor      | Performance optimization, security refactoring         |
 | 10    | Maintenance   | Debugging, issue tracking, codebase audits             |
 
-> See more here: [CATALOG.md]({{DOCS}}/CATALOG.md) — the 10 phases from Onboard to Maintenance
+> See more here: [CATALOG.md](CATALOG.md) — the 10 phases from Onboard to Maintenance
 
 ### Framework Structure
 
@@ -200,7 +200,7 @@ Your project is configured, assertions pass. Now pick the right workflow for you
 
 #### Where will rules be stored?
 
-> See full [CATALOG.md]({{DOCS}}/CATALOG.md) — the 10 rule directories from Architecture to Other
+> See full [CATALOG.md](CATALOG.md) — the 10 rule directories from Architecture to Other
 
 | #    | Category                   | Content                     | Examples                        |
 | ---- | -------------------------- | --------------------------- | ------------------------------- |

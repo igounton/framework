@@ -14,10 +14,6 @@ Assert that this feature works as intended.
 
 Based on the current context, use relevant coding assertions to validate correctness.
 
-```markdown
-@{{DOCS}}/memory/coding_assertions.md
-```
-
 ## Rules
 
 - Do not stop until the feature works as intended.
