@@ -1,8 +1,3 @@
----
-description: Cursor file locations, syntax and frontmatter reference
-alwaysApply: true
----
-
 # Cursor — Syntax Reference
 
 ## File Locations

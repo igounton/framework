@@ -1,7 +1,3 @@
----
-applyTo: "**"
----
-
 # GitHub Copilot — Syntax Reference
 
 ## File Locations

@@ -1,7 +1,3 @@
----
-paths:
----
-
 # Claude Code — Syntax Reference
 
 ## File Locations
