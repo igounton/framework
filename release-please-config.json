@@ -10,12 +10,7 @@
     { "type": "perf", "section": "Performance" },
     { "type": "revert", "section": "Reverts" },
     { "type": "docs", "section": "Documentation" },
-    { "type": "style", "section": "Style" },
-    { "type": "refactor", "section": "Refactoring" },
-    { "type": "test", "section": "Tests" },
-    { "type": "build", "section": "Build" },
-    { "type": "chore", "section": "Miscellaneous" },
-    { "type": "ci", "section": "CI" }
+    { "type": "refactor", "section": "Refactoring" }
   ],
   "packages": {
     ".": {}
