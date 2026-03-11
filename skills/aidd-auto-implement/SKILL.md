@@ -8,6 +8,13 @@ argument-hint: The URL or file path of the issue or task to implement.
 
 > Do not stop to ask questions or wait for confirmation. Do not pause between steps. Proceed through every step until the whole process is complete. This constraint applies to this agent and to every sub-agent it spawns.
 
+## Non-negotiable rules
+
+1. **MUST spawn sub-agents**: Every step (1-8) MUST be executed by spawning a sub-agent using the Agent tool. You MUST NOT execute step work directly — only orchestrate.
+2. **MUST pass prompts verbatim**: Pass the code block text from each step VERBATIM to the sub-agent. Only substitute placeholders. Do not paraphrase, summarize, or inline file contents.
+3. **MUST complete all steps**: Do not stop until all 8 steps are done and the completion criteria are met.
+4. **MUST verify between milestones**: After each milestone sub-agent completes, read status.md and confirm it's marked done before starting the next.
+
 ## Goal
 
 Autonomously code a high quality feature end-to-end, staying coherent across long sessions through durable project memory and milestone-based verification.
@@ -24,9 +31,8 @@ Three files form the shared memory that prevents drift and keeps a stable defini
 
 ## Process
 
-1. List available MCP tools in bullet list, remember that they can be used.
-2. Resolve `<YYYY_MM>` and `<FEATURE_NAME>` from the input.
-3. Execute steps 1 through 7 sequentially. Each step spawns a sub-agent with the prompt in its code block. Do not work in parallel — complete each step fully before the next.
+1. Resolve `<YYYY_MM>` and `<FEATURE_NAME>` from the input.
+2. Execute steps 1 through 8 sequentially. Each step spawns a sub-agent with the prompt in its code block. Do not work in parallel — complete each step fully before the next.
 
 Placeholders:
 
@@ -86,11 +92,16 @@ Done when: plan.md has milestones with acceptance criteria, risk register, and d
 
 > The parent agent loops over milestones and spawns one sub-agent per milestone.
 
-**Parent agent orchestration:**
+**Parent agent orchestration (MANDATORY):**
 
 1. Read `{{DOCS}}/tasks/<YYYY_MM>/<FEATURE_NAME>.plan.md` to get the ordered list of milestones.
-2. For each milestone in order, spawn a sub-agent with the prompt below (replacing `<MILESTONE_NUMBER>` and `<MILESTONE_NAME>`).
-3. After each sub-agent completes, read `{{DOCS}}/tasks/<YYYY_MM>/<FEATURE_NAME>.status.md` to confirm the milestone is marked done. Then proceed to the next milestone.
+2. For each milestone in order:
+   a. Spawn ONE sub-agent with the prompt below (substituting placeholders).
+   b. Wait for the sub-agent to complete.
+   c. Read `{{DOCS}}/tasks/<YYYY_MM>/<FEATURE_NAME>.status.md` and confirm the milestone is marked done.
+   d. If not marked done, spawn a new sub-agent to fix it.
+   e. Only then proceed to the next milestone.
+3. You MUST NOT implement milestones yourself. You MUST NOT skip milestones. You MUST NOT batch multiple milestones into one sub-agent.
 4. After all milestones are done, proceed to step 4.
 
 ```markdown
@@ -101,16 +112,14 @@ Read these files:
 - `{{DOCS}}/tasks/<YYYY_MM>/<FEATURE_NAME>.spec.md` (frozen spec)
 - `{{DOCS}}/tasks/<YYYY_MM>/<FEATURE_NAME>.plan.md` (milestone plan — source of truth)
 - `{{DOCS}}/tasks/<YYYY_MM>/<FEATURE_NAME>.status.md` (current status)
-- `coding_assertions.md` (verification commands)
-
-Read and follow the rules from: `{{TOOLS}}/commands/04_code/implement.md`
+  Read and follow the rules from: `{{TOOLS}}/commands/04_code/implement.md`
 
 Task: Implement milestone <MILESTONE_NUMBER>: <MILESTONE_NAME>. Follow the plan's tasks and acceptance criteria for this milestone only.
 
 Rules:
 
 - Changes must only touch what this milestone requires. No drive-by refactors.
-- After implementation, run ALL verification commands from `coding_assertions.md`. If any fail, fix immediately. Repeat until all pass.
+- After implementation, run ALL verification commands from `coding_assertions.md`. If any fail, fix immediately. Repeat until all pass. Record each command and its pass/fail result in status.md.
 - Update `status.md` with: milestone completion, decisions made, assumptions, verification results.
 - Commit with a message referencing the milestone name.
 
@@ -119,7 +128,34 @@ Done when: all acceptance criteria for this milestone are met, all verification 
 
 ---
 
-### Step 4: Final commit
+### Step 4: Write tests
+
+> Creates tests for the implemented feature.
+
+```markdown
+You are working autonomously under an AI agent named Alexia. Do not wait for human input. Proceed until complete.
+
+Read these files:
+
+- `{{DOCS}}/tasks/<YYYY_MM>/<FEATURE_NAME>.spec.md` (frozen spec)
+- `{{DOCS}}/tasks/<YYYY_MM>/<FEATURE_NAME>.plan.md` (milestone plan)
+- `{{DOCS}}/tasks/<YYYY_MM>/<FEATURE_NAME>.status.md` (current status)
+
+Read and follow this command as your main prompt: `{{TOOLS}}/commands/06_tests/test.md`
+The `$ARGUMENTS` refers to the feature described in spec.md.
+
+Additional requirements:
+
+- Do not wait for user approval — proceed autonomously through all untested behaviors.
+- Update `status.md` with test results.
+- Commit test files.
+
+Done when: tests cover the key behaviors from the spec, all tests pass, all verification commands pass, changes are committed.
+```
+
+---
+
+### Step 5: Final commit
 
 > Commits any remaining uncommitted changes.
 
@@ -137,7 +173,7 @@ Done when: working tree is clean and all changes are committed.
 
 ---
 
-### Step 5: Code review
+### Step 6: Code review
 
 > Reviews code quality and fixes issues found.
 
@@ -149,13 +185,12 @@ Read these context files:
 - `{{DOCS}}/tasks/<YYYY_MM>/<FEATURE_NAME>.spec.md` (frozen spec)
 - `{{DOCS}}/tasks/<YYYY_MM>/<FEATURE_NAME>.plan.md` (milestone plan)
 - `{{DOCS}}/tasks/<YYYY_MM>/<FEATURE_NAME>.status.md` (current status)
-- `coding_assertions.md` (verification commands)
 
 Read and follow this command as your main prompt: `{{TOOLS}}/commands/05_review/review_code.md`
 
 Additional requirements:
 
-- If issues are found, fix them and run verification commands from `coding_assertions.md`.
+- If issues are found, fix them and run all verification commands from `coding_assertions.md`.
 - Update `status.md` with review findings.
 - Commit fixes.
 
@@ -164,7 +199,7 @@ Done when: no code quality issues remain, all verification commands pass, fixes 
 
 ---
 
-### Step 6: Functional review
+### Step 7: Functional review
 
 > Validates the feature against the spec and fixes gaps.
 
@@ -176,14 +211,14 @@ Read these context files:
 - `{{DOCS}}/tasks/<YYYY_MM>/<FEATURE_NAME>.spec.md` (frozen spec)
 - `{{DOCS}}/tasks/<YYYY_MM>/<FEATURE_NAME>.plan.md` (milestone plan)
 - `{{DOCS}}/tasks/<YYYY_MM>/<FEATURE_NAME>.status.md` (current status)
-- `coding_assertions.md` (verification commands)
 
 Read and follow this command as your main prompt: `{{TOOLS}}/commands/05_review/review_functional.md`
 
 Additional requirements:
 
-- Test the demo script from the plan.
-- If gaps are found, fix them and run verification commands from `coding_assertions.md`.
+- Execute the demo script from the plan step by step. For each step, verify actual behavior matches expected behavior from the spec. Document each test result in status.md.
+- If a browsing tool is available and the feature has a UI, use it to validate visually.
+- If gaps are found, fix them and run all verification commands from `coding_assertions.md`.
 - Update `status.md` with review findings.
 - Commit fixes.
 
@@ -192,7 +227,7 @@ Done when: feature matches the spec, demo script runs successfully, all verifica
 
 ---
 
-### Step 7: Create PR
+### Step 8: Create PR
 
 > Creates the pull request with the status file as summary.
 
@@ -217,7 +252,9 @@ Done when: PR is created with status summary in the description.
 
 Do not consider the process complete until ALL of the following are true:
 
+- All 8 steps have been executed by spawning sub-agents
 - All milestones in `plan.md` are implemented and checked off
-- All verification commands from `coding_assertions.md` pass on the final codebase
+- All verification commands pass on the final codebase
+- Tests cover key behaviors from the spec and all pass
 - The status file reflects the final state of every milestone
 - A PR has been created
