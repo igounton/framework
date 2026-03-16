@@ -12,7 +12,7 @@ fi
 
 which aidd && aidd --version
 
-for tool in claude cursor copilot; do
+for tool in claude cursor copilot opencode; do
   TARGET="$FRAMEWORK_ROOT/dist/$tool"
   rm -rf "$TARGET"
   mkdir -p "$TARGET"
