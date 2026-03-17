@@ -39,7 +39,7 @@ jobs:
         run: |
           npm config set @ai-driven-dev:registry https://npm.pkg.github.com
           npm config set //npm.pkg.github.com/:_authToken ${{ secrets.PACKAGES_TOKEN }}
-          npm install -g @ai-driven-dev/aidd-cli
+          npm install -g @ai-driven-dev/aidd-cli@latest --prefer-online
 
       - name: Build distributions
         run: bash scripts/build-dist.sh
@@ -59,7 +59,7 @@ jobs:
       - name: Build per-tool tarballs
         run: |
           VERSION="${{ needs.release-please.outputs.version }}"
-          for tool in claude cursor copilot; do
+          for tool in claude cursor copilot opencode; do
             tar czf "/tmp/aidd-${tool}-${VERSION}.tar.gz" \
               -C dist/${tool} \
               --exclude='.aidd' \
@@ -77,4 +77,5 @@ jobs:
             "/tmp/aidd-claude-${VERSION}.tar.gz" \
             "/tmp/aidd-cursor-${VERSION}.tar.gz" \
             "/tmp/aidd-copilot-${VERSION}.tar.gz" \
+            "/tmp/aidd-opencode-${VERSION}.tar.gz" \
             --clobber
