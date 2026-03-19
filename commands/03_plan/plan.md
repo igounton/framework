@@ -69,14 +69,14 @@ Determine: simple plan or master plan?
 
 ### Step 3: Validate Technical Assumptions
 
-You will try to fine "what could go wrong?" and anticipate as early as possible any potential issue, risk, or blocker that could arise during the implementation of the plan.
+You will try to find "what could go wrong?" and anticipate as early as possible any potential issue, risk, or blocker that could arise during the implementation of the plan.
 
 Spawn a new sub-agent task to:
 
 1. **Explore the codebase** to inform plan generation
 2. **List implicit assumptions** about the user's infrastructure
 3. **Verify API feasibility** before committing to an approach
-4. **Find flag blockers early** identify issues and risks that will certainly occur during implementation if not addressed in the plan.
+4. **Find flag blockers early** identify issues and risks that will certainly occur if not addressed in the plan.
 5. **Check against official documentation** to validate assumptions and identify potential issues
 
 ### Step 4: Task Planning
@@ -115,5 +115,5 @@ Spawn a new sub-agent task to:
 1. Display the complete generated plan to user
 2. Show confidence assessment
 3. Highlight any risks or concerns
-4. Plan is now ready for implementation, challenge it with User
-5. **WAIT FOR USER APPROVAL** before implementation
+4. Challenge the plan with the user
+5. **WAIT FOR USER APPROVAL**
