@@ -97,3 +97,7 @@ Propose where to save each learning.
 1. Create file in `{{DOCS}}/internal/decisions/XXX-<title>.md` using decision template
 2. Update ADR table in `ADR.md`
 3. Create/update files in their categories as needed
+
+### Phase 4: Sync memory references
+
+Execute `.aidd/scripts/update_memory.mjs` to sync memory references in context files

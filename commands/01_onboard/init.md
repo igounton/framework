@@ -73,3 +73,4 @@ All templates are in:
 4. Spawn parallel task sub-agents for each template files
 5. Write generated files to `{{DOCS}}/memory/`
 6. Launch an agent to review all files for consistency and accuracy
+7. Execute `.aidd/scripts/update_memory.mjs` to sync memory references in context files
