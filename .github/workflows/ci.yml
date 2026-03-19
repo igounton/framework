@@ -1,9 +1,13 @@
-name: Release Please
+name: CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 permissions:
   contents: write
@@ -11,8 +15,26 @@ permissions:
   packages: read
 
 jobs:
-  release-please:
+  commitlint:
+    name: Commitlint
     runs-on: ubuntu-latest
+    if: "!startsWith(github.head_ref, 'release-please--')"
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: wagoid/commitlint-github-action@v6
+        with:
+          configFile: commitlint.config.cjs
+
+  release-please:
+    name: Release Please
+    runs-on: ubuntu-latest
+    needs: [commitlint]
+    if: github.event_name == 'push'
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
       tag_name: ${{ steps.release.outputs.tag_name }}
@@ -25,7 +47,8 @@ jobs:
           manifest-file: .release-please-manifest.json
 
   build-and-attach:
-    needs: release-please
+    name: Build and attach
+    needs: [release-please]
     if: needs.release-please.outputs.release_created == 'true'
     runs-on: ubuntu-latest
     steps:
@@ -39,7 +62,8 @@ jobs:
         run: |
           npm config set @ai-driven-dev:registry https://npm.pkg.github.com
           npm config set //npm.pkg.github.com/:_authToken ${{ secrets.PACKAGES_TOKEN }}
-          npm install -g @ai-driven-dev/aidd-cli@latest --prefer-online
+          npm cache clean --force
+          npm install -g @ai-driven-dev/aidd-cli@latest
 
       - name: Build distributions
         run: bash scripts/build-dist.sh
