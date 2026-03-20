@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.7.2](https://github.com/ai-driven-dev/aidd-framework/compare/v3.7.1...v3.7.2) (2026-03-20)
+
+
+### Bug Fixes
+
+* **ci:** include .aidd in per-tool tarballs ([7f56c21](https://github.com/ai-driven-dev/aidd-framework/commit/7f56c2130f115230b5723739b0e528b8a9853553))
+
 ## [3.7.1](https://github.com/ai-driven-dev/aidd-framework/compare/v3.7.0...v3.7.1) (2026-03-19)
 
 
