@@ -1,5 +1,38 @@
 # Changelog
 
+## [3.7.1-pm.2](https://github.com/ai-driven-dev/aidd-framework/releases/tag/v3.7.1-pm.2) (2026-03-22) — Beta pre-release
+
+> ⚠️ Pre-release expérimentale. Pas proposée automatiquement aux utilisateurs existants.
+> Install : `aidd setup --release v3.7.1-pm.2` ou `aidd update --release v3.7.1-pm.2`
+
+Cette release expérimente une approche différente : **agents et skills plutôt que commandes SDLC**.
+Chaque agent orchestre ses propres skills avec des gates de challenge intégrées.
+Rien n'est ancré — feedback et itérations bienvenus.
+
+### Features
+
+* **pm:** add brownfield and greenfield workflow commands (`/brownfield`, `/greenfield`)
+* **agents:** add Oriane (PM), Ariane (Architect), Diane (UX), Eva (Impact), Justine (Challenger), Claire (Clarity)
+* **skills/pm:** add `pm-constitution`, `pm-product-brief`, `pm-prd`, `pm-user-stories`, `pm-system-overview`, `pm-change-brief`, `pm-change-spec`
+* **skills/arch:** add `architecture-decision`, `architecture-milestones`, `architecture-impact`, `architecture-impact-plan`
+* **skills/ux:** add `ux-design-system`, `ux-flow-map`, `ux-accessibility`, `ux-copywriting`, `ux-audit` (greenfield)
+* **skills/ux:** add `ux-design-system-update`, `ux-flow-update`, `ux-accessibility-update`, `ux-copywriting-update` (brownfield)
+* **skills:** add `spike` for time-boxed investigations (available to all agents)
+* **skills:** add `challenge-methods` with 7 structured challenge techniques
+* **templates/pm:** add `brief`, `discovery_package`, `persona`, `milestones`, `gap_report` templates
+
+### Improvements
+
+* Challenge gates on every skill — structural validation before presenting any deliverable
+* Upstream reconciliation (bidirectional): deduplication + constraint propagation
+* Business-level language enforced in `pm-constitution`
+* Agent single-responsibility strictly enforced, aligned with course materials
+
+### Bug Fixes
+
+* Restore `create_user_stories` command removed during rebase
+* Remove duplicate challenge skill
+
 ## [3.7.2](https://github.com/ai-driven-dev/aidd-framework/compare/v3.7.1...v3.7.2) (2026-03-20)
 
 
