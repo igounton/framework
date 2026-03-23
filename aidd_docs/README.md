@@ -112,7 +112,7 @@ my-project/
 This guide follows a progressive structure. Each phase builds on the previous one and introduces new commands as they become relevant.
 
 ```mermaid
-flowchart LR
+flowchart TB
     S["🏠 <b>Initialization</b><br/><small><code>/init</code> · generate memory files</small>"]
     S --> CFG["🧠 <b>Configuration</b><br/><small><code>/audit</code> → <code>/generate_rules</code> → <code>/assert</code></small>"]
     CFG --> CTX["📋 <b>Context</b><br/><small><code>/ticket_info</code></small>"]
