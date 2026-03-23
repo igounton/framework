@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * update_memory.mjs — Syncs <aidd_project_memory> block in AI context files.
+ * update_memory.js — Syncs <aidd_project_memory> block in AI context files.
  *
  * Scans {docsDir}/memory/ for .md files and updates the <aidd_project_memory>
  * block in each context file (CLAUDE.md, AGENTS.md, .github/copilot-instructions.md)
@@ -10,12 +10,12 @@
  *   CLAUDE.md / AGENTS.md        → @{docsDir}/memory/file.md
  *   .github/copilot-instructions → [{docsDir}/memory/file.md](../{docsDir}/memory/file.md)
  *
- * Usage: node .aidd/scripts/update_memory.mjs [docsDir]
+ * Usage: node .aidd/scripts/update_memory.js [docsDir]
  */
 
-import { readFileSync, writeFileSync, readdirSync, existsSync } from 'fs';
-import { join } from 'path';
-import { execSync } from 'child_process';
+const { readFileSync, writeFileSync, readdirSync, existsSync } = require('fs');
+const { join } = require('path');
+const { execSync } = require('child_process');
 
 // ── Constants ─────────────────────────────────────────────────────
 

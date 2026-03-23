@@ -100,4 +100,4 @@ Propose where to save each learning.
 
 ### Phase 4: Sync memory references
 
-Execute `.aidd/scripts/update_memory.mjs` to sync memory references in context files
+Execute `.aidd/scripts/update_memory.js` to sync memory references in context files

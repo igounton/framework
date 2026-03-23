@@ -32,5 +32,6 @@ All instructions and information above are willing to be up to date, but always 
 <aidd_project_memory>
 </aidd_project_memory>
 
+- If memory is not loaded above: run `ls -1tr {{DOCS}}/memory/` then read each file
 - If needed: load files from `{{DOCS}}/memory/external/*` when user request it
 - If needed: load files from `{{DOCS}}/memory/internal/*`, you have to think about it
