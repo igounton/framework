@@ -1,3 +1,8 @@
+---
+description: GitHub Copilot file locations, syntax, frontmatter, and instruction patterns reference. Apply when creating or configuring Copilot-specific files.
+alwaysApply: false
+---
+
 # GitHub Copilot — Syntax Reference
 
 ## File Locations

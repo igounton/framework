@@ -1,3 +1,8 @@
+---
+description: OpenCode file locations, syntax, frontmatter, and configuration reference. Apply when creating or configuring OpenCode-specific files.
+alwaysApply: false
+---
+
 # OpenCode — Syntax Reference
 
 ## File Locations

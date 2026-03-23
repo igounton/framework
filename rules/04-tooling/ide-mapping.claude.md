@@ -1,3 +1,8 @@
+---
+description: Claude Code file locations, syntax, frontmatter, and include patterns reference. Apply when creating or configuring Claude-specific files.
+alwaysApply: false
+---
+
 # Claude Code — Syntax Reference
 
 ## File Locations

@@ -1,3 +1,8 @@
+---
+description: Cursor file locations, syntax, frontmatter, and rule patterns reference. Apply when creating or configuring Cursor-specific files.
+alwaysApply: false
+---
+
 # Cursor — Syntax Reference
 
 ## File Locations
