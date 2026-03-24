@@ -15,9 +15,8 @@ which aidd && aidd --version
 for tool in claude cursor copilot opencode; do
   TARGET="$FRAMEWORK_ROOT/dist/$tool"
   rm -rf "$TARGET"
-  mkdir -p "$TARGET/.aidd"
-  echo '{"version":1,"docsDir":"aidd_docs","tools":{},"docs":{"version":"0.0.0","files":[]}}' > "$TARGET/.aidd/manifest.json"
+  mkdir -p "$TARGET"
   cd "$TARGET"
-  "$CLI" install "$tool" --path "$FRAMEWORK_ROOT" --force
+  "$CLI" setup --path "$FRAMEWORK_ROOT" --docs-dir aidd_docs --tools "$tool"
   cd "$FRAMEWORK_ROOT"
 done
