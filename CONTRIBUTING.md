@@ -15,6 +15,7 @@ This guide explains how to contribute to the AIDD framework — the source of tr
   - [Frontmatter and metadata](#frontmatter-and-metadata)
 - [IDE-specific rules](#ide-specific-rules)
 - [CLI and installation](#cli-and-installation)
+- [Reporting issues](#reporting-issues)
 
 ---
 
@@ -61,7 +62,7 @@ This repository uses [Conventional Commits](https://www.conventionalcommits.org/
 | `ci`       | CI/CD configuration                                 | None         | —         |
 | `chore`    | Maintenance, tooling                                | None         | —         |
 
-**Breaking changes:** add `!` after any type to trigger a **major** version bump (e.g., `feat!:`, `fix!:`, `refactor!:`). Use this when renaming files, removing content, or changing structure in a way that breaks existing setups.
+**Breaking changes:** add `!` after any type to trigger a **major** version bump (e.g., `feat!: `, `fix!:`, `refactor!:`). Use this when renaming files, removing content, or changing structure in a way that breaks existing setups.
 
 **Examples:**
 
@@ -108,7 +109,7 @@ The framework must remain **tool-agnostic** — the CLI handles all syntactic ad
 | Placeholder  | Role                                                 | Resolution                         |
 | ------------ | ---------------------------------------------------- | ---------------------------------- |
 | `{{TOOLS}}/` | Tool-specific content (commands, agents, rules, etc) | `.claude/`, `.cursor/`, `.github/` |
-| `{{DOCS}}/`  | Documentation (templates, memory, tasks, etc)        | `aidd_docs/`                       |
+| `{{DOCS}}/`   | Documentation (templates, memory, tasks, etc)        | `aidd_docs/`                       |
 | `$ARGUMENTS` | User input in commands                               | Value provided at runtime          |
 
 For file inclusions, use `@{{TOOLS}}/path` or `@{{DOCS}}/path`: the CLI rewrites these paths based on the target tool.
@@ -151,4 +152,15 @@ When you contribute new content to the framework, the CLI will automatically det
 
 ---
 
-← [Back to framework](./README.md)
+## Reporting issues
+
+**[Create an issue](https://github.com/ai-driven-dev/aidd-framework/issues/new/choose)** using the templates:
+
+- 🐛 **Bug Report** — incorrect content, broken syntax, missing field
+- ✨ **Feature Request** — new rule, skill, command, agent, or IDE mapping
+
+Issues are automatically added to the [AIDD — Produit](https://github.com/orgs/ai-driven-dev/projects/7) project board.
+
+---
+
+■ [Back to framework](./README.md)
