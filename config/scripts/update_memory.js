@@ -13,10 +13,6 @@
  * Usage: node .aidd/scripts/update_memory.js [docsDir]
  */
 
-const { readFileSync, writeFileSync, readdirSync, existsSync } = require('fs');
-const { join } = require('path');
-const { execSync } = require('child_process');
-
 // ── Constants ─────────────────────────────────────────────────────
 
 const MANIFEST_PATH = '.aidd/manifest.json';
@@ -33,28 +29,27 @@ const TARGET_FILES = [
 
 // ── Helpers ───────────────────────────────────────────────────────
 
-function readDocsDir() {
-  const argDocsDir = process.argv[2];
+function readDocsDir(fs, argDocsDir) {
   if (argDocsDir) return argDocsDir;
-  if (!existsSync(MANIFEST_PATH)) return null;
+  if (!fs.existsSync(MANIFEST_PATH)) return null;
   try {
-    const manifest = JSON.parse(readFileSync(MANIFEST_PATH, 'utf8'));
+    const manifest = JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf8'));
     return manifest.docsDir ?? null;
   } catch {
     return null;
   }
 }
 
-function scanMemoryFiles(docsDir) {
-  const memoryDir = join(docsDir, MEMORY_SUBDIR);
-  if (!existsSync(memoryDir)) return [];
-  return readdirSync(memoryDir)
+function scanMemoryFiles(fs, path, docsDir) {
+  const memoryDir = path.join(docsDir, MEMORY_SUBDIR);
+  if (!fs.existsSync(memoryDir)) return [];
+  return fs.readdirSync(memoryDir)
     .filter((f) => f.endsWith('.md') && !EXCLUDED_FILES.has(f))
     .sort()
-    .map((f) => join(docsDir, MEMORY_SUBDIR, f));
+    .map((f) => path.join(docsDir, MEMORY_SUBDIR, f));
 }
 
-function buildReference(syntax, docsDir, filePath) {
+function buildReference(syntax, filePath) {
   const relativePath = filePath.replace(/\\/g, '/');
   if (syntax === 'link') {
     return `[${relativePath}](../${relativePath})`;
@@ -62,9 +57,9 @@ function buildReference(syntax, docsDir, filePath) {
   return `@${relativePath}`;
 }
 
-function buildBlockContent(memoryFiles, syntax, docsDir) {
+function buildBlockContent(memoryFiles, syntax) {
   if (memoryFiles.length === 0) return '';
-  const refs = memoryFiles.map((f) => buildReference(syntax, docsDir, f));
+  const refs = memoryFiles.map((f) => buildReference(syntax, f));
   return '\n' + refs.join('\n') + '\n';
 }
 
@@ -79,9 +74,9 @@ function updateBlock(content, innerContent) {
   );
 }
 
-function gitAdd(files) {
+function gitAdd(childProcess, files) {
   try {
-    execSync(`git add ${files.map((f) => `"${f}"`).join(' ')}`, {
+    childProcess.execSync(`git add ${files.map((f) => `"${f}"`).join(' ')}`, {
       stdio: ['pipe', 'pipe', 'pipe'],
     });
   } catch {
@@ -91,23 +86,29 @@ function gitAdd(files) {
 
 // ── Main ──────────────────────────────────────────────────────────
 
-const docsDir = readDocsDir();
-if (!docsDir) process.exit(0);
+(async () => {
+  const fs = await import('node:fs');
+  const path = await import('node:path');
+  const childProcess = await import('node:child_process');
 
-const memoryFiles = scanMemoryFiles(docsDir);
-const changed = [];
+  const docsDir = readDocsDir(fs, process.argv[2]);
+  if (!docsDir) process.exit(0);
 
-for (const target of TARGET_FILES) {
-  if (!existsSync(target.path)) continue;
+  const memoryFiles = scanMemoryFiles(fs, path, docsDir);
+  const changed = [];
 
-  const original = readFileSync(target.path, 'utf8');
-  const innerContent = buildBlockContent(memoryFiles, target.syntax, docsDir);
-  const updated = updateBlock(original, innerContent);
+  for (const target of TARGET_FILES) {
+    if (!fs.existsSync(target.path)) continue;
 
-  if (updated === null || updated === original) continue;
+    const original = fs.readFileSync(target.path, 'utf8');
+    const innerContent = buildBlockContent(memoryFiles, target.syntax);
+    const updated = updateBlock(original, innerContent);
 
-  writeFileSync(target.path, updated, 'utf8');
-  changed.push(target.path);
-}
+    if (updated === null || updated === original) continue;
 
-if (changed.length > 0) gitAdd(changed);
+    fs.writeFileSync(target.path, updated, 'utf8');
+    changed.push(target.path);
+  }
+
+  if (changed.length > 0) gitAdd(childProcess, changed);
+})();
