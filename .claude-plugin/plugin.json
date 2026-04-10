@@ -12,5 +12,7 @@
     "./skills/clarity/",
     "./skills/for-sure/",
     "./skills/generate-skill/"
-  ]
+  ],
+  "commands": ["./.claude-plugin/_scope-skills-only.md"],
+  "agents": ["./.claude-plugin/_scope-skills-only.md"]
 }
