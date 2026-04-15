@@ -1,7 +1,7 @@
 ---
 name: plan
 description: Generate technical implementation plans from requirements
-argument-hint: requirements (GitHub issue URL or raw text)
+argument-hint: requirements (ticket URL or raw text)
 model: opus
 ---
 
@@ -40,9 +40,9 @@ $ARGUMENTS
 
 ### Step 1: Parse Input
 
-1. Detect input type (GitHub URL vs raw text)
+1. Detect input type (ticket URL vs raw text)
 2. Extract requirements from input:
-   - For GitHub issue: fetch and parse issue content
+   - For ticket URL: fetch and parse ticket content
    - For raw text: clean and structure the requirements
 3. Normalize text (handle vocal dictation issues)
 4. Print user journey simplified in ASCII diagram for better understanding and validation

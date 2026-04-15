@@ -1,9 +1,7 @@
 ---
 name: new_issue
-description: Create GitHub issues with interactive template filling
+description: Create issues in the configured ticketing tool
 argument-hint: "Describe the problem you want to create an issue for"
-allowed-tools: Bash(date), gh
-docs: https://github.com/steipete/agent-rules/blob/main/global-rules/github-issue-creation.mdc
 model: sonnet
 ---
 
@@ -11,7 +9,7 @@ model: sonnet
 
 ## Goal
 
-Create GitHub issue based on the problem: `$ARGUMENTS`
+Create a ticket based on the problem: `$ARGUMENTS`
 
 ## Context
 
@@ -29,7 +27,7 @@ Create GitHub issue based on the problem: `$ARGUMENTS`
 
 ## Rules
 
-- Use `gh` commands if GitHub related, including `--label`, `--project`, `--milestone` if applicable.
+- From project memory identify the ticketing tool and use it.
 - Be thorough and concise in the issue description, focus on clarity, small sentences.
 - Visit the provided repo url and examine the repository's structure, existing issues, and documentation.
 - Look for any `CONTRIBUTING.md` that may contain guidelines for creating issues.
