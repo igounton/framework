@@ -9,8 +9,8 @@ scope: all
 
 - Main Branch: `<main, master, trunk>`
 - Platform: `<gitlab, github, bitbucket>`
-- CLI: `<gh, glab, bb-cli...>` (preferred)
-- MCP: `<mcp-server-name>` (fallback if no CLI available)
+- CLI: `<gh, glab, bb-cli...>`
+- MCP: `<mcp-server-name>`
 - Ticketing Tool: `<linear, confluence, jira>`
 
 ## Branch Naming Convention
