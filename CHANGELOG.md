@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.8.1](https://github.com/ai-driven-dev/aidd-framework/compare/v3.8.0...v3.8.1) (2026-04-15)
+
+
+### Bug Fixes
+
+* **commands:** make VCS/ticketing references provider-agnostic ([df4e7cc](https://github.com/ai-driven-dev/aidd-framework/commit/df4e7ccf36e2704233446fbd371150728095e7d1))
+* **commands:** make VCS/ticketing references provider-agnostic ([bf50a79](https://github.com/ai-driven-dev/aidd-framework/commit/bf50a791862eddf6aa29b2f8a3a4470ca5333b3f))
+* **commands:** move CLI/MCP preference to vcs.md memory template ([7756e04](https://github.com/ai-driven-dev/aidd-framework/commit/7756e04d60dc3c7b1389d2af24913929bca9653f))
+* **commands:** separate VCS and ticketing abstractions ([5f89bd0](https://github.com/ai-driven-dev/aidd-framework/commit/5f89bd0ba5ee992000629546c002d8ad2db85783))
+* **init:** add missing @ prefix to agents_coordination.md reference ([54889e0](https://github.com/ai-driven-dev/aidd-framework/commit/54889e0bed4cfb9180be8f6bf348681976a4043a))
+* **init:** add missing @ prefix to agents_coordination.md reference ([ca63160](https://github.com/ai-driven-dev/aidd-framework/commit/ca6316032287b07a41f4013ba4edf1ba17229b64))
+* **memory:** remove inline annotations from vcs.md template ([b55c775](https://github.com/ai-driven-dev/aidd-framework/commit/b55c7758748ac80c37fce525583578863a58c20e))
+
 ## [3.8.0](https://github.com/ai-driven-dev/aidd-framework/compare/v3.7.3...v3.8.0) (2026-04-05)
 
 
