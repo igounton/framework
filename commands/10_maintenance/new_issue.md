@@ -1,6 +1,6 @@
 ---
 name: new_issue
-description: Create issues in the configured VCS/ticketing tool
+description: Create issues in the configured ticketing tool
 argument-hint: "Describe the problem you want to create an issue for"
 model: sonnet
 ---
@@ -9,7 +9,7 @@ model: sonnet
 
 ## Goal
 
-Create an issue based on the problem: `$ARGUMENTS`
+Create a ticket based on the problem: `$ARGUMENTS`
 
 ## Context
 
@@ -27,7 +27,7 @@ Create an issue based on the problem: `$ARGUMENTS`
 
 ## Rules
 
-- From project memory identify the VCS/ticketing tool (GitHub, GitLab, Jira, etc.) and CLI or MCP to use.
+- From project memory identify the ticketing tool (Jira, Linear, GitHub Issues, etc.) and CLI or MCP to use.
 - Use CLI first, MCP as fallback.
 - Be thorough and concise in the issue description, focus on clarity, small sentences.
 - Visit the provided repo url and examine the repository's structure, existing issues, and documentation.
