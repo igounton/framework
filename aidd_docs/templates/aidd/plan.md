@@ -47,8 +47,8 @@ flowchart TD
 > {straight to point goal}
 
 1. {ultra concise task1, with logical ordering}
-2. {ultra concise task2, with logical ordering}
-3. {ultra concise task3, with logical ordering}
+2. {...}
+3. {...}
 
 ## Validation flow
 
