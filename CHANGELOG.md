@@ -1,5 +1,22 @@
 # Changelog
 
+## [3.9.0](https://github.com/ai-driven-dev/aidd-framework/compare/v3.8.1...v3.9.0) (2026-04-22)
+
+
+### Features
+
+* **config:** split vscode and copilot settings into separate directories ([f0e585e](https://github.com/ai-driven-dev/aidd-framework/commit/f0e585e0d2548573b4071bac9e5915dc91baecfb))
+* **config:** split vscode and copilot settings into separate directories ([826207b](https://github.com/ai-driven-dev/aidd-framework/commit/826207b9e48137f693544408d8b90913ae445140))
+
+
+### Bug Fixes
+
+* **ci:** update build-dist.sh for --ai/--ide CLI flags and vscode bundling ([c2860e4](https://github.com/ai-driven-dev/aidd-framework/commit/c2860e4b59b9538c9ba7b2a79cabc0b54efea675))
+* **docs:** replace hardcoded .claude paths with {{TOOLS}} placeholder ([f5902f6](https://github.com/ai-driven-dev/aidd-framework/commit/f5902f6b3ed70b530b6f640b5e1eb6fead545793))
+* **template:** complete truncated task placeholder in plan.md ([088b1d7](https://github.com/ai-driven-dev/aidd-framework/commit/088b1d796c66cfd4d96c3756d082060284daae59))
+* **template:** complete truncated task placeholder in plan.md ([5afde32](https://github.com/ai-driven-dev/aidd-framework/commit/5afde32d3e0c4f3ed7e500176bf4f9cf92aa7b06))
+* **template:** complete truncated task placeholder in plan.md ([f4dd9fc](https://github.com/ai-driven-dev/aidd-framework/commit/f4dd9fc2f1f3fb5e0a0031dc413137e720c13e5c))
+
 ## [3.8.1](https://github.com/ai-driven-dev/aidd-framework/compare/v3.8.0...v3.8.1) (2026-04-15)
 
 
