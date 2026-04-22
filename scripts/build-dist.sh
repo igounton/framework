@@ -17,6 +17,6 @@ for tool in claude cursor copilot opencode; do
   rm -rf "$TARGET"
   mkdir -p "$TARGET"
   cd "$TARGET"
-  "$CLI" setup --path "$FRAMEWORK_ROOT" --docs-dir aidd_docs --tools "$tool"
+  "$CLI" setup --path "$FRAMEWORK_ROOT" --docs-dir aidd_docs --ai "$tool" --ide vscode
   cd "$FRAMEWORK_ROOT"
 done
