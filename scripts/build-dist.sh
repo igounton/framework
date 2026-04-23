@@ -12,11 +12,15 @@ fi
 
 which aidd && aidd --version
 
+MCP_SERVERS=$(node -e "console.log(Object.keys(require('$FRAMEWORK_ROOT/config/mcp.json').mcpServers).join(','))")
+
 for tool in claude cursor copilot opencode; do
   TARGET="$FRAMEWORK_ROOT/dist/$tool"
   rm -rf "$TARGET"
   mkdir -p "$TARGET"
   cd "$TARGET"
-  "$CLI" setup --path "$FRAMEWORK_ROOT" --docs-dir aidd_docs --ai "$tool" --ide vscode
+  "$CLI" setup --path "$FRAMEWORK_ROOT" --docs-dir aidd_docs
+  "$CLI" install ai "$tool" --path "$FRAMEWORK_ROOT" --mcp "$MCP_SERVERS" --force
+  "$CLI" install ide vscode --path "$FRAMEWORK_ROOT" --force
   cd "$FRAMEWORK_ROOT"
 done
