@@ -75,6 +75,7 @@ No files found.
 | `dev` | [code_review.md](templates/dev/code_review.md) | `Code review checklist and scoring template` | - |
 | `dev` | [decision.md](templates/dev/decision.md) | `Individual decision record template` | `<title>` |
 | `dev` | [review_code.md](templates/dev/review_code.md) | `Code review checklist and scoring template` | - |
+| `dev` | [review_functional.md](templates/dev/review_functional.md) | `Functional review report template` | - |
 | `dev` | [tech_choice.md](templates/dev/tech_choice.md) | `Technology selection and comparison template` | - |
 | `pm` | [prd.md](templates/pm/prd.md) | `Product Requirements Document template (15 sections)` | - |
 | `pm` | [user_story.md](templates/pm/user_story.md) | `Template for defining user stories with estimation and acceptance criteria` | - |
@@ -139,7 +140,7 @@ No files found.
 | File | Description | Argument Hint |
 |------|---|---|
 | [review_code.md](../commands/05_review/review_code.md) | `Ensure code quality and rules compliance` | - |
-| [review_functional.md](../commands/05_review/review_functional.md) | `Use this agent when you need to browse current project web application, getting browser console, screenshot, navigating across the app...` | `The technical plan to base the review on` |
+| [review_functional.md](../commands/05_review/review_functional.md) | `Review feature behavior against plan specification and current diff` | `Plan path to validate against` |
 
 #### `commands/06_tests`
 
