@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.9.1](https://github.com/ai-driven-dev/aidd-framework/compare/v3.9.0...v3.9.1) (2026-04-23)
+
+
+### Bug Fixes
+
+* **ci:** include base MCP servers in per-tool release tarballs ([01de4ab](https://github.com/ai-driven-dev/aidd-framework/commit/01de4ab7af2e7f08bf4f112878f10f8ea8ef1f44))
+* **commands:** align review_functional with behavioral review intent ([d1b6d94](https://github.com/ai-driven-dev/aidd-framework/commit/d1b6d944f98827f96a16139aea7a209415a3a64b))
+* **commands:** align review_functional with behavioral review intent ([f0d27eb](https://github.com/ai-driven-dev/aidd-framework/commit/f0d27ebfabc12c6c87801c38c7a51d3da12f942d)), closes [#72](https://github.com/ai-driven-dev/aidd-framework/issues/72)
+
 ## [3.9.0](https://github.com/ai-driven-dev/aidd-framework/compare/v3.8.1...v3.9.0) (2026-04-22)
 
 
