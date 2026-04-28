@@ -1,70 +1,90 @@
 ---
 name: generate-skill
-description: Generate, modify, and maintain automation skills with sub-actions, references, and test policies. Use whenever the user wants to create a new automation skill, add or edit sub-actions, update references or test policies, restructure execution flow, or convert a manual workflow into a structured skill. Also trigger on "create a skill for...", "automate my...", "add a sub-action to...", "update the references in...", or any mention of building repeatable AI-driven workflows.
+description: Generate and maintain router-based Claude Code skills — SKILL.md router + atomic testable actions + TDD evaluations. Use when the user wants to create a new skill, refactor an existing skill, add or remove actions, or migrate a slash command into a skill. Do NOT use for editing a single action inside an existing skill (edit directly), creating slash commands (no router needed), writing MCP servers, or modifying project-level CLAUDE.md files.
+version: 2.0.0
+license: MIT
+author: AI-Driven Dev
 ---
 
 # Generate Skill
 
-Produces and maintains automation skills — folder structures an AI agent executes end-to-end. A skill is an orchestrator SKILL.md that points to sub-action files and reference files.
+Produces Claude Code skills following a router-based architecture: SKILL.md as pure router, actions as atomic testable operations, evaluations written BEFORE implementation (strict TDD).
 
-## Context
+## Available actions
 
-- **Goal**: A complete, tested skill exists at the user's chosen path, ready to use via `/<skill-name>`.
-- **Tools required**: File system (read, write, glob, grep). No external APIs needed.
-- **Trigger**: Manual — user asks to create or modify a skill.
+| #   | Action              | Role                                                | Input              |
+| --- | ------------------- | --------------------------------------------------- | ------------------ |
+| 01  | `capture-intent`    | Clarify output + decide generate vs modify          | user intent        |
+| 02  | `design-evals`      | Write the 3 scenarios (should/should_not/ambiguous) | expected output    |
+| 03  | `decompose-actions` | List actions + their tests                          | evals + output     |
+| 04  | `draft-skill`       | Write SKILL.md router                               | decomposed actions |
+| 05  | `write-actions`     | Write each action file                              | validated SKILL.md |
+| 06  | `validate`          | Run evals, fix loop                                 | complete skill     |
 
-## What a skill is
+## Default flow (strict TDD)
 
-```
-<skill-name>/
-├── SKILL.md                   ← orchestrator (context, rules, execution flow)
-├── .env                       ← actual secrets (gitignored)
-├── .env.local                 ← how to obtain each secret (committed)
-├── sub-actions/
-│   ├── 01-<slug>.md           ← atomic operations
-│   └── ...
-└── references/
-    └── <topic>.md             ← documentation files
-```
-
-- **SKILL.md orchestrates.** Context, transversal rules, execution flow. No implementation details.
-- **Sub-actions are files.** Each is one atomic, stateless operation.
-- **References are documentation.** Each explains a domain, a tool, or a convention. Referenced directly from SKILL.md. No fixed format — use whatever structure fits the content (tables, lists, prose, code samples). One file per knowledge domain, self-contained and readable.
-- **Every sub-action has a test policy.** Assertion, exit condition, retry loop, fallback.
-- **Single source of truth.** Orchestration → `SKILL.md`, implementation → `sub-actions/`, documentation → `references/`, secrets → `.env` / `.env.local`.
-- **Numbering**: two-digit prefix = execution order. Same number = parallel.
-- **Environment files**: `.env` (secrets, gitignored) + `.env.local` (instructions, committed). Omit if no secrets needed.
-
-## Transversal rules
-
-1. **No assumptions**: IF information is missing THEN ask the user. Never guess.
-2. **No skipping validation**: IF a challenge or validation step fails THEN loop back and fix. Do not proceed.
-3. **Single source of truth**: IF a piece of information already exists in the skill THEN update it in place. Never duplicate.
-4. **Modify flow**: IF the user wants to modify an existing skill THEN follow the modify flow below instead of the generate flow.
-
-## Execution flow
-
-1. `sub-actions/01-pre-flight.md`
-2. `sub-actions/02-understand-workflow.md`
-3. `sub-actions/03-decompose.md`
-4. `sub-actions/04-plan-and-challenge.md`
-5. `sub-actions/05-write-files.md`
-6. `sub-actions/06-execute-and-test.md`
-7. `sub-actions/07-done.md`
-
-## References
-
-- `references/skill-template.md` — Template for generating SKILL.md orchestrators
-- `references/sub-action-template.md` — Template for sub-action files
+`01 → ✅ → 02 → ✅ → 03 → ✅ → 04 → ✅ → 05 → ✅ → 06`. No skipping allowed. The `✅` is mandatory: after each action runs, execute its `## Test` (R13) before moving to the next. A failing test blocks the flow until fixed.
 
 ## Modify flow
 
-When the user wants to modify an existing skill (not create a new one):
+`01` (detects modify) → `✅` → `03` (re-decompose if structure changes) → `✅` → `05` (targeted edit) → `✅` → `06` (re-validate). Same gate after every step.
 
-1. Read the file tree: `ls <skill-name>/` and relevant files.
-2. **Search before writing.** Grep the entire skill for the information being added or changed. Determine the canonical location: orchestration → `SKILL.md`, implementation → `sub-actions/`, documentation → `references/`, secrets → `.env` / `.env.local`.
-3. Map the user's request to specific files. Update at the canonical location — never duplicate.
-4. Edit only affected files.
-5. Renumber sub-actions if insertion/deletion changed order.
-6. Verify downstream sub-actions still have valid input contracts.
-7. Present the diff before saving.
+## Level-1 rules (non-negotiable)
+
+### Structure
+- **R1** — SKILL.md is a pure router: description + action table + transversal rules. Zero business logic.
+- **R2** — One skill = one domain (tool OR activity). Actions are the domain's operations.
+- **R3** — References one-level deep only. Never chain reference → reference.
+- **R4** — SKILL.md ≤ 500 lines. If exceeded, split into references.
+
+### Naming
+- **R5** — Tool domain = singular noun (`slack`, `notion`, `github`). Activity domain = action verb (`review`, `plan`, `test`).
+- **R6** — Description must include: (a) what, (b) explicit triggers, (c) a "Do NOT use for..." clause. Format constraints (third person, char caps, reserved words) live in `references/naming-conventions.md` — single source.
+
+### Data
+- **R7** — Zero duplication. Data lives in the broadest scope possible: cross-skill → shared repo folder; skill-specific → `<skill>/assets/` or `<skill>/references/`. No copies; references point.
+- **R8** — Two-role split:
+  - `references/` = **documents to READ** (conventions, decision guides, cheatsheets, API notes) — knowledge consumed by the agent to reason correctly.
+  - `assets/` = **templates to COPY or data to INJECT** at runtime (skeletons, JSON templates, ID tables, prompt fragments) — raw material consumed by actions.
+  - Heuristic: a file that only explains *how things work* → `references/`. A file that is *copied or injected as-is* → `assets/`.
+
+### Test & evaluation
+- **R9** — Every action has a `## Test` with a concrete verification — the sine qua non. Pick the form pragmatically: a JS script in `scripts/` when the check is deterministic (parseable / on-disk); an MCP runbook when the verification needs an external system ("verify Slack post via `mcp__slack__slack_get_channel_history`"); an LLM assertion with a concrete example when neither fits. What matters is that a verification actually runs.
+- **R10** — Every skill has `evals/scenarios.json` with ≥ 3 `should`, ≥ 3 `should_not`, ≥ 1 `ambiguous`.
+- **R11** — Strict TDD: output → evals → action tests → SKILL.md → actions. Never the reverse.
+
+### Execution
+- **R12** — When writing a script is the right choice (R9), use JavaScript (Node) — avoid Python unless a JS equivalent is impractical. Default to the built-in `node:test` runner with `node:assert/strict` and `node:child_process` — zero-dep, runs with `node --test path/to/test-*.js`. Reach for vitest/jest/mocha only when `node:test` is genuinely insufficient. "Solve, don't punt": scripts handle their own errors and print actionable diagnostics.
+- **R13** — Test gate after every action. After running any action, immediately execute its `## Test` (the JS script, MCP runbook, or LLM assertion declared by R9) and confirm pass before proceeding to the next action. A failing test blocks the flow — fix the action's output, re-run the test, then continue. This rule applies at runtime in every flow that uses this skill, including the generation flow itself (`01 → ✅ → 02 → ✅ → …`).
+
+### Portability and concision
+- **R14** — No hardcoded repo-specific paths in `assets/` or `references/`. Templates declare structure; runtime fills content. A skill must drop into any repo without edits to its own files. If an asset needs sample paths, the action that consumes it is responsible for deriving them from the actual filesystem at runtime.
+- **R15** — Less is more. Every file in a skill (SKILL.md, actions, references, assets, README) must be ruthlessly trimmed. No restating, no warm-up paragraphs, no hedging. Every line that survives must earn its tokens — they will be loaded into a model's context on every relevant turn for the lifetime of the skill.
+
+## References (documents to read)
+
+- `references/naming-conventions.md` — tool vs activity naming rules, hard constraints
+- `references/skill-vs-command.md` — decision guide: skill vs slash command vs hook
+
+## Assets (templates to copy)
+
+- `assets/skill-template.md` — SKILL.md skeleton to copy and fill
+- `assets/action-template.md` — action file skeleton to copy and fill
+- `assets/evals-template.md` — `scenarios.json` structure and concrete example
+
+## Invocation
+
+All validator invocations in this skill assume the working directory is the **repository root** (the directory that contains `.claude/`). The canonical form is:
+
+```bash
+node .claude/skills/generate-skill/scripts/validate-all.js <path-to-target-skill>
+```
+
+The target path can be relative to cwd (e.g. `.claude/skills/<your-skill>`) or absolute. Each validator script also accepts no argument — it then defaults to the generate-skill directory itself (self-validation).
+
+## Distribution
+
+- **Version, license, author**: declared in the frontmatter above.
+- **Status**: stable, self-validating, portable.
+- **Dependencies**: Node.js ≥ 18 (the validator scripts use no external packages).
+- **Usage by other teams**: copy the `generate-skill/` folder into your `.claude/skills/` directory. The skill makes no organization-specific assumptions — every doctrine reference in a generated skill is a placeholder you fill in with paths from your own repo.
