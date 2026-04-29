@@ -1,0 +1,16 @@
+---
+name: sdlc
+description: SDLC orchestrator — plan, implement, test, review, commit, PR.
+---
+
+# Skill: sdlc
+
+Orchestrates the full software development lifecycle from planning to PR creation.
+
+## Actions
+
+```markdown
+- 01-implement.md (Phase 3)
+@actions/02-auto-implement.md
+- 03-projection.md (Phase 3)
+```
