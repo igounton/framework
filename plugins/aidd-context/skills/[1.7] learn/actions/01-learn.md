@@ -21,11 +21,11 @@ Capture and store new learnings from recently implemented feature in memory bank
 #### Decision & ADR Template
 
 ```markdown
-@{{DOCS}}/templates/dev/decision.md
+@{{TOOLS}}/plugins/aidd-context/skills/[1.7] learn/assets/decision-template.md
 ```
 
 ```markdown
-@{{DOCS}}/templates/dev/adr.md
+@{{TOOLS}}/plugins/aidd-context/skills/[1.7] learn/assets/adr-template.md
 ```
 
 ## Rules
@@ -88,7 +88,7 @@ AI categorizes each learning by destination, goal is to update the files caused 
 | **Memory** (mandatory) | `{{DOCS}}/memory/`             | Project context, stack updates          |
 | **Rules**              | `{{TOOLS}}/rules/`             | Coding conventions, patterns to enforce |
 | **Skills**             | `{{TOOLS}}/skills/`            | Reusable prompts, workflows             |
-| **Templates**          | `{{DOCS}}/templates/`          | Project templates                       |
+| **Templates**          | `{{TOOLS}}/plugins/*/skills/*/assets/` | Skill-specific templates         |
 
 Propose where to save each learning.
 

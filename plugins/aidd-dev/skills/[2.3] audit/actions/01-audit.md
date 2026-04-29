@@ -18,7 +18,7 @@ model: opus
 ### Template
 
 ```markdown
-@{{DOCS}}/templates/dev/code_review.md
+@{{TOOLS}}/plugins/aidd-dev/skills/[2.4] review/assets/code-review-template.md
 ```
 
 ## Goal

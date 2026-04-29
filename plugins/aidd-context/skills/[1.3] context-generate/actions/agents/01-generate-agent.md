@@ -13,13 +13,13 @@ Generate a specialized agent template tailored to specific user requirements.
 ### Coordination with other agents
 
 ```markdown
-@{{DOCS}}/templates/aidd/agents_coordination.md
+@{{TOOLS}}/plugins/aidd-context/skills/[1.3] context-generate/references/agents-coordination.md
 ```
 
 ### Agent template
 
 ```markdown
-@{{DOCS}}/templates/aidd/agent.md
+@{{TOOLS}}/plugins/aidd-context/skills/[1.3] context-generate/assets/agents/agent-template.md
 ```
 
 ### IDE Mapping

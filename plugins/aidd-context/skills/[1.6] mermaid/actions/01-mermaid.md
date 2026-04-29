@@ -42,5 +42,5 @@ Generate a HIGH QUALITY Mermaid diagram from Markdown content.
 ### Mermaid generation rules
 
 ```markdown
-@{{TOOLS}}/rules/01-standards/1-mermaid.md
+@{{TOOLS}}/plugins/aidd-context/skills/[1.6] mermaid/references/mermaid-conventions.md
 ```

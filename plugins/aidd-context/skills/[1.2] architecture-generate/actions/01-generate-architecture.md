@@ -28,7 +28,7 @@ model: opus
 ### Coordination template
 
 ```markdown
-@{{DOCS}}/templates/aidd/agents_coordination.md
+@{{TOOLS}}/plugins/aidd-context/skills/[1.3] context-generate/references/agents-coordination.md
 ```
 
 ### IDE Mapping
@@ -40,13 +40,13 @@ model: opus
 ### Mermaid standards
 
 ```markdown
-@{{TOOLS}}/rules/01-standards/1-mermaid.md
+@{{TOOLS}}/plugins/aidd-context/skills/[1.6] mermaid/references/mermaid-conventions.md
 ```
 
-### Command structure standards
+### Skill structure standards
 
 ```markdown
-@{{TOOLS}}/rules/01-standards/1-command-structure.md
+@{{TOOLS}}/plugins/aidd-context/skills/[1.3] context-generate/references/skill-structure.md
 ```
 
 ### Arguments

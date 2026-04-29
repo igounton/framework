@@ -18,7 +18,7 @@ scope: all
 Read:
 
 ```markdown
-@{{DOCS}}/templates/vcs/branch.md
+@{{TOOLS}}/plugins/aidd-vcs/skills/[3.2] pull-request/assets/branch.md
 ```
 
 ## Commit Convention
@@ -26,5 +26,5 @@ Read:
 Read:
 
 ```markdown
-@{{DOCS}}/templates/vcs/commit.md
+@{{TOOLS}}/plugins/aidd-vcs/skills/[3.1] commit/assets/commit-template.md
 ```

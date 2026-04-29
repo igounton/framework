@@ -26,7 +26,7 @@ $ARGUMENTS
 ### Tracking issue template
 
 ```markdown
-@{{DOCS}}/templates/aidd/task.md
+@{{TOOLS}}/plugins/aidd-pm/skills/[4.3] prd/assets/task-template.md
 ```
 
 ## Steps

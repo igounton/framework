@@ -33,7 +33,7 @@ $ARGUMENTS
 ### Template
 
 ```markdown
-@{{DOCS}}/templates/aidd/plan.md
+@{{TOOLS}}/plugins/aidd-dev/skills/[2.1] plan/assets/plan-template.md
 ```
 
 ## Steps

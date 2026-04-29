@@ -13,32 +13,33 @@ Use the generate commands to create content that follows the framework structure
 | `/generate_rules`   | New rule    |
 | `/generate_skill`   | New skill   |
 
-These commands use the scaffolds in `{{DOCS}}/templates/aidd/` and output files in the correct location for your tool.
+These commands use the scaffolds bundled inside each skill's `assets/` folder.
 
 ## Templates
 
-All templates live in `{{DOCS}}/templates/` and can be modified to match your team's conventions. Changes are tracked via hashes in `.aidd/config.yml` — the CLI will warn before overwriting modified files on update.
+Templates are co-located with their skill under `plugins/<plugin>/skills/<skill>/assets/`. Changes are tracked via hashes in `.aidd/config.yml` — the CLI will warn before overwriting modified files on update.
 
-### Framework scaffolds (`aidd/`)
+### Framework scaffolds
 
 Used by the generate commands to create new content:
 
-| Template | File                                      |
-| -------- | ----------------------------------------- |
-| Agent    | `{{DOCS}}/templates/aidd/agent.md`   |
-| Command  | `{{DOCS}}/templates/aidd/command.md` |
-| Rule     | `{{DOCS}}/templates/aidd/rule.md`    |
-| Skill    | `{{DOCS}}/templates/aidd/skill.md`   |
+| Template | File                                                                                    |
+| -------- | --------------------------------------------------------------------------------------- |
+| Agent    | `plugins/aidd-context/skills/[1.3] context-generate/assets/agents/agent-template.md`  |
+| Rule     | `plugins/aidd-context/skills/[1.3] context-generate/assets/rules/rule-template.md`    |
+| Skill    | `plugins/aidd-context/skills/[1.3] context-generate/assets/skills/skill-template.md`  |
 
-### Project templates (`dev/`, `pm/`, `vcs/`)
+### Project templates
 
-Used as reference documents by commands. You can adapt these to your project's conventions:
+Used as reference documents by skill actions. You can adapt these to your project's conventions:
 
-| Folder | Templates                                                                |
-| ------ | ------------------------------------------------------------------------ |
-| `dev/` | ADR, code review checklist, decision record, tech choice comparison      |
-| `pm/`  | PRD, brief, user story, persona, JTBD, milestones, interview transcript  |
-| `vcs/` | Commit message, pull request, branch naming, issue, release notes        |
+| Skill | Templates                                                                |
+| ----- | ------------------------------------------------------------------------ |
+| `[1.7] learn`  | ADR, decision record                                          |
+| `[2.1] plan`   | Plan, master plan, tech choice comparison                     |
+| `[2.4] review` | Code review checklist, review, functional review              |
+| `[4.3] prd`    | PRD, task                                                     |
+| `[3.x] vcs`    | Commit message, pull request, branch naming, issue, release   |
 
 ## Syncing Across Tools
 

@@ -18,13 +18,13 @@ Debug an issue in the codebase to eliminate not-valid assumptions.
 ### Mermaid rules
 
 ```md
-@{{TOOLS}}/rules/01-standards/1-mermaid.md
+@{{TOOLS}}/plugins/aidd-context/skills/[1.6] mermaid/references/mermaid-conventions.md
 ```
 
 ### Task template
 
 ```md
-@{{DOCS}}/templates/aidd/task.md
+@{{TOOLS}}/plugins/aidd-pm/skills/[4.3] prd/assets/task-template.md
 ```
 
 ## Steps

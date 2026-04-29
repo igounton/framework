@@ -17,7 +17,7 @@ Every file has its own template to follow.
 ### Hard copy into memory bank (always generated)
 
 ```text
-@{{DOCS}}/templates/aidd/agents_coordination.md
+@{{TOOLS}}/plugins/aidd-context/skills/[1.1] project-init/assets/templates/memory/
 ```
 
 ### Memory templates
@@ -35,13 +35,14 @@ Each has a `scope` front-matter field:
 All templates are in:
 
 ```text
-@{{DOCS}}/templates/aidd/memory/
+@{{TOOLS}}/plugins/aidd-context/skills/[1.1] project-init/assets/templates/memory/
 ```
 
-#### Internal templates
+#### Internal templates (frontend / backend)
 
 ```text
-@{{DOCS}}/templates/aidd/memory/internal/
+@{{TOOLS}}/plugins/aidd-context/skills/[1.1] project-init/assets/templates/memory/frontend/
+@{{TOOLS}}/plugins/aidd-context/skills/[1.1] project-init/assets/templates/memory/backend/
 ```
 
 ## Rules
@@ -60,7 +61,7 @@ All templates are in:
 ### Schema rules to apply to generated Mermaid diagrams
 
 ```md
-@{{TOOLS}}/rules/01-standards/1-mermaid.md
+@{{TOOLS}}/plugins/aidd-context/skills/[1.6] mermaid/references/mermaid-conventions.md
 ```
 
 ## Steps

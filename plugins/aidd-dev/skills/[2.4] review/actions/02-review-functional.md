@@ -24,7 +24,7 @@ Verify the implemented feature matches the plan's acceptance criteria, flows, an
 ### Review template
 
 ```markdown
-@{{DOCS}}/templates/dev/review_functional.md
+@{{TOOLS}}/plugins/aidd-dev/skills/[2.4] review/assets/review-functional-template.md
 ```
 
 ## Process steps
