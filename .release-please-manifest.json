@@ -1,3 +1,7 @@
 {
-  ".": "3.9.1"
+  ".": "3.9.1",
+  "plugins/aidd-context": "1.0.0",
+  "plugins/aidd-dev": "1.0.0",
+  "plugins/aidd-vcs": "1.0.0",
+  "plugins/aidd-pm": "1.0.0-rc.1"
 }

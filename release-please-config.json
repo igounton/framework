@@ -1,18 +1,19 @@
 {
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
   "release-type": "simple",
-  "include-component-in-tag": false,
+  "include-component-in-tag": true,
   "include-v-in-tag": true,
   "bump-minor-pre-major": false,
   "changelog-sections": [
-    { "type": "feat", "section": "Features" },
-    { "type": "fix", "section": "Bug Fixes" },
-    { "type": "perf", "section": "Performance" },
-    { "type": "revert", "section": "Reverts" },
-    { "type": "docs", "section": "Documentation" },
-    { "type": "refactor", "section": "Refactoring" }
+    {"type": "feat", "section": "Features"},
+    {"type": "fix", "section": "Bug Fixes"},
+    {"type": "chore", "section": "Miscellaneous"}
   ],
   "packages": {
-    ".": {}
+    ".": {},
+    "plugins/aidd-context": { "package-name": "aidd-context" },
+    "plugins/aidd-dev": { "package-name": "aidd-dev" },
+    "plugins/aidd-vcs": { "package-name": "aidd-vcs" },
+    "plugins/aidd-pm": { "package-name": "aidd-pm", "release-as": "1.0.0-rc.1" }
   }
 }
