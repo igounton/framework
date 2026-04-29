@@ -1,0 +1,10 @@
+{
+  "hooks": [
+    {
+      "event": "SessionStart",
+      "matcher": "startup|resume",
+      "command": "node",
+      "args": ["./hooks/update_memory.js"]
+    }
+  ]
+}

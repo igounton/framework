@@ -1,15 +1,5 @@
 {
   "mcpServers": {
-    "playwright": {
-      "type": "stdio",
-      "command": "npx",
-      "args": ["@playwright/mcp@latest"],
-      "env": {}
-    },
-    "figma": {
-      "url": "https://mcp.figma.com/mcp",
-      "type": "http"
-    },
     "mcp-atlassian": {
       "command": "uvx",
       "args": ["mcp-atlassian"],
