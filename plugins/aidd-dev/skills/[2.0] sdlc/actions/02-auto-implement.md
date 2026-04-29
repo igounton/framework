@@ -24,11 +24,11 @@ Autonomously code a high quality feature.
 
 ### Steps
 
-1. Brainstorm implementation approach: {{TOOLS}}/commands/02_context/brainstorm.md
-2. Generate technical plan: {{TOOLS}}/commands/03_plan/plan.md
-3. Implement changes: {{TOOLS}}/commands/04_code/implement.md
+1. Brainstorm implementation approach — skill `brainstorm` action `01-brainstorm`
+2. Generate technical plan — skill `plan` action `01-plan`
+3. Implement changes — skill `sdlc` action `01-implement`
 4. Run tests: Execute test suite if applicable
-5. Commit changes: {{TOOLS}}/commands/08_deploy/commit.md
-6. Code review: {{TOOLS}}/commands/05_review/review_code.md
-7. Functional review: {{TOOLS}}/commands/05_review/review_functional.md
-8. Create PR: {{TOOLS}}/commands/08_deploy/create_request.md
+5. Commit changes — skill `commit` action `01-commit`
+6. Code review — skill `review` action `01-review-code`
+7. Functional review — skill `review` action `02-review-functional`
+8. Create PR — skill `pull-request` action `01-pull-request`

@@ -61,6 +61,19 @@ Produces Claude Code skills following a router-based architecture: SKILL.md as p
 - **R14** — No hardcoded repo-specific paths in `assets/` or `references/`. Templates declare structure; runtime fills content. A skill must drop into any repo without edits to its own files. If an asset needs sample paths, the action that consumes it is responsible for deriving them from the actual filesystem at runtime.
 - **R15** — Less is more. Every file in a skill (SKILL.md, actions, references, assets, README) must be ruthlessly trimmed. No restating, no warm-up paragraphs, no hedging. Every line that survives must earn its tokens — they will be loaded into a model's context on every relevant turn for the lifetime of the skill.
 
+## Actions
+
+```markdown
+@actions/01-capture-intent.md
+@actions/02-design-evals.md
+@actions/03-decompose-actions.md
+@actions/04-draft-skill.md
+@actions/05-write-actions.md
+@actions/06-validate.md
+@actions/rules/01-generate-rules.md
+@actions/agents/01-generate-agent.md
+```
+
 ## References (documents to read)
 
 - `references/naming-conventions.md` — tool vs activity naming rules, hard constraints

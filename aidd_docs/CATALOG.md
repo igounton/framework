@@ -7,35 +7,36 @@ Auto-generated framework content: agents, commands, rules, skills, and templates
 ## Table of Contents
 
 - [`.claude`](#claude)
+- [`.claude-plugin`](#claude-plugin)
 - [`.specstory`](#specstory)
 - [`agents`](#agents)
 - [`aidd_docs`](#aidd_docs)
+  - [`aidd_docs/memory`](#aidd_docsmemory)
+  - [`aidd_docs/tasks`](#aidd_docstasks)
   - [`aidd_docs/templates`](#aidd_docstemplates)
-- [`commands`](#commands)
-  - [`commands/00_behavior`](#commands00_behavior)
-  - [`commands/01_onboard`](#commands01_onboard)
-  - [`commands/02_context`](#commands02_context)
-  - [`commands/03_plan`](#commands03_plan)
-  - [`commands/04_code`](#commands04_code)
-  - [`commands/05_review`](#commands05_review)
-  - [`commands/06_tests`](#commands06_tests)
-  - [`commands/07_documentation`](#commands07_documentation)
-  - [`commands/08_deploy`](#commands08_deploy)
-  - [`commands/09_refactor`](#commands09_refactor)
-  - [`commands/10_maintenance`](#commands10_maintenance)
+- [`plugins`](#plugins)
+  - [`plugins/aidd-context`](#pluginsaidd-context)
+  - [`plugins/aidd-dev`](#pluginsaidd-dev)
+  - [`plugins/aidd-pm`](#pluginsaidd-pm)
+  - [`plugins/aidd-vcs`](#pluginsaidd-vcs)
 - [`rules`](#rules)
   - [`rules/01-standards`](#rules01-standards)
   - [`rules/04-tooling`](#rules04-tooling)
 - [`scripts`](#scripts)
+  - [`scripts/schemas`](#scriptsschemas)
 - [`skills`](#skills)
-  - [`skills/aidd-auto-implement`](#skillsaidd-auto-implement)
-  - [`skills/challenge`](#skillschallenge)
 
 ---
 
 ### `.claude`
 
 No files found.
+### `.claude-plugin`
+
+| File |
+|------|
+| [marketplace.json](../.claude-plugin/marketplace.json) |
+
 ### `.specstory`
 
 No files found.
@@ -56,6 +57,28 @@ No files found.
 | [CATALOG.md](CATALOG.md) |
 | [CONTRIBUTING.md](CONTRIBUTING.md) |
 | [README.md](README.md) |
+
+#### `aidd_docs/memory`
+
+| File |
+|------|
+| [build-sketch.md](memory/build-sketch.md) |
+| [cli-coordination.md](memory/cli-coordination.md) |
+| [command-inventory.md](memory/command-inventory.md) |
+| [mcp-merge-behavior.md](memory/mcp-merge-behavior.md) |
+| [phase0-confidence.md](memory/phase0-confidence.md) |
+| [pilot-aidd-vcs.md](memory/pilot-aidd-vcs.md) |
+| [pre-existing-hook-failures.md](memory/pre-existing-hook-failures.md) |
+| [release-please-sketch.md](memory/release-please-sketch.md) |
+| [sample-hooks.json](memory/sample-hooks.json) |
+| [spike-bracket-paths.md](memory/spike-bracket-paths.md) |
+| [template-audit.md](memory/template-audit.md) |
+
+#### `aidd_docs/tasks`
+
+| Group | File |
+|-------|------|
+| `2026_04` | [2026_04_29-#260-plugin-architecture-part-8.md](tasks/2026_04/2026_04_29-#260-plugin-architecture-part-8.md) |
 
 #### `aidd_docs/templates`
 
@@ -87,99 +110,39 @@ No files found.
 | `vcs` | [README.md](templates/vcs/README.md) | `Project README template` | - |
 | `vcs` | [release.md](templates/vcs/release.md) | `VCS release notes template` | - |
 
-### `commands`
+### `plugins`
 
-#### `commands/00_behavior`
+#### `plugins/aidd-context`
 
-| File | Description |
-|------|---|
-| [auto_accept.md](../commands/00_behavior/auto_accept.md) | `Auto-accept proposed changes without asking for confirmation.` |
+| Group | File |
+|-------|------|
+| `.claude-plugin` | [plugin.json](../plugins/aidd-context/.claude-plugin/plugin.json) |
+| `-` | [CATALOG.md](../plugins/aidd-context/CATALOG.md) |
+| `-` | [README.md](../plugins/aidd-context/README.md) |
 
-#### `commands/01_onboard`
+#### `plugins/aidd-dev`
 
-| File | Description | Argument Hint |
-|------|---|---|
-| [generate_agent.md](../commands/01_onboard/generate_agent.md) | `Generates a customized agent based on user-defined parameters.` | - |
-| [generate_architecture.md](../commands/01_onboard/generate_architecture.md) | `Generate project architecture with agents, skills, coordination diagram, and optional rules/commands for code projects` | `Project description and domain requirements` |
-| [generate_command.md](../commands/01_onboard/generate_command.md) | `Generate optimized, action-oriented prompts using best practices and structured template` | `The command details to generate the prompt for` |
-| [generate_rules.md](../commands/01_onboard/generate_rules.md) | `Generate or modify coding rules manually or auto-scan the codebase to propose rules` | `Rule topic to write, or 'auto' to scan codebase and propose rules` |
-| [generate_skill.md](../commands/01_onboard/generate_skill.md) | `Generate a customized skill based on repeated patterns and user workflows.` | `Description of the workflow to package as a skill` |
-| [init.md](../commands/01_onboard/init.md) | `Create or update the memory bank files to reflect the current state of the codebase` | - |
-| [onboard.md](../commands/01_onboard/onboard.md) | `Detect project state and tell the user exactly what to run next` | - |
+| Group | File |
+|-------|------|
+| `.claude-plugin` | [plugin.json](../plugins/aidd-dev/.claude-plugin/plugin.json) |
+| `-` | [CATALOG.md](../plugins/aidd-dev/CATALOG.md) |
+| `-` | [README.md](../plugins/aidd-dev/README.md) |
 
-#### `commands/02_context`
+#### `plugins/aidd-pm`
 
-| File | Description | Argument Hint |
-|------|---|---|
-| [brainstorm.md](../commands/02_context/brainstorm.md) | `Interactive brainstorming session to clarify and refine feature requests` | - |
-| [challenge.md](../commands/02_context/challenge.md) | `Rethink and challenge previous work for improvements` | - |
-| [create_user_stories.md](../commands/02_context/create_user_stories.md) | `Create user stories through iterative questioning` | `[Feature description or requirements for user story generation]` |
-| [ticket_info.md](../commands/02_context/ticket_info.md) | `Get ticket information from the project's ticketing tool` | `[Ticket URL or number]` |
+| Group | File |
+|-------|------|
+| `.claude-plugin` | [plugin.json](../plugins/aidd-pm/.claude-plugin/plugin.json) |
+| `-` | [CATALOG.md](../plugins/aidd-pm/CATALOG.md) |
+| `-` | [README.md](../plugins/aidd-pm/README.md) |
 
-#### `commands/03_plan`
+#### `plugins/aidd-vcs`
 
-| File | Description | Argument Hint |
-|------|---|---|
-| [components_behavior.md](../commands/03_plan/components_behavior.md) | `Define the expected behavior of frontend components into a state machine format.` | `names of the components to define behavior for.` |
-| [image_extract_details.md](../commands/03_plan/image_extract_details.md) | `Analyze image to identify and extract main components with hierarchical organization` | `the image to analyze` |
-| [plan.md](../commands/03_plan/plan.md) | `Generate technical implementation plans from requirements` | `requirements (ticket URL or raw text)` |
-
-#### `commands/04_code`
-
-| File | Description | Argument Hint |
-|------|---|---|
-| [assert_architecture.md](../commands/04_code/assert_architecture.md) | `Verify code conforms to architecture diagrams, ADRs, and project structure.` | `[Optional scope to verify (module, service, or layer name)]` |
-| [assert_frontend.md](../commands/04_code/assert_frontend.md) | `Assert a frontend feature works as intended.` | `The frontend behavior you need to assert and validate.` |
-| [assert.md](../commands/04_code/assert.md) | `Assert that a feature must work as intended.` | - |
-| [implement_from_design.md](../commands/04_code/implement_from_design.md) | `Implement a frontend component from a Figma design with pixel-perfect accuracy.` | `The Figma file URL and frame/component to implement.` |
-| [implement.md](../commands/04_code/implement.md) | `Implement plan following project rules with validation` | `The technical plan to implement` |
-| [run_projection.md](../commands/04_code/run_projection.md) | `Project the solution you mentioned on a part of the codebase so we can see if this will work.` | - |
-
-#### `commands/05_review`
-
-| File | Description | Argument Hint |
-|------|---|---|
-| [review_code.md](../commands/05_review/review_code.md) | `Ensure code quality and rules compliance` | - |
-| [review_functional.md](../commands/05_review/review_functional.md) | `Review feature behavior against plan specification and current diff` | `Plan path to validate against` |
-
-#### `commands/06_tests`
-
-| File | Description | Argument Hint |
-|------|---|---|
-| [test_journey.md](../commands/06_tests/test_journey.md) | `Test a user journey end-to-end by navigating and validating each step in the browser.` | `The user journey steps to validate and the URL to test on.` |
-| [test.md](../commands/06_tests/test.md) | `List untested behaviors and iterate on test creation until tests pass with best practices` | `[things you want to test]` |
-
-#### `commands/07_documentation`
-
-| File | Description |
-|------|---|
-| [learn.md](../commands/07_documentation/learn.md) | `Update memory bank or rules with new information or requirements.` |
-| [mermaid.md](../commands/07_documentation/mermaid.md) | `When need to generate Mermaid diagrams` |
-
-#### `commands/08_deploy`
-
-| File | Description | Argument Hint |
-|------|---|---|
-| [commit.md](../commands/08_deploy/commit.md) | `Create git commit with proper message format` | `auto` |
-| [create_request.md](../commands/08_deploy/create_request.md) | `Create PR (GitHub) or MR (GitLab) with filled template` | - |
-| [tag.md](../commands/08_deploy/tag.md) | `Create and push git tag with semantic versioning` | - |
-
-#### `commands/09_refactor`
-
-| File | Description | Argument Hint |
-|------|---|---|
-| [audit.md](../commands/09_refactor/audit.md) | `Perform deep codebase analysis for technical debt and improvements` | `Scope to audit (optional - defaults to full codebase)` |
-| [performance.md](../commands/09_refactor/performance.md) | `Optimize code for better performance` | - |
-| [security_refactor.md](../commands/09_refactor/security_refactor.md) | `Identify and fix security vulnerabilities` | - |
-
-#### `commands/10_maintenance`
-
-| File | Description | Argument Hint |
-|------|---|---|
-| [debug.md](../commands/10_maintenance/debug.md) | `Debug issue to find root cause.` | - |
-| [new_issue.md](../commands/10_maintenance/new_issue.md) | `Create issues in the configured ticketing tool` | `Describe the problem you want to create an issue for` |
-| [reflect_issue.md](../commands/10_maintenance/reflect_issue.md) | `Reflect on possible sources, identify most likely causes, add validation logs before fixing` | - |
-| [reproduce.md](../commands/10_maintenance/reproduce.md) | `Fix bugs with test-driven workflow from issue to PR` | `Bug description or issue number` |
+| Group | File |
+|-------|------|
+| `.claude-plugin` | [plugin.json](../plugins/aidd-vcs/.claude-plugin/plugin.json) |
+| `-` | [CATALOG.md](../plugins/aidd-vcs/CATALOG.md) |
+| `-` | [README.md](../plugins/aidd-vcs/README.md) |
 
 ### `rules`
 
@@ -197,6 +160,7 @@ No files found.
 | File | Description |
 |------|---|
 | [ide-mapping.claude.md](../rules/04-tooling/ide-mapping.claude.md) | `Claude Code file locations, syntax, frontmatter, and include patterns reference. Apply when creating or configuring Claude-specific files.` |
+| [ide-mapping.codex.md](../rules/04-tooling/ide-mapping.codex.md) | `Codex CLI file locations, path mapping, and AIDD install-time @path expansion. Apply when creating or configuring Codex-specific files.` |
 | [ide-mapping.copilot.md](../rules/04-tooling/ide-mapping.copilot.md) | `GitHub Copilot file locations, syntax, frontmatter, and instruction patterns reference. Apply when creating or configuring Copilot-specific files.` |
 | [ide-mapping.cursor.md](../rules/04-tooling/ide-mapping.cursor.md) | `Cursor file locations, syntax, frontmatter, and rule patterns reference. Apply when creating or configuring Cursor-specific files.` |
 | [ide-mapping.opencode.md](../rules/04-tooling/ide-mapping.opencode.md) | `OpenCode file locations, syntax, frontmatter, and configuration reference. Apply when creating or configuring OpenCode-specific files.` |
@@ -208,17 +172,14 @@ No files found.
 | [aidd.sh](../scripts/aidd.sh) |
 | [build-dist.sh](../scripts/build-dist.sh) |
 
+#### `scripts/schemas`
+
+| File |
+|------|
+| [hooks.schema.json](../scripts/schemas/hooks.schema.json) |
+| [marketplace.schema.json](../scripts/schemas/marketplace.schema.json) |
+| [plugin.schema.json](../scripts/schemas/plugin.schema.json) |
+
 ### `skills`
 
-#### `skills/aidd-auto-implement`
-
-| File | Description | Argument Hint |
-|------|---|---|
-| [SKILL.md](../skills/aidd-auto-implement/SKILL.md) | `Autonomously run the AI-Driven Development workflow to code an high quality feature.` | `The URL or file path of the issue or task to implement.` |
-
-#### `skills/challenge`
-
-| File | Description |
-|------|---|
-| [SKILL.md](../skills/challenge/SKILL.md) | `Review and challenge previous work for improvements and correctness. Use when the user says 'challenge this', 'review my work', 'is this correct', asks for a critical review, or wants to rethink a decision.` |
-
+No files found.

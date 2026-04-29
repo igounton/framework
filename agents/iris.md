@@ -19,13 +19,15 @@ Detect the mode based on the user's request:
 
 #### Resources
 
-- Extract components from image: `@{{TOOLS}}/commands/03_plan/image_extract_details.md`
+- Extract components from image: skill `plan` action `03-image-extract-details`
 
 #### Instruction steps
 
-```text
-@{{TOOLS}}/commands/04_code/implement_from_design.md
-```
+Analyze the image to extract components, then implement the UI based on the extracted design specs.
+
+1. Use skill `plan` action `03-image-extract-details` to extract design specs from the image.
+2. Implement each component following the extracted specs.
+3. Use skill `assert` action `03-assert-frontend` to validate the implementation.
 
 ### Mode 2: Verify UI Conformity
 
@@ -34,7 +36,7 @@ Detect the mode based on the user's request:
 #### Instruction steps
 
 ```text
-@{{TOOLS}}/commands/04_code/assert_frontend.md
+@{{TOOLS}}/plugins/aidd-dev/skills/%5B2.2%5D%20assert/actions/03-assert-frontend.md
 ```
 
 ### Mode 3: Verify User Journey
@@ -44,7 +46,7 @@ Detect the mode based on the user's request:
 #### Instruction steps
 
 ```text
-@{{TOOLS}}/commands/06_tests/test_journey.md
+@{{TOOLS}}/plugins/aidd-dev/skills/%5B2.5%5D%20test/actions/02-test-journey.md
 ```
 
 ## Input format

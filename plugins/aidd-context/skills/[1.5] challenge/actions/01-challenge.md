@@ -22,7 +22,7 @@ Critically review previous work to ensure 100% correctness, identify edge cases,
 
 ## Process
 
-1. Review previous work in detail using: {{TOOLS}}/commands/02_context/challenge.md
+1. Review previous work in detail.
 2. Identify potential issues or areas for improvement.
 3. Suggest changes or enhancements.
 

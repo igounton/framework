@@ -18,11 +18,11 @@ model: opus
 ### Core generators
 
 ```markdown
-@{{TOOLS}}/commands/01_onboard/generate_agent.md
+@{{TOOLS}}/plugins/aidd-context/skills/%5B1.3%5D%20context-generate/actions/agents/01-generate-agent.md
 ```
 
 ```markdown
-@{{TOOLS}}/commands/01_onboard/generate_skill.md
+@{{TOOLS}}/plugins/aidd-context/skills/%5B1.3%5D%20context-generate/SKILL.md
 ```
 
 ### Coordination template
@@ -41,12 +41,6 @@ model: opus
 
 ```markdown
 @{{TOOLS}}/rules/01-standards/1-mermaid.md
-```
-
-### Command generator
-
-```markdown
-@{{TOOLS}}/commands/01_onboard/generate_command.md
 ```
 
 ### Command structure standards

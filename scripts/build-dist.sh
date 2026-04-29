@@ -14,7 +14,7 @@ which aidd && aidd --version
 
 MCP_SERVERS=$(node -e "console.log(Object.keys(require('$FRAMEWORK_ROOT/config/mcp.json').mcpServers).join(','))")
 
-for tool in claude cursor copilot opencode; do
+for tool in claude cursor copilot opencode codex; do
   TARGET="$FRAMEWORK_ROOT/dist/$tool"
   rm -rf "$TARGET"
   mkdir -p "$TARGET"
