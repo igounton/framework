@@ -38,6 +38,31 @@ This repository follows [Semantic Versioning](https://semver.org/) with automate
 
 The tarball contains only the framework content: `agents/`, `commands/`, `config/`, `rules/`, `skills/`, `templates/`, `aidd_docs/`, `version.txt`.
 
+## Commit scope discipline
+
+Every commit must use one of the five allowed scopes:
+
+| Scope | Use for |
+|-------|---------|
+| `aidd-context` | Changes inside `plugins/aidd-context/` |
+| `aidd-dev` | Changes inside `plugins/aidd-dev/` |
+| `aidd-vcs` | Changes inside `plugins/aidd-vcs/` |
+| `aidd-pm` | Changes inside `plugins/aidd-pm/` |
+| `framework` | Root-level changes: build scripts, CI, config, docs, `aidd_docs/` |
+
+Examples:
+
+```bash
+git commit -m "feat(aidd-dev): add for-sure skill"
+git commit -m "fix(aidd-vcs): correct commit template"
+git commit -m "docs(framework): update README for plugin model"
+git commit -m "build(framework): regenerate catalogs"
+```
+
+Cross-plugin changes must be split into separate commits, one per scope.
+
+---
+
 ## Commit conventions
 
 This repository uses [Conventional Commits](https://www.conventionalcommits.org/) to automate versioning and changelog generation via [Release Please](https://github.com/googleapis/release-please).
@@ -45,7 +70,7 @@ This repository uses [Conventional Commits](https://www.conventionalcommits.org/
 **Every commit message must follow this format:**
 
 ```text
-<type>: <description>
+<type>(<scope>): <description>
 ```
 
 | Type       | Purpose                                             | Version bump | Changelog |
