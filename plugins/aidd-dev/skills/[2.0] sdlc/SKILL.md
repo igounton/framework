@@ -10,7 +10,7 @@ Orchestrates the full software development lifecycle from planning to PR creatio
 ## Actions
 
 ```markdown
-- 01-implement.md (Phase 3)
+@actions/01-implement.md
 @actions/02-auto-implement.md
-- 03-projection.md (Phase 3)
+@actions/03-projection.md
 ```

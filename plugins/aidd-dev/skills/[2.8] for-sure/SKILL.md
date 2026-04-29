@@ -33,6 +33,14 @@ None — task secrets are validated during pre-flight and documented in the trac
 2. `actions/02-auto-accept.md` — Auto-accept mode activation (Phase 3).
 3. `actions/03-autonomous-loop.md` — Orchestrator: spawns one worker per step, verifies, checks/retries, evaluates success.
 
+## Actions
+
+```markdown
+@actions/01-init-tracking.md
+@actions/02-auto-accept.md
+@actions/03-autonomous-loop.md
+```
+
 ## References
 
 - `assets/tracking-template.md` — file naming and format
