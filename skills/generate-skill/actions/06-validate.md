@@ -1,35 +1,37 @@
-# 06 — Validate against evals
+# 06 — Validate end-to-end
 
-Run the evaluation scenarios and loop until all pass.
+Spawn one agent per action of the target skill, run its `## Test`, aggregate into a single pass/fail table.
 
 ## Inputs
-- Complete skill directory (from 04, 05)
-- `evals/scenarios.json` (from 02)
+
+- `skill_path` (required) — absolute path to the target skill (e.g. `.claude/skills/<skill>`)
 
 ## Outputs
 
-Validation report. Example:
+A single markdown table delivered to the user. One row per action, in numeric order:
 
-| type       | prompt                           | expect_action       | actual              | status |
-| ---------- | -------------------------------- | ------------------- | ------------------- | ------ |
-| should     | Post this update to #engineering | `post-message`      | `post-message`      | PASS   |
-| should_not | Send an email to the team        | null (→ gmail)      | null (→ gmail)      | PASS   |
-| ambiguous  | Notify the team                  | `ask_clarification` | `ask_clarification` | PASS   |
+| Action               | Test                                                              | Statut |
+| -------------------- | ----------------------------------------------------------------- | ------ |
+| `post-message`       | Posted "ping" to #test, verified via `slack_get_channel_history`  | ✅     |
+| `fetch-week-tasks`   | Queried Notion DB for user X, expected ≥ 1 result                 | ✅     |
+| `archive-channel`    | —                                                                 | ⏭️     |
+
+`✅` pass, `❌` fail, `⏭️` skipped (e.g. action 02 when manual-only).
 
 ## Process
 
-1. Run `node .claude/skills/generate-skill/scripts/validate-all.js <target-skill-path>` to confirm structural integrity (SKILL.md + actions + evals). If any validator fails, fix before proceeding.
-2. Ask the user to restart Claude Code so the new skill loads.
-3. For each `should`: send the prompt, verify the skill triggers and dispatches to `expect_action`.
-4. For each `should_not`: send the prompt, verify the skill does NOT trigger; verify `competing_skill` does (flag separately if not).
-5. For each `ambiguous`: verify the skill asks the question from `note`.
-6. On failure, diagnose root cause:
-   - Wrong trigger → tighten or broaden `description` (R6).
-   - Wrong dispatch → clarify action table or rename action slugs.
-   - Wrong output → fix the failing action's `## Process`.
-7. Re-run failing scenarios only. Loop until 100% pass.
-8. Deliver the report table to the user.
+1. For each action file in `<skill_path>/actions/`, in numeric order, spawn a fresh agent (`Task`/`Agent`, `subagent_type: general-purpose`) with **empty context**. The brief is self-contained and includes:
+   - **`<skill_path>/SKILL.md`** — the skill's router, transversal rules.
+   - **The action file itself** — `## Inputs`, `## Outputs`, `## Process`, `## Test`.
+   - **Every file referenced by `@<path>` inside the action** — templates, references, helpers.
+   - **A concrete value for each `## Inputs` field**, derived from the action's input declaration (or upstream action's outputs if depends_on).
+   - **`cwd`** = repo root.
+   - **Instruction** : execute `## Process`, then run the `## Test`; report pass/fail and the cause if fail in ≤ 100 words.
+2. Capture for each action: slug, the `## Test` sentence verbatim, status. Add a row.
+3. On `❌`, the agent diagnoses the root cause, **resolves it in the real environment** (install MCP, generate API key per `.env.local`, authenticate, etc.), then **patches the action source file on disk** to point to the working solution. Re-run `## Test` via a fresh agent. Repeat until ✅. The patched action is the documentation — no separate change log.
+4. If `disable-model-invocation: false` in `<skill_path>/SKILL.md`: for each scenario in `<skill_path>/evals/scenarios.json`, spawn one fresh agent that reproduces the prompt verbatim and reports whether the dispatched action matches `expect_action`. Add one row per scenario.
+5. Always deliver the table at the end, even if every row is ✅.
 
 ## Test
 
-LLM assertion: report shows 100% pass across all scenarios in `evals/scenarios.json`; no scenario was deleted, softened, or reworded to pass — any invalid scenario was explicitly flagged to the user with reasoning.
+The report is a single markdown table with the three columns `Action | Test | Statut`; every row uses ✅/❌/⏭️; every action of the target appears as a row; every action that ended ✅ after a fix has its source file actually modified on disk (not just retried in conversation).

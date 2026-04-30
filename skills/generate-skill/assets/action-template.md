@@ -9,7 +9,7 @@
 
 ## Outputs
 
-<Example of the concrete artifact produced. A code block, a table, or a short JSON shape. Keep it short and real.>
+<Example of the concrete artifact produced. A code block, a table, or a short JSON shape.>
 
 ```
 <example here>
@@ -17,7 +17,7 @@
 
 ## Depends on
 
-<Optional. Remove this section if the action is standalone. List upstream slugs only.>
+<Optional. List upstream slugs only.>
 
 - `<NN-slug>`
 
@@ -25,22 +25,13 @@
 
 1. <Imperative step. Reference MCP tools by qualified name, e.g. `mcp__slack__slack_post_message`.>
 2. <Next step.>
-3. <Branching allowed: "If X, do A; otherwise do B.">
 
 ## Test
 
-<Prefer a JS script. Fall back to MCP runbook or LLM assertion only if a script is impossible.>
+<One sentence describing how to verify this action's intent — a command to run, a concrete check on the produced artifact, or an observable side-effect (API/MCP/state). Examples:>
 
-**Pattern A — JS script (preferred):**
-```bash
-node scripts/test-<slug>.js
-```
+- `node scripts/<slug>.js` exits 0 with non-empty payload (real 200).
+- `<artifact>` exists at `<path>` and satisfies `<concrete check>`.
+- Call `mcp__<server>__<tool>` with `<concrete params>`, assert `<observable result>`.
 
-**Pattern B — MCP runbook:**
-Call `mcp__<server>__<tool>` with `param1=<value>`. Verify the response satisfies `<concrete condition>`.
-
-**Pattern C — LLM assertion with example:**
-Assert: "<concrete assertion>". Example of a correct output:
-```
-<concrete example that passes the assertion>
-```
+**Never** a `*.test.js` mocking the call — the first successful run is the test.

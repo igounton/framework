@@ -3,39 +3,21 @@
 Write the SKILL.md. Router only — no business logic.
 
 ## Inputs
-- `skill_name`, `domain_type`, `expected_output` (from 01)
+
+- `skill_name`, `domain_type`, `expected_output`, `invocation_mode` (from 01)
 - `action_plan` (from 03)
 
 ## Outputs
 
-`<skill>/SKILL.md` following `assets/skill-template.md`. Example frontmatter (for a hypothetical `slack` skill):
-
-```yaml
----
-name: slack
-description: Posts messages, polls channel history, and manages channels via the Slack API. Use when the user mentions Slack, channel, or asks to send a chat message. Do NOT use for email (use `gmail`), Discord, or project-management notifications.
----
-```
-
-Example action table:
-
-| #   | Action           | Role                        | Input             |
-| --- | ---------------- | --------------------------- | ----------------- |
-| 01  | `post-message`   | Post a message to a channel | channel, text     |
-| 02  | `get-history`    | Fetch channel history       | channel, limit    |
-| 03  | `create-channel` | Create a new channel        | name, is_private  |
+`<skill>/SKILL.md` produced from `@assets/skill-template.md`.
 
 ## Process
 
-1. Copy `assets/skill-template.md`.
-2. Fill the YAML frontmatter per R5 (naming) and R6 (description content). Format constraints (char caps, third person, reserved words) are enforced by `references/naming-conventions.md` and checked by `scripts/validate-skill-md.js`.
+1. Read `@assets/skill-template.md`. Copy its contents to `<skill>/SKILL.md`.
+2. Fill the frontmatter per R5 and `references/naming-conventions.md`. If `invocation_mode = manual`, add `disable-model-invocation: true`.
 3. Write the action table from the plan: `#`, slug, role, required input.
-4. Default flow: sequential → chain `01 → 02 → ...`; non-sequential → trigger-to-action mapping.
-5. Add transversal rules (shared style guide pointer, shared MCP, required env vars).
-6. List `references/`, `assets/`, and any cross-skill/shared-folder pointers.
+4. Sequential → chain `01 → 02 → ...`; non-sequential → trigger-to-action mapping.
 
 ## Test
 
-```bash
-node .claude/skills/generate-skill/scripts/validate-skill-md.js <target-skill-path>
-```
+`<skill>/SKILL.md` exists; frontmatter has `name` (kebab-case ≤ 64 chars, no reserved word `anthropic`/`claude`) and `description` (non-empty ≤ 1024 chars, contains a "Do NOT use" clause); body ≤ 500 lines; the action table slugs match the `action_plan` from 03; every non-null `expect_action` in `evals/scenarios.json` matches a slug in the action table.

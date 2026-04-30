@@ -1,14 +1,15 @@
 # 05 — Write action files
 
-One file per action in the plan. Follow `assets/action-template.md`.
+One file per action in the plan.
 
 ## Inputs
+
 - `action_plan` (from 03)
-- `<skill>/SKILL.md` (from 04, validated)
+- `<skill>/SKILL.md` (from 04)
 
 ## Outputs
 
-Directory state after this action, for a hypothetical `slack` skill:
+Directory state for a hypothetical `slack` skill:
 
 ```
 slack/
@@ -16,29 +17,22 @@ slack/
 │   ├── post-message.md
 │   ├── get-history.md
 │   └── create-channel.md
-├── assets/              ← optional: structured data / templates
-│   └── channel-ids.json
-├── references/          ← optional: human-readable docs
-│   └── slack-api-cheatsheet.md
-├── scripts/             ← optional: skill-specific JS helpers
-│   └── test-post-message.js
-├── .env.local           ← optional: instructions for obtaining secrets
+├── assets/                ← optional
+├── references/            ← optional
+├── scripts/               ← optional, skill-specific helpers
+├── .env                   ← gitignored, real keys
+├── .env.local             ← gitignored, per-key generation URL + 1-line how-to
 └── SKILL.md
 ```
 
 ## Process
 
-1. For each action in the plan, copy `assets/action-template.md` and fill each `<placeholder>` per its inline annotation. The template is the single source for what goes in each section.
-2. File count in `actions/` must match the SKILL.md action table — no missing, no extra.
-3. Place data per R7/R8:
-   - Cross-skill → point to a shared folder at repo root (your project decides the path, e.g. `shared-assets/`, `05_assets/`, `design-system/`); never duplicate.
-   - Skill-specific data/templates → `<skill>/assets/*.json`.
-   - Skill-specific docs → `<skill>/references/*.md`.
-   - Secrets → `.env` + `.env.local`.
-4. For each action whose `## Test` picked Pattern A (script), write the corresponding JS file in `scripts/` — ONLY if the script is functionally specific to this skill. Never copy the structural validators (`validate-*.js`); call them directly from `generate-skill/scripts/` with a path argument.
+1. For each action in the plan: copy `@assets/action-template.md`, fill each `<placeholder>` per its inline annotation. Transcribe the `test` cell from 03 **verbatim** into the `## Test` section.
+2. Secrets are **per-skill, never at repo root**. Each skill owns `<skill>/.env` (gitignored, real keys, one `KEY=value` per line) and `<skill>/.env.local` (gitignored, for each key: generation URL + one-line how-to with scopes / plan tier / dashboard path). Add the `<skill>/.env` and `<skill>/.env.local` patterns to root `.gitignore`. Non-secret data follows R7: cross-skill → shared root folder; skill-specific → `<skill>/assets/` or `<skill>/references/`.
+3. API calls → reusable Node.js script at `<skill>/scripts/<slug>.js`. The script loads `<skill>/.env` at startup before any API call (e.g. `dotenv.config({ path: path.join(__dirname, '../.env') })`) and fails fast with an explicit error if a required key is missing. The action invokes `node scripts/<slug>.js <args>`. No inline `curl` or fetch logic in `## Process`. Bash only for CLI-native tools (`gh`, `pdftotext`).
+4. Skill-specific helpers go in `<skill>/scripts/`. Never duplicate generic validators.
+5. Composition is mandatory. Any template, reference, or script consumed by the action is included via `@<path>` (e.g. `@assets/action-template.md`, `@scripts/get-weather.js`). Never write "read X then apply" — emit the `@<path>` directly so the resolver injects the file at runtime.
 
 ## Test
 
-```bash
-node .claude/skills/generate-skill/scripts/validate-actions.js <target-skill-path>
-```
+For each slug in the action_plan, `<skill>/actions/<NN>-<slug>.md` exists and contains `## Inputs`, `## Outputs`, `## Process`, `## Test`; the slugs in the SKILL.md action table match the filenames in `<skill>/actions/`.

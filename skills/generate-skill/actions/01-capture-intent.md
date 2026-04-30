@@ -1,48 +1,39 @@
 # 01 — Capture intent
 
-Clarify what the user wants before any file is touched. Never assume.
+Clarify what the user wants before any file is touched.
 
 ## Inputs
+
 - Free-form user request about creating or modifying a skill.
 
 ## Outputs
 
-The six decisions this action produces. They are held in conversation context and passed to actions 02+ as-is. **Not written to any file** — this block is illustrative, not a frontmatter schema.
+Seven decisions held in conversation context (not written to disk):
 
 ```text
 intent           = generate | modify
-skill_name       = <kebab-case name following R5>
+skill_name       = <kebab-case, see references/naming-conventions.md>
 domain_type      = tool | activity
-expected_output  = <one-sentence description of what the skill produces when run>
+expected_output  = <one-sentence description of what the skill produces>
 sequential       = true | false
 location         = local | global
+invocation_mode  = auto | manual
 ```
 
-Example for a Slack posting skill:
-
-```text
-intent           = generate
-skill_name       = slack
-domain_type      = tool
-expected_output  = "Posts a formatted message to a Slack channel and confirms delivery."
-sequential       = false
-location         = local
-```
+Plus a **skill landscape** report (existing-skills inventory + overlap alerts).
 
 ## Process
 
-1. Ask: "Create a new skill or modify an existing one?"
-2. If `modify` → `ls` the skill dir, read its `SKILL.md`, then jump to action 03.
-3. If `generate`:
-   - Ask for the skill's single purpose in one sentence.
-   - If the user mentions multiple unrelated domains, propose a split into separate skills.
-4. Pick `domain_type`: external tool/API → `tool`; practice (review, plan...) → `activity`; ambiguous → ask.
-5. Validate name per `references/naming-conventions.md`.
-6. Check collisions: `ls .claude/skills/`. No overlap in name or triggers.
-7. Ask if execution order is strict. If yes → numbered prefixes in action 05.
-8. Ask: "Local to this repo (`<repo>/.claude/skills/<name>/`) or global (`~/.claude/skills/<name>/`)?" **Default = local.** Build where the user works now; move to global later only when the user asks. Never infer `global` from "I want to use it in other repos too" — that intent is satisfied by copying the local skill later.
-9. Run the skill-vs-command heuristic from `references/skill-vs-command.md`. Single-action skill → recommend a slash command and stop.
+1. Ask: **generate** a new skill or **modify** an existing one?
+2. Inventory `.claude/skills/` (project) + `~/.claude/skills/` (global). Read each `SKILL.md` frontmatter (`name`, first line of `description`). Print as a markdown table.
+3. Branch:
+   - `modify` → confirm target name exists, read its `SKILL.md`, jump to action 03.
+   - `generate` → ask the skill's single purpose in one sentence. If multiple unrelated domains, propose a split.
+4. Pick `domain_type` (tool/activity), validate `skill_name` per `references/naming-conventions.md`.
+5. Surface overlaps: same name → block; trigger/MCP overlap with another skill → ask merge / rename / scope-tighten / abort. Cross-skill dependency → declare it for the SKILL.md "External data" section.
+6. Ask: sequential execution? local or global (default local)? `invocation_mode` auto or manual (default auto; pick manual for side effects the user must time)?
+7. Architecture sanity: 1 action → single `.md`; ≥ 2 atomic actions → skill; reaction to event → hook (`update-config`); permanent convention → CLAUDE.md.
 
 ## Test
 
-LLM assertion: all five outputs are set and confirmed by the user in writing; name + domain_type follow R5; collision check was run; skill-vs-command heuristic was applied.
+The seven outputs are stated and confirmed by the user in writing; the existing-skills inventory was shown; every overlap was either surfaced or explicitly noted "none".
