@@ -29,7 +29,7 @@ Quick reference:
 | ------------ | ------------------------------------------------------------------------------------------------------------------- |
 | aidd-context | 01-bootstrap, 02-project-init, 03-context-generate, 04-mermaid, 05-learn, 06-discovery |
 | aidd-refine  | 01-brainstorm, 02-challenge, 03-condense                                                |
-| aidd-dev     | 00-sdlc, 01-plan, 02-assert, 03-audit, 04-review, 05-test, 06-refactor, 07-debug, 08-for-sure                       |
+| aidd-dev     | 00-sdlc, 01-plan, 02-implement, 03-assert, 04-audit, 05-review, 06-test, 07-refactor, 08-debug, 09-for-sure         |
 | aidd-vcs     | 01-commit, 02-pull-request, 03-release-tag, 04-issue-create                                                         |
 | aidd-pm      | 01-ticket-info, 02-user-stories-create, 03-prd                                                                      |
 
