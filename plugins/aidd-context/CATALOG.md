@@ -15,6 +15,7 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
   - [`skills/04-mermaid`](#skills04-mermaid)
   - [`skills/05-learn`](#skills05-learn)
   - [`skills/06-discovery`](#skills06-discovery)
+  - [`skills/00-onboard`](#skills00-onboard)
 
 ---
 
@@ -101,4 +102,15 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 |-------|------|---|
 | `actions` | [01-find-skill.md](skills/06-discovery/actions/01-find-skill.md) | `Help the user discover installed skills and find the right one for their use case.` |
 | `-` | [SKILL.md](skills/06-discovery/SKILL.md) | `Help users discover installed skills and find the right one for their use case.` |
+
+#### `skills/00-onboard`
+
+| Group | File | Description |
+|-------|------|---|
+| `actions` | [01-detect-state.md](skills/00-onboard/actions/01-detect-state.md) | - |
+| `actions` | [02-recommend-next.md](skills/00-onboard/actions/02-recommend-next.md) | - |
+| `actions` | [03-execute-or-handoff.md](skills/00-onboard/actions/03-execute-or-handoff.md) | - |
+| `assets` | [state-matrix.md](skills/00-onboard/assets/state-matrix.md) | - |
+| `evals` | [scenarios.json](skills/00-onboard/evals/scenarios.json) | - |
+| `-` | [SKILL.md](skills/00-onboard/SKILL.md) | `Detect the project's aidd-context state and guide the user to one concrete next aidd-context action through a state -> recommend -> execute loop. Use when the user says "where do I start", "I'm new to this plugin", "onboard me", "what should I run next", "guide me through aidd-context", or invokes aidd-context:00:onboard. Do NOT use to enumerate every installed skill from raw user intent (a dedicated discovery skill in this plugin handles that), and do NOT use to teach the global cross-plugin AIDD flow (a separate cross-plugin onboard owns that scope).` |
 
