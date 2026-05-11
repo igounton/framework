@@ -39,9 +39,14 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 
 #### `skills/00-sdlc`
 
-| File | Description |
-|------|---|
-| [SKILL.md](skills/00-sdlc/SKILL.md) | `Pure orchestrator for the full AIDD development flow. Use when a human (or Gardener) needs to take a free-form request from idea to shipped code, end-to-end. Coordinates spec generation, planning, implementation, and review by composing other skills and agents. Holds no business logic of its own — every step is delegated.` |
+| Group | File | Description |
+|-------|------|---|
+| `actions` | [01-spec-phase.md](skills/00-sdlc/actions/01-spec-phase.md) | - |
+| `actions` | [02-plan-phase.md](skills/00-sdlc/actions/02-plan-phase.md) | - |
+| `actions` | [03-implementation.md](skills/00-sdlc/actions/03-implementation.md) | - |
+| `actions` | [04-finalize.md](skills/00-sdlc/actions/04-finalize.md) | - |
+| `evals` | [scenarios.json](skills/00-sdlc/evals/scenarios.json) | - |
+| `-` | [SKILL.md](skills/00-sdlc/SKILL.md) | `Development SDLC orchestrator that drives a code-shipping request through spec, plan, implementation, and finalize phases, adapting entry to whichever artifacts already exist. Use when the user says "dev sdlc", "sdlc", "/sdlc <request>", "ship this from idea to code", "run the full dev flow", "from request to PR", "resume the SDLC run from <spec or plan>", or when an automation needs the end-to-end engineering pipeline. Do NOT use for product-side SDLC variants (a separate orchestrator covers PM flows), ad-hoc source edits without a spec, single git operations, or pure refactors with no acceptance criteria.` |
 
 #### `skills/01-plan`
 

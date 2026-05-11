@@ -9,13 +9,13 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 - [`.claude-plugin`](#claude-plugin)
 - [`hooks`](#hooks)
 - [`skills`](#skills)
+  - [`skills/00-onboard`](#skills00-onboard)
   - [`skills/01-bootstrap`](#skills01-bootstrap)
   - [`skills/02-project-init`](#skills02-project-init)
   - [`skills/03-context-generate`](#skills03-context-generate)
   - [`skills/04-mermaid`](#skills04-mermaid)
   - [`skills/05-learn`](#skills05-learn)
   - [`skills/06-discovery`](#skills06-discovery)
-  - [`skills/00-onboard`](#skills00-onboard)
 
 ---
 
@@ -33,6 +33,17 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | [update_memory.js](hooks/update_memory.js) |
 
 ### `skills`
+
+#### `skills/00-onboard`
+
+| Group | File | Description |
+|-------|------|---|
+| `actions` | [01-detect-state.md](skills/00-onboard/actions/01-detect-state.md) | - |
+| `actions` | [02-recommend-next.md](skills/00-onboard/actions/02-recommend-next.md) | - |
+| `actions` | [03-execute-or-handoff.md](skills/00-onboard/actions/03-execute-or-handoff.md) | - |
+| `assets` | [state-matrix.md](skills/00-onboard/assets/state-matrix.md) | - |
+| `evals` | [scenarios.json](skills/00-onboard/evals/scenarios.json) | - |
+| `-` | [SKILL.md](skills/00-onboard/SKILL.md) | `Detect the project's aidd-context state and guide the user to one concrete next aidd-context action through a state -> recommend -> execute loop. Use when the user says "where do I start", "I'm new to this plugin", "onboard me", "what should I run next", "guide me through aidd-context", or invokes `aidd-context:00:onboard`. Do NOT use to enumerate every installed skill from raw user intent (a dedicated discovery skill in this plugin handles that), and do NOT use to teach the global cross-plugin AIDD flow (a separate cross-plugin onboard owns that scope).` |
 
 #### `skills/01-bootstrap`
 
@@ -60,6 +71,7 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | `actions` | [05-init-rules-skeleton.md](skills/02-project-init/actions/05-init-rules-skeleton.md) | - |
 | `actions` | [06-sync-memory.md](skills/02-project-init/actions/06-sync-memory.md) | - |
 | `assets` | [AGENTS.md](skills/02-project-init/assets/AGENTS.md) | `AI agent configuration and guidelines` |
+| `assets` | [CONTRIBUTING.md](skills/02-project-init/assets/CONTRIBUTING.md) | - |
 | `assets` | [golden-principles.md](skills/02-project-init/assets/golden-principles.md) | - |
 | `assets` | [GUIDELINES.md](skills/02-project-init/assets/GUIDELINES.md) | - |
 | `assets` | [README.md](skills/02-project-init/assets/README.md) | - |
@@ -102,15 +114,4 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 |-------|------|---|
 | `actions` | [01-find-skill.md](skills/06-discovery/actions/01-find-skill.md) | `Help the user discover installed skills and find the right one for their use case.` |
 | `-` | [SKILL.md](skills/06-discovery/SKILL.md) | `Help users discover installed skills and find the right one for their use case.` |
-
-#### `skills/00-onboard`
-
-| Group | File | Description |
-|-------|------|---|
-| `actions` | [01-detect-state.md](skills/00-onboard/actions/01-detect-state.md) | - |
-| `actions` | [02-recommend-next.md](skills/00-onboard/actions/02-recommend-next.md) | - |
-| `actions` | [03-execute-or-handoff.md](skills/00-onboard/actions/03-execute-or-handoff.md) | - |
-| `assets` | [state-matrix.md](skills/00-onboard/assets/state-matrix.md) | - |
-| `evals` | [scenarios.json](skills/00-onboard/evals/scenarios.json) | - |
-| `-` | [SKILL.md](skills/00-onboard/SKILL.md) | `Detect the project's aidd-context state and guide the user to one concrete next aidd-context action through a state -> recommend -> execute loop. Use when the user says "where do I start", "I'm new to this plugin", "onboard me", "what should I run next", "guide me through aidd-context", or invokes aidd-context:00:onboard. Do NOT use to enumerate every installed skill from raw user intent (a dedicated discovery skill in this plugin handles that), and do NOT use to teach the global cross-plugin AIDD flow (a separate cross-plugin onboard owns that scope).` |
 

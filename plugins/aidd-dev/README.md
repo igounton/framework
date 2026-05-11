@@ -8,7 +8,7 @@ Covers the full SDLC coding loop: orchestrator, planning, assertions, audits, co
 
 | Bracket ID | Skill | Description |
 |---|---|---|
-| [2.0] | sdlc | SDLC orchestrator - plan, implement, test, review, commit, PR. |
+| [2.0] | sdlc | Dev SDLC orchestrator (code-shipping pipeline): spec, plan, implement, test, review, commit, PR. |
 | [2.1] | plan | Generate technical implementation plans, define component behaviors, and extract design details from images. |
 | [2.2] | assert | Assert features work as intended - general assertions, architecture conformance, and frontend UI validation. |
 | [2.3] | audit | Perform deep codebase analysis to identify technical debt, dead code, and improvement opportunities. |

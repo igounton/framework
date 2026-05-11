@@ -1,146 +1,62 @@
 ---
 name: aidd-dev:00:sdlc
-description: Pure orchestrator for the full AIDD development flow. Use when a human (or Gardener) needs to take a free-form request from idea to shipped code, end-to-end. Coordinates spec generation, planning, implementation, and review by composing other skills and agents. Holds no business logic of its own — every step is delegated.
+description: Development SDLC orchestrator that drives a code-shipping request through spec, plan, implementation, and finalize phases, adapting entry to whichever artifacts already exist. Use when the user says "dev sdlc", "sdlc", "/sdlc <request>", "ship this from idea to code", "run the full dev flow", "from request to PR", "resume the SDLC run from <spec or plan>", or when an automation needs the end-to-end engineering pipeline. Do NOT use for product-side SDLC variants (a separate orchestrator covers PM flows), ad-hoc source edits without a spec, single git operations, or pure refactors with no acceptance criteria.
 ---
 
-# Skill: sdlc
+# Dev SDLC
 
-Pure orchestrator. Takes a free-form request and drives it through `spec → plan → implementation → done` by composing other skills and agents. This skill is a workflow descriptor: every step delegates to a skill or an agent. No business logic lives here.
+Development pipeline conductor: composes other skills and agents to take a request from idea to shipped code. Holds no business logic of its own.
 
-## Iron rule
+## Available actions
 
-**You are the conductor, not a player.**
+| #   | Action            | Role                                                                              | Input                              |
+| --- | ----------------- | --------------------------------------------------------------------------------- | ---------------------------------- |
+| 01  | `spec-phase`      | Generate a draft spec, validate it, retry on findings, commit when validated      | request or prd_path, working_dir   |
+| 02  | `plan-phase`      | Drive the planner to produce a validated plan from the spec, then commit          | spec_path, options                 |
+| 03  | `implementation`  | Hand the plan to the planner; the planner drives the milestone-by-milestone loop  | plan_path, child_paths             |
+| 04  | `finalize`        | Write the run summary, commit, and open a pull request when requested             | working_dir, phase_outputs, options |
 
-You never write code. You never run tests. You never commit. You never load a skill into your own context.
+## Default flow
 
-Every action — including invoking another skill — is delegated to a sub-agent that runs in a fresh context. You only ever read structured outputs (YAML) returned by sub-agents. You never read the contents of files produced (spec.md, plan.md, source code) — those belong to the agents that wrote them.
+Sequential by phase, but the entry point adapts to inputs. Pick first match:
 
-If you find yourself about to use the `Skill`, `Write`, `Edit`, `Bash` tool yourself for anything other than reading a sub-agent output or routing it to the next phase, you have violated the protocol. Stop and re-delegate.
+- `plan_path` provided -> skip Phases 1 and 2, enter at `03 implementation`.
+- `spec_path` provided (validated) -> skip Phase 1, enter at `02 plan-phase`.
+- `request` or `prd_path` provided -> run all four phases from `01 spec-phase`.
 
-## Skill invocation protocol
+Each phase runs only after the previous one returns `status: validated` or `status: done`. Any phase returning `status: blocked` halts the run and escalates to the human.
 
-You never call `Skill(...)` directly. Every skill invocation is wrapped in an Agent spawn:
+## Transversal rules
 
-1. Spawn the Agent tool with `subagent_type: general-purpose`.
-2. Prompt template:
+- **Conductor, not player**. Never write code, run tests, commit, or load a skill into your own context. Every action delegates to a sub-agent in fresh context. Only structured outputs (YAML) are read; produced file contents are not.
+- **Skill invocation protocol**. Never call `Skill(...)` directly. Wrap every skill invocation in an `Agent` spawn with `subagent_type: general-purpose`, prompt the agent to invoke the named skill with concrete inputs and return ONLY the YAML output, then parse the YAML. Same-plugin agents (`planner`, `reviewer`, `implementer`) load their own skills internally; that already satisfies the rule.
+- **Role-based dispatch**. Phases reference capabilities by role (spec generation, planning, VCS commit, VCS pull request), not by skill id. The runtime resolver picks the installed skill whose description matches the role. If no installed skill matches a required role, return `status: blocked` with the missing role recorded in `notes`. Optional roles (e.g. PR creation when `open_pr: false`) skip silently.
+- **Adaptive entry**. The orchestrator detects state from inputs and starts at the earliest phase whose prerequisite is missing (see Default flow).
+- **Default working directory**. Resolve `working_dir` in this exact order, picking the first match:
+   1. The caller passed an explicit `working_dir` -> use it.
+   2. `aidd.docs_root` set in project memory -> `<that>/tasks/<yyyy_mm>/<yyyy_mm_dd>-<feature_name>/`.
+   3. `aidd_docs/` directory exists at repo root -> `aidd_docs/tasks/<yyyy_mm>/<yyyy_mm_dd>-<feature_name>/`.
+   4. `docs/` directory exists at repo root -> `docs/tasks/<yyyy_mm>/<yyyy_mm_dd>-<feature_name>/`.
+   5. None of the above -> return `status: blocked` with `notes: "no project-docs-root resolvable; pass working_dir explicitly"`.
+  Tool-internal directories (`.claude/`, `.aidd/`, etc.) are NEVER used as a fallback.
+- **Working directory threading**. The orchestrator forwards the resolved `working_dir` to every phase that needs it (`spec-phase`, `plan-phase`, `implementation`, `finalize`). Phases never derive a different working directory.
+- **Feature-name derivation**. Commit messages reference `<feature-name>`. The orchestrator derives it once at start: from `spec_path` filename when present (the slug between the `<yyyy_mm_dd>-` prefix and the `-prd.md` / `-spec.md` suffix), else from a short hash of the original `request`. Pass the resolved name to every phase that builds a commit message.
+- **Sub-agent output verification**. After every sub-agent spawn that returns a path, verify the path exists on disk. On missing file, retry the spawn once with the same inputs; on second failure, return `status: blocked` with the failed path in `notes`.
+- **Commits are always produced**. Every phase boundary and every ticked acceptance criterion during implementation produces a commit. There is no opt-out for commit production; the audit trail is mandatory.
+- **Quality threshold and retry cap** apply per phase. Defaults: `quality_threshold: 90`, `retry_cap_per_step: 3`. Beyond the cap, the mode rule decides.
+- **Mode**. `options.mode` controls human interaction. Default is `auto`.
+  - `auto` -> never prompt the human. On any blocked decision, validator failure beyond the retry cap, or missing capability, return `status: blocked` with the cause in `notes` and halt the run cleanly. Suited for orchestrators and unattended automation.
+  - `interactive` -> on blocked decisions or retry-cap events, surface the blocker, the latest output, and the suspected cause to the human; wait for input; resume with refined inputs. Suited for first-time runs or hands-on iteration.
+- **Escalation (interactive only)**. When a step exceeds the retry cap or returns `blocked`, surface the blocker to the human and wait. Never silently continue.
 
-   ```
-   Invoke skill `<skill-id>` with these inputs:
-   <yaml inputs>
+## References
 
-   Run the skill in your fresh context. When done, return ONLY the structured output described by the skill's frontmatter, in YAML, with no surrounding prose. Do not include the file contents you produced.
-   ```
+- None.
 
-3. Parse the agent's YAML response. Use the values, not the produced content.
+## Assets
 
-This applies to: `aidd-pm:05:spec`, `aidd-vcs:01:commit`, `aidd-vcs:02:pull-request`. Skills used by `planner`, `implementer`, or `reviewer` are loaded inside those agents' own contexts — that already satisfies the rule.
+- None.
 
-## When to use
+## External data
 
-- A human invokes `/sdlc <request>` to start a new run from a free-form description
-- A Gardener (async) decides a new run is needed and invokes this skill
-- A previous run was paused and needs to be resumed with refined input
-
-## When NOT to use
-
-- A spec already exists and is validated → invoke the `planner` agent directly
-- A milestone implementation is needed in isolation → invoke the `implementer` agent directly
-- A standalone review is needed → invoke the `reviewer` agent directly
-- A human just wants a draft spec without execution → invoke `aidd-pm:05:spec` directly
-
-## Inputs
-
-At least one of `request` or `prd_path` is required. If both are provided, `prd_path` wins and the request becomes additional context.
-
-```yaml
-request: <free-form human description of what to build, optional>
-prd_path: <path to an existing PRD file, optional>
-working_dir: <optional — defaults to current working directory>
-options:
-  quality_threshold: <0-100, default 90>
-  retry_cap_per_step: <n, default 3>
-  open_pr: <true | false, default false>
-```
-
-Commits are **always** produced — at every phase boundary and at every ticked checkbox during implementation. There is no `auto_commit: false` mode. The audit trail is mandatory.
-
-## Outputs
-
-```yaml
-status: done | blocked | aborted
-spec_path: <path to validated spec>
-plan_summary: <count of milestones, count of decisions made/blocked>
-commits:
-  spec_validated: <sha>
-  plan_validated: <sha>
-  per_milestone: [<sha>, ...]
-  final: <sha if status=done>
-pr_url: <if open_pr and status=done>
-duration: <hh:mm>
-notes: <relevant observations>
-```
-
-## Orchestration
-
-Four phases. Each phase delegates. Defaults below are overridable per invocation via `options`.
-
-### Phase 1 — Spec generation and validation
-
-1. **Spawn a sub-agent (per Skill invocation protocol)** to invoke `aidd-pm:05:spec` with inputs `{request, prd_path, working_dir}`. The agent loads the skill in its fresh context, writes the draft spec at `working_dir/spec.md`, and returns `{spec_path, status, notes}`. You never load the skill yourself; you only read the YAML output.
-2. **Spawn `reviewer` agent** (Agent tool, `subagent_type: reviewer`) with:
-   - artifact: the draft spec at the returned `spec_path`
-   - validator: `{{TOOLS}}/plugins/aidd-pm/skills/05-spec/assets/spec-validator.yml` (filesystem path, resolved by Claude Code)
-3. Read the reviewer's output:
-   - `completion_score = 100` and `quality_score >= quality_threshold` → proceed to step 4
-   - `quality_score < quality_threshold` → re-spawn the spec sub-agent with `existing_spec` and `findings`, retry
-   - Beyond `retry_cap_per_step` retries → escalate to human, return with `status: blocked`
-4. **Commit the validated spec.** Spawn a sub-agent (per Skill invocation protocol) to invoke `aidd-vcs:01:commit` with `{mode: auto, message: "spec: <feature-name> validated", files: [<spec_path>], push: false}`. Record the returned `commit_sha` in `commits.spec_validated`.
-
-### Phase 2 — Planning
-
-1. Spawn `planner` agent with the validated spec.
-2. The planner uses `aidd-dev:01:plan` internally. The skill writes to `aidd_docs/tasks/<yyyy_mm>/...md` (simple plan) or to `*-master.md` plus one `*-part-N.md` per child plan (master plan). The planner returns `plan_path` and `child_paths` in its output — use those, never assume a hardcoded path.
-3. Read the planner's output:
-   - `plan_path` empty → planner failed to produce a plan, retry once then escalate
-   - `decisions_blocked` non-empty → ask the human, get answers, re-spawn the planner with the answers as input
-   - `plan_status: blocked` → escalate, return with `status: blocked`
-   - Beyond `retry_cap_per_step` retries → escalate to human
-4. **Commit the validated plan.** Spawn a sub-agent (per Skill invocation protocol) to invoke `aidd-vcs:01:commit` with `{mode: auto, message: "plan: <feature-name> validated", files: [<plan_path>, ...child_paths], push: false}`. Record the returned `commit_sha` in `commits.plan_validated`.
-
-The plan does not require a separate validator pass at this stage. The planner's structural output is used as-is. A plan validator may be added later if the run pattern reveals gaps.
-
-### Phase 3 — Implementation
-
-1. Hand the validated plan back to the `planner` for execution. Pass `plan_path` and any `child_paths` from Phase 2 — the planner reads them to drive the loop. The planner now drives the milestone-by-milestone loop in its own context:
-   - **Simple plan** (`child_paths` empty): one `plan_path`, milestones live inside it.
-   - **Master plan** (`child_paths` non-empty): the master enumerates child plans; the planner sequences them, processing milestones from each child in order.
-   - For each milestone, the planner spawns `implementer` (fresh) and then `reviewer` (fresh, with the milestone's acceptance criteria as validator).
-   - The planner re-spawns until quality passes its threshold or it escalates.
-   - **The implementer commits atomically per ticked acceptance criterion checkbox** (one criterion = one commit, message: `<milestone-id>/<step>: <description>`). Tasks under each phase guide HOW to implement; acceptance criteria are the verified states that trigger commits. This produces the per-milestone commit trail recorded in `commits.per_milestone`.
-2. The planner returns when `plan_status: done` or `plan_status: blocked`.
-3. If `blocked` → escalate to human. The human may refine the spec and the run can resume from Phase 1, or abort.
-
-### Phase 4 — Finalize
-
-1. **Write the run summary.** Spawn a sub-agent (Agent tool, `subagent_type: general-purpose`) and instruct it to write `working_dir/summary.md` with the decisions, milestones, final state, and commit shas you tracked. The agent does the writing; you don't. It returns `{summary_path}`.
-2. **Final commit.** Spawn a sub-agent (per Skill invocation protocol) to invoke `aidd-vcs:01:commit` with `{mode: auto, message: "feat: <feature-name> complete", files: [<summary_path>], push: <open_pr>}` (push only if a PR is requested). Record the returned `commit_sha` in `commits.final`.
-3. If `open_pr: true` → spawn a sub-agent (per Skill invocation protocol) to invoke `aidd-vcs:02:pull-request`. Record the returned URL in `pr_url`.
-4. Return the structured output.
-
-## Skills and agents this skill uses
-
-- Skills: `aidd-pm:05:spec`, `aidd-dev:01:plan`, `aidd-vcs:01:commit`, `aidd-vcs:02:pull-request`
-- Agents: `planner`, `reviewer`
-
-The `implementer` agent is spawned by the `planner` during Phase 3, not by this skill directly.
-
-## Quality threshold and retry caps
-
-Both are overridable per invocation via `options`. Defaults (quality 90, cap 3) are a balanced setup for general-purpose runs. Tighten for production-critical work, loosen for prototypes.
-
-## Escalation protocol
-
-When a step exceeds `retry_cap_per_step`:
-1. Stop the run.
-2. Surface the blocker, the latest output, and the suspected cause to the human.
-3. Wait for human input or human-driven restart. Don't silently continue.
+- None.
