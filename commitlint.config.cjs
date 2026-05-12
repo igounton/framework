@@ -14,5 +14,7 @@ module.exports = {
         "framework",
       ],
     ],
+    "body-max-line-length": [0, "always"],
+    "footer-max-line-length": [0, "always"],
   },
 };
