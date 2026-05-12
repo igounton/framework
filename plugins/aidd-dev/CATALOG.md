@@ -42,12 +42,11 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 
 | Group | File | Description |
 |-------|------|---|
-| `actions` | [01-spec-phase.md](skills/00-sdlc/actions/01-spec-phase.md) | - |
-| `actions` | [02-plan-phase.md](skills/00-sdlc/actions/02-plan-phase.md) | - |
-| `actions` | [03-implementation.md](skills/00-sdlc/actions/03-implementation.md) | - |
-| `actions` | [04-finalize.md](skills/00-sdlc/actions/04-finalize.md) | - |
+| `actions` | [01-plan.md](skills/00-sdlc/actions/01-plan.md) | - |
+| `actions` | [02-implement.md](skills/00-sdlc/actions/02-implement.md) | - |
+| `actions` | [03-review.md](skills/00-sdlc/actions/03-review.md) | - |
 | `evals` | [scenarios.json](skills/00-sdlc/evals/scenarios.json) | - |
-| `-` | [SKILL.md](skills/00-sdlc/SKILL.md) | `Development SDLC orchestrator that drives a code-shipping request through spec, plan, implementation, and finalize phases, adapting entry to whichever artifacts already exist. Use when the user says "dev sdlc", "sdlc", "/sdlc <request>", "ship this from idea to code", "run the full dev flow", "from request to PR", "resume the SDLC run from <spec or plan>", or when an automation needs the end-to-end engineering pipeline. Do NOT use for product-side SDLC variants (a separate orchestrator covers PM flows), ad-hoc source edits without a spec, single git operations, or pure refactors with no acceptance criteria.` |
+| `-` | [SKILL.md](skills/00-sdlc/SKILL.md) | `Pure orchestrator for the full AIDD development flow. Use when a human (or Gardener) needs to take a free-form request from idea to shipped code, end-to-end. Coordinates spec generation, planning, implementation, and review by composing other skills and agents. Holds no business logic of its own; every step is delegated.` |
 
 #### `skills/01-plan`
 
@@ -59,6 +58,7 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | `assets` | [master-plan-template.md](skills/01-plan/assets/master-plan-template.md) | `Parent plan template orchestrating multiple child plans with validation gates` | - |
 | `assets` | [plan-template.md](skills/01-plan/assets/plan-template.md) | `Living implementation plan - frozen objective, phases, and append-only execution Log. Used as input artifact AND as the autonomous-loop tracking file.` | - |
 | `assets` | [tech-choice-template.md](skills/01-plan/assets/tech-choice-template.md) | `Technology selection and comparison template` | - |
+| `evals` | [scenarios.json](skills/01-plan/evals/scenarios.json) | - | - |
 | `references` | [mermaid-conventions.md](skills/01-plan/references/mermaid-conventions.md) | `Rules for generating valid, high-quality Mermaid diagrams. Apply when creating or reviewing any Mermaid diagram (flowchart, state, ER, sequence, gantt).` | - |
 | `-` | [SKILL.md](skills/01-plan/SKILL.md) | `Generate technical implementation plans, define component behaviors, and extract design details from images.` | - |
 
@@ -67,6 +67,7 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | Group | File | Description | Argument Hint |
 |-------|------|---|---|
 | `actions` | [01-implement.md](skills/02-implement/actions/01-implement.md) | `Implement a plan phase by phase using the implementer agent, iterating until 100% completeness.` | `The technical plan to implement` |
+| `evals` | [scenarios.json](skills/02-implement/evals/scenarios.json) | - | - |
 | `-` | [SKILL.md](skills/02-implement/SKILL.md) | `Execute an implementation plan phase by phase via the implementer agent, iterating until 100% completeness.` | - |
 
 #### `skills/03-assert`
@@ -77,6 +78,7 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | `actions` | [02-assert-architecture.md](skills/03-assert/actions/02-assert-architecture.md) | `Verify code conforms to architecture diagrams, ADRs, and project structure.` | `[Optional scope to verify (module, service, or layer name)]` |
 | `actions` | [03-assert-frontend.md](skills/03-assert/actions/03-assert-frontend.md) | `Assert a frontend feature works as intended.` | `The frontend behavior you need to assert and validate.` |
 | `assets` | [task-template.md](skills/03-assert/assets/task-template.md) | `Task tracking system to ensure all tasks are categorized and addressed` | - |
+| `evals` | [scenarios.json](skills/03-assert/evals/scenarios.json) | - | - |
 | `-` | [SKILL.md](skills/03-assert/SKILL.md) | `Assert features work as intended - general assertions, architecture conformance, and frontend UI validation.` | - |
 
 #### `skills/04-audit`
@@ -84,6 +86,8 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | Group | File | Description | Argument Hint |
 |-------|------|---|---|
 | `actions` | [01-audit.md](skills/04-audit/actions/01-audit.md) | `Perform deep codebase analysis for technical debt and improvements` | `Scope to audit (optional - defaults to full codebase)` |
+| `assets` | [audit-template.md](skills/04-audit/assets/audit-template.md) | `Codebase audit report template` | - |
+| `evals` | [scenarios.json](skills/04-audit/evals/scenarios.json) | - | - |
 | `-` | [SKILL.md](skills/04-audit/SKILL.md) | `Perform deep codebase analysis to identify technical debt, dead code, and improvement opportunities.` | - |
 
 #### `skills/05-review`
@@ -95,6 +99,7 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | `assets` | [code-review-template.md](skills/05-review/assets/code-review-template.md) | `Code review checklist and scoring template` | - |
 | `assets` | [review-functional-template.md](skills/05-review/assets/review-functional-template.md) | `Functional review report template` | - |
 | `assets` | [review-template.md](skills/05-review/assets/review-template.md) | `Code review checklist and scoring template` | - |
+| `evals` | [scenarios.json](skills/05-review/evals/scenarios.json) | - | - |
 | `-` | [SKILL.md](skills/05-review/SKILL.md) | `Review code quality against project rules and validate feature behavior against plan specifications.` | - |
 
 #### `skills/06-test`
@@ -103,6 +108,7 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 |-------|------|---|---|
 | `actions` | [01-test.md](skills/06-test/actions/01-test.md) | `List untested behaviors and iterate on test creation until tests pass with best practices` | `[things you want to test]` |
 | `actions` | [02-test-journey.md](skills/06-test/actions/02-test-journey.md) | `Test a user journey end-to-end by navigating and validating each step in the browser.` | `The user journey steps to validate and the URL to test on.` |
+| `evals` | [scenarios.json](skills/06-test/evals/scenarios.json) | - | - |
 | `-` | [SKILL.md](skills/06-test/SKILL.md) | `Write and iterate on tests until they pass, and validate user journeys end-to-end in the browser.` | - |
 
 #### `skills/07-refactor`
@@ -111,6 +117,7 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 |-------|------|---|
 | `actions` | [01-performance.md](skills/07-refactor/actions/01-performance.md) | `Optimize code for better performance` |
 | `actions` | [02-security.md](skills/07-refactor/actions/02-security.md) | `Identify and fix security vulnerabilities` |
+| `evals` | [scenarios.json](skills/07-refactor/evals/scenarios.json) | - |
 | `-` | [SKILL.md](skills/07-refactor/SKILL.md) | `Optimize code for performance and fix security vulnerabilities following OWASP guidelines.` |
 
 #### `skills/08-debug`
@@ -121,6 +128,7 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | `actions` | [02-debug.md](skills/08-debug/actions/02-debug.md) | `Debug issue to find root cause.` | - |
 | `actions` | [03-reflect-issue.md](skills/08-debug/actions/03-reflect-issue.md) | `Reflect on possible sources, identify most likely causes, add validation logs before fixing` | - |
 | `assets` | [task-template.md](skills/08-debug/assets/task-template.md) | `Task tracking system to ensure all tasks are categorized and addressed` | - |
+| `evals` | [scenarios.json](skills/08-debug/evals/scenarios.json) | - | - |
 | `references` | [mermaid-conventions.md](skills/08-debug/references/mermaid-conventions.md) | `Rules for generating valid, high-quality Mermaid diagrams. Apply when creating or reviewing any Mermaid diagram (flowchart, state, ER, sequence, gantt).` | - |
 | `-` | [SKILL.md](skills/08-debug/SKILL.md) | `Reproduce and fix bugs systematically using test-driven workflow, root cause analysis, and hypothesis validation.` | - |
 
@@ -131,5 +139,6 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | `actions` | [01-init-tracking.md](skills/09-for-sure/actions/01-init-tracking.md) | - |
 | `actions` | [02-auto-accept.md](skills/09-for-sure/actions/02-auto-accept.md) | `Auto-accept all prompts and act autonomously without asking for confirmation. Use when the user says 'just do it', 'don''t ask me', 'auto-accept', 'install this from', or provides a URL with an implicit 'handle everything' intent.` |
 | `actions` | [03-autonomous-loop.md](skills/09-for-sure/actions/03-autonomous-loop.md) | - |
+| `evals` | [scenarios.json](skills/09-for-sure/evals/scenarios.json) | - |
 | `-` | [SKILL.md](skills/09-for-sure/SKILL.md) | `Iterative agent loop that tracks attempts and retries until a success condition is met. Use when the user says "for sure", "make sure", "keep trying until", "loop until done", "don't stop until", or needs guaranteed completion of a task with explicit success criteria.` |
 
