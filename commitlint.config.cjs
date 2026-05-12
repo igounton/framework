@@ -9,6 +9,8 @@ module.exports = {
         "aidd-dev",
         "aidd-vcs",
         "aidd-pm",
+        "aidd-refine",
+        "aidd-orchestrator",
         "framework",
       ],
     ],
