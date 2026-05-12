@@ -2,7 +2,7 @@ module.exports = {
   extends: ["@commitlint/config-conventional"],
   rules: {
     "scope-enum": [
-      2,
+      1,
       "always",
       [
         "aidd-context",
@@ -14,5 +14,7 @@ module.exports = {
         "framework",
       ],
     ],
+    "body-max-line-length": [0, "always"],
+    "footer-max-line-length": [0, "always"],
   },
 };
