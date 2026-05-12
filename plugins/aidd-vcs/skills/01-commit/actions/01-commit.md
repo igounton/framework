@@ -11,6 +11,11 @@ push: true | false             # default: false
 files: [<paths>]               # optional; restrict staging to these paths
 ```
 
+When invoked via slash command, parse `$ARGUMENTS`:
+
+- contains the word `push` → set `push: true`
+- empty or anything else → leave `push: false`
+
 ## Outputs
 
 ```yaml

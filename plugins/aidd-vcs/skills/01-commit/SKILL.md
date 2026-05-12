@@ -17,6 +17,13 @@ Generates atomic git commits with conventional messages, supporting interactive 
 
 Single action skill. The router dispatches to `commit` whenever a commit phrase or slash command appears.
 
+## Inline arguments
+
+When invoked as a slash command, the trailing argument controls the push behavior:
+
+- `/commit` → commits only, stays local (`push: false`)
+- `/commit push` → commits then pushes the branch (`push: true`)
+
 ## Transversal rules
 
 - Commits stay atomic and focused on a single concern.
