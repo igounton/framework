@@ -1,6 +1,6 @@
 ---
 name: aidd-context:01:bootstrap
-description: Imagine and validate the technical architecture of a new SaaS through interactive Q&A, candidate-stack comparison, multi-agent audit, and an INSTALL.md output. Use when starting a new SaaS project, choosing a stack, designing the architecture pattern (monolith vs microservices vs serverless), or producing a project's INSTALL.md. Do NOT use for editing an existing project's stack (use direct edits or `aidd-dev:01:plan`), database schema design, or scaffolding actual files (this skill produces docs only, no code).
+description: Imagine and validate the technical architecture of a new SaaS through interactive Q&A, candidate-stack comparison, multi-agent audit, and an INSTALL.md output. Use when starting a new SaaS project, choosing a stack, designing the architecture pattern (monolith vs microservices vs serverless), or producing a project's INSTALL.md. Do NOT use for editing an existing project's stack, database schema design, or scaffolding actual files (this skill produces docs only, no code).
 ---
 
 # Bootstrap
@@ -11,7 +11,7 @@ Plays the role of technical architect for a new SaaS project. Walks the user thr
 
 | #   | Action                | Role                                                           | Input              |
 | --- | --------------------- | -------------------------------------------------------------- | ------------------ |
-| 01  | `gather-needs`        | Q&A across the 17-item checklist                               | user intent        |
+| 01  | `gather-needs`        | Q&A across the 24-item checklist                               | user intent        |
 | 02  | `propose-candidates`  | Derive 2-3 candidate stacks, render comparison table           | filled checklist   |
 | 03  | `audit-candidates`    | Spawn parallel agents to validate each candidate, emit verdict | candidates table   |
 | 04  | `pick-and-design`     | User picks winner; generate folder tree + Mermaid diagram      | audit report       |
@@ -35,7 +35,7 @@ Plays the role of technical architect for a new SaaS project. Walks the user thr
 
 ## Assets
 
-- `assets/checklist.md` - the 17-item checklist (4 blocks)
+- `assets/checklist.md` - the 24-item checklist (4 blocks)
 - `assets/install-template.md` - the `INSTALL.md` skeleton
 
 ## External data

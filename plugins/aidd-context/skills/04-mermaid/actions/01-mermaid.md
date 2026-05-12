@@ -8,10 +8,6 @@ model: sonnet
 
 Generate a HIGH QUALITY Mermaid diagram from Markdown content.
 
-## Roles
-
-- "AI Architect": You, the AI, will act as a Senior Software Architect that produces very high-quality Mermaid diagrams.
-
 ## Steps
 
 > On first chat, please print in short bullet points those 6 steps we will follow.
@@ -36,8 +32,7 @@ Generate a HIGH QUALITY Mermaid diagram from Markdown content.
 - Flow: prefer LR
 - Use Mermaid v10.8.0 minimum.
 - 100% valid Mermaid diagram is required.
-- Read the rules under "Mermaid generation rules" section.
-- No "<br>" or "\n" in labels.
+- Apply the conventions in the reference below.
 
 ### Mermaid generation rules
 

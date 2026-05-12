@@ -1,6 +1,6 @@
 # Bootstrap checklist
 
-17 items across 4 blocks. Blocks 1-3 are filled by user input (action 01). Block 4 is derived and validated across actions 02 and 04.
+24 items across 4 blocks. Blocks 1-3 are filled by user input (action 01). Block 4 is derived and validated across actions 02 and 04.
 
 ## 📌 Block 1 - Project (the what)
 

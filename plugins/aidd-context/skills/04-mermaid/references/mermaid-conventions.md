@@ -1,9 +1,3 @@
----
-description: Rules for generating valid, high-quality Mermaid diagrams. Apply when creating or reviewing any Mermaid diagram (flowchart, state, ER, sequence, gantt).
-globs: ["**/*.mmd", "**/*.md"]
-alwaysApply: false
----
-
 # Mermaid generation rules
 
 ## Header
@@ -13,6 +7,7 @@ alwaysApply: false
 ## Global
 
 - NEVER use "\n"
+- NEVER use "<br>" in labels
 
 ## States and nodes
 
