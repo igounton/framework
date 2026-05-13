@@ -1,27 +1,32 @@
----
-name: assert
-description: Assert that a feature must work as intended.
-model: sonnet
----
+# 01 - Assert
 
-# Goal
+Iterate until a feature works as intended by running the project's coding assertions and fixing every failure.
 
-Assert that this feature works as intended.
+## Inputs
 
-## Resources
+```yaml
+feature: <name or short description of the feature to assert>
+```
 
-### Coding assertions
+## Outputs
 
-Based on the current context, use relevant coding assertions to validate correctness.
+```yaml
+assertions_total: <int>
+assertions_passing: <int>
+iterations: <int>
+fixes_applied:
+  - { file: <path>, change: <one-line summary> }
+```
 
-## Rules
+## Process
 
-- Do not stop until the feature works as intended.
+1. **Enumerate assertions.** From the current context (project conventions and coding-assertions memory), list the assertions that apply to the feature.
+2. **Iterate per assertion.** For each one:
+   - Fix any issues preventing it from passing.
+   - Re-run the assertion to confirm it passes.
+3. **Full re-check.** Once every assertion has passed at least once, re-run all of them in one sweep to confirm none regressed.
+4. **Boundary.** Do not stop until every assertion passes in the final sweep.
 
-## Steps
+## Test
 
-Iterate over those steps until the feature work as intended.
-
-1. For each assertion, fix any issues preventing it from passing.
-2. After fixing, re-run this assertion to confirm it passes.
-3. Once all assertions pass, re-run all the checks again to ensure every assertion is passing.
+The final sweep reports `assertions_passing == assertions_total`; the recorded `fixes_applied` list cites real diffs (no empty or placeholder entries when fixes were claimed).

@@ -1,41 +1,35 @@
----
-name: components_behavior
-description: Define the expected behavior of frontend components into a state machine format.
-argument-hint: names of the components to define behavior for.
-model: sonnet
----
+# 02 - Components behavior
 
-# Goal
+Define the expected behavior of one or more frontend components as state machines, rendered in Mermaid syntax for user validation.
 
-Define the expected behavior of the following frontend components into a state machine format:
+## Inputs
 
-```text
-$ARGUMENTS
+```yaml
+components: <list of component names, passed via $ARGUMENTS>
 ```
 
-## Rules
+## Outputs
 
-- Use a state machine format to define the behavior of each component.
-- Each state should represent a distinct condition or mode of the component.
-- Transitions between states should be triggered by specific events or user actions.
-- Include conditions for each transition if applicable.
-- Ensure that the state machine captures all possible states and transitions for the component's behavior.
-- Use Mermaid syntax for state machine representation.
-
-### Mermaid rules
-
-```markdown
-@../references/mermaid-conventions.md
+```yaml
+state_machines:
+  - component: <name>
+    diagram: <mermaid block>
+    states: [<state name>]
+    transitions: [{ from: <state>, to: <state>, event: <text>, condition: <optional text> }]
 ```
 
-## Steps
+## Process
 
-Iterate over those steps until the behavior is fully defined.
+Iterate over the steps below until each component is fully defined.
 
-1. Parse the user's initial request to extract the list of components.
-2. For each component:
-   1. Identify the key states the component can be in.
-   2. Determine the events or actions that trigger transitions between these states.
-   3. Define the state machine using a clear and structured format (e.g., Mermaid syntax).
-3. Review the state machine to ensure it captures all possible behaviors of the component.
-4. Present the final state machine definitions to the user for validation.
+1. **Parse the request.** Extract the list of components from `$ARGUMENTS`.
+2. **Per component**:
+   - Identify the key states the component can be in.
+   - Determine the events or actions that trigger transitions between states.
+   - Define the state machine in Mermaid syntax, applying `@../references/mermaid-conventions.md`.
+3. **Sanity-check the model.** Confirm the state machine captures every state and every transition relevant to the component's behavior.
+4. **Present the final state machines** to the user for validation. Wait for an explicit OK before exiting.
+
+## Test
+
+For each component in `components`: the corresponding `state_machines` entry has a Mermaid block that parses, lists at least two states, and every transition references states that exist in the same diagram.

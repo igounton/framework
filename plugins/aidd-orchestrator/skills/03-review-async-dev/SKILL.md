@@ -38,7 +38,7 @@ Loop: `01 -> 02`. If `02` says continue, run `03` then jump back to `01`. If `02
 - Never auto-merge. The loop only adds commits to the existing PR branch.
 - **Always acknowledge the trigger**: action `01` adds an `eyes` reaction; action `04` swaps it to `+1` / `confused` / `-1` based on stop reason.
 - **Always respond per comment**: every addressed inline review comment receives a threaded reply with the fix summary and the corresponding commit link, then its review thread is resolved via the GraphQL `resolveReviewThread` mutation. No silent fix.
-- **Always post a summary**: action `04` posts exactly one structured PR comment (template defined in `actions/skills/04-finalize.md`). Posted even when no fix iteration ran.
+- **Always post a summary**: action `04` posts exactly one structured PR comment (template defined in `actions/04-finalize.md`). Posted even when no fix iteration ran.
 - See `references/stop-conditions.md` for the precise stop logic.
 
 ## References

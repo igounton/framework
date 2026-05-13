@@ -1,17 +1,33 @@
----
-name: auto_accept
-description: "Auto-accept all prompts and act autonomously without asking for confirmation. Use when the user says 'just do it', 'don''t ask me', 'auto-accept', 'install this from', or provides a URL with an implicit 'handle everything' intent."
----
+# 02 - Auto-accept
 
-# Auto-accept
+Operate autonomously: do not ask for confirmation, decide and act, only stop on money or destructive actions.
 
-Do not ask for confirmation. Read, decide, act. The human trusts you.
+## Inputs
 
-## Rules
+```yaml
+task: <free-form description of what to handle end-to-end>
+```
 
-1. **Accept everything by default**: IF a prompt, dialog, checkbox, Y/n, license, cookie banner, or confirmation appears THEN accept it and move on.
-2. **Choose defaults**: IF an installer offers options THEN pick the recommended/standard one.
-3. **Fix problems yourself**: IF something fails (missing dependency, wrong version, config error) THEN fix it and retry. Do not ask.
-4. **Stop only when it costs money**: IF an action involves payment, subscription, or upgrade to a paid tier THEN stop and tell the user.
-5. **Stop on destructive actions**: IF an action deletes data, drops a database, removes files recursively, force-pushes, resets git history, or overwrites uncommitted work THEN stop and tell the user.
-6. **Stay scoped**: IF an instruction leads outside the original task (unrelated tools, external signups, rabbit holes) THEN skip it and move on. Only do what the user asked for - nothing more.
+## Outputs
+
+```yaml
+status: completed | stopped_payment | stopped_destructive | stopped_out_of_scope
+actions_taken:
+  - <one-line summary>
+stopped_reason: <single sentence; empty when status == completed>
+```
+
+## Process
+
+Apply these rules in order to every prompt, dialog, checkbox, Y/n, license screen, cookie banner, or confirmation encountered while handling the task.
+
+1. **Accept everything by default.** Acknowledge and move on.
+2. **Choose defaults.** When an installer offers options, pick the recommended or standard one.
+3. **Fix problems yourself.** When something fails (missing dependency, wrong version, config error), fix it and retry. Do not ask.
+4. **Stop only when it costs money.** When an action involves payment, subscription, or upgrade to a paid tier, stop and report.
+5. **Stop on destructive actions.** When an action deletes data, drops a database, removes files recursively, force-pushes, resets git history, or overwrites uncommitted work, stop and report.
+6. **Stay scoped.** When an instruction would lead outside the original task (unrelated tools, external signups, rabbit holes), skip it. Only do what the user asked for, nothing more.
+
+## Test
+
+`status` matches the actual exit path: `completed` only when the task was carried out end-to-end with no money or destructive action gate hit; `stopped_payment` / `stopped_destructive` / `stopped_out_of_scope` are accompanied by a non-empty `stopped_reason`.

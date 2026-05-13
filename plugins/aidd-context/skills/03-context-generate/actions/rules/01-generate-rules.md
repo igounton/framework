@@ -1,104 +1,61 @@
----
-name: generate_rules
-description: Generate or modify coding rules manually or auto-scan the codebase to propose rules
-argument-hint: "Rule topic to write, or 'auto' to scan codebase and propose rules"
-model: sonnet
----
+# 01 - Generate rules
 
-# Generate Rules
+Generate or modify coding rules, either from user input (manual mode) or by scanning the codebase (auto mode), then write each rule into every installed AI tool's native rules surface.
 
-## Goal
+## Inputs
 
-Generate or modify coding rules, either from user input (manual) or by scanning the codebase (auto).
-
-## Outcome
-
-Create structured markdown rule (.mdc or .md depending on the IDE) files with proper front-matter and content, plus IDE bridge files.
-
-## Resources
-
-### Template
-
-```markdown
-@../../assets/rules/rule-template.md
+```yaml
+arguments: <rule topic to write, or "auto"/"scan" to scan the codebase and propose rules>
 ```
 
-### IDE Mapping
+## Outputs
 
-Apply tool-native conventions for rule file paths, naming, and extensions.
-
-```markdown
-@../../references/ai-mapping.md
+```yaml
+mode: auto | manual
+files_written:
+  - { tool: <id>, path: <tool rules root>/<category>/<slug>.<ext> }
+  - ...
 ```
 
-## Context
+## Process
 
-### User input
+1. **Detect mode.**
+   - `arguments` is `auto` or `scan` -> auto mode (step 2A).
+   - Otherwise -> manual mode (step 2B).
 
-```text
-$ARGUMENTS
-```
+2A. **Auto mode - scan codebase.**
+   - Scan source files, configs, dependencies, and directory structure.
+   - Identify patterns, conventions, tech stack usage, existing rules.
+   - Propose a complete rules architecture: list categories and rule files, show groups and sub-groups per file, display the proposed file tree.
+   - WAIT FOR USER APPROVAL before proceeding to step 3.
 
-### Example rule file structure
+2B. **Manual mode - user-guided.**
+   - Remind project context: tech stack, versions, architecture, existing rules.
+   - Define categories, one file per category.
+   - Look for existing rules to update.
+   - Plan the new rule(s) structure: file, groups and sub-groups, display the proposed architecture.
+   - WAIT FOR USER APPROVAL before proceeding to step 3.
 
-```text
-03-frameworks-and-libraries/
-├── 3-react@19-components-structure.md (globs: ['**/*.tsx', '**/components/**', ...])
-│   ├── Component definition basics
-│   ├── Export patterns
-│   ├── Props and typing
-│   └── Naming conventions
-└── ...
-```
+3. **Generate.** For every installed AI tool, write the rule file inside that tool's rules root using `@../../assets/rules/rule-template.md` and the conventions in `@../../references/ai-mapping.md` (path, naming, extension, frontmatter). Skip any tool whose rules surface is marked "not supported". Create the rules root and the category subdirectory on demand (`mkdir -p`) before writing; do not assume the directory tree has been pre-scaffolded.
 
-## Rules
+   The category subdirectory and the slug stay identical across tools; only the root, extension, and frontmatter shape differ. Refer to `@../../references/rule-structure.md` and `@../../references/rule-writing.md` for content conventions.
 
-- Be concise, less is more
-- If multiple examples, then multiple rule files
-- Frontmatter and tool-specific syntax (extensions, paths, globs) live in the references below
+   Reference example rule file structure (illustrative):
 
-### Rule writing standards
+   ```text
+   03-frameworks-and-libraries/
+   ├── 3-react@19-components-structure.<ext> (paths: ['**/*.tsx', '**/components/**', ...])
+   │   ├── Component definition basics
+   │   ├── Export patterns
+   │   ├── Props and typing
+   │   └── Naming conventions
+   └── ...
+   ```
 
-```markdown
-@../../references/rule-writing.md
-```
+4. **Boundaries.**
+   - Be concise. Less is more.
+   - If multiple examples warrant separate files, create multiple rule files.
 
-### Rule file structure
+## Test
 
-```markdown
-@../../references/rule-structure.md
-```
-
-## Steps
-
-### Step 1: Detect mode
-
-- If `$ARGUMENTS` is "auto" or "scan" → **Auto mode** (Step 2A)
-- Otherwise → **Manual mode** (Step 2B)
-
-### Step 2A: Auto mode - Scan codebase
-
-1. Scan project: source files, configs, dependencies, directory structure
-2. Identify patterns, conventions, tech stack usage, and existing rules
-3. Propose a complete rules architecture:
-   - List categories and rule files
-   - Show groups and sub-groups per file
-   - Display proposed file tree
-4. **Wait for user approval** before proceeding
-5. → Go to Step 3
-
-### Step 2B: Manual mode - User-guided
-
-1. Remind project context: tech stack, versions, architecture, existing rules
-2. Define categories, 1 file per category
-3. Look for existing rules to update
-4. Plan the new rule(s) structure:
-   - File
-   - Define groups and sub-groups
-   - Display proposed architecture
-5. **Wait for user approval** before proceeding
-6. → Go to Step 3
-
-### Step 3: Generate
-
-Generate the rules based on the template, following the IDE mapping conventions for file path, naming and extension.
+For every installed AI tool whose rules surface is supported, the generated rule file exists at `<tool rules root>/<category>/<slug>.<ext>` with frontmatter matching the tool-specific shape from `@../../references/ai-mapping.md`. Content follows the conventions in `@../../references/rule-writing.md` and `@../../references/rule-structure.md`.

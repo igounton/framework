@@ -1,6 +1,7 @@
 ---
 name: aidd-dev:05:review
 description: Review code quality against project rules and validate feature behavior against plan specifications.
+model: opus
 ---
 
 # Skill: review

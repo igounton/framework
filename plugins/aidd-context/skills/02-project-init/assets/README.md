@@ -109,7 +109,7 @@ A typical change cycles through skills from several plugins. The order below is 
 
 1. **Bootstrap** (only for a brand-new project): `aidd-context:01:bootstrap` imagines the stack and architecture, comparing candidate stacks and writing an `INSTALL.md`. Skip this step on an existing project.
 2. **Project init** (once per project, re-runnable to refresh): `aidd-context:02:project-init` scaffolds `aidd_docs/`, the memory bank, and the AI context files for the tools you use. Re-running later refreshes the scaffold without overwriting your customizations.
-3. **Frame the request**: `aidd-refine:01:brainstorm` to clarify, `aidd-pm:01:ticket-info` to pull tracker data, `aidd-pm:02:user-stories-create` and `aidd-pm:03:prd` or `aidd-pm:05:spec` to formalize scope.
+3. **Frame the request**: `aidd-refine:01:brainstorm` to clarify, `aidd-pm:01:ticket-info` to pull tracker data, `aidd-pm:02:user-stories-create` and `aidd-pm:03:prd` or `aidd-pm:04:spec` to formalize scope.
 4. **Plan**: `aidd-dev:01:plan` produces the technical plan, component behavior model, or design-image extraction.
 5. **Implement and assert**: `aidd-dev:02:implement` writes code against the plan; `aidd-dev:03:assert` verifies the result.
 6. **Review**: `aidd-dev:05:review` for code and functional review; `aidd-refine:02:challenge` to stress-test the result.

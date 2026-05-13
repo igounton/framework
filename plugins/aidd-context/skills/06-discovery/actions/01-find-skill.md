@@ -1,28 +1,38 @@
----
-name: find-skill
-description: Help the user discover installed skills and find the right one for their use case.
-model: sonnet
----
+# 01 - Find skill
 
-# Find Skill
+Enumerate installed skills across all plugins, capture the user's intent, recommend the best match with its invocation path.
 
-## Goal
+## Inputs
 
-Help the user discover installed skills and identify the most relevant one for their current use case.
+- Free-form user intent (what they want to accomplish).
+- Installed plugins available to the current AI tool.
 
-## Rules
+## Outputs
 
-- List skills from the installed plugins only
-- Describe each skill's purpose concisely
-- Suggest the best match based on the user's intent
+A markdown table of installed skills + a recommendation block.
 
-## Steps
+```text
+| Plugin       | Skill           | Purpose                           |
+| ------------ | --------------- | --------------------------------- |
+| aidd-context | 02:project-init | Bootstrap memory bank + scaffold  |
+| aidd-dev     | 00:sdlc         | End-to-end dev SDLC orchestrator  |
+| ...          | ...             | ...                               |
 
-1. List all available skills from installed plugins. Use the AI tool's native skill discovery mechanism to enumerate installed skills.
+Recommendation: <best-match skill id>
+Why: <one sentence>
+Invoke with: /<skill-id>
+```
 
-2. For each skill found, extract its `name` and `description` from the frontmatter.
-3. Display a table: skill name, plugin, one-line description.
-4. Ask the user what they want to accomplish.
-5. **WAIT FOR USER RESPONSE**
-6. Recommend the best matching skill(s) with a short explanation of why they fit.
-7. Provide the invocation path or instructions to use the recommended skill.
+## Process
+
+1. **Enumerate installed skills.** Use the AI tool's native skill discovery to list every installed plugin and its skills.
+2. **Extract metadata.** For each `SKILL.md`, read `name` and `description` from the frontmatter. Skip malformed entries and log them.
+3. **Render the table.** Columns: `Plugin | Skill | Purpose`. Sort by plugin then skill id. One row per skill.
+4. **Ask the user for intent.** `What do you want to accomplish?` Wait for an explicit reply.
+5. **Match.** Score each skill against the stated intent. Pick the single best match. If two are clearly tied, list both.
+6. **Print the recommendation block.** Chosen skill id, one-sentence rationale, exact invocation string.
+7. **Stop.** Do not invoke the recommended skill.
+
+## Test
+
+The output contains a non-empty skills table whose rows match what the AI tool actually has installed, followed by a recommendation block that names one skill present in the table, a one-line rationale, and an invocation string.

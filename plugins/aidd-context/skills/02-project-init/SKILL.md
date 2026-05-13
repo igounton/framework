@@ -1,12 +1,12 @@
 ---
 name: aidd-context:02:project-init
-description: Initialize or refresh the project memory bank, scaffold the rules directory, and ensure AI context files contain the project memory block. Use when running `aidd init` for the first time, bootstrapping a new project, or re-running the init flow on an existing project. Do NOT use for updating individual memory files after they exist - use `aidd-context:05:learn` instead; do NOT use for editing a single rule - edit the file directly.
+description: Initialize or refresh the project memory bank and ensure AI context files contain the project memory block. Use when running `aidd init` for the first time, bootstrapping a new project, or re-running the init flow on an existing project. Do NOT use for updating individual memory files after they exist - use `aidd-context:05:learn` instead; do NOT use for editing a single rule - edit the file directly.
 model: opus
 ---
 
 # Project Init
 
-Bootstraps the full AIDD context layer for a project: AI context files with memory block, `aidd_docs/` documentation structure, memory bank files, and rules directory skeleton.
+Bootstraps the AIDD context layer for a project: AI context files with memory block, `aidd_docs/` documentation structure, and the memory bank files. Rule directories are created lazily by `aidd-context:03:context-generate` when the first rule is written; project-init does not pre-scaffold them.
 
 ## Available actions
 
@@ -16,12 +16,11 @@ Bootstraps the full AIDD context layer for a project: AI context files with memo
 | 02  | `scaffold-docs`       | Create `aidd_docs/` structure with README and GUIDELINES          | project root                |
 | 03  | `generate-memory`     | Detect project type and generate memory files in parallel         | `aidd_docs/memory/` from 02 |
 | 04  | `review-memory`       | Cross-file consistency review of all generated memory files       | `aidd_docs/memory/` from 03 |
-| 05  | `init-rules-skeleton` | Create `rules/` skeleton with 10 numbered phase directories       | project root                |
-| 06  | `sync-memory`         | Execute `update_memory.js` to fill `<aidd_project_memory>` blocks | context files from 01       |
+| 05  | `sync-memory`         | Execute `update_memory.js` to fill `<aidd_project_memory>` blocks | context files from 01       |
 
 ## Default flow
 
-`01 → 02 → 03 → 04 → 05 → 06`. Run each action's `## Test` before moving to the next.
+`01 → 02 → 03 → 04 → 05`. Run each action's `## Test` before moving to the next.
 
 ## Transversal rules
 

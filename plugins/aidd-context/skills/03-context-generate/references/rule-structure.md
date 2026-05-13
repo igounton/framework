@@ -37,6 +37,12 @@ Naming pattern for React rules in `03-frameworks-and-libraries` category:
 - `3-react@19-hooks`
 - `3-react@19.1-hooks`
 
+## Path convention
+
+The physical location of a rule encodes its `category` and `slug`. The category is the subdirectory; the slug is the file name (`<#-slug[@version][-specificity]>.<ext>`). Frontmatter never carries the rule path; downstream tools derive it from the file location alone.
+
+The base directory and the file extension are tool-specific. Refer to `@ai-mapping.md` for the exact path per AI tool, including tools where rules are not supported.
+
 ## Frontmatter and tool-specific syntax
 
 Frontmatter fields, file extensions, glob path syntax, and on-disk locations are tool-specific. Refer to `@ai-mapping.md` for the exact shape per AI tool.

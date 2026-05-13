@@ -1,26 +1,36 @@
----
-name: performance
-description: Optimize code for better performance
-model: opus
----
+# 01 - Performance
 
-# Performance Optimization Prompt
+Improve the performance of a selected code region without changing its observable behavior.
 
-Optimize code for performance and scalability.
+## Inputs
 
-## Goal
+```yaml
+selection: <code region (file path or inline snippet) to optimize>
+constraints:
+  - keep input and output identical
+  - keep code readable and maintainable
+```
 
-I need you to improve the performance of the following code: #selection.
+## Outputs
 
-## Steps
+```yaml
+hotspots_found: <int>
+changes_applied:
+  - { file: <path>, change: <one-line summary>, gain: <profiling delta or rationale> }
+followups:
+  - <next optimization idea, sorted by importance>
+  - <next>
+  - <next>
+```
 
-1. Find the main performances issues in the code.
-2. List the necessary steps to improve the performance of the code.
-3. Implement the necessary changes to improve the performance of the code.
-4. Make sure the code is still readable and maintainable.
-5. Propose at the end 3 other ways to improve the code's performance, sorted by importance.
+## Process
 
-## Rules
+1. **Identify hotspots.** Find the main performance issues in the selection (allocations, redundant work, blocking calls, N+1 patterns, unnecessary I/O).
+2. **List necessary steps** to address each hotspot, ordered by expected gain.
+3. **Apply changes.** Refactor the selected region. Preserve readability and maintainability; do not change logic; keep inputs and outputs identical.
+4. **Verify equivalence.** Confirm behavior is unchanged via tests, type checks, or a side-by-side run.
+5. **Propose three follow-up optimizations** not yet applied, sorted by importance.
 
-- Do not change the logic of the code.
-- Input and output of the code should remain the same.
+## Test
+
+Existing tests on the selection still pass; the public inputs and outputs of the refactored code are byte-identical to the pre-change version on representative inputs; the follow-up list contains exactly three actionable items.

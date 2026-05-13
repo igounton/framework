@@ -1,46 +1,46 @@
-# SA-03: Autonomous orchestrator
+# 03 - Autonomous loop
 
-Orchestrates the loop. For each unchecked step: spawns a worker agent, verifies the result, checks the box or retries. One step = one agent = one log entry. Never does the work itself.
+Orchestrates the loop. For each unchecked step: spawns a worker agent, verifies the result, checks the box or retries. One step = one agent = one log entry. The orchestrator never does the work itself.
 
-## Orchestrator prompt
+## Inputs
 
+```yaml
+tracking_file: aidd_docs/tasks/<task-name>.in-progress.md   # produced by 01-init-tracking
 ```
-Autonomous orchestrator. No human interaction.
 
-FILE: `aidd_docs/tasks/<task-name>.in-progress.md`
+## Outputs
 
-LOOP - for each unchecked step:
-
-1. Read entire file - frontmatter, journey map, steps, full Log
-2. Increment `iteration` in frontmatter
-3. Read Log - learn from prior attempts
-4. Find next unchecked step
-5. Spawn a WORKER agent for that step with this prompt:
-
-   "Execute this step. Auto-accept everything - act as the user, make every
-   decision yourself (approve prompts, generate keys, install tools, click
-   buttons). Signing in via existing accounts (Google, GitHub, SSO) is allowed
-   - it uses the user's active browser session. Just do it.
-   Report exactly what you did and the concrete result.
-
-   STEP: <step description>
-   CONTEXT: <relevant info from file - objective, rules, prior Log entries for this step>"
-
-6. Read the worker's result
-7. VERIFY concretely - run a check command, read a file, test the output. Don't trust the worker's claim.
-8. If verified ✓ → check the step `[x]`, append Log entry
-9. If NOT verified ✗ → append Log entry with why, spawn another worker with the error context
-10. Move to next unchecked step
-
-AFTER all steps checked:
-11. Run success_condition command - verify yourself
-12. If TRUE → rename to .done.md, stop
-13. If FALSE → add new steps to address root cause, continue loop
+```yaml
+final_file: aidd_docs/tasks/<task-name>.done.md             # renamed once success_condition holds
+iterations: <int>
+steps_completed: <int>
+log_entries: <int>
 ```
+
+## Process
+
+The loop runs with no human interaction. Inputs and outputs are read from / written to the tracking file.
+
+1. **Read the entire file.** Frontmatter, journey map, steps, full Log.
+2. **Increment `iteration`** in frontmatter.
+3. **Read the Log** to learn from prior attempts.
+4. **Find the next unchecked step.**
+5. **Spawn a worker agent** for that step with the Worker prompt template (below). Pass the step description and the relevant context (objective, rules, prior Log entries for this step).
+6. **Read the worker's result.**
+7. **Verify concretely.** Run a check command, read a file, test the output. Do not trust the worker's claim alone.
+8. **On verified ✓**: tick the step `[x]` and append a Log entry.
+9. **On not verified ✗**: append a Log entry with the failure reason; spawn another worker with the error context.
+10. **Move to the next unchecked step.** Loop from step 1.
+
+### After every step is checked
+
+11. **Run the success_condition command** and verify the result yourself.
+12. **On TRUE**: rename the file to `.done.md` and stop.
+13. **On FALSE**: add new steps to address the root cause and continue the loop.
 
 ## Worker prompt template
 
-```
+```text
 Execute this step. Auto-accept everything - act as the user, make every
 decision yourself (approve prompts, generate keys, install tools, click
 buttons). Do not ask for permission. Just do it.
@@ -52,24 +52,21 @@ STEP: <step description>
 CONTEXT: <from tracking file>
 
 Report:
-- What you did (specific: commands, files, URLs)
-- The concrete result (paste output, screenshot, evidence)
+- What you did (specific: commands, files, URLs).
+- The concrete result (paste output, screenshot, evidence).
 ```
 
 ## Log entry format
 
 One entry per step attempt:
 
-```
+```text
 ### #<N> - <timestamp>
-> <step name> - <what worker tried>
-= <✓|✗> <verification result - what orchestrator checked>
-→ <next step or RETRY: why>
+> <step name> - <what the worker tried>
+= <✓|✗> <verification result - what the orchestrator checked>
+-> <next step or RETRY: why>
 ```
 
-## Test policy
+## Test
 
-- **Assertion**: Each step attempt produces exactly one Log entry. Checked steps have verified results.
-- **Exit condition**: All steps `[x]` AND success_condition verified by command → `.done.md`.
-- **Expected result**: Updated task file with one log entry per step.
-- **On failure**: Log the failure, spawn new worker with error context. Never stop unless success_condition is met.
+Each step attempt has exactly one Log entry; every checked step (`[x]`) has a `= ✓` entry whose verification cites a concrete command or file; the loop only exits to `.done.md` after the `success_condition` command has been re-run and exits zero.

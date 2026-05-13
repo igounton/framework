@@ -1,46 +1,41 @@
----
-name: audit
-description: Perform deep codebase analysis for technical debt and improvements
-argument-hint: Scope to audit (optional - defaults to full codebase)
-model: opus
----
+# 01 - Audit
 
-# Codebase Audit Prompt
+Conduct a comprehensive codebase audit to identify quality issues and improvement opportunities across a chosen scope.
 
-## Resources
+## Inputs
 
-### Coding rules
-
-Apply project conventions and coding standards.
-
-### Template
-
-```markdown
-@../assets/audit-template.md
+```yaml
+scope: <directory or file glob>    # optional; defaults to the entire codebase
 ```
 
-## Goal
+## Outputs
 
-Conduct comprehensive codebase audit to identify quality issues and improvement opportunities.
+```yaml
+audit_path: aidd_docs/tasks/audits/<yyyy>_<mm>_<slug>.md
+findings_count: <int>
+categories_covered:
+  - dead_code
+  - complexity
+  - duplication
+  - error_handling
+  - file_size
+  - test_coverage
+```
 
-Code to Analyze: "$ARGUMENTS" (default: entire codebase)
+## Process
 
-## Rules
+1. **Load scope.** Default to the full codebase when `scope` is absent; otherwise restrict scanning to the provided glob or directory.
+2. **Scan for the seven checks** below, using project conventions and coding standards already loaded in context:
+   - Code not needed anymore and dead code (use dedicated tools; never assume dead code without evidence).
+   - Excessive complexity.
+   - Irrelevances in the existing codebase.
+   - Duplication patterns; opportunities to reuse code.
+   - Error handling vs project conventions.
+   - File, function, and component length above project thresholds.
+   - Missing tests on critical paths.
+3. **Aggregate findings.** Group per check; quote concrete file paths and line numbers for every entry.
+4. **Write the report** to `aidd_docs/tasks/audits/<yyyy>_<mm>_<slug>.md` using `@../assets/audit-template.md` as the skeleton.
 
-- Never suppose dead code without dedicated tools to identify it
+## Test
 
-## Elements to check
-
-- Code not needed anymore & Dead code
-- Too much complexity
-- Irrelevances in existing codebase
-- Code duplication & Reused effectively
-- Error handling best practices
-- Length for files, functions, components...
-- Lack of VERY IMPORTANT tests
-
-## Process steps
-
-1. Scan source code for duplication patterns
-2. For each rules, check compliance and document findings
-3. Output detailed audit report based on template in `aidd_docs/tasks/audits/<yyyy>_<mm>_<slug>.md`
+The output file exists at the path emitted in `audit_path`, contains every section listed in the template, and every finding cites a concrete file path and line number (no abstract "the codebase has..." sentences).

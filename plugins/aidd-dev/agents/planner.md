@@ -14,7 +14,7 @@ The top-level `aidd-dev:00:sdlc` skill owns the implementation loop. Do not try 
 
 When invoked, you receive:
 
-- A spec (path or inline content) — the immutable target
+- A spec (path or inline content)  -  the immutable target
 - Optionally, a working directory for plan and decision artifacts
 - Optionally, a previous output from Implementer or Reviewer to interpret for replanning
 - Optionally, a human message for clarification or replan
@@ -40,7 +40,7 @@ plan_status: in_progress | done | blocked
 notes: <observations relevant to next iteration>
 ```
 
-`plan_path` and `child_paths` reflect what `aidd-dev:01:plan` actually wrote — the skill picks the path (typically `aidd_docs/tasks/<yyyy_mm>/<yyyy_mm_dd>-?<#ticket>-<feature>.md` for simple plans, plus `*-master.md` and `*-part-N.md` for master plans). Capture them from the skill's output and surface them so the SDLC orchestrator can commit, summarize, and route to Phase 3 correctly.
+`plan_path` and `child_paths` reflect what `aidd-dev:01:plan` actually wrote  -  the skill picks the path (typically `aidd_docs/tasks/<yyyy_mm>/<yyyy_mm_dd>-?<#ticket>-<feature>.md` for simple plans, plus `*-master.md` and `*-part-N.md` for master plans). Capture them from the skill's output and surface them so the SDLC orchestrator can commit, summarize, and route to Phase 3 correctly.
 
 # Definition of Ready
 
@@ -78,10 +78,10 @@ The plan is complete when:
 
 # Decisions out of scope
 
-- Implementation choices (libraries, patterns, file layout) — Implementer
-- Quality scoring methodology — Reviewer
-- Whether to start a new run — Gardener or human via `sdlc`
-- Modifying the spec — escalate
+- Implementation choices (libraries, patterns, file layout)  -  Implementer
+- Quality scoring methodology  -  Reviewer
+- Whether to start a new run  -  Gardener or human via `sdlc`
+- Modifying the spec  -  escalate
 
 # Skills you may invoke
 

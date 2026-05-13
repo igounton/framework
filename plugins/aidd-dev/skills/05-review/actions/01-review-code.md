@@ -1,37 +1,33 @@
----
-name: review_code
-description: Ensure code quality and rules compliance
-model: opus
----
+# 01 - Review Code
 
-# Code Quality Review Prompt
+Deep code review of a diff against project rules and clean-code principles; surface quality violations only, never fix them.
 
-## Goal
+## Inputs
 
-Review code changes against project rules and identify quality violations.
-
-## Rules
-
-- Git diff analysis
-- Deep detail review
-- Check all lines of diff
-- Apply project rules strictly
-- Focus on issues only
-- Use review template format
-
-### Project rules
-
-Apply project conventions and coding standards.
-
-### Review template
-
-```markdown
-@../assets/review-template.md
+```yaml
+scope: <git ref range or path>   # optional; defaults to `git diff main`
 ```
 
-## Process steps
+## Outputs
 
-1. Based on the project rules and global clean code principles, perform a deep code review of the changes.
-2. If no specific arguments, use `git diff main` to have changes to review
-3. Format using template
-4. Output in `aidd_docs/tasks/<yyyy_mm>/<yyyy_mm_dd>-<task_name>.review.md`
+```yaml
+review_path: aidd_docs/tasks/<yyyy_mm>/<yyyy_mm_dd>-<task_name>.review.md
+findings_count: <int>
+severity_breakdown:
+  critical: <int>
+  high: <int>
+  medium: <int>
+  low: <int>
+```
+
+## Process
+
+1. **Resolve the diff.** Use `$ARGUMENTS` when provided; otherwise fall back to `git diff main`.
+2. **Deep review every changed line.** Apply project conventions and global clean-code principles. No runtime checks.
+3. **Findings only.** Focus on issues; do not propose feature-level changes. Suggested fixes are described, not patched.
+4. **Format the report** using `@../assets/review-template.md`.
+5. **Write to disk** at `aidd_docs/tasks/<yyyy_mm>/<yyyy_mm_dd>-<task_name>.review.md`. Create the month directory when missing.
+
+## Test
+
+The review file exists at the emitted `review_path`, every finding cites the changed file and line, and the report contains every section listed in `@../assets/review-template.md`.

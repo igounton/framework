@@ -1,42 +1,38 @@
----
-name: test_journey
-description: Test a user journey end-to-end by navigating and validating each step in the browser.
-argument-hint: The user journey steps to validate and the URL to test on.
-model: opus
----
+# 02 - Test Journey
 
-# Goal
+Test a user journey end-to-end and validate that each step produces the expected behavior.
 
-Test the following user journey end-to-end and validate each step produces the expected behavior:
+## Inputs
 
-```text
-$ARGUMENTS
+```yaml
+journey: <ordered list of action + expected outcome, passed via $ARGUMENTS>
+url: <entry URL for the journey>
 ```
 
-## Rules
+## Outputs
 
-- Use an existing browsing tool when navigating URL
-  - Screenshots MUST be taken at each step to document the journey
-- Suppose all servers are already started
-- Each step must be validated before proceeding to the next
-- Do not stop until all steps have been attempted
-- Report actual behavior even when it differs from expected
-- If you fail at some phase, **WARN the user** and attempt to continue if possible
+```yaml
+steps_total: <int>
+steps_passed: <int>
+steps_failed: <int>
+report:
+  - { step: <int>, action: <text>, expected: <text>, actual: <text>, status: pass|fail, screenshot: <path> }
+```
 
-## Steps
+## Process
 
-Spawn a new sub-agent task to:
+Spawn a sub-agent task to:
 
-1. Parse the user's journey description to extract ordered steps with expected outcomes.
-   1. List each step: action + expected result.
-2. Open the provided URL using an existing browsing tool.
-3. For each step in the journey:
-   1. Execute the action (click, fill, navigate, drag, etc.).
-   2. Take a screenshot after the action.
-   3. Validate the actual result against the expected result.
-   4. Record: step number, action, expected, actual, pass/fail.
-4. If a step fails:
-   1. Document the failure with screenshot evidence.
-   2. Attempt to continue the journey if possible.
-   3. Note any downstream steps affected by the failure.
-5. Compile the journey report with step-by-step results.
+1. **Parse the journey** into ordered steps. Each step has an action and an expected result.
+2. **Open the URL** with the project's configured browsing tool. Assume all servers are already running.
+3. **For each step**:
+   - Execute the action (click, fill, navigate, drag, etc.).
+   - Take a screenshot immediately after.
+   - Validate actual vs expected.
+   - Record `{ step, action, expected, actual, pass | fail, screenshot path }`.
+4. **On failure**: document the failure with the screenshot, warn the user, attempt to continue when downstream steps are still meaningful, and note any steps invalidated by the failure.
+5. **Compile the journey report** at the end. Report actual behavior even when it differs from expected; do not silently fix or skip.
+
+## Test
+
+The report contains one entry per parsed step, every step has a screenshot path, and at least one of `pass` or `fail` is recorded for every step. If any step failed, the report includes a downstream-impact note for the affected steps.

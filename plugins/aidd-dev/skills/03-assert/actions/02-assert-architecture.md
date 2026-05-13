@@ -1,69 +1,48 @@
----
-name: assert_architecture
-description: Verify code conforms to architecture diagrams, ADRs, and project structure.
-argument-hint: "[Optional scope to verify (module, service, or layer name)]"
-model: sonnet
----
-
-# Assert Architecture Prompt
-
-## Goal
+# 02 - Assert Architecture
 
 Verify that the codebase (or a specific scope) conforms to the documented architecture: C4 diagrams, ADRs, and project tree structure.
 
-## Context
+## Inputs
 
-### Architecture diagrams (micro)
-
-```shell
-! ls -1tr aidd_docs/memory/internal/
+```yaml
+scope: <module, service, or layer name>   # optional; defaults to the entire project
 ```
 
-### Architecture decisions
+## Outputs
 
-```shell
-! ls -1tr aidd_docs/internal/decisions/
+```yaml
+report:
+  macro:
+    - { severity: critical|warning, file: <path>, constraint: <text>, fix: <one-line> }
+  micro:
+    - { severity: critical|warning, file: <path>, constraint: <text>, fix: <one-line> }
+totals:
+  violations_total: <int>
+  critical: <int>
+  warning: <int>
 ```
 
-### Scope
+## Process
 
-```text
-$ARGUMENTS
-```
+1. **Load architecture context.**
+   - Remember the architecture diagrams from `aidd_docs/memory/architecture.md`.
+   - Read micro diagrams from `aidd_docs/memory/internal/` when the scope targets a specific module.
+   - Read ADRs from `aidd_docs/internal/decisions/`.
+   - Extract the expected project tree structure from the diagrams.
+2. **Verify macro architecture (service boundaries).**
+   - Compare actual code structure against the documented tree.
+   - Flag files outside expected boundaries.
+   - Flag direct imports between independent services.
+3. **Verify micro architecture (internal layers).** For each module in scope:
+   - Check that import directions match layer constraints.
+   - Confirm the domain layer has zero external imports.
+   - Confirm the application layer depends only on the domain via ports.
+   - Detect circular dependencies between modules.
+   - Verify the expected patterns (use cases have ports, adapters implement interfaces).
+4. **Build the violation report.** Each entry carries severity (`critical | warning`), file path, the constraint violated, and a one-line suggested fix. Group entries macro vs micro.
+5. **Boundary.** Do not fix violations - only report them. If no scope is provided, check the entire project.
+6. **Summarize.** Total violations, critical count, recommended next actions.
 
-## Rules
+## Test
 
-- Read ALL architecture sources before checking code
-- Report violations with file path, line, and which constraint is violated
-- Distinguish macro violations (service boundaries, tree structure) from micro violations (layer imports, patterns)
-- Do not fix violations - only report them
-- If no scope is provided, check the entire project
-- Use `!` backtick pattern to inspect project structure and imports
-
-## Steps
-
-1. Load architecture context:
-   - Remember architecture diagrams from `aidd_docs/memory/architecture.md`
-   - Read micro diagrams from `aidd_docs/memory/internal/` (if scope targets a specific module)
-   - Read ADRs from `aidd_docs/internal/decisions/`
-   - Extract the expected project tree structure from diagrams
-
-2. Verify macro architecture (service boundaries):
-   - Read the expected tree structure from `aidd_docs/memory/architecture.md`
-   - Compare actual code structure against the documented tree
-   - Check for files outside expected boundaries
-   - Check for direct imports between independent services
-
-3. Verify micro architecture (internal layers):
-   - For each module in scope, check import directions match layer constraints
-   - Verify domain layer has zero external imports
-   - Verify application layer only depends on domain (via ports)
-   - Check for circular dependencies between modules
-   - Verify patterns: use cases have ports, adapters implement interfaces
-
-4. Generate violation report:
-   - List each violation with: severity (critical/warning), file path, constraint violated, suggested fix
-   - Group by macro vs micro
-   - If zero violations, confirm conformity
-
-5. Summarize: total violations, critical count, and recommended next actions.
+If conformity holds: `violations_total == 0` and the report explicitly states "no violations" in both macro and micro sections. If violations exist: every report entry has a real file path that exists on disk, a referenced constraint that appears in one of the loaded architecture sources, and a non-empty `fix` field.

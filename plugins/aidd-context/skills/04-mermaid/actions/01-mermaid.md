@@ -1,41 +1,35 @@
----
-name: mermaid
-description: When need to generate Mermaid diagrams
-model: sonnet
----
+# 01 - Mermaid
 
-# Goal
+Produce a 100% valid, high-quality Mermaid diagram from a markdown document through a plan-confirm-generate-review loop.
 
-Generate a HIGH QUALITY Mermaid diagram from Markdown content.
+## Inputs
 
-## Steps
-
-> On first chat, please print in short bullet points those 6 steps we will follow.
-
-1. Ask for the document to convert.
-2. Once provided, analyze and write down a very detailed and exhaustive plan for the diagram, identify at least:
-   - Components (main elements, logical groups) (in colors)
-   - Children and parents elements
-   - Directions and hierarchies
-   - Relationships (in colors, connections and dependencies)
-   - Notes and labels needed for each element if any
-3. Ask user: "Do you confirm the plan?" and wait for user confirmation.
-4. Generate the 100% valid Mermaid diagram from the plan.
-5. Ask user: "Do you want me to review it?" and wait for user confirmation.
-6. If the user confirms, review the diagram and suggest improvements :
-   - Check syntax
-   - DO NOT add any extra elements
-   - Look for empty nodes or misplaced elements
-
-## Rules
-
-- Flow: prefer LR
-- Use Mermaid v10.8.0 minimum.
-- 100% valid Mermaid diagram is required.
-- Apply the conventions in the reference below.
-
-### Mermaid generation rules
-
-```markdown
-@../references/mermaid-conventions.md
+```yaml
+source: <markdown document to convert>
 ```
+
+## Outputs
+
+A Mermaid diagram fenced as ```mermaid + an optional review note. On first user message, the action prints the six numbered steps below as short bullets so the user knows what is coming.
+
+```mermaid
+<rendered diagram>
+```
+
+## Process
+
+1. **Ask for the document to convert** when not already provided.
+2. **Plan the diagram.** Analyze the source and write down a detailed plan identifying at least:
+   - Components (main elements, logical groups; use colors).
+   - Children and parent elements.
+   - Directions and hierarchies.
+   - Relationships (colors, connections, dependencies).
+   - Notes and labels per element when needed.
+3. **Confirm the plan.** Ask the user "Do you confirm the plan?" and wait for explicit confirmation.
+4. **Generate** the 100% valid Mermaid diagram from the plan. Flow direction defaults to `LR`. Minimum Mermaid version 10.8.0. Apply the conventions in `@../references/mermaid-conventions.md`.
+5. **Offer a review.** Ask the user "Do you want me to review it?" and wait for an answer.
+6. **Review on confirm.** Check syntax, look for empty or misplaced nodes, suggest improvements. Do NOT add any extra elements that were not in the confirmed plan.
+
+## Test
+
+The generated block is fenced with ```mermaid, parses without error against Mermaid 10.8.0+, follows the conventions in `@../references/mermaid-conventions.md`, and contains no nodes or relationships absent from the user-confirmed plan.

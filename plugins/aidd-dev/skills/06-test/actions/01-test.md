@@ -1,51 +1,38 @@
----
-name: test
-description: List untested behaviors and iterate on test creation until tests pass with best practices
-model: sonnet
-argument-hint: "[things you want to test]"
----
-
-# Test Iterator Prompt
-
-## Goal
+# 01 - Test
 
 Identify untested behaviors in the feature, then create and iterate on tests until they pass with modern testing best practices.
 
-## Context
+## Inputs
 
-- Current project testing framework and conventions
-- Test coverage and quality metrics
-
-### Testing rules
-
-Apply project conventions for test naming, structure, and coverage.
-
-### Scope to test
-
-```text
-$ARGUMENTS
+```yaml
+scope: <feature, module, or file glob>   # passed via $ARGUMENTS
 ```
 
-## Rules
+## Outputs
 
-- Focus on ONE test at a time
-- Apply current testing best practices
-- Continue iterating until test passes AND meets quality criteria
-- Never compromise on test quality for speed
-- Focus on functional aspects only, ignore technical details
+```yaml
+behaviors_listed: <int>
+tests_added: <int>
+tests_passing: <int>
+report:
+  - { behavior: <name>, status: pass, file: <test path> }
+  - { behavior: <name>, status: pending, reason: <why> }
+```
 
-## Process steps
+## Process
 
-1. List untested behaviors in the target area
-   1. Think about behaviors to test based on existing ones
-   2. Determine a score, 0: not needed, 5: critical core flow to test
-   3. Group them by distinct sections
-   4. Prioritize based on score and impact
-   5. Display organized minimal bullet list of untested behaviors
-2. **Wait for user approval**
-3. Generate initial test with best practices
-4. Run test and capture results
-   1. If test fails: analyze failure, improve test, repeat from step 4
-   2. If test passes: validate against quality checklist
-   3. If quality insufficient: improve test quality, repeat from step 4
-5. Move to next untested behavior, repeat from step 2
+1. **List untested behaviors** in the target area:
+   - Think about behaviors based on existing ones.
+   - Score each from 0 (not needed) to 5 (critical core flow).
+   - Group by distinct sections.
+   - Prioritize by score and impact.
+   - Display as an organized minimal bullet list.
+2. **Wait for user approval** before generating any test.
+3. **Generate the initial test** for the highest-priority behavior, applying current testing best practices and project conventions.
+4. **Run, observe, iterate.** If the test fails, analyze the failure, improve the test, repeat. If it passes, validate against the quality checklist; improve if quality is insufficient.
+5. **Move to the next behavior** and repeat from step 3 until the list is exhausted.
+6. **Boundaries.** Focus on ONE test at a time. Never compromise quality for speed. Functional aspects only; ignore implementation details.
+
+## Test
+
+For every behavior in the approved list: a corresponding test exists in the project test suite, the test passes, and the report records the test file path. Behaviors that are deliberately skipped have a `pending` entry with a one-line reason.

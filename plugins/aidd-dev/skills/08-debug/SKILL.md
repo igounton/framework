@@ -1,6 +1,7 @@
 ---
 name: aidd-dev:08:debug
 description: Reproduce and fix bugs systematically using test-driven workflow, root cause analysis, and hypothesis validation.
+model: opus
 ---
 
 # Skill: debug
