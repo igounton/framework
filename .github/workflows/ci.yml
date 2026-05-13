@@ -29,6 +29,7 @@ jobs:
       - uses: wagoid/commitlint-github-action@v6
         with:
           configFile: commitlint.config.cjs
+          commitDepth: 1
 
   release-please:
     name: Release Please
@@ -69,10 +70,11 @@ jobs:
             npm-global-${{ runner.os }}-
 
       - name: Install CLI
+        # Use @beta during pre-release cycle; switch to @latest after stable v5 ships.
         run: |
           npm config set @ai-driven-dev:registry https://npm.pkg.github.com
           npm config set //npm.pkg.github.com/:_authToken ${{ secrets.PACKAGES_TOKEN }}
-          npm install -g @ai-driven-dev/cli@latest
+          npm install -g @ai-driven-dev/cli@beta
 
       - name: Build distributions
         run: bash scripts/build-dist.sh
@@ -81,20 +83,21 @@ jobs:
         run: |
           VERSION="${{ needs.release-please.outputs.version }}"
           tar czf "/tmp/aidd-framework-${VERSION}.tar.gz" \
-            agents/ \
-            commands/ \
-            config/ \
-            rules/ \
-            skills/ \
+            plugins/ \
+            .claude-plugin/ \
             aidd_docs/ \
             version.txt
 
       - name: Build per-tool tarballs
         run: |
           VERSION="${{ needs.release-please.outputs.version }}"
-          for tool in claude cursor copilot opencode; do
+          for tool in claude cursor copilot codex; do
             tar czf "/tmp/aidd-${tool}-${VERSION}.tar.gz" \
-              -C dist/${tool} \
+              -C dist/${tool}-local \
+              --exclude='.aidd/cache' \
+              .
+            tar czf "/tmp/aidd-${tool}-remote-${VERSION}.tar.gz" \
+              -C dist/${tool}-remote \
               --exclude='.aidd/cache' \
               .
           done
@@ -108,7 +111,11 @@ jobs:
           gh release upload "${TAG}" \
             "/tmp/aidd-framework-${VERSION}.tar.gz" \
             "/tmp/aidd-claude-${VERSION}.tar.gz" \
+            "/tmp/aidd-claude-remote-${VERSION}.tar.gz" \
             "/tmp/aidd-cursor-${VERSION}.tar.gz" \
+            "/tmp/aidd-cursor-remote-${VERSION}.tar.gz" \
             "/tmp/aidd-copilot-${VERSION}.tar.gz" \
-            "/tmp/aidd-opencode-${VERSION}.tar.gz" \
+            "/tmp/aidd-copilot-remote-${VERSION}.tar.gz" \
+            "/tmp/aidd-codex-${VERSION}.tar.gz" \
+            "/tmp/aidd-codex-remote-${VERSION}.tar.gz" \
             --clobber
