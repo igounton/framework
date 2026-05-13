@@ -35,6 +35,12 @@ Interactively collects the small set of runtime parameters from the user.
     "access": "public",
     "token_secret_name": null
   },
+  "github_write_auth": {
+    "mode": "pat",
+    "secret_name": "AIDD_BOT_TOKEN",
+    "app_id_secret": null,
+    "app_private_key_secret": null
+  },
   "max_iterations": 3
 }
 ```
@@ -64,9 +70,14 @@ Interactively collects the small set of runtime parameters from the user.
 3. Ask the marketplace location: `marketplace.repo` (default `ai-driven-dev/aidd-framework`) and `marketplace.access`: `public` or `private`.
    - If `private`: ask `token_secret_name` (default `AIDD_FRAMEWORK_TOKEN`). The user must add a fine-grained PAT with `Contents: Read` on the marketplace repo.
    - If `public`: leave `token_secret_name` null and the workflow uses `${{ github.token }}` for the clone.
-4. Ask `max_iterations` for the review-fix loop; default `3`.
-5. Keep label names and mention strings at their defaults (the plugin documents these as fixed contracts to avoid drift).
-6. Emit the JSON above; do NOT persist yet.
+4. Ask `github_write_auth.mode`: how `claude-code-action` authenticates for git write operations (push, commit, `gh pr create`, audit-log commit). This is independent of the marketplace clone token (step 3) and of the Anthropic auth (step 2).
+   - `default` -- use the workflow's built-in `GITHUB_TOKEN`. Works for trivial repository edits but the GitHub App default token lacks the `workflows` scope, so any change under `.github/workflows/**` will be rejected and the orchestrator will set `claude/blocked`. Pick this only for repos where issues never touch workflow files.
+   - `pat` (default, recommended) -- a fine-grained Personal Access Token with `Contents: Read & Write`, `Pull requests: Read & Write`, `Issues: Read & Write`, `Workflows: Read & Write`, `Metadata: Read`. Commits are attributed to the PAT owner. Ask `secret_name` (default `AIDD_BOT_TOKEN`). The token itself is stored in action `08-configure-remote-secrets`.
+   - `github_app` -- a custom GitHub App installed on the repo with `workflows: write` permission. Commits are attributed to the App. Ask two secret names: `app_id_secret` (default `AIDD_GH_APP_ID`) and `app_private_key_secret` (default `AIDD_GH_APP_PRIVATE_KEY`). The user creates the App at `https://github.com/settings/apps/new`, installs it on the target repo, then pastes the App ID and PEM private key as secrets in action 08.
+   See `references/claude-action-auth.md` for the broader picture of which secret is for what.
+5. Ask `max_iterations` for the review-fix loop; default `3`.
+6. Keep label names and mention strings at their defaults (the plugin documents these as fixed contracts to avoid drift).
+7. Emit the JSON above; do NOT persist yet.
 
 ## Test
 

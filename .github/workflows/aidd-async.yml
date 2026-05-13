@@ -110,6 +110,7 @@ jobs:
         with:
           prompt: "Use skill aidd-orchestrator:02:run-async-dev on issue #${{ needs.dispatch.outputs.issue_number }}"
           claude_code_oauth_token: ${{ secrets[needs.dispatch.outputs.account_secret] }}
+          github_token: ${{ secrets.AIDD_BOT_TOKEN }}
           plugins: |
             aidd-orchestrator@aidd-framework
             aidd-dev@aidd-framework
@@ -133,6 +134,7 @@ jobs:
         with:
           prompt: "Use skill aidd-orchestrator:03:review-async-dev on PR #${{ needs.dispatch.outputs.issue_number }}"
           claude_code_oauth_token: ${{ secrets[needs.dispatch.outputs.account_secret] }}
+          github_token: ${{ secrets.AIDD_BOT_TOKEN }}
           plugins: |
             aidd-orchestrator@aidd-framework
             aidd-dev@aidd-framework

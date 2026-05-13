@@ -131,15 +131,30 @@ The skill writes:
 
 ### 3. Add the secrets
 
-At minimum, one Anthropic auth secret:
+Three independent auth dimensions, each addressed by its own secret(s):
 
-| Auth mode | Default secret name | How to get it |
-| --------- | ------------------- | ------------- |
-| OAuth | `CLAUDE_CODE_OAUTH_TOKEN` | `claude setup-token` |
-| API key | `ANTHROPIC_API_KEY` | https://console.anthropic.com/settings/keys |
+| # | What it authenticates | Default secret | When required |
+| - | --------------------- | -------------- | ------------- |
+| A | Anthropic API (OAuth) | `CLAUDE_CODE_OAUTH_TOKEN` (from `claude setup-token`) | always |
+| A | Anthropic API (key) | `ANTHROPIC_API_KEY` (from https://console.anthropic.com/settings/keys) | always (alternative to OAuth) |
+| B | Cloning the marketplace repo at runtime | `${{ secrets.GITHUB_TOKEN }}` for public; `AIDD_FRAMEWORK_TOKEN` (or named) for private | always |
+| C | `claude-code-action` git writes (push, PR, audit commit) | depends on `github_write_auth.mode` (see below) | when issues may touch `.github/workflows/**` |
 
-Plus (private marketplace only):
-- the PAT you named (default `AIDD_FRAMEWORK_TOKEN`), a fine-grained PAT with `Contents: Read` on the marketplace repo.
+`B` is set by `marketplace.access`; `C` is set by `github_write_auth.mode`. They are *not* the same setting: B authenticates the runtime plugin install, C authenticates everything else the action does on your repo (push, PR, commits).
+
+#### Why `github_write_auth` matters
+
+The default `GITHUB_TOKEN` issued to a workflow lacks the `workflows` scope. Any change under `.github/workflows/**` is rejected with `refusing to allow a GitHub App to update workflow without 'workflows' scope`, leaving the run blocked. The orchestrator handles the block gracefully (`claude/blocked` + a comment), but the implementation work is lost. To unblock the path, supply a token with the right scope via `github_write_auth`.
+
+Three modes:
+
+| `github_write_auth.mode` | What you provide | Pros | Cons |
+| ------------------------ | ---------------- | ---- | ---- |
+| `default` | nothing | zero setup | runs that edit `.github/workflows/**` get blocked |
+| `pat` (recommended) | one fine-grained PAT secret | works on workflow files; one secret to manage | commits attributed to the PAT owner; rotate every 90 days |
+| `github_app` | App ID + PEM private key secrets | commits attributed to a bot; scoped per-repo; rotates automatically | one-time App creation + install per repo |
+
+The setup skill provisions the matching secrets in action `08-configure-remote-secrets` and the workflow template wires them into the `claude-code-action` step.
 
 ```bash
 gh secret set CLAUDE_CODE_OAUTH_TOKEN --repo OWNER/REPO

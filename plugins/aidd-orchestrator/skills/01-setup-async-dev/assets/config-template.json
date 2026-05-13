@@ -22,6 +22,12 @@
     "access": "public",
     "token_secret_name": null
   },
+  "github_write_auth": {
+    "mode": "default",
+    "secret_name": null,
+    "app_id_secret": null,
+    "app_private_key_secret": null
+  },
   "max_iterations": 3,
   "audit": {
     "log_dir": "aidd_docs/async-runs",
