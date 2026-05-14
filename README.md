@@ -136,10 +136,13 @@ If you spot a vulnerability, please report it privately via [SECURITY.md](./SECU
 | -------- | ----- |
 | Architecture overview | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) |
 | Skills catalog (all plugins) | [`docs/CATALOG.md`](docs/CATALOG.md) |
+| Skills aggregator (JSON) | [`skills.json`](skills.json) |
 | Glossary | [`docs/GLOSSARY.md`](docs/GLOSSARY.md) |
 | Build your own plugin | [`docs/CREATE_PLUGIN.md`](docs/CREATE_PLUGIN.md) |
 | Frequently asked questions | [`docs/FAQ.md`](docs/FAQ.md) |
 | Contribution guide | [`CONTRIBUTING.md`](./CONTRIBUTING.md) |
+| Governance | [`GOVERNANCE.md`](./GOVERNANCE.md) |
+| Roadmap | [`ROADMAP.md`](./ROADMAP.md) |
 | Code of Conduct | [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md) |
 | Security policy | [`SECURITY.md`](./SECURITY.md) |
 | Changelog | [`CHANGELOG.md`](./CHANGELOG.md) (see also [GitHub Releases](https://github.com/ai-driven-dev/aidd-framework/releases)) |
