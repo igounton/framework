@@ -17,7 +17,6 @@
     "mode": "oauth_token",
     "default_secret_name": "CLAUDE_CODE_OAUTH_TOKEN",
     "account_routing": {
-      "blafourcade": "CLAUDE_CODE_OAUTH_TOKEN_BAPTISTE",
       "alexsoyes": "CLAUDE_CODE_OAUTH_TOKEN_ALEX"
     }
   },
