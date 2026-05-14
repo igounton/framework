@@ -32,6 +32,16 @@ Join the conversation: [Discord](https://discord.gg/ai-driven-dev) · [YouTube](
 
 ---
 
+## Prerequisites
+
+To consume the marketplace from any Claude Code session you need:
+
+- **Claude Code** installed and running (`/plugin` slash command available). Recent versions support marketplaces; if `/plugin marketplace add` is unknown, update Claude Code first.
+- **An Anthropic plan or API key** -- a Claude Pro/Max plan for OAuth, or an `ANTHROPIC_API_KEY` for pay-per-token usage. Most plugins also work in interactive Claude Code sessions where the host already authenticates.
+- **`gh` CLI authenticated** if you plan to use plugins that interact with GitHub (`aidd-vcs`, `aidd-orchestrator`, `aidd-pm`). Verify with `gh auth status`.
+- **Network access** to GitHub (this repo is the marketplace) and to Anthropic API endpoints.
+- **Optional per plugin**: some plugins assume additional context, such as a working git repo, a `package.json`, or a configured ticketing tool. Each plugin's README lists its own prerequisites.
+
 ## Quick start
 
 Inside any Claude Code session, register this marketplace and install a plugin:

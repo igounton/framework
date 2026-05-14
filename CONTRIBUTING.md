@@ -6,6 +6,7 @@ This guide explains how to contribute to the AIDD framework - the source of trut
 
 ---
 
+- [Development setup](#development-setup)
 - [Releases](#releases)
 - [Commit scope discipline](#commit-scope-discipline)
 - [Commit conventions](#commit-conventions)
@@ -17,6 +18,26 @@ This guide explains how to contribute to the AIDD framework - the source of trut
 - [Reporting issues](#reporting-issues)
 
 ---
+
+## Development setup
+
+To contribute changes locally you need:
+
+- **Git** and a GitHub account with access to this repository.
+- **Node 20+** and **pnpm** (workspace scripts and the lefthook installer rely on pnpm). Verify with `node --version` and `pnpm --version`.
+- **jq** for JSON validity checks in the pre-commit hook (`brew install jq` on macOS).
+- **python3** for YAML validity checks in the pre-commit hook (default on macOS and most Linux distributions).
+- **pipx** for JSON-Schema validation of plugin/marketplace/settings files (`brew install pipx` on macOS). The hook calls `pipx run check-jsonschema`; the tool is fetched and cached automatically on first run, so no global install is required beyond pipx itself.
+- **Optional**: the `gh` CLI authenticated if you want to test plugin install flows or open PRs from the terminal.
+
+Once the dependencies above are in place, install hooks once per clone:
+
+```bash
+pnpm install
+pnpm exec lefthook install
+```
+
+After that, every commit will run the framework-local checks (json/yaml validity, schema validation on the three Claude Code surfaces, SKILL.md frontmatter, commitlint).
 
 ---
 
