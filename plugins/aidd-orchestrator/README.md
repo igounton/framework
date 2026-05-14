@@ -25,4 +25,4 @@ Each skill has its own README covering when to use, how to invoke, prerequisites
 
 ## Install
 
-See the [framework install guide](../../README.md#install).
+See the [framework quick start](../../README.md#quick-start).

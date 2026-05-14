@@ -18,7 +18,7 @@ from a fresh clone to the first triggered run.
 ## How to invoke
 
 ```
-Use skill aidd-orchestrator:01-setup-async-dev
+Use skill aidd-orchestrator:01:setup-async-dev
 ```
 
 The skill asks ~6 questions:

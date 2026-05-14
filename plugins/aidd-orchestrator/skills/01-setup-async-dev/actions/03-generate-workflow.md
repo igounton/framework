@@ -39,14 +39,7 @@ A file at `.github/workflows/aidd-async.yml`.
    - `__GITHUB_WRITE_TOKEN_LINE__` -> matches `answers.github_write_auth.mode`. This token authorises `claude-code-action`'s git write operations (push, commit, `gh pr create`, audit-log commit) and is independent of the marketplace clone token.
      - `default` -> `# github_token defaults to GITHUB_TOKEN; lacks workflows scope so runs that edit .github/workflows/** will be blocked` (a YAML comment; no override emitted).
      - `pat` -> `github_token: ${{ secrets.<answers.github_write_auth.secret_name> }}`
-     - `github_app` -> `github_token: ${{ steps.app_token.outputs.token }}`. The implementation must also inject an extra step before each `claude-code-action` step in both the `run` and `review` jobs:
-       ```yaml
-       - id: app_token
-         uses: actions/create-github-app-token@v1
-         with:
-           app-id: ${{ secrets.<answers.github_write_auth.app_id_secret> }}
-           private-key: ${{ secrets.<answers.github_write_auth.app_private_key_secret> }}
-       ```
+     - `github_app` (**roadmap, not yet implemented in v1**) -> the intended substitution is `github_token: ${{ steps.app_token.outputs.token }}` plus an `actions/create-github-app-token@v1` step injected before each `claude-code-action` step in both jobs. The renderer must NOT emit this form yet; fall back to `pat` (emit a clear warning) until the template grows the App-token step.
 4. If `.github/workflows/aidd-async.yml` already exists, prompt the user to overwrite or skip.
 5. Write the file. The workflow declares `concurrency` keyed by issue number to dedupe parallel runs.
 6. Print a follow-up note listing every secret to add: the Claude auth secret and (if private) the marketplace PAT.

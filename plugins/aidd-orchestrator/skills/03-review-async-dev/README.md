@@ -21,7 +21,7 @@ threads, and posts a summary when stop conditions trigger.
 ## How to invoke
 
 ```
-Use skill aidd-orchestrator:03-review-async-dev on PR #<N>
+Use skill aidd-orchestrator:03:review-async-dev on PR #<N>
 ```
 
 The skill walks 4 atomic actions:

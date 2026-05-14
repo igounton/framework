@@ -10,13 +10,14 @@ Covers the full SDLC coding loop: orchestrator, planning, assertions, audits, co
 |---|---|---|
 | [2.0] | [sdlc](skills/00-sdlc/README.md) | Dev SDLC orchestrator (code-shipping pipeline): spec, plan, implement, test, review, commit, PR. |
 | [2.1] | [plan](skills/01-plan/README.md) | Generate technical implementation plans, define component behaviors, and extract design details from images. |
-| [2.2] | [assert](skills/03-assert/README.md) | Assert features work as intended - general assertions, architecture conformance, and frontend UI validation. |
-| [2.3] | [audit](skills/04-audit/README.md) | Perform deep codebase analysis to identify technical debt, dead code, and improvement opportunities. |
-| [2.4] | [review](skills/05-review/README.md) | Review code quality against project rules and validate feature behavior against plan specifications. |
-| [2.5] | [test](skills/06-test/README.md) | Write and iterate on tests until they pass, and validate user journeys end-to-end in the browser. |
-| [2.6] | [refactor](skills/07-refactor/README.md) | Optimize code for performance and fix security vulnerabilities following OWASP guidelines. |
-| [2.7] | [debug](skills/08-debug/README.md) | Reproduce and fix bugs systematically using test-driven workflow, root cause analysis, and hypothesis validation. |
-| [2.8] | [for-sure](skills/09-for-sure/README.md) | Iterative agent loop that tracks attempts and retries until a success condition is met. |
+| [2.2] | [implement](skills/02-implement/README.md) | Execute an implementation plan phase by phase via the implementer agent, iterating until 100% completeness. |
+| [2.3] | [assert](skills/03-assert/README.md) | Assert features work as intended - general assertions, architecture conformance, and frontend UI validation. |
+| [2.4] | [audit](skills/04-audit/README.md) | Perform deep codebase analysis to identify technical debt, dead code, and improvement opportunities. |
+| [2.5] | [review](skills/05-review/README.md) | Review code quality against project rules and validate feature behavior against plan specifications. |
+| [2.6] | [test](skills/06-test/README.md) | Write and iterate on tests until they pass, and validate user journeys end-to-end in the browser. |
+| [2.7] | [refactor](skills/07-refactor/README.md) | Optimize code for performance and fix security vulnerabilities following OWASP guidelines. |
+| [2.8] | [debug](skills/08-debug/README.md) | Reproduce and fix bugs systematically using test-driven workflow, root cause analysis, and hypothesis validation. |
+| [2.9] | [for-sure](skills/09-for-sure/README.md) | Iterative agent loop that tracks attempts and retries until a success condition is met. |
 
 ## Agents
 

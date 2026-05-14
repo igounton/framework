@@ -1,36 +1,36 @@
 ---
 name: Feature Request
-about: Proposer un nouveau contenu ou une amélioration du framework
+about: Propose new content or an improvement to the framework
 title: "feat: "
 labels: feature
 assignees: ""
 ---
 
-## Problème à résoudre
+## Problem to solve
 
-<!-- Quel problème ce contenu résout-il ? Ex: "Il n'y a pas de règle pour..." -->
+<!-- What problem does this content solve? e.g. "There is no rule for..." -->
 
-## Solution proposée
+## Proposed solution
 
-<!-- Décris le contenu souhaité. Quel fichier ? Quel format ? -->
+<!-- Describe the content you want. Which file? Which format? -->
 
-## Type de contenu
+## Content type
 
 - [ ] Rule (`rules/`)
 - [ ] Skill (`skills/`)
 - [ ] Command (`commands/`)
 - [ ] Agent (`agents/`)
 - [ ] Plugin (`plugins/`)
-- [ ] Autre
+- [ ] Other
 
-## Outil(s) cible(s)
+## Target tool(s)
 
 - [ ] Claude Code
 - [ ] Cursor
 - [ ] Windsurf
 - [ ] Gemini CLI
-- [ ] Autre : <!-- préciser -->
+- [ ] Other: <!-- specify -->
 
-## Contexte additionnel
+## Additional context
 
-<!-- Liens, exemples, cas d'usage... -->
+<!-- Links, examples, use cases... -->

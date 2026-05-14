@@ -94,7 +94,9 @@ Commits created with this PAT are attributed to the PAT owner's GitHub user. If 
 
 Paste the token when prompted. The skill stores it via `gh secret set <answers.github_write_auth.secret_name> --repo <owner>/<repo>`.
 
-### github_write_auth (mode `github_app`)
+### github_write_auth (mode `github_app`, **roadmap**)
+
+> Not yet implemented in v1. The workflow renderer falls back to `pat` until the App-token step lands. The guide below documents the intended setup so the rollout can land without doc churn.
 
 Used by `claude-code-action` for every git write operation, with commits attributed to the App instead of a human user. Heavier setup; right for org-level audit requirements.
 

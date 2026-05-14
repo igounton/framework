@@ -52,7 +52,7 @@ Humans only touch the `to-*` labels. Claude only touches the `claude/*` labels. 
 ## How to invoke
 
 ```
-Use skill aidd-orchestrator:02-run-async-dev on issue #<N>
+Use skill aidd-orchestrator:02:run-async-dev on issue #<N>
 ```
 
 The skill walks 6 atomic actions:
