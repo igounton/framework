@@ -180,25 +180,23 @@ jobs:
         run: |
           set +e
           RESULT="${RUNNER_TEMP}/run-result.json"
+          # Decide outcome by observing reality, regardless of what the agent reported.
+          observed_pr=$(gh pr list --repo "$GITHUB_REPOSITORY" --state open --json number,body \
+            --jq "[.[] | select(.body | test(\"(?i)\\\\b(Closes|Fixes|Resolves)\\\\s+#${ISSUE_NUMBER}\\\\b\"))][0].number // empty")
           if [ -s "$RESULT" ]; then
-            outcome=$(jq -r '.outcome // "blocked"' "$RESULT")
-            pr_number=$(jq -r '.pr_number // empty' "$RESULT")
             run_id=$(jq -r '.run_id // empty' "$RESULT")
-            error=$(jq -r '.error // empty' "$RESULT")
-          else
-            # No agent-recorded result. Observe reality: did an open PR get opened that closes this issue?
-            pr_number=$(gh pr list --repo "$GITHUB_REPOSITORY" --state open --json number,body \
-              --jq "[.[] | select(.body | test(\"(?i)\\\\b(Closes|Fixes|Resolves)\\\\s+#${ISSUE_NUMBER}\\\\b\"))][0].number // empty")
-            if [ -n "$pr_number" ]; then
-              outcome="success"
-              error=""
-            else
-              outcome="blocked"
-              error="agent did not record run-result.json and no open PR closes #${ISSUE_NUMBER}"
-            fi
+            agent_error=$(jq -r '.error // empty' "$RESULT")
           fi
-          # Always have a non-empty run_id for the marker / audit filename.
           [ -z "$run_id" ] && run_id="auto-$(date -u +%Y%m%dT%H%M%SZ)-i${ISSUE_NUMBER}"
+          if [ -n "$observed_pr" ]; then
+            outcome="success"
+            pr_number="$observed_pr"
+            error=""
+          else
+            outcome="blocked"
+            pr_number=""
+            error="${agent_error:-no open PR closes #${ISSUE_NUMBER}}"
+          fi
           if [ "$JOB_STATUS" != "success" ] && [ "$outcome" = "success" ]; then
             outcome="recovered"
             error="${error:-claude-code-action exited non-zero but a closing PR exists}"
