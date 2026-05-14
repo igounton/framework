@@ -1,18 +1,21 @@
 # 06 -- Write Audit
 
-Persists the run record, creates the GitHub Check Run, and transitions the lifecycle labels to `claude/awaiting-review` (or `claude/blocked` on failure).
+Persist the run record on the PR branch, finalize the Check Run, transition the issue labels, post the completion marker.
 
 ## Inputs
 
-- `run_record` (required) -- merged data from `03-acquire-lock` and `05-delegate-sdlc`
-- `config` (required) -- parsed `.claude/aidd-orchestrator.json`
+- `run_record` -- merged data from `03-acquire-lock` and `05-delegate-sdlc`
+- `config` -- parsed `.claude/aidd-orchestrator.json`
 
 ## Outputs
 
 ```json
 {
   "audit_path": "aidd_docs/async-runs/2026_05/2026-05-07T10-12-31Z-i42.json",
-  "check_run_id": 9876543210
+  "audit_commit_url": "https://github.com/org/repo/commit/<sha>",
+  "check_run_id": 9876543210,
+  "labels_after": ["claude/awaiting-review"],
+  "completion_marker_url": "https://github.com/org/repo/pull/<pr>#issuecomment-..."
 }
 ```
 
@@ -22,25 +25,43 @@ Persists the run record, creates the GitHub Check Run, and transitions the lifec
 
 ## Process
 
-**MANDATORY — this action must run and must persist its artifacts.** Skipping any step (especially the audit write or its commit + push to the PR branch) is a contract violation. The audit JSON is the single source of truth for the run; without it on the PR branch, the run is unverifiable.
-
-1. Compute `audit_dir = config.audit.log_dir + "/" + YYYY_MM` (UTC). Create it if missing.
-2. Write `<audit_dir>/<run_id>.json` with the full run record: trigger, issue, dependency check, lock timestamps, SDLC outcome (including `delegated_via_skill` boolean and the skill name actually called), errors if any, plugin version. The `delegated_via_skill` field MUST be `true` when action 05 invoked the SDLC skill via the `Skill` tool; `false` means the orchestrator bypassed delegation and the run is flagged as a contract violation.
-3. **Commit and push the audit file to the PR branch** (the SDLC pushed the feature branch in action 05). Run from the runner's working tree:
+1. Compose `audit_path = config.audit.log_dir + "/" + YYYY_MM + "/" + run_id + ".json"`. Build the run record JSON: trigger, issue, lock timestamps, SDLC outcome, `delegated_via_skill`, errors, plugin version.
+2. Push the audit file to the PR branch via the Contents API (no `git checkout`):
+   ```bash
+   SHA=$(gh api "repos/$GITHUB_REPOSITORY/contents/$audit_path?ref=$branch" --jq .sha 2>/dev/null || echo "")
+   PAYLOAD=$(jq -n --arg msg "chore(orchestrator): record async run audit $run_id" \
+     --arg content "$(printf '%s' "$AUDIT_JSON" | base64 | tr -d '\n')" \
+     --arg branch "$branch" --arg sha "$SHA" \
+     '{message:$msg, content:$content, branch:$branch} + (if $sha == "" then {} else {sha:$sha} end)')
+   audit_commit_url=$(gh api -X PUT "repos/$GITHUB_REPOSITORY/contents/$audit_path" --input - <<< "$PAYLOAD" --jq .commit.html_url)
    ```
-   git fetch origin feat/issue-<n>-<slug>
-   git checkout feat/issue-<n>-<slug>
-   git add <audit_dir>/<run_id>.json
-   git commit -m "chore(orchestrator): record async run audit <run_id>" --no-verify
-   git push origin feat/issue-<n>-<slug>
+3. If `config.audit.github_check_run`: create or update Check Run `aidd-async/<run_id>`. Capture `check_run_id` and set a final `conclusion` (`success` / `failure` / `action_required`).
+4. Transition labels: remove `config.labels.working`; on success add `config.labels.awaiting_review`, on failure add `config.labels.blocked` and post the error on the issue. Capture `labels_after` from the API response.
+5. Post the completion marker (single PR comment, idempotent via the HTML token):
    ```
-   `--no-verify` is used because the audit commit is an orchestrator artefact, not a feature change. If `delegated_via_skill` is `false`, additionally post a PR comment referencing the contract violation so a human can decide whether to keep the PR.
-4. If `config.audit.github_check_run` is true, call `gh api repos/{owner}/{repo}/check-runs` to create or update a Check Run named `aidd-async/<run_id>` with `status`, `conclusion`, and `output.summary` reflecting the run (including `delegated_via_skill`).
-5. Transition labels on the issue:
-   - On success (PR was opened): remove `config.labels.working`, add `config.labels.awaiting_review`.
-   - On failure: remove `config.labels.working`, add `config.labels.blocked`. Post a comment on the issue with the error details.
-6. Return the audit path and check run id.
+   <!-- aidd-orchestrator:run-complete run_id=<run_id> -->
+   ✅ Async run complete. Audit: <audit_commit_url>.
+   ```
+   Capture `completion_marker_url`. The agent uses this as its sole exit signal.
+6. Run the Test section. Exit only when every assertion prints `OK`.
 
 ## Test
 
-After a successful run: `gh api 'repos/{owner}/{repo}/contents/aidd_docs/async-runs/<YYYY_MM>/<run_id>.json?ref=feat/issue-<n>-<slug>'` returns the file (proving it was committed and pushed); `jq '.run_id, .pr_number, .delegated_via_skill' <local-copy>` returns the run id, PR number, and `true`; `gh api repos/{owner}/{repo}/check-runs/<id>` returns `conclusion: "success"`; `gh issue view <n> --repo <owner>/<repo> --json labels --jq '.labels[].name'` includes `claude/awaiting-review` and excludes `claude/working`. If `delegated_via_skill` is `false`, the PR carries a comment naming the contract violation.
+```bash
+gh api "repos/$GITHUB_REPOSITORY/contents/$audit_path?ref=$branch" --jq .sha >/dev/null \
+  && echo "OK audit_file" || echo "FAIL audit_file"
+
+gh api "repos/$GITHUB_REPOSITORY/check-runs/$check_run_id" --jq .conclusion \
+  | grep -Eq '^(success|neutral|failure|action_required)$' \
+  && echo "OK check_run" || echo "FAIL check_run"
+
+gh api "repos/$GITHUB_REPOSITORY/issues/$issue_number" --jq '[.labels[].name]' \
+  | jq -e 'contains(["claude/awaiting-review"]) and (contains(["claude/working"]) | not)' >/dev/null \
+  && echo "OK labels" || echo "FAIL labels"
+
+gh api "repos/$GITHUB_REPOSITORY/issues/$pr_number/comments" \
+  --jq "[.[] | select(.body | contains(\"aidd-orchestrator:run-complete run_id=$run_id\"))] | length" \
+  | grep -q '^1$' && echo "OK marker" || echo "FAIL marker"
+```
+
+On failure mode (`delegated_via_skill == false` or SDLC errored): assertion 3 expects `claude/blocked` instead of `claude/awaiting-review`.
