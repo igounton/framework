@@ -12,6 +12,7 @@ A plugin marketplace for AI-driven development. Install focused skill sets into 
 | [aidd-dev](plugins/aidd-dev/README.md) | 9 | SDLC loop: plan, assert, review, test, refactor, debug |
 | [aidd-vcs](plugins/aidd-vcs/README.md) | 4 | Commits, pull/merge requests, release tags, issue creation |
 | [aidd-pm](plugins/aidd-pm/README.md) | 4 | Ticket info, user stories, PRD, clarity mode (release candidate) |
+| [aidd-orchestrator](plugins/aidd-orchestrator/README.md) | 3 | Orchestration use cases: `async-dev` (label-driven issue → PR, with review loop) |
 | [aidd-refine](plugins/aidd-refine/README.md) | 3 | Meta-cognition: brainstorm, challenge, condense |
 
 ---
