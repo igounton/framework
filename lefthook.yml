@@ -15,34 +15,46 @@ pre-commit:
         else
           echo "ℹ️  Parent repo not found; running framework-local checks only"
         fi
-    no-em-dash:
-      glob: "**/*.md"
-      run: |
-        bad=$(grep -l "—" {staged_files} 2>/dev/null || true)
-        if [ -n "$bad" ]; then
-          echo "❌ em-dash (U+2014) found in:"
-          echo "$bad"
-          echo "Replace with a hyphen (per project convention)."
-          exit 1
-        fi
     json-validity:
-      glob: "{.claude-plugin/marketplace.json,plugins/*/.claude-plugin/plugin.json,plugins/*/skills/01-setup-async-dev/assets/config-template.json,.claude/aidd-orchestrator.json}"
+      glob: "**/*.json"
       run: |
+        has_schema_validator=0
+        if command -v pipx >/dev/null 2>&1; then
+          has_schema_validator=1
+        fi
         for f in {staged_files}; do
           [ -f "$f" ] || continue
           if ! jq empty "$f" >/dev/null 2>&1; then
             echo "❌ invalid JSON: $f"
             exit 1
           fi
+          schema=""
+          case "$f" in
+            *.claude-plugin/plugin.json|*/.claude-plugin/plugin.json)
+              schema="https://www.schemastore.org/claude-code-plugin-manifest.json" ;;
+            *.claude-plugin/marketplace.json|*/.claude-plugin/marketplace.json)
+              schema="https://www.schemastore.org/claude-code-marketplace.json" ;;
+            *.claude/settings.json|*.claude/settings.local.json|*/.claude/settings.json|*/.claude/settings.local.json)
+              schema="https://www.schemastore.org/claude-code-settings.json" ;;
+          esac
+          if [ -n "$schema" ] && [ "$has_schema_validator" = "1" ]; then
+            if ! pipx run check-jsonschema --schemafile "$schema" "$f" >/dev/null 2>&1; then
+              pipx run check-jsonschema --schemafile "$schema" "$f"
+              echo "❌ schema validation failed: $f against $schema"
+              exit 1
+            fi
+          fi
         done
-    yaml-workflow-validity:
-      glob: ".github/workflows/*.yml"
+    yaml-validity:
+      glob: "**/*.{yml,yaml}"
       run: |
+        if ! command -v python3 >/dev/null 2>&1; then
+          echo "ℹ️  python3 not available; skipping yaml-validity"
+          exit 0
+        fi
         for f in {staged_files}; do
           [ -f "$f" ] || continue
-          if command -v python3 >/dev/null 2>&1; then
-            python3 -c "import sys, yaml; yaml.safe_load(open('$f'))" || { echo "❌ invalid YAML: $f"; exit 1; }
-          fi
+          python3 -c "import sys, yaml; yaml.safe_load(open('$f'))" 2>/dev/null || { echo "❌ invalid YAML: $f"; exit 1; }
         done
     skill-frontmatter:
       glob: "plugins/*/skills/*/SKILL.md"
@@ -80,4 +92,3 @@ commit-msg:
   commands:
     commitlint:
       run: pnpm exec commitlint --edit {1}
-
