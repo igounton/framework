@@ -1,7 +1,10 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "aidd-vcs",
   "version": "1.0.0",
   "description": "External artifacts: commit, pull-request, release-tag, issue-create",
-  "author": { "name": "AI-Driven Dev" },
+  "author": {
+    "name": "AI-Driven Dev"
+  },
   "strict": true
 }

@@ -65,4 +65,5 @@ A structured per-run record written to `aidd_docs/async-runs/<YYYY_MM>/<run-id>.
 ## See also
 
 - [`../README.md`](../README.md) for the marketplace overview, plugin catalog, and install flow.
-- [`README.md`](README.md) for the methodology, the phase guide, and the framework structure.
+- [`ARCHITECTURE.md`](ARCHITECTURE.md) for the composition model and skill router pattern.
+- [`CATALOG.md`](CATALOG.md) for the full skills index.

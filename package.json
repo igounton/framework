@@ -1,5 +1,32 @@
 {
+  "name": "aidd-framework",
+  "version": "0.0.0",
   "private": true,
+  "description": "Community-maintained marketplace of skills, agents, and rules for Claude Code, built around the AI-Driven Development methodology.",
+  "license": "MIT",
+  "homepage": "https://www.ai-driven-dev.fr/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ai-driven-dev/aidd-framework.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ai-driven-dev/aidd-framework/issues"
+  },
+  "keywords": [
+    "claude-code",
+    "claude-code-plugin",
+    "claude-code-marketplace",
+    "ai-driven-development",
+    "claude-skills",
+    "claude-agents",
+    "llm-tooling",
+    "developer-tools",
+    "sdlc-automation",
+    "prompt-engineering"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "prepare": "lefthook install || true"
   },

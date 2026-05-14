@@ -74,14 +74,14 @@
 * **release:** add pm.2 discord README and CHANGELOG entry ([1beba46](https://github.com/ai-driven-dev/aidd-framework/commit/1beba466392596996ee23c82a7f87e380aba2485))
 * **rules:** add frontmatter description to ide-mapping files ([eb1dd38](https://github.com/ai-driven-dev/aidd-framework/commit/eb1dd38c5763bb7258b79f6f077b1058afd1e639))
 
-## [3.7.1-pm.2](https://github.com/ai-driven-dev/aidd-framework/releases/tag/v3.7.1-pm.2) (2026-03-22) — Beta pre-release
+## [3.7.1-pm.2](https://github.com/ai-driven-dev/aidd-framework/releases/tag/v3.7.1-pm.2) (2026-03-22) - Beta pre-release
 
 > ⚠️ Pre-release expérimentale. Pas proposée automatiquement aux utilisateurs existants.
 > Install : `aidd setup --release v3.7.1-pm.2` ou `aidd update --release v3.7.1-pm.2`
 
 Cette release expérimente une approche différente : **agents et skills plutôt que commandes SDLC**.
 Chaque agent orchestre ses propres skills avec des gates de challenge intégrées.
-Rien n'est ancré — feedback et itérations bienvenus.
+Rien n'est ancré - feedback et itérations bienvenus.
 
 ### Features
 
@@ -97,7 +97,7 @@ Rien n'est ancré — feedback et itérations bienvenus.
 
 ### Improvements
 
-* Challenge gates on every skill — structural validation before presenting any deliverable
+* Challenge gates on every skill - structural validation before presenting any deliverable
 * Upstream reconciliation (bidirectional): deduplication + constraint propagation
 * Business-level language enforced in `pm-constitution`
 * Agent single-responsibility strictly enforced, aligned with course materials

@@ -1,3 +1,40 @@
+# macOS
 .DS_Store
+
+# Node
 node_modules/
+.pnpm-store/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+dist/
+coverage/
+*.tsbuildinfo
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+*.pem
+
+# Editors and IDEs
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+*.swp
+*.swo
+
+# Claude Code session-local
+.claude/settings.local.json
+
+# SpecStory captures (may contain transcripts / secrets)
 .specstory/
+
+# OS / temp
+Thumbs.db
+*.tmp
