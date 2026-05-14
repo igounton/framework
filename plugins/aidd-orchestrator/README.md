@@ -2,8 +2,6 @@
 
 Orchestration plugin for the AI-Driven Development framework.
 
-> Status: v1. The `async-dev` use case is stable. Future use cases (`agentic-orchestration`, `flow-orchestration`) are on the roadmap.
-
 Composes capabilities into deterministic, auditable flows. Each skill is one orchestration brick; several use cases coexist inside the same plugin.
 
 ## Skills
@@ -22,8 +20,8 @@ Each skill has its own README covering when to use, how to invoke, prerequisites
 
 | Use case | Direction |
 |----------|-----------|
-| `agentic-orchestration` | Multi-agent coordination — sub-agents, hand-offs, supervision. |
-| `flow-orchestration` | Conditional / branching pipelines — human gates, fallbacks, retries. |
+| `agentic-orchestration` | Multi-agent coordination - sub-agents, hand-offs, supervision. |
+| `flow-orchestration` | Conditional / branching pipelines - human gates, fallbacks, retries. |
 
 ## Install
 

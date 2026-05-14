@@ -8,6 +8,6 @@ Three skills that refine inputs and outputs through reflection: clarify vague re
 
 | Bracket ID | Skill      | Description                                                                                                                                                                                   |
 | ---------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [1.1]      | brainstorm | Interactive brainstorming session to clarify and refine requests through iterative questioning.                                                                                               |
-| [1.2]      | challenge  | Rethink prior work to verify correctness against an agreed plan, classifying findings with a confidence score.                                                                                |
-| [1.3]      | condense   | Toggle terse output mode with intensity levels so prose drops fluff while code, errors, and warnings stay verbatim.                                                                           |
+| [1.1]      | [brainstorm](skills/01-brainstorm/README.md) | Interactive brainstorming session to clarify and refine requests through iterative questioning.                                                                                               |
+| [1.2]      | [challenge](skills/02-challenge/README.md)  | Rethink prior work to verify correctness against an agreed plan, classifying findings with a confidence score.                                                                                |
+| [1.3]      | [condense](skills/03-condense/README.md)   | Toggle terse output mode with intensity levels so prose drops fluff while code, errors, and warnings stay verbatim.                                                                           |

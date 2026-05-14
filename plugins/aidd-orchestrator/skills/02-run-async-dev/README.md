@@ -1,8 +1,8 @@
-# 02 — Run async-dev
+# 02 - Run async-dev
 
 Drives one async-dev cycle: locks a ready issue, delegates the implementation
 to the loaded SDLC capability, opens a pull request, and writes an audit
-record. The skill never implements code itself — it coordinates.
+record. The skill never implements code itself - it coordinates.
 
 ## Lifecycle
 
@@ -57,13 +57,13 @@ Use skill aidd-orchestrator:02-run-async-dev on issue #<N>
 
 The skill walks 6 atomic actions:
 
-1. `poll-ready` — list ready issues.
-2. `resolve-deps` — filter out blocked ones.
-3. `acquire-lock` — swap `to-implement` → `claude/working`.
-4. `check-sdlc` — discover the SDLC capability by description.
-5. `delegate-sdlc` — invoke that capability via the `Skill` tool with the
+1. `poll-ready` - list ready issues.
+2. `resolve-deps` - filter out blocked ones.
+3. `acquire-lock` - swap `to-implement` → `claude/working`.
+4. `check-sdlc` - discover the SDLC capability by description.
+5. `delegate-sdlc` - invoke that capability via the `Skill` tool with the
    delegation contract (branch name, base, body containing `Closes #N`).
-6. `write-audit` — commit and push the audit JSON to the PR branch, create
+6. `write-audit` - commit and push the audit JSON to the PR branch, create
    the GitHub Check Run, transition the label to `claude/awaiting-review`.
 
 ## Outputs
@@ -93,5 +93,5 @@ the issue touches `.github/workflows/**`.
 
 See [`SKILL.md`](SKILL.md) for the action contract and [`actions/`](actions/)
 for each step. The delegation contract enforced by action 05 is the
-non-bypassable core of this skill — the orchestrator MUST call the SDLC via
+non-bypassable core of this skill - the orchestrator MUST call the SDLC via
 the `Skill` tool, never inline its own edits.

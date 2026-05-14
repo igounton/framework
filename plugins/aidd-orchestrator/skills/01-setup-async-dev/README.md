@@ -1,4 +1,4 @@
-# 01 — Setup async-dev
+# 01 - Setup async-dev
 
 Installs and configures the `async-dev` use case end-to-end in a target repo,
 from a fresh clone to the first triggered run.

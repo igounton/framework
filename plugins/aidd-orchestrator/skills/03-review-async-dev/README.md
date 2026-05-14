@@ -1,4 +1,4 @@
-# 03 — Review async-dev
+# 03 - Review async-dev
 
 Drives the post-PR review-and-fix loop on the pull request opened by
 `02-run-async-dev`. Collects review comments, decides whether to keep
@@ -16,7 +16,7 @@ threads, and posts a summary when stop conditions trigger.
 
 - For the initial implementation cycle → use `02-run-async-dev`.
 - To configure the workflow or labels → use `01-setup-async-dev`.
-- When the PR is already merged or closed — the skill aborts in that case.
+- When the PR is already merged or closed - the skill aborts in that case.
 
 ## How to invoke
 
@@ -26,15 +26,15 @@ Use skill aidd-orchestrator:03-review-async-dev on PR #<N>
 
 The skill walks 4 atomic actions:
 
-1. `collect-comments` — gather unresolved review comments since the last
+1. `collect-comments` - gather unresolved review comments since the last
    iteration.
-2. `detect-stop` — decide whether to fix or stop. Stop reasons:
+2. `detect-stop` - decide whether to fix or stop. Stop reasons:
    `blocked_label`, `max_iterations`, `human_reviewer` (only iteration >1),
    `no_comments`.
-3. `delegate-fix` — invoke the SDLC capability with the comment context to
+3. `delegate-fix` - invoke the SDLC capability with the comment context to
    produce one fix commit on the PR branch; reply inline on each addressed
    comment and resolve the thread.
-4. `write-summary` — post a structured iteration summary comment, transition
+4. `write-summary` - post a structured iteration summary comment, transition
    the label back to `claude/awaiting-review`, write the audit record.
 
 ## Outputs
