@@ -180,22 +180,31 @@ jobs:
         run: |
           set +e
           RESULT="${RUNNER_TEMP}/run-result.json"
-          if [ ! -s "$RESULT" ]; then
-            outcome="blocked"
-            pr_number=""
-            error="run-result.json missing; agent exited without recording outcome"
-            run_id="unknown-$(date -u +%Y%m%dT%H%M%SZ)"
-          else
+          if [ -s "$RESULT" ]; then
             outcome=$(jq -r '.outcome // "blocked"' "$RESULT")
             pr_number=$(jq -r '.pr_number // empty' "$RESULT")
             run_id=$(jq -r '.run_id // empty' "$RESULT")
             error=$(jq -r '.error // empty' "$RESULT")
+          else
+            # No agent-recorded result. Observe reality: did an open PR get opened that closes this issue?
+            pr_number=$(gh pr list --repo "$GITHUB_REPOSITORY" --state open --json number,body \
+              --jq "[.[] | select(.body | test(\"(?i)\\\\b(Closes|Fixes|Resolves)\\\\s+#${ISSUE_NUMBER}\\\\b\"))][0].number // empty")
+            run_id="auto-$(date -u +%Y%m%dT%H%M%SZ)-i${ISSUE_NUMBER}"
+            if [ -n "$pr_number" ]; then
+              outcome="success"
+              error=""
+            else
+              outcome="blocked"
+              error="agent did not record run-result.json and no open PR closes #${ISSUE_NUMBER}"
+            fi
           fi
-          if [ "$JOB_STATUS" != "success" ]; then
+          if [ "$JOB_STATUS" != "success" ] && [ "$outcome" = "success" ]; then
+            outcome="recovered"
+            error="${error:-claude-code-action exited non-zero but a closing PR exists}"
+          elif [ "$JOB_STATUS" != "success" ] && [ "$outcome" != "success" ]; then
             outcome="blocked"
             error="${error:-claude-code-action exited with status $JOB_STATUS}"
           fi
-          # Audit log: push run-result.json under aidd_docs/async-runs/YYYY_MM/<run_id>.json on the PR branch (or default if no PR).
           if [ -n "$pr_number" ]; then
             branch=$(gh pr view "$pr_number" --repo "$GITHUB_REPOSITORY" --json headRefName --jq .headRefName)
           else
@@ -203,6 +212,10 @@ jobs:
           fi
           audit_path="aidd_docs/async-runs/$(date -u +%Y_%m)/${run_id}.json"
           existing_sha=$(gh api "repos/$GITHUB_REPOSITORY/contents/$audit_path?ref=$branch" --jq .sha 2>/dev/null || echo "")
+          if [ ! -s "$RESULT" ]; then
+            jq -n --arg run_id "$run_id" --arg outcome "$outcome" --arg pr "$pr_number" --arg err "$error" --arg issue "$ISSUE_NUMBER" \
+              '{run_id:$run_id, outcome:$outcome, issue_number:($issue|tonumber), pr_number:(if $pr=="" then null else ($pr|tonumber) end), error:(if $err=="" then null else $err end), source:"workflow-fallback"}' > "$RESULT"
+          fi
           content_b64=$(base64 < "$RESULT" | tr -d '\n')
           payload=$(jq -n --arg msg "chore(orchestrator): record async run audit $run_id" \
             --arg content "$content_b64" --arg branch "$branch" --arg sha "$existing_sha" \
@@ -250,3 +263,52 @@ jobs:
             https://x-access-token:${{ secrets.__MARKETPLACE_TOKEN_NAME__ }}@github.com/__MARKETPLACE_REPO__.git
           claude_args: --permission-mode bypassPermissions
           show_full_output: true
+
+      - name: Finalize review (marker + labels)
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.__GITHUB_WRITE_SECRET__ }}
+          PR_NUMBER: ${{ needs.dispatch.outputs.issue_number }}
+          JOB_STATUS: ${{ job.status }}
+          WORKING_LABEL: __WORKING_LABEL__
+          AWAITING_LABEL: __AWAITING_LABEL__
+          BLOCKED_LABEL: __BLOCKED_LABEL__
+        run: |
+          set +e
+          RESULT="${RUNNER_TEMP}/run-result.json"
+          if [ -s "$RESULT" ]; then
+            run_id=$(jq -r '.run_id // empty' "$RESULT")
+            stop_reason=$(jq -r '.stop_reason // "no_comments"' "$RESULT")
+            summary_path="${RUNNER_TEMP}/run-summary.md"
+          else
+            run_id="auto-$(date -u +%Y%m%dT%H%M%SZ)-pr${PR_NUMBER}"
+            stop_reason="agent-no-record"
+          fi
+          # Resolve the linked issue to transition its label.
+          issue_number=$(gh pr view "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --json closingIssuesReferences --jq '.closingIssuesReferences[0].number // empty')
+          # Pick the terminal label based on stop_reason.
+          case "$stop_reason" in
+            blocked_label) new_label="$BLOCKED_LABEL" ;;
+            *)             new_label="$AWAITING_LABEL" ;;
+          esac
+          if [ -n "$issue_number" ]; then
+            gh api -X DELETE "repos/$GITHUB_REPOSITORY/issues/$issue_number/labels/$(printf '%s' "$WORKING_LABEL" | jq -sRr @uri)" >/dev/null 2>&1 || true
+            gh api -X POST "repos/$GITHUB_REPOSITORY/issues/$issue_number/labels" -f "labels[]=$new_label" >/dev/null || true
+          fi
+          # Post summary comment (rendered by Claude when available, otherwise a minimal fallback).
+          if [ -s "${RUNNER_TEMP}/run-summary.md" ]; then
+            gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body-file "${RUNNER_TEMP}/run-summary.md" >/dev/null || true
+          else
+            gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body "## Async review summary
+
+**Stop reason** -- \`$stop_reason\`
+**Run id** -- \`$run_id\`
+_No iteration summary recorded by the agent; see workflow logs for details._" >/dev/null || true
+          fi
+          # Completion marker (idempotent).
+          existing=$(gh api "repos/$GITHUB_REPOSITORY/issues/$PR_NUMBER/comments" \
+            --jq "[.[] | select(.body | contains(\"aidd-orchestrator:review-complete run_id=$run_id\"))] | length")
+          if [ "$existing" = "0" ]; then
+            gh issue comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body "<!-- aidd-orchestrator:review-complete run_id=$run_id -->
+          ✅ Async review complete (\`$stop_reason\`)." >/dev/null || true
+          fi
