@@ -1,3 +1,5 @@
+← [aidd-framework](../../../../README.md) / [aidd-context](../../README.md)
+
 # 06 - Discovery
 
 Enumerates installed surfaces of the AI tool (skills, agents, commands,
@@ -29,7 +31,7 @@ without invoking the target.
 ## How to invoke
 
 ```
-Use skill aidd-context:06-discovery
+Use skill aidd-context:06:discovery
 ```
 
 The skill picks one action based on what the user is enumerating:

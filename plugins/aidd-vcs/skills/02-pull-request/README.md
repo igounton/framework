@@ -1,3 +1,5 @@
+← [aidd-framework](../../../../README.md) / [aidd-vcs](../../README.md)
+
 # 02 - Pull Request
 
 Drafts a pull request (GitHub) or merge request (GitLab) from the current
@@ -22,7 +24,7 @@ as a draft for manual promotion.
 ## How to invoke
 
 ```
-Use skill aidd-vcs:02-pull-request
+Use skill aidd-vcs:02:pull-request
 ```
 
 Or via the slash command: `/pull-request`.

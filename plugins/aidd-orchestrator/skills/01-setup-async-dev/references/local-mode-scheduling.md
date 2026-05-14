@@ -52,6 +52,8 @@ tmux kill-session -t aidd-async
 
 **launchd** (macOS, restart on login):
 ```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
     <key>Label</key><string>com.aidd.async-daemon</string>
@@ -111,3 +113,9 @@ Convenient when you want the routine to keep running even with the laptop off. *
 ```
 
 If the script reports `no open issues with label to-implement`, label one issue and try again before wiring up a supervisor.
+
+## Rate limits and quotas
+
+**GitHub REST API.** Authenticated requests are capped at 5,000 calls per hour per token. Each tick of the poll calls `gh issue list` once per trigger label, plus `gh issue view` once per candidate issue (the lock-label pre-check) and `gh pr list` when the review path is active. A single-repo daemon polling every 60 to 300 seconds stays well under the cap, but the budget shrinks fast if `AIDD_REPO` is rotated across multiple repos in the same shell, or if several daemons share the same token. For active development, keep the cadence at 60 seconds or longer and use `--paginate` only on commands that legitimately need it (the default `gh issue list` returns 30 results, which is enough for the orchestrator's purposes). If you hit `API rate limit exceeded`, `gh` exits non-zero and the next tick simply retries; no state is corrupted.
+
+**Anthropic plan quota and API spend.** Each `claude -p` invocation made by the script consumes either plan ticks (OAuth login) or pay-per-token API spend (`ANTHROPIC_API_KEY`). The cost is event-driven, not cadence-driven: on a tick with no labelled issues, the script does zero `claude -p` calls and therefore zero Anthropic cost; on a tick that finds one labelled issue, it fires exactly one `claude -p` call per matched label. The practical knob is therefore the longest cadence you can tolerate combined with how aggressively you label. A 5-minute cadence with an empty queue is free; a 1-minute cadence with a constantly growing queue burns plan ticks at the rate at which you label. Cap with the longest acceptable cadence and avoid letting label churn become an unbounded driver of `claude -p` calls.

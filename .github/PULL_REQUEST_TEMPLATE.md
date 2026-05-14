@@ -25,5 +25,4 @@ Closes #
 - [ ] Commit messages follow the conventional format and use a scope listed in `commitlint.config.cjs`.
 - [ ] Documentation updated when behaviour or contracts changed (plugin README, skill README, references).
 - [ ] No cross-plugin references introduced in plugin docs.
-- [ ] No em-dash characters in newly added prose.
 - [ ] Pre-commit hooks pass locally (`lefthook run pre-commit`).

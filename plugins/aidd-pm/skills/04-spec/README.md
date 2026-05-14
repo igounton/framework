@@ -1,3 +1,5 @@
+← [aidd-framework](../../../../README.md) / [aidd-pm](../../README.md)
+
 # 04 - Spec
 
 Generates or refines the immutable contract between human intent and the
@@ -24,13 +26,13 @@ locked once validated.
 Build a fresh spec from a request or an existing PRD:
 
 ```
-Use skill aidd-pm:04-spec build for <request or PRD path>
+Use skill aidd-pm:04:spec build for <request or PRD path>
 ```
 
 Refine an existing spec from reviewer findings:
 
 ```
-Use skill aidd-pm:04-spec refine on <spec path> with <findings>
+Use skill aidd-pm:04:spec refine on <spec path> with <findings>
 ```
 
 The router picks the action from the inputs: presence of `existing_spec`

@@ -1,3 +1,5 @@
+← [aidd-framework](../../../../README.md) / [aidd-context](../../README.md)
+
 # 05 - Learn
 
 Captures durable project-level learnings, conventions, and decisions
@@ -22,7 +24,7 @@ context files so the new knowledge is in scope on the next turn.
 ## How to invoke
 
 ```
-Use skill aidd-context:05-learn
+Use skill aidd-context:05:learn
 ```
 
 The skill walks 3 atomic actions:

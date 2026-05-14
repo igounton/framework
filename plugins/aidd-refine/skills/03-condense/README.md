@@ -1,3 +1,5 @@
+← [aidd-framework](../../../../README.md) / [aidd-refine](../../README.md)
+
 # 03 - Condense
 
 Toggles a terse output mode with three intensity levels (`lite`, `full`,
@@ -26,7 +28,7 @@ token usage and estimated savings for the current session.
 ## How to invoke
 
 ```
-Use skill aidd-refine:03-condense
+Use skill aidd-refine:03:condense
 ```
 
 The router dispatches by intent:

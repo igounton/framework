@@ -13,7 +13,16 @@ if [ "${1:-}" = "--dry-run" ]; then
   DRY_RUN=1
 fi
 
-REPO="__REPO_FULL_NAME__"
+if [ -n "${AIDD_REPO:-}" ]; then
+  REPO="$AIDD_REPO"
+elif command -v git >/dev/null 2>&1 && git rev-parse --git-dir >/dev/null 2>&1; then
+  REPO=$(git remote get-url origin 2>/dev/null | sed -E 's#^.*github\.com[:/]([^/]+/[^/.]+)(\.git)?$#\1#')
+fi
+REPO="${REPO:-__REPO_FULL_NAME__}"
+if [ -z "$REPO" ]; then
+  echo "[aidd-async] cannot determine repo; set AIDD_REPO=<owner>/<repo> or run inside a GitHub-tracked clone" >&2
+  exit 1
+fi
 TO_IMPLEMENT="__TO_IMPLEMENT_LABEL__"
 TO_REVIEW="__TO_REVIEW_LABEL__"
 WORKING="__WORKING_LABEL__"

@@ -1,3 +1,5 @@
+← [aidd-framework](../../../../README.md) / [aidd-refine](../../README.md)
+
 # 01 - Brainstorm
 
 Interactive brainstorming session that clarifies and refines a vague request
@@ -21,7 +23,7 @@ explicitly approves the result.
 ## How to invoke
 
 ```
-Use skill aidd-refine:01-brainstorm
+Use skill aidd-refine:01:brainstorm
 ```
 
 The skill walks 5 atomic actions:

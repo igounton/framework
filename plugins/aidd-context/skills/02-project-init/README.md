@@ -1,3 +1,5 @@
+← [aidd-framework](../../../../README.md) / [aidd-context](../../README.md)
+
 # 02 - Project Init
 
 Bootstraps the AIDD context layer for a project: AI context files with the
@@ -21,7 +23,7 @@ are created lazily by `03-context-generate` when the first rule is written.
 ## How to invoke
 
 ```
-Use skill aidd-context:02-project-init
+Use skill aidd-context:02:project-init
 ```
 
 The skill walks 5 atomic actions in sequence:

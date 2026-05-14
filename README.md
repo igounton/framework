@@ -20,8 +20,6 @@
 
 </div>
 
-<!-- TODO: record a 30-60s demo (label an issue, watch a PR open) and embed as docs/demo.gif. LICEcap or QuickTime + ffmpeg work fine. -->
-
 ---
 
 ## What is AI-Driven Dev?
@@ -34,16 +32,36 @@ Join the conversation: [Discord](https://discord.gg/ai-driven-dev) · [YouTube](
 
 ---
 
+## Prerequisites
+
+To consume the marketplace from any Claude Code session you need:
+
+- **Claude Code** installed and running (`/plugin` slash command available). Recent versions support marketplaces; if `/plugin marketplace add` is unknown, update Claude Code first.
+- **An Anthropic plan or API key** -- a Claude Pro/Max plan for OAuth, or an `ANTHROPIC_API_KEY` for pay-per-token usage. Most plugins also work in interactive Claude Code sessions where the host already authenticates.
+- **`gh` CLI authenticated** if you plan to use plugins that interact with GitHub (`aidd-vcs`, `aidd-orchestrator`, `aidd-pm`). Verify with `gh auth status`.
+- **Network access** to GitHub (this repo is the marketplace) and to Anthropic API endpoints.
+- **Optional per plugin**: some plugins assume additional context, such as a working git repo, a `package.json`, or a configured ticketing tool. Each plugin's README lists its own prerequisites.
+
 ## Quick start
 
 Inside any Claude Code session, register this marketplace and install a plugin:
 
 ```text
 /plugin marketplace add ai-driven-dev/aidd-framework
-/plugin install aidd-dev@aidd-framework
+/plugin install aidd-context@aidd-framework
 ```
 
-That's it. The first command registers `aidd-framework` as a marketplace; the second installs the `aidd-dev` plugin from it. Repeat the `install` line for any other plugin from the catalog below.
+> The blocks above are Claude Code slash commands typed inside a Claude Code session, not shell commands.
+
+If the marketplace repo is private, `/plugin marketplace add <owner>/<repo>` requires that you be authenticated with read access to that repo (typically via `gh auth login` or a PAT on the machine running Claude Code). See the Anthropic [Discover and install plugins](https://code.claude.com/docs/en/discover-plugins) docs for the full install flow.
+
+Then run the onboarding skill so the framework guides you from there:
+
+```text
+Use skill aidd-context:00:onboard
+```
+
+`aidd-context:00:onboard` inspects your project state, picks the right next skill (init, generate, bootstrap, etc.), and loops back after each step. Install other plugins from the catalog below as your needs grow.
 
 Prefer browsing? Run `/plugin` inside Claude Code and open the **Discover** tab once the marketplace is registered.
 
@@ -53,14 +71,14 @@ Prefer browsing? Run `/plugin` inside Claude Code and open the **Discover** tab 
 
 ## Plugins
 
-| Plugin | Skills | What it does |
-| ------ | ------ | ------------ |
-| [aidd-context](plugins/aidd-context/README.md) | 7 | Project init, architecture, context generation, diagrams, learning, discovery |
-| [aidd-dev](plugins/aidd-dev/README.md) | 10 | SDLC loop: plan, implement, assert, review, test, refactor, debug |
-| [aidd-vcs](plugins/aidd-vcs/README.md) | 4 | Commits, pull/merge requests, release tags, issue creation |
-| [aidd-pm](plugins/aidd-pm/README.md) | 4 | Ticket info, user stories, PRD, spec drafting (release candidate) |
-| [aidd-orchestrator](plugins/aidd-orchestrator/README.md) | 3 | Orchestration use cases: `async-dev` (label an issue, get a PR) |
-| [aidd-refine](plugins/aidd-refine/README.md) | 3 | Meta-cognition: brainstorm, challenge, condense |
+| Plugin | Skills | Status | What it does |
+| ------ | ------ | ------ | ------------ |
+| [aidd-context](plugins/aidd-context/README.md) | 7 | stable | Project init, architecture, context generation, diagrams, learning, discovery |
+| [aidd-dev](plugins/aidd-dev/README.md) | 10 | stable | SDLC loop: plan, implement, assert, review, test, refactor, debug |
+| [aidd-vcs](plugins/aidd-vcs/README.md) | 4 | stable | Commits, pull/merge requests, release tags, issue creation |
+| [aidd-pm](plugins/aidd-pm/README.md) | 4 | release candidate | Ticket info, user stories, PRD, spec drafting |
+| [aidd-orchestrator](plugins/aidd-orchestrator/README.md) | 3 | stable (`async-dev`) | Orchestration use cases: `async-dev` (label an issue, get a PR) |
+| [aidd-refine](plugins/aidd-refine/README.md) | 3 | stable | Meta-cognition: brainstorm, challenge, condense |
 
 Each plugin's README links to per-skill READMEs covering when to use, how to invoke, prerequisites, and outputs.
 
@@ -89,6 +107,16 @@ Set scope at install time with the `/plugin` UI, or by editing `enabledPlugins` 
 
 ---
 
+## Versioning and updates
+
+- Each plugin versions independently via `release-please`. Tags look like `aidd-<plugin>-vX.Y.Z`.
+- The root marketplace (`marketplace.json`) versions independently as `vX.Y.Z`.
+- Pull updates inside Claude Code with `/plugin marketplace update aidd-framework`.
+
+See [`CHANGELOG.md`](./CHANGELOG.md) for the full history.
+
+---
+
 ## Trust and safety
 
 This is a community-maintained marketplace. Plugins can execute commands, edit files, and call external services on your behalf. Before installing any plugin from any third-party marketplace, including this one:
@@ -105,16 +133,19 @@ If you spot a vulnerability, please report it privately via [SECURITY.md](./SECU
 
 | Resource | Where |
 | -------- | ----- |
-| Methodology, flow guide, conventions | [`aidd_docs/README.md`](aidd_docs/README.md) |
-| Skills catalog (auto-generated) | [`aidd_docs/CATALOG.md`](aidd_docs/CATALOG.md) |
+| Skills catalog (all plugins) | [`docs/CATALOG.md`](docs/CATALOG.md) |
+| Glossary | [`docs/GLOSSARY.md`](docs/GLOSSARY.md) |
 | Contribution guide | [`CONTRIBUTING.md`](./CONTRIBUTING.md) |
 | Code of Conduct | [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md) |
 | Security policy | [`SECURITY.md`](./SECURITY.md) |
 | Anthropic plugin docs | [code.claude.com/docs/en/plugins](https://code.claude.com/docs/en/plugins) |
 
+Note: `aidd_docs/` and similar directories generated by `aidd-context:02:project-init` belong to user projects, not to this marketplace. Do not link them from framework-level documentation.
+
 ---
 
-## LLM tier reference
+<details>
+<summary><strong>LLM tier reference</strong> (used by skills that target a specific model tier)</summary>
 
 Some skills target a specific model tier when they need a particular capability. Default tier per task type:
 
@@ -123,6 +154,8 @@ Some skills target a specific model tier when they need a particular capability.
 | **T1** | Fast     | Claude Haiku, Grok Fast  | Mechanical, deterministic tasks, templates, git operations        | 1x            |
 | **T2** | Balanced | Claude Sonnet, GPT Codex | Implementation, structured analysis, validation, code generation  | 8x            |
 | **T3** | Thinking | Claude Opus, GPT 5.2     | Deep reasoning, synthesis, planning, orchestration, onboarding    | 30x           |
+
+</details>
 
 ---
 

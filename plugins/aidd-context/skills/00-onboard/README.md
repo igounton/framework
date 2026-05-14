@@ -1,3 +1,5 @@
+← [aidd-framework](../../../../README.md) / [aidd-context](../../README.md)
+
 # 00 - Onboard
 
 State-aware guided tour of the `aidd-context` plugin. Probes the project for
@@ -22,7 +24,7 @@ each step so the recommendation always reflects the latest state.
 ## How to invoke
 
 ```
-Use skill aidd-context:00-onboard
+Use skill aidd-context:00:onboard
 ```
 
 The skill walks 3 atomic actions in a loop:

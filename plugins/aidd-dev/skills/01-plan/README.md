@@ -1,3 +1,5 @@
+← [aidd-framework](../../../../README.md) / [aidd-dev](../../README.md)
+
 # 01 - plan
 
 Generates technical implementation plans, defines component behaviors as

@@ -1,3 +1,5 @@
+← [aidd-framework](../../../../README.md) / [aidd-pm](../../README.md)
+
 # 01 - Ticket Info
 
 Reads ticket details from the configured ticketing tool and displays them in
@@ -14,20 +16,20 @@ the project memory.
 
 ## When NOT to use
 
-- To create a new issue, use the project's issue-creation capability.
+- To create a new issue, use a skill that advertises issue creation in its description (run `/plugin` and browse the **Discover** tab to find one).
 - To comment on, transition, or reassign a ticket - this skill is read-only.
 - For free-form ticket searches across a project; this skill targets one id.
 
 ## How to invoke
 
 ```
-Use skill aidd-pm:01-ticket-info on <ticket-id>
+Use skill aidd-pm:01:ticket-info on <ticket-id>
 ```
 
 Or, with no id, let the skill auto-detect from the current git branch:
 
 ```
-Use skill aidd-pm:01-ticket-info
+Use skill aidd-pm:01:ticket-info
 ```
 
 ## Outputs

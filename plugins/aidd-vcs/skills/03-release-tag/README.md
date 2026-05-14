@@ -1,3 +1,5 @@
+← [aidd-framework](../../../../README.md) / [aidd-vcs](../../README.md)
+
 # 03 - Release Tag
 
 Cuts a semver release: computes the next version, drafts notes from recent
@@ -22,7 +24,7 @@ annotated git tag, and pushes it.
 ## How to invoke
 
 ```
-Use skill aidd-vcs:03-release-tag
+Use skill aidd-vcs:03:release-tag
 ```
 
 Or via the slash command: `/release-tag`.

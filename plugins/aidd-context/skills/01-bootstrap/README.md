@@ -1,3 +1,5 @@
+← [aidd-framework](../../../../README.md) / [aidd-context](../../README.md)
+
 # 01 - Bootstrap
 
 Plays the role of technical architect for a new SaaS project. Walks the user
@@ -22,7 +24,7 @@ steps. Documentation only - no code, no scaffolding.
 ## How to invoke
 
 ```
-Use skill aidd-context:01-bootstrap
+Use skill aidd-context:01:bootstrap
 ```
 
 The skill walks 5 atomic actions in sequence:

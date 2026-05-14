@@ -1,3 +1,5 @@
+← [aidd-framework](../../../../README.md) / [aidd-vcs](../../README.md)
+
 # 01 - Commit
 
 Creates an atomic git commit with a conventional, imperative-mood message,
@@ -21,7 +23,7 @@ optionally pushing the branch when the caller asks for it.
 ## How to invoke
 
 ```
-Use skill aidd-vcs:01-commit
+Use skill aidd-vcs:01:commit
 ```
 
 Or via the slash command:

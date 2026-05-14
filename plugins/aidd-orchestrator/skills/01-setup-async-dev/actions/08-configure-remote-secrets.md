@@ -43,10 +43,9 @@ Walks the user through adding the GitHub Action secrets the workflow needs. For 
 
 Used by the GitHub Action to authenticate to Claude as your Pro/Max plan. Consumes plan quota; no per-token billing.
 
-Three ways to obtain:
+Two ways to obtain:
 - **A. CLI one-liner (recommended)**: in any local terminal, run `claude setup-token`. Opens a browser, completes the OAuth flow, prints the token to stdout. Copy it.
-- **B. From an existing Claude Code session**: run `/oauth-token` (when available); prints the active session's long-lived token.
-- **C. Anthropic console**: sign in at `https://console.anthropic.com/`, account settings -> Claude Code -> create OAuth token.
+- **B. Anthropic console**: sign in at `https://console.anthropic.com/`, account settings -> Claude Code -> create OAuth token.
 
 Paste the token when prompted. The skill stores it via `gh secret set CLAUDE_CODE_OAUTH_TOKEN --repo <owner>/<repo>`.
 
@@ -94,7 +93,9 @@ Commits created with this PAT are attributed to the PAT owner's GitHub user. If 
 
 Paste the token when prompted. The skill stores it via `gh secret set <answers.github_write_auth.secret_name> --repo <owner>/<repo>`.
 
-### github_write_auth (mode `github_app`)
+### github_write_auth (mode `github_app`, **roadmap**)
+
+> Not yet implemented in v1. The workflow renderer falls back to `pat` until the App-token step lands. The guide below documents the intended setup so the rollout can land without doc churn.
 
 Used by `claude-code-action` for every git write operation, with commits attributed to the App instead of a human user. Heavier setup; right for org-level audit requirements.
 

@@ -1,6 +1,12 @@
+← [aidd-framework](../../README.md)
+
 # aidd-orchestrator
 
 Orchestration plugin for the AI-Driven Development framework.
+
+> Status: stable for use case `async-dev`; other use cases on the roadmap are experimental.
+
+First time? Install with `/plugin install aidd-orchestrator@aidd-framework`, then run `aidd-orchestrator:01:setup-async-dev` (or the first listed skill if no onboard exists).
 
 Composes capabilities into deterministic, auditable flows. Each skill is one orchestration brick; several use cases coexist inside the same plugin.
 
@@ -25,4 +31,4 @@ Each skill has its own README covering when to use, how to invoke, prerequisites
 
 ## Install
 
-See the [framework install guide](../../README.md#install).
+See the [framework quick start](../../README.md#quick-start).

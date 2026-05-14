@@ -1,3 +1,5 @@
+← [aidd-framework](../../../../README.md) / [aidd-orchestrator](../../README.md)
+
 # 03 - Review async-dev
 
 Drives the post-PR review-and-fix loop on the pull request opened by
@@ -21,7 +23,7 @@ threads, and posts a summary when stop conditions trigger.
 ## How to invoke
 
 ```
-Use skill aidd-orchestrator:03-review-async-dev on PR #<N>
+Use skill aidd-orchestrator:03:review-async-dev on PR #<N>
 ```
 
 The skill walks 4 atomic actions:

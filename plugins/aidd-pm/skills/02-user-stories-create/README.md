@@ -1,3 +1,5 @@
+← [aidd-framework](../../../../README.md) / [aidd-pm](../../README.md)
+
 # 02 - Create User Stories
 
 Drafts INVEST-compliant user stories from a feature description through a
@@ -21,7 +23,7 @@ ticketing tool once you validate the draft.
 ## How to invoke
 
 ```
-Use skill aidd-pm:02-user-stories-create for <feature description>
+Use skill aidd-pm:02:user-stories-create for <feature description>
 ```
 
 The skill clarifies in at most 3 questions per round, drafts the stories,

@@ -13,8 +13,63 @@ pre-commit:
           export LEFTHOOK_CHILD=1
           cd "$PARENT_DIR" && pnpm exec lefthook run pre-commit --force
         else
-          echo "⚠️  Parent repo not found, skipping hooks"
+          echo "ℹ️  Parent repo not found; running framework-local checks only"
         fi
+    json-validity:
+      glob: "**/*.json"
+      run: |
+        has_schema_validator=0
+        if command -v pipx >/dev/null 2>&1; then
+          has_schema_validator=1
+        fi
+        for f in {staged_files}; do
+          [ -f "$f" ] || continue
+          if ! jq empty "$f" >/dev/null 2>&1; then
+            echo "❌ invalid JSON: $f"
+            exit 1
+          fi
+          schema=""
+          case "$f" in
+            *.claude-plugin/plugin.json|*/.claude-plugin/plugin.json)
+              schema="https://www.schemastore.org/claude-code-plugin-manifest.json" ;;
+            *.claude-plugin/marketplace.json|*/.claude-plugin/marketplace.json)
+              schema="https://www.schemastore.org/claude-code-marketplace.json" ;;
+            *.claude/settings.json|*.claude/settings.local.json|*/.claude/settings.json|*/.claude/settings.local.json)
+              schema="https://www.schemastore.org/claude-code-settings.json" ;;
+          esac
+          if [ -n "$schema" ] && [ "$has_schema_validator" = "1" ]; then
+            if ! pipx run check-jsonschema --schemafile "$schema" "$f" >/dev/null 2>&1; then
+              pipx run check-jsonschema --schemafile "$schema" "$f"
+              echo "❌ schema validation failed: $f against $schema"
+              exit 1
+            fi
+          fi
+        done
+    yaml-validity:
+      glob: "**/*.{yml,yaml}"
+      run: |
+        if ! command -v python3 >/dev/null 2>&1; then
+          echo "ℹ️  python3 not available; skipping yaml-validity"
+          exit 0
+        fi
+        for f in {staged_files}; do
+          [ -f "$f" ] || continue
+          python3 -c "import sys, yaml; yaml.safe_load(open('$f'))" 2>/dev/null || { echo "❌ invalid YAML: $f"; exit 1; }
+        done
+    skill-frontmatter:
+      glob: "plugins/*/skills/*/SKILL.md"
+      run: |
+        for f in {staged_files}; do
+          [ -f "$f" ] || continue
+          if ! head -10 "$f" | grep -q "^name:"; then
+            echo "❌ missing 'name:' frontmatter: $f"
+            exit 1
+          fi
+          if ! head -10 "$f" | grep -q "^description:"; then
+            echo "❌ missing 'description:' frontmatter: $f"
+            exit 1
+          fi
+        done
 
 pre-push:
   commands:
@@ -37,4 +92,3 @@ commit-msg:
   commands:
     commitlint:
       run: pnpm exec commitlint --edit {1}
-

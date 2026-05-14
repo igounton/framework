@@ -1,3 +1,5 @@
+← [aidd-framework](../../../../README.md) / [aidd-context](../../README.md)
+
 # 03 - Context Generate
 
 Generates the three Claude Code context artifacts a project consumes:
@@ -22,7 +24,7 @@ implementation; every action gets a `## Test`.
 ## How to invoke
 
 ```
-Use skill aidd-context:03-context-generate
+Use skill aidd-context:03:context-generate
 ```
 
 For skill generation, the skill walks 6 atomic actions:

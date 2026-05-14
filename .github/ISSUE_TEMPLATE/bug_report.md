@@ -1,6 +1,6 @@
 ---
 name: Bug Report
-about: Signaler un bug ou un comportement inattendu dans le framework
+about: Report a bug or unexpected behaviour in the framework
 title: "fix: "
 labels: bug
 assignees: ""
@@ -8,26 +8,26 @@ assignees: ""
 
 ## Description
 
-<!-- Décris clairement le bug. Que se passe-t-il ? Que devrait-il se passer ? -->
+<!-- Describe the bug clearly. What happens? What should happen instead? -->
 
-## Fichier(s) concerné(s)
+## Affected file(s)
 
-<!-- Ex: rules/04-tooling/ide-mapping.md, skills/commit/SKILL.md -->
+<!-- e.g. rules/04-tooling/ide-mapping.md, skills/commit/SKILL.md -->
 
-## Comportement attendu
+## Expected behaviour
 
-<!-- Ce qui devrait se passer -->
+<!-- What should happen -->
 
-## Comportement observé
+## Observed behaviour
 
-<!-- Ce qui se passe réellement -->
+<!-- What actually happens -->
 
-## Environnement
+## Environment
 
-- Outil IA : <!-- Claude Code / Cursor / Windsurf / autre -->
-- Version aidd-cli : <!-- aidd --version -->
-- OS : <!-- macOS / Linux / Windows -->
+- AI tool: <!-- Claude Code / Cursor / Windsurf / other -->
+- aidd-cli version: <!-- aidd --version -->
+- OS: <!-- macOS / Linux / Windows -->
 
-## Contexte additionnel
+## Additional context
 
-<!-- Liens, captures d'écran, cas d'usage spécifique... -->
+<!-- Links, screenshots, specific use case... -->
