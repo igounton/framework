@@ -1,6 +1,14 @@
+← [aidd-framework](../../README.md)
+
 # aidd-vcs
 
 VCS workflow plugin for the AI-Driven Development framework.
+
+> Status: stable.
+
+First time? Install with `/plugin install aidd-vcs@aidd-framework`, then run `aidd-vcs:01:commit` (or the first listed skill if no onboard exists).
+
+Typical flow: `01:commit` after each unit of work; `02:pull-request` when the branch is ready; `03:release-tag` at release time; `04:issue-create` from anywhere.
 
 Covers all external artifact creation: commits, pull/merge requests, release tags, and issue tracking.
 

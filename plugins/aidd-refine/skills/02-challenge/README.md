@@ -1,3 +1,5 @@
+← [aidd-framework](../../../../README.md) / [aidd-refine](../../README.md)
+
 # 02 - Challenge
 
 Rethinks just-completed work against an agreed plan, surfaces what is wrong,

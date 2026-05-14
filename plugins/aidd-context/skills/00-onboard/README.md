@@ -1,3 +1,5 @@
+← [aidd-framework](../../../../README.md) / [aidd-context](../../README.md)
+
 # 00 - Onboard
 
 State-aware guided tour of the `aidd-context` plugin. Probes the project for

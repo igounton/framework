@@ -1,3 +1,5 @@
+← [aidd-framework](../../../../README.md) / [aidd-refine](../../README.md)
+
 # 03 - Condense
 
 Toggles a terse output mode with three intensity levels (`lite`, `full`,

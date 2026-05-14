@@ -1,3 +1,5 @@
+← [aidd-framework](../../../../README.md) / [aidd-dev](../../README.md)
+
 # 08 - debug
 
 Reproduces and fixes bugs systematically using a test-driven workflow:

@@ -1,3 +1,5 @@
+← [aidd-framework](../../../../README.md) / [aidd-context](../../README.md)
+
 # 03 - Context Generate
 
 Generates the three Claude Code context artifacts a project consumes:

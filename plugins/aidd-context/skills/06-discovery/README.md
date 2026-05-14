@@ -1,3 +1,5 @@
+← [aidd-framework](../../../../README.md) / [aidd-context](../../README.md)
+
 # 06 - Discovery
 
 Enumerates installed surfaces of the AI tool (skills, agents, commands,

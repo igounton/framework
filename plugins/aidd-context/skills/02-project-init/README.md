@@ -1,3 +1,5 @@
+← [aidd-framework](../../../../README.md) / [aidd-context](../../README.md)
+
 # 02 - Project Init
 
 Bootstraps the AIDD context layer for a project: AI context files with the

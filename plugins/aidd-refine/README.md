@@ -1,6 +1,12 @@
+← [aidd-framework](../../README.md)
+
 # aidd-refine
 
 Meta-cognition plugin for the AI-Driven Development framework.
+
+> Status: stable.
+
+First time? Install with `/plugin install aidd-refine@aidd-framework`, then run `aidd-refine:01:brainstorm` (or the first listed skill if no onboard exists).
 
 Three skills that refine inputs and outputs through reflection: clarify vague requests, challenge prior work for correctness, and toggle a condensed output mode.
 

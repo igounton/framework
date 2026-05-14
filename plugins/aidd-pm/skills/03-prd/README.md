@@ -1,3 +1,5 @@
+← [aidd-framework](../../../../README.md) / [aidd-pm](../../README.md)
+
 # 03 - PRD
 
 Drafts a structured Product Requirements Document covering scope, goals,

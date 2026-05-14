@@ -1,6 +1,12 @@
+← [aidd-framework](../../README.md)
+
 # aidd-context
 
 Knowledge production plugin for the AI-Driven Development framework.
+
+> Status: stable.
+
+First time? Install with `/plugin install aidd-context@aidd-framework`, then run `aidd-context:00:onboard` (or the first listed skill if no onboard exists).
 
 Covers project bootstrap, project initialisation, context generation, Mermaid diagrams, learning, discovery, and a state-aware onboarding loop.
 
