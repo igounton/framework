@@ -1,9 +1,13 @@
 # AI-Driven Dev Framework (AIDD)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+
+<!-- TODO: re-enable these badges when the repo goes public; both shields.io and the GitHub Actions badge endpoint return "not found" while the repo is private:
 [![Latest Release](https://img.shields.io/github/v/release/ai-driven-dev/aidd-framework?include_prereleases&sort=semver)](https://github.com/ai-driven-dev/aidd-framework/releases)
 [![CI](https://github.com/ai-driven-dev/aidd-framework/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/ai-driven-dev/aidd-framework/actions/workflows/ci.yml)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+-->
+
 
 A plugin marketplace for AI-driven development. Install focused skill sets into your AI coding assistant.
 
@@ -64,8 +68,13 @@ By participating you agree to our [Code of Conduct](./CODE_OF_CONDUCT.md). For s
 
 ## Contributors
 
+See the [contributors graph](https://github.com/ai-driven-dev/aidd-framework/graphs/contributors) on GitHub.
+
+<!-- TODO: when the repo goes public, swap this section back to the contrib.rocks mosaic:
 <a href="https://github.com/ai-driven-dev/aidd-framework/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=ai-driven-dev/aidd-framework" alt="aidd-framework contributors" />
 </a>
+contrib.rocks requires public repo access; it returns no image while the repo is private. -->
+
 
 ← [Back to main repo](https://github.com/ai-driven-dev/aidd/blob/main/README.md)
