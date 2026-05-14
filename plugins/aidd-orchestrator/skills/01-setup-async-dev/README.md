@@ -44,10 +44,12 @@ The skill asks ~6 questions:
 ## Prerequisites
 
 - GitHub repo (public or private).
-- `claude` CLI 2.1+ and `gh` CLI authenticated.
-- An SDLC capability loaded in the runtime (default: `aidd-dev`).
-- Three tokens at hand: the Anthropic auth, the marketplace clone secret (if
-  private), and a PAT with `workflows:write` scope (if `pat` mode).
+- A recent `claude` CLI (run `claude --version` to check) with `/plugin marketplace add` available, and `gh` CLI authenticated.
+- An SDLC capability loaded in the runtime (one that advertises SDLC orchestration in its skill description; matched at runtime, never hardcoded).
+- Tokens at hand, depending on the auth modes you pick in `02-ask-config`:
+  - the Anthropic auth (OAuth token or API key);
+  - the marketplace clone secret if the marketplace repo is private;
+  - if `github_write_auth.mode == pat`, a fine-grained PAT with these repository permissions on the target repo: `Contents: Read and write`, `Pull requests: Read and write`, `Issues: Read and write`, `Workflows: Read and write`, `Metadata: Read` (or, for a classic PAT, the `workflow` scope).
 
 ## Technical details
 

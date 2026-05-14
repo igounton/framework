@@ -13,8 +13,51 @@ pre-commit:
           export LEFTHOOK_CHILD=1
           cd "$PARENT_DIR" && pnpm exec lefthook run pre-commit --force
         else
-          echo "⚠️  Parent repo not found, skipping hooks"
+          echo "ℹ️  Parent repo not found; running framework-local checks only"
         fi
+    no-em-dash:
+      glob: "**/*.md"
+      run: |
+        bad=$(grep -l "—" {staged_files} 2>/dev/null || true)
+        if [ -n "$bad" ]; then
+          echo "❌ em-dash (U+2014) found in:"
+          echo "$bad"
+          echo "Replace with a hyphen (per project convention)."
+          exit 1
+        fi
+    json-validity:
+      glob: "{.claude-plugin/marketplace.json,plugins/*/.claude-plugin/plugin.json,plugins/*/skills/01-setup-async-dev/assets/config-template.json,.claude/aidd-orchestrator.json}"
+      run: |
+        for f in {staged_files}; do
+          [ -f "$f" ] || continue
+          if ! jq empty "$f" >/dev/null 2>&1; then
+            echo "❌ invalid JSON: $f"
+            exit 1
+          fi
+        done
+    yaml-workflow-validity:
+      glob: ".github/workflows/*.yml"
+      run: |
+        for f in {staged_files}; do
+          [ -f "$f" ] || continue
+          if command -v python3 >/dev/null 2>&1; then
+            python3 -c "import sys, yaml; yaml.safe_load(open('$f'))" || { echo "❌ invalid YAML: $f"; exit 1; }
+          fi
+        done
+    skill-frontmatter:
+      glob: "plugins/*/skills/*/SKILL.md"
+      run: |
+        for f in {staged_files}; do
+          [ -f "$f" ] || continue
+          if ! head -10 "$f" | grep -q "^name:"; then
+            echo "❌ missing 'name:' frontmatter: $f"
+            exit 1
+          fi
+          if ! head -10 "$f" | grep -q "^description:"; then
+            echo "❌ missing 'description:' frontmatter: $f"
+            exit 1
+          fi
+        done
 
 pre-push:
   commands:

@@ -40,10 +40,16 @@ Inside any Claude Code session, register this marketplace and install a plugin:
 
 ```text
 /plugin marketplace add ai-driven-dev/aidd-framework
-/plugin install aidd-dev@aidd-framework
+/plugin install aidd-context@aidd-framework
 ```
 
-That's it. The first command registers `aidd-framework` as a marketplace; the second installs the `aidd-dev` plugin from it. Repeat the `install` line for any other plugin from the catalog below.
+Then run the onboarding skill so the framework guides you from there:
+
+```text
+Use skill aidd-context:00:onboard
+```
+
+That's it. `aidd-context:00:onboard` inspects your project state, picks the right next skill (init, generate, bootstrap, etc.), and loops back after each step. Install other plugins from the catalog below as your needs grow.
 
 Prefer browsing? Run `/plugin` inside Claude Code and open the **Discover** tab once the marketplace is registered.
 

@@ -14,7 +14,7 @@ the project memory.
 
 ## When NOT to use
 
-- To create a new issue, use the project's issue-creation capability.
+- To create a new issue, use a skill that advertises issue creation in its description (run `/plugin` and browse the **Discover** tab to find one).
 - To comment on, transition, or reassign a ticket - this skill is read-only.
 - For free-form ticket searches across a project; this skill targets one id.
 
