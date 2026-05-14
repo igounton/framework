@@ -236,8 +236,8 @@ jobs:
           existing=$(gh api "repos/$GITHUB_REPOSITORY/issues/$marker_target/comments" \
             --jq "[.[] | select(.body | contains(\"aidd-orchestrator:run-complete run_id=$run_id\"))] | length")
           if [ "$existing" = "0" ]; then
-            gh issue comment "$marker_target" --repo "$GITHUB_REPOSITORY" --body "<!-- aidd-orchestrator:run-complete run_id=$run_id -->
-          ✅ Async run \`$outcome\`. Audit: \`$audit_path\`." >/dev/null || true
+            marker_body=$(printf '<!-- aidd-orchestrator:run-complete run_id=%s -->\n\nAsync run `%s`. Audit: `%s`.' "$run_id" "$outcome" "$audit_path")
+            gh issue comment "$marker_target" --repo "$GITHUB_REPOSITORY" --body "$marker_body" >/dev/null || true
           fi
 
   review:
@@ -299,16 +299,13 @@ jobs:
           if [ -s "${RUNNER_TEMP}/run-summary.md" ]; then
             gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body-file "${RUNNER_TEMP}/run-summary.md" >/dev/null || true
           else
-            gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body "## Async review summary
-
-**Stop reason** -- \`$stop_reason\`
-**Run id** -- \`$run_id\`
-_No iteration summary recorded by the agent; see workflow logs for details._" >/dev/null || true
+            summary_body=$(printf '## Async review summary\n\n**Stop reason** -- `%s`\n**Run id** -- `%s`\n_No iteration summary recorded by the agent; see workflow logs for details._' "$stop_reason" "$run_id")
+            gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body "$summary_body" >/dev/null || true
           fi
           # Completion marker (idempotent).
           existing=$(gh api "repos/$GITHUB_REPOSITORY/issues/$PR_NUMBER/comments" \
             --jq "[.[] | select(.body | contains(\"aidd-orchestrator:review-complete run_id=$run_id\"))] | length")
           if [ "$existing" = "0" ]; then
-            gh issue comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body "<!-- aidd-orchestrator:review-complete run_id=$run_id -->
-          ✅ Async review complete (\`$stop_reason\`)." >/dev/null || true
+            marker_body=$(printf '<!-- aidd-orchestrator:review-complete run_id=%s -->\n\nAsync review complete (`%s`).' "$run_id" "$stop_reason")
+            gh issue comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body "$marker_body" >/dev/null || true
           fi
