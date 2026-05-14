@@ -12,6 +12,7 @@
 [![Git hooks: lefthook](https://img.shields.io/badge/git%20hooks-lefthook-007ACC.svg)](https://lefthook.dev/)
 [![Built for Claude Code](https://img.shields.io/badge/built%20for-Claude%20Code-D97757.svg)](https://code.claude.com/docs/en/discover-plugins)
 [![Maintained](https://img.shields.io/badge/maintained-yes-success.svg)](https://github.com/ai-driven-dev/aidd-framework/commits/main)
+[![Made in France](https://img.shields.io/badge/made%20in-France-0055A4?labelColor=EF4135)](https://www.ai-driven-dev.fr/)
 
 <!-- TODO: re-enable these badges when the repo goes public; both shields.io and the GitHub Actions badge endpoint return "not found" while the repo is private:
 [![Latest Release](https://img.shields.io/github/v/release/ai-driven-dev/aidd-framework?include_prereleases&sort=semver)](https://github.com/ai-driven-dev/aidd-framework/releases)
@@ -177,4 +178,10 @@ By participating you agree to the [Code of Conduct](./CODE_OF_CONDUCT.md).
 
 ---
 
+<div align="center">
+
+🇫🇷 🥖 🐓 · Made with care in France by the AIDD community · 🐓 🥖 🇫🇷
+
 ← [Back to the AIDD organisation](https://github.com/ai-driven-dev)
+
+</div>
