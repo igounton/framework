@@ -4,22 +4,18 @@ Public direction. Intent, not commitments. Shipped reality lives in [`CHANGELOG.
 
 ## Now
 
-- `aidd-orchestrator`: extend beyond `async-dev` with `agentic-orchestration` (multi-agent hand-offs) and `flow-orchestration` (branching pipelines with human gates).
-- Snapshot eval pipeline: run each plugin's `evals/scenarios.json` against a pinned model on every release PR; fail when expected action drifts.
-- Open the repository to external contributors (issue templates, labels, branch protection on `main`).
+- **Open source the repository.** Move from private to public, with everything an external contributor needs (issue templates, labels, branch protection on `main`).
+- **Keep growing the skill catalog.** Continuous improvement of existing skills and additions across every plugin.
 
 ## Next
 
-- Skill frontmatter extensions: `model:`, `effort:`, `allowed-tools:` per skill.
-- Per-plugin `authors:` metadata surfaced in plugin README and `marketplace.json`.
-- Cost transparency badges (low / medium / high) per skill, backed by eval runs.
-- Cross-tool parity with [`aidd-cli`](https://github.com/ai-driven-dev/aidd-cli) (Cursor, Copilot, OpenCode).
+- **Dynamic orchestration.** Extend `aidd-orchestrator` so it composes agents and skills on the fly, picking from whichever plugins the user has installed instead of hard-coded pipelines.
+- **`aidd-cli` integration.** First-class support for the cross-tool [`aidd-cli`](https://github.com/ai-driven-dev/aidd-cli) so the same marketplace ships to Cursor, Copilot, OpenCode.
+- **`aidd-pm` full project scope.** Skills covering greenfield bootstrap, brownfield audits, backlog grooming, and ongoing PM rituals.
 
 ## Later
 
-- Native ticketing integrations in `aidd-pm` (Linear, GitHub Projects v2, Notion).
-- French-translated README and core docs.
-- GitHub App for write operations (replace the PAT pattern used by `aidd-orchestrator` remote mode).
+- **Specialised plugins.** Topic-driven additions: craftsmanship (clean code, refactoring, design patterns), technology-specific plugins (per stack / per framework).
 
 ## How to influence
 
