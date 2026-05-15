@@ -1,0 +1,53 @@
+name: Validate
+
+# Runs the framework's pre-commit hooks against the full tree on every push
+# and pull request, so contributions that bypass lefthook locally
+# (--no-verify, fork PRs, web edits) are still gated by the same logic.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  lefthook:
+    name: lefthook (framework-local checks)
+    runs-on: ubuntu-latest
+    env:
+      LEFTHOOK_CHILD: "1"
+      CI: "true"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Setup Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: "20"
+
+      - name: Install pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
+
+      - name: Cache pnpm store
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ~/.local/share/pnpm/store
+          key: pnpm-${{ runner.os }}-${{ hashFiles('package.json') }}
+          restore-keys: pnpm-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile=false --ignore-scripts
+
+      - name: Install pipx (for JSON schema validation)
+        run: |
+          python3 -m pip install --user pipx
+          python3 -m pipx ensurepath
+
+      - name: Run pre-commit hooks against the full tree
+        run: pnpm exec lefthook run pre-commit --all-files --force

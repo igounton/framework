@@ -2,9 +2,12 @@ pre-commit:
   output: true
   commands:
     run-parent-hooks:
+      skip:
+        - merge
+        - rebase
       run: |
-        if [ "$LEFTHOOK_CHILD" = "1" ]; then
-          echo "⏭️  Already running from parent, skipping"
+        if [ "$LEFTHOOK_CHILD" = "1" ] || [ "${CI:-}" = "true" ]; then
+          [ "$LEFTHOOK_CHILD" = "1" ] && echo "⏭️  Already running from parent, skipping"
           exit 0
         fi
         PARENT_DIR="$(cd .. && pwd)"
@@ -22,7 +25,7 @@ pre-commit:
         if command -v pipx >/dev/null 2>&1; then
           has_schema_validator=1
         fi
-        for f in {staged_files}; do
+        for f in {files}; do
           [ -f "$f" ] || continue
           if ! jq empty "$f" >/dev/null 2>&1; then
             echo "❌ invalid JSON: $f"
@@ -52,14 +55,18 @@ pre-commit:
           echo "ℹ️  python3 not available; skipping yaml-validity"
           exit 0
         fi
-        for f in {staged_files}; do
+        if ! python3 -c "import yaml" >/dev/null 2>&1; then
+          echo "ℹ️  python3 yaml module not available; skipping yaml-validity"
+          exit 0
+        fi
+        for f in {files}; do
           [ -f "$f" ] || continue
-          python3 -c "import sys, yaml; yaml.safe_load(open('$f'))" 2>/dev/null || { echo "❌ invalid YAML: $f"; exit 1; }
+          python3 -c "import yaml; yaml.safe_load(open('$f'))" 2>/dev/null || { echo "❌ invalid YAML: $f"; exit 1; }
         done
     skill-frontmatter:
       glob: "plugins/*/skills/*/SKILL.md"
       run: |
-        for f in {staged_files}; do
+        for f in {files}; do
           [ -f "$f" ] || continue
           if ! head -10 "$f" | grep -q "^name:"; then
             echo "❌ missing 'name:' frontmatter: $f"
@@ -67,6 +74,26 @@ pre-commit:
           fi
           if ! head -10 "$f" | grep -q "^description:"; then
             echo "❌ missing 'description:' frontmatter: $f"
+            exit 1
+          fi
+        done
+    evals-validity:
+      glob: "plugins/*/skills/*/evals/scenarios.json"
+      run: |
+        for f in {files}; do
+          [ -f "$f" ] || continue
+          if ! jq empty "$f" >/dev/null 2>&1; then
+            echo "❌ invalid JSON: $f"
+            exit 1
+          fi
+          type=$(jq -r 'type' "$f")
+          if [ "$type" != "array" ]; then
+            echo "❌ $f: root must be an array, got $type"
+            exit 1
+          fi
+          invalid=$(jq '[.[] | select((.prompt == null) or ((has("expect_action") | not) and (has("expect_skip") | not) and (has("expect") | not)))] | length' "$f")
+          if [ "$invalid" -gt 0 ]; then
+            echo "❌ $f: $invalid scenario(s) missing required keys (prompt + at least one of expect_action/expect_skip/expect)"
             exit 1
           fi
         done
@@ -92,8 +119,8 @@ pre-push:
   commands:
     run-parent-hooks:
       run: |
-        if [ "$LEFTHOOK_CHILD" = "1" ]; then
-          echo "⏭️  Already running from parent, skipping"
+        if [ "$LEFTHOOK_CHILD" = "1" ] || [ "${CI:-}" = "true" ]; then
+          [ "$LEFTHOOK_CHILD" = "1" ] && echo "⏭️  Already running from parent, skipping"
           exit 0
         fi
         PARENT_DIR="$(cd .. && pwd)"
