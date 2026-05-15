@@ -195,4 +195,22 @@ Issues are automatically added to the [AIDD - Produit](https://github.com/orgs/a
 
 ---
 
+## Commit Scope Rules
+
+The commit scope drives release-please's per-package version bumps in this monorepo. Each plugin versions independently; `marketplace.json` tracks the root (`.`) version.
+
+| Scope | Package path | Released tag pattern | What bumps |
+|---|---|---|---|
+| `aidd-context` | `plugins/aidd-context` | `aidd-context-vX.Y.Z` | Plugin only |
+| `aidd-dev` | `plugins/aidd-dev` | `aidd-dev-vX.Y.Z` | Plugin only |
+| `aidd-vcs` | `plugins/aidd-vcs` | `aidd-vcs-vX.Y.Z` | Plugin only |
+| `aidd-pm` | `plugins/aidd-pm` | `aidd-pm-vX.Y.Z` | Plugin only (currently pinned to `1.0.0-rc.1`) |
+| `aidd-orchestrator` | `plugins/aidd-orchestrator` | `aidd-orchestrator-vX.Y.Z` | Plugin only |
+| `aidd-refine` | `plugins/aidd-refine` | `aidd-refine-vX.Y.Z` | Plugin only |
+| `framework` or `marketplace` | `.` (root) | `vX.Y.Z` | `marketplace.json` via `extra-files` |
+
+`commitlint.config.cjs` enforces these scopes. Root releases attach `aidd-framework-vX.Y.Z.tar.gz` and per-tool bundles; plugin releases attach only `<plugin>-vX.Y.Z.tar.gz`.
+
+---
+
 ■ [Back to framework](./README.md)
