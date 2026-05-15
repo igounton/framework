@@ -1,10 +1,21 @@
 <div align="center">
 
+<img src="docs/assets/logo.png" alt="AIDD" width="140" />
+
 # AI-Driven Dev Framework
 
-**A community-maintained marketplace of high-signal skills, agents, and rules for Claude Code, built around the AI-Driven Development methodology.**
+### A community-maintained marketplace of skills, agents, and rules for Claude Code.
 
-6 plugins · 31 skills · MIT licensed
+<p>
+  <kbd>6 plugins</kbd> · <kbd>32 skills</kbd> · <kbd>3 agents</kbd> · <kbd>MIT</kbd>
+</p>
+
+<p>
+  <a href="#quick-start"><strong>Quick start →</strong></a> ·
+  <a href="#plugins"><strong>Browse plugins →</strong></a> ·
+  <a href="docs/ARCHITECTURE.md"><strong>How it works →</strong></a> ·
+  <a href="https://discord.gg/ai-driven-dev"><strong>Join Discord →</strong></a>
+</p>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
@@ -72,14 +83,66 @@ Prefer browsing? Run `/plugin` inside Claude Code and open the **Discover** tab 
 
 ## Plugins
 
-| Plugin | Skills | Status | What it does |
-| ------ | ------ | ------ | ------------ |
-| [aidd-context](plugins/aidd-context/README.md) | 7 | stable | Project init, architecture, context generation, diagrams, learning, discovery |
-| [aidd-dev](plugins/aidd-dev/README.md) | 10 | stable | SDLC loop: plan, implement, assert, review, test, refactor, debug |
-| [aidd-vcs](plugins/aidd-vcs/README.md) | 4 | stable | Commits, pull/merge requests, release tags, issue creation |
-| [aidd-pm](plugins/aidd-pm/README.md) | 4 | release candidate | Ticket info, user stories, PRD, spec drafting |
-| [aidd-orchestrator](plugins/aidd-orchestrator/README.md) | 3 | stable (`async-dev`) | Orchestration use cases: `async-dev` (label an issue, get a PR) |
-| [aidd-refine](plugins/aidd-refine/README.md) | 3 | stable | Meta-cognition: brainstorm, challenge, condense |
+<table>
+<tr>
+<td width="33%" valign="top">
+
+### 🧭 [aidd-context](plugins/aidd-context/README.md)
+
+`7 skills` · stable
+
+Project init, architecture, context generation, diagrams, learning, discovery.
+
+</td>
+<td width="33%" valign="top">
+
+### ⚙️ [aidd-dev](plugins/aidd-dev/README.md)
+
+`10 skills` · stable
+
+SDLC loop: plan, implement, assert, review, test, refactor, debug.
+
+</td>
+<td width="33%" valign="top">
+
+### 🌿 [aidd-vcs](plugins/aidd-vcs/README.md)
+
+`4 skills` · stable
+
+Commits, pull / merge requests, release tags, issue creation.
+
+</td>
+</tr>
+<tr>
+<td width="33%" valign="top">
+
+### 📋 [aidd-pm](plugins/aidd-pm/README.md)
+
+`4 skills` · release candidate
+
+Ticket info, user stories, PRD, spec drafting.
+
+</td>
+<td width="33%" valign="top">
+
+### 🎼 [aidd-orchestrator](plugins/aidd-orchestrator/README.md)
+
+`3 skills` · stable (`async-dev`)
+
+Label an issue, get a PR; re-label, get the review applied.
+
+</td>
+<td width="33%" valign="top">
+
+### 🪞 [aidd-refine](plugins/aidd-refine/README.md)
+
+`3 skills` · stable
+
+Meta-cognition: brainstorm, challenge, condense.
+
+</td>
+</tr>
+</table>
 
 Each plugin's README links to per-skill READMEs covering when to use, how to invoke, prerequisites, and outputs.
 
@@ -140,7 +203,6 @@ If you spot a vulnerability, please report it privately via [SECURITY.md](./SECU
 | -------- | ----- |
 | Architecture overview | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) |
 | Skills catalog (all plugins) | [`docs/CATALOG.md`](docs/CATALOG.md) |
-| Skills aggregator (JSON) | [`skills.json`](skills.json) |
 | Glossary | [`docs/GLOSSARY.md`](docs/GLOSSARY.md) |
 | Build your own plugin | [`docs/CREATE_PLUGIN.md`](docs/CREATE_PLUGIN.md) |
 | Frequently asked questions | [`docs/FAQ.md`](docs/FAQ.md) |
