@@ -31,9 +31,9 @@
     },
     {
       "name": "aidd-pm",
-      "version": "1.0.0-rc.1",
+      "version": "1.0.0",
       "source": "./plugins/aidd-pm",
-      "description": "Product management (release candidate): ticket-info, user-stories-create, prd, spec",
+      "description": "Product management: ticket-info, user-stories-create, prd, spec",
       "strict": true,
       "recommended": true
     },

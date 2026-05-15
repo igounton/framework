@@ -67,4 +67,3 @@ The locked taxonomy and severity rubric live in [`references/`](references/);
 [`references/locked-sets.json`](references/locked-sets.json) is the single
 source of truth reused by both docs and the validator.
 The report skeleton is at [`assets/report-template.md`](assets/report-template.md).
-The schema validator is at [`evals/validate-report.mjs`](evals/validate-report.mjs).

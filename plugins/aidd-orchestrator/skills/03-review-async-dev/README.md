@@ -33,10 +33,10 @@ The skill walks 4 atomic actions:
 2. `detect-stop` - decide whether to fix or stop. Stop reasons:
    `blocked_label`, `max_iterations`, `human_reviewer` (only iteration >1),
    `no_comments`.
-3. `delegate-fix` - invoke the SDLC capability with the comment context to
+3. `fix-iteration` - invoke the SDLC capability with the comment context to
    produce one fix commit on the PR branch; reply inline on each addressed
    comment and resolve the thread.
-4. `write-summary` - post a structured iteration summary comment, transition
+4. `finalize` - post a structured iteration summary comment, transition
    the label back to `claude/awaiting-review`, write the audit record.
 
 ## Outputs

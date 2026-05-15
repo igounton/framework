@@ -63,20 +63,22 @@ The skill walks 6 atomic actions:
 2. `resolve-deps` - filter out blocked ones.
 3. `acquire-lock` - swap `to-implement` → `claude/working`.
 4. `check-sdlc` - discover the SDLC capability by description.
-5. `delegate-sdlc` - invoke that capability via the `Skill` tool with the
-   delegation contract (branch name, base, body containing `Closes #N`).
-6. `write-audit` - commit and push the audit JSON to the PR branch, create
-   the GitHub Check Run, transition the label to `claude/awaiting-review`.
+5. `delegate-sdlc` - invoke that capability via the `Skill` tool with a
+   single free-text `request` plus any human comments. No branch name, no
+   `Closes #N`, no PR-title format - the SDLC owns those decisions so it
+   runs identically whether called by the orchestrator or by a human.
+6. `write-audit` - emit `$RUNNER_TEMP/run-result.json` and exit.
 
 ## Outputs
 
-- A feature branch `feat/issue-<N>-<slug>` on the repo.
-- A pull request with body containing `Closes #<N>`.
-- `aidd_docs/async-runs/<YYYY_MM>/<run-id>.json` on the PR branch.
-- A GitHub Check Run `aidd-async/<run-id>`.
-- Label transition on the issue: `to-implement` → `claude/working` →
-  `claude/awaiting-review` (or `claude/blocked` on failure, with a comment
-  describing the cause).
+This skill emits one artifact: `$RUNNER_TEMP/run-result.json`.
+
+Everything else (audit log persistence under `aidd_docs/async-runs/`, the
+GitHub Check Run, the label transition to `claude/awaiting-review` or
+`claude/blocked`, the completion marker) is owned by the workflow's
+post-job step, which reads `run-result.json` after the skill exits. Branch
+name and pull-request body shape are owned by the SDLC that action 05
+delegated to.
 
 ## Prerequisites
 

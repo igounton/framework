@@ -28,10 +28,11 @@ Use skill aidd-dev:02:implement
 
 Pass the plan path or content as `$ARGUMENTS`. The skill exposes 1 action:
 
-1. `implement` - branch (if specified), then loop each plan phase: spawn the
-   `implementer` agent, wait for structured output, re-spawn with
-   `items_remaining` until the phase hits 100 %. Plan amendments are made
-   inline and tagged with the robot marker.
+1. `implement` - loop each plan phase: spawn the `implementer` agent, wait
+   for structured output, re-spawn with `items_remaining` until the phase
+   hits 100 %. Branching is the caller's responsibility; this skill never
+   creates branches. Plan amendments are made inline and tagged with the
+   robot marker.
 
 ## Outputs
 

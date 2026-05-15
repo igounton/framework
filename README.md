@@ -112,7 +112,7 @@ Commits, pull / merge requests, release tags, issue creation.
 
 ### 📋 [aidd-pm](plugins/aidd-pm/README.md)
 
-`4 skills` · release candidate
+`4 skills` · stable
 
 Ticket info, user stories, PRD, spec drafting.
 
