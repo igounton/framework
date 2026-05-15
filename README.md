@@ -67,15 +67,9 @@ Inside any Claude Code session, register this marketplace and install a plugin:
 
 If the marketplace repo is private, `/plugin marketplace add <owner>/<repo>` requires that you be authenticated with read access to that repo (typically via `gh auth login` or a PAT on the machine running Claude Code). See the Anthropic [Discover and install plugins](https://code.claude.com/docs/en/discover-plugins) docs for the full install flow.
 
-Then run the onboarding skill so the framework guides you from there:
+Browse the plugin catalog below and install whichever plugins fit your workflow. Each plugin ships its own onboarding skill (`<plugin>:00:onboard`) that walks you through the skills it owns - so once you install `aidd-context`, running `Use skill aidd-context:00:onboard` guides you through that plugin specifically. There is no cross-plugin tour today; pick a plugin from the table below, install it, then run its onboard skill.
 
-```text
-Use skill aidd-context:00:onboard
-```
-
-`aidd-context:00:onboard` inspects your project state, picks the right next skill (init, generate, bootstrap, etc.), and loops back after each step. Install other plugins from the catalog below as your needs grow.
-
-Prefer browsing? Run `/plugin` inside Claude Code and open the **Discover** tab once the marketplace is registered.
+Prefer browsing inside Claude Code? Run `/plugin` and open the **Discover** tab once the marketplace is registered.
 
 > Using **Cursor**, **GitHub Copilot**, or **OpenCode** instead? The cross-tool adapter [`aidd-cli`](https://github.com/ai-driven-dev/aidd-cli) packages the same skills for those assistants. Setup instructions live in that repo.
 
