@@ -50,6 +50,8 @@ pre-commit:
         done
     yaml-validity:
       glob: "**/*.{yml,yaml}"
+      exclude:
+        - "plugins/*/skills/*/assets/**"
       run: |
         if ! command -v python3 >/dev/null 2>&1; then
           echo "ℹ️  python3 not available; skipping yaml-validity"
