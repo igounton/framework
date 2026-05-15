@@ -87,7 +87,11 @@ Each plugin's README links to per-skill READMEs covering when to use, how to inv
 
 ## How marketplaces work in Claude Code
 
-A marketplace is a Git repository that publishes plugins. When you run `/plugin marketplace add <owner>/<repo>`, Claude Code clones the repo, reads its `.claude-plugin/marketplace.json`, and offers the plugins listed there for install. The official Anthropic documentation covers the full model:
+A marketplace is a Git repository that publishes plugins. When you run `/plugin marketplace add <owner>/<repo>`, Claude Code clones the repo, reads its `.claude-plugin/marketplace.json`, and offers the plugins listed there for install.
+
+`aidd-framework` is a **community-maintained, methodology-driven complement** to Anthropic's [official marketplace](https://github.com/anthropics/claude-plugins-official). The official catalog covers broadly useful plugins curated by Anthropic; AIDD ships plugins that materialise a specific way of working (the AI-Driven Development flow) inside Claude Code. The two are designed to coexist; you can register both and install plugins from either.
+
+The official Anthropic documentation covers the full model:
 
 - [Discover and install plugins](https://code.claude.com/docs/en/discover-plugins) - the user-facing flow
 - [Plugin marketplaces](https://code.claude.com/docs/en/plugin-marketplaces) - host your own
