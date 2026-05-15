@@ -1,0 +1,34 @@
+[
+  {
+    "prompt": "run shadow-areas on aidd_docs/tasks/2026_05/foo-prd.md",
+    "expect_action": "shadow-areas"
+  },
+  {
+    "prompt": "The system must allow users to reset their password via email. No rate limiting is specified.",
+    "expect_action": "shadow-areas"
+  },
+  {
+    "prompt": "run shadow-areas on aidd_docs/tasks/nonexistent/missing-file.md",
+    "expect_action": null
+  },
+  {
+    "prompt": "run shadow-areas on aidd_docs/tasks/2026_05/empty-file.md",
+    "expect_action": "shadow-areas"
+  },
+  {
+    "prompt": "run shadow-areas on aidd_docs/tasks/2026_05/diagram.png",
+    "expect_action": "shadow-areas"
+  },
+  {
+    "prompt": "run shadow-areas on aidd_docs/tasks/2026_05/giant-spec.md",
+    "expect_action": "shadow-areas"
+  },
+  {
+    "prompt": "run shadow-areas on aidd_docs/tasks/2026_05/new-prd.md with prior report aidd_docs/tasks/2026_05/new-prd-shadow-report.md",
+    "expect_action": "shadow-areas"
+  },
+  {
+    "prompt": "run shadow-areas on aidd_docs/tasks/2026_05/new-prd-shadow-report.md",
+    "expect_action": null
+  }
+]

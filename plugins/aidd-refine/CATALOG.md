@@ -12,6 +12,7 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
   - [`skills/01-brainstorm`](#skills01-brainstorm)
   - [`skills/02-challenge`](#skills02-challenge)
   - [`skills/03-condense`](#skills03-condense)
+  - [`skills/04-shadow-areas`](#skills04-shadow-areas)
 
 ---
 
@@ -65,4 +66,23 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | `-` | [README.md](skills/03-condense/README.md) | - |
 | `references` | [intensity-levels.md](skills/03-condense/references/intensity-levels.md) | - |
 | `-` | [SKILL.md](skills/03-condense/SKILL.md) | `Toggle terse output mode with intensity levels (lite, full, ultra) so prose drops articles, filler, and pleasantries while code, quoted errors, and security warnings stay verbatim. Also reports real token usage and estimated savings under condense mode for the current session. Use when the user says "condense", "condense output", "be more concise", "shorter answers", "tighten output", "/condense", "/condense full", "/condense ultra", "stop condense", "normal mode", "/condense-stats", "how much have we saved", or "token savings". Do NOT use for editing existing prose, summarizing a long document, or compressing source code (only output style is affected, not content).` |
+
+#### `skills/04-shadow-areas`
+
+| Group | File | Description |
+|-------|------|---|
+| `actions` | [01-detect.md](skills/04-shadow-areas/actions/01-detect.md) | - |
+| `actions` | [02-render-report.md](skills/04-shadow-areas/actions/02-render-report.md) | - |
+| `actions` | [03-diff.md](skills/04-shadow-areas/actions/03-diff.md) | - |
+| `assets` | [report-template.md](skills/04-shadow-areas/assets/report-template.md) | - |
+| `evals` | [sample-invalid-report.md](skills/04-shadow-areas/evals/sample-invalid-report.md) | - |
+| `evals` | [sample-no-frontmatter.md](skills/04-shadow-areas/evals/sample-no-frontmatter.md) | - |
+| `evals` | [sample-valid-report.md](skills/04-shadow-areas/evals/sample-valid-report.md) | - |
+| `evals` | [scenarios.json](skills/04-shadow-areas/evals/scenarios.json) | - |
+| `-` | [README.md](skills/04-shadow-areas/README.md) | - |
+| `references` | [categories.md](skills/04-shadow-areas/references/categories.md) | - |
+| `references` | [locked-sets.json](skills/04-shadow-areas/references/locked-sets.json) | - |
+| `references` | [probe-style.md](skills/04-shadow-areas/references/probe-style.md) | - |
+| `references` | [severity-rubric.md](skills/04-shadow-areas/references/severity-rubric.md) | - |
+| `-` | [SKILL.md](skills/04-shadow-areas/SKILL.md) | `Analytical scan of a markdown artifact (idea, user-stories, PRD, spec) to surface blind spots - unstated assumption, missing actor, missing failure mode, ambiguous term, missing acceptance criterion, missing edge case, and missing dependency - emitting a structured shadow report grouped by category and sorted by severity. Use when the user says "find blind spots in this spec", "what's missing in this PRD", "shadow report", "shadow analysis", "scan for gaps", "find what's missing", "spot blind spots", "review for gaps", or asks for an analytical gap scan of a written artifact. Do NOT use for interactive clarification through iterative Q&A (use aidd-refine:01:brainstorm for that), implementing features, writing tests, or reviewing code style.` |
 
