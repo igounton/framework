@@ -7,7 +7,7 @@
 ### A community-maintained marketplace of skills, agents, and rules for Claude Code.
 
 <p>
-  <kbd>6 plugins</kbd> · <kbd>32 skills</kbd> · <kbd>534 evals</kbd> · <kbd>MIT</kbd>
+  <kbd>6 plugins</kbd> · <kbd>32 skills</kbd> · <kbd>MIT</kbd>
 </p>
 
 <p>
@@ -55,21 +55,6 @@ To consume the marketplace from any Claude Code session you need:
 - **Optional per plugin**: some plugins assume additional context, such as a working git repo, a `package.json`, or a configured ticketing tool. Each plugin's README lists its own prerequisites.
 
 ## Quick start
-
-```mermaid
----
-title: Install flow
----
-flowchart LR
-    AddMarketplace["1. /plugin marketplace add"]
-    InstallPlugin["2. /plugin install aidd-context"]
-    RunOnboard["3. Use skill 00:onboard"]
-    SkillRouter["Skill router picks next step"]
-    AddMarketplace --> InstallPlugin
-    InstallPlugin --> RunOnboard
-    RunOnboard --> SkillRouter
-    SkillRouter -.-> RunOnboard
-```
 
 Inside any Claude Code session, register this marketplace and install a plugin:
 
