@@ -1,9 +1,42 @@
 module.exports = {
   extends: ["@commitlint/config-conventional"],
   rules: {
-    // Type still validated by config-conventional (feat, fix, chore, docs, refactor, perf, test, build, ci, revert, style).
-    // Scope is optional and free-form: any kebab-case slug (or empty) is accepted.
+    // Type validated by config-conventional (feat, fix, chore, docs, refactor, perf, test, build, ci, revert, style).
+    // Scope is optional. When provided, must be kebab-case. Known scopes below are encouraged but not required
+    // (the rule level is `warning` = 1, so a non-listed scope is reported but does NOT block the commit).
     "scope-case": [2, "always", "kebab-case"],
+    "scope-enum": [
+      1,
+      "always",
+      [
+        // Plugin scopes (long + short forms)
+        "aidd-context",
+        "aidd-dev",
+        "aidd-vcs",
+        "aidd-pm",
+        "aidd-refine",
+        "aidd-orchestrator",
+        "context",
+        "dev",
+        "vcs",
+        "pm",
+        "refine",
+        "orchestrator",
+        // Root scopes (touching marketplace.json or framework-wide config)
+        "framework",
+        "marketplace",
+        // Tooling & infra scopes
+        "release-please",
+        "ci",
+        "deps",
+        "lefthook",
+        "commitlint",
+        "contributing",
+        "docs",
+        "security",
+        "test",
+      ],
+    ],
     "body-max-line-length": [0, "always"],
     "footer-max-line-length": [0, "always"],
   },

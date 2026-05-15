@@ -36,6 +36,10 @@ chore/release-please-config
 
 ## Commit Convention
 
+### Source of truth
+
+The repo's `commitlint.config.cjs` enforces the format and lists the encouraged scopes (read it before composing a commit message). The summary below mirrors that file; if the two disagree, the config wins.
+
 ### Format
 
 ```text
@@ -60,6 +64,18 @@ type(scope): description
 | `style` | Formatting (no logic change) |
 | `ci` | CI/CD configuration |
 | `revert` | Revert previous commit |
+| `build` | Build system or external deps |
+
+### Scopes
+
+Scope is optional. When provided, it MUST be kebab-case (enforced by `scope-case`). A whitelist of encouraged scopes lives in `commitlint.config.cjs` (`scope-enum`) at the `warning` level: an unknown scope produces a warning but does NOT block the commit. Use a known scope whenever it fits; introduce a new one only when no existing scope describes the change.
+
+Encouraged scopes (kept in sync with `commitlint.config.cjs`):
+
+- **Plugin (long form)**: `aidd-context`, `aidd-dev`, `aidd-vcs`, `aidd-pm`, `aidd-refine`, `aidd-orchestrator`
+- **Plugin (short form)**: `context`, `dev`, `vcs`, `pm`, `refine`, `orchestrator`
+- **Root**: `framework`, `marketplace` (these bump `marketplace.json` via release-please)
+- **Tooling**: `release-please`, `ci`, `deps`, `lefthook`, `commitlint`, `contributing`, `docs`, `security`, `test`
 
 ### Description rules
 
@@ -73,6 +89,8 @@ type(scope): description
 feat(orchestrator): per-developer Anthropic account routing
 fix(orchestrator): SDLC owns push + PR
 refactor(aidd-pm): restructure spec into build and refine actions
+chore(release-please): register orchestrator and refine packages
+ci(framework): drop version.txt from tarball step
 ```
 
 ### Breaking Change
