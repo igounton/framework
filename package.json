@@ -25,14 +25,14 @@
     "prompt-engineering"
   ],
   "engines": {
-    "node": ">=20"
+    "node": ">=22.12"
   },
   "scripts": {
     "prepare": "lefthook install || true"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.0.0",
-    "@commitlint/config-conventional": "^19.0.0",
-    "lefthook": "^1.13.1"
+    "@commitlint/cli": "^21.0.1",
+    "@commitlint/config-conventional": "^21.0.1",
+    "lefthook": "^2.1.6"
   }
 }
