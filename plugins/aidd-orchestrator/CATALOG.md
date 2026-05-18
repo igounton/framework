@@ -2,12 +2,13 @@
 
 Auto-generated index of skills, agents, references and assets shipped by the `aidd-orchestrator` plugin.
 
-> This file is automatically updated by the `scripts/summarize-markdown.mjs` script.
+> This file is automatically updated by the `scripts/summarize-markdown.js` script.
 
 ## Table of Contents
 
 - [`.claude-plugin`](#claude-plugin)
 - [`skills`](#skills)
+  - [`skills/00-async-dev`](#skills00-async-dev)
   - [`skills/01-setup-async-dev`](#skills01-setup-async-dev)
   - [`skills/02-run-async-dev`](#skills02-run-async-dev)
   - [`skills/03-review-async-dev`](#skills03-review-async-dev)
@@ -21,6 +22,15 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | [plugin.json](.claude-plugin/plugin.json) |
 
 ### `skills`
+
+#### `skills/00-async-dev`
+
+| Group | File | Description |
+|-------|------|---|
+| `actions` | [01-dispatch.md](skills/00-async-dev/actions/01-dispatch.md) | - |
+| `evals` | [scenarios.json](skills/00-async-dev/evals/scenarios.json) | - |
+| `-` | [README.md](skills/00-async-dev/README.md) | - |
+| `-` | [SKILL.md](skills/00-async-dev/SKILL.md) | `Pure dispatcher for the async-dev pipeline. Use when the user says "async dev", "/async-dev", "claude on issues", or when the entry point is ambiguous (e.g. "set up async dev and run on issue 42"). Detects intent (setup vs run vs review) from `$ARGUMENTS`, trigger source (env, label, PR comment), and repo state, then delegates to the matching specialized skill. Holds no business logic; every step is delegated. Do NOT use when the user explicitly names setup, run, or review (invoke the matching skill directly), or for plain status checks on the async pipeline.` |
 
 #### `skills/01-setup-async-dev`
 

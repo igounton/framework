@@ -2,7 +2,7 @@
 
 Auto-generated index of skills, agents, references and assets shipped by the `aidd-pm` plugin.
 
-> This file is automatically updated by the `scripts/summarize-markdown.mjs` script.
+> This file is automatically updated by the `scripts/summarize-markdown.js` script.
 
 ## Table of Contents
 
@@ -40,7 +40,7 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | `assets` | [user-story-template.md](skills/02-user-stories-create/assets/user-story-template.md) | `Template for defining user stories with estimation and acceptance criteria` | - |
 | `evals` | [scenarios.json](skills/02-user-stories-create/evals/scenarios.json) | - | - |
 | `-` | [README.md](skills/02-user-stories-create/README.md) | - | - |
-| `-` | [SKILL.md](skills/02-user-stories-create/SKILL.md) | `Generate INVEST-compliant user stories from a feature description. Use when the user says "user stories", "create user stories", "write user stories for X", "INVEST stories", "draft stories", or invokes `/create-user-stories`. Do NOT use for writing code, drafting a full PRD, refining a single existing story, or copying ready text into a tracker.` | - |
+| `-` | [SKILL.md](skills/02-user-stories-create/SKILL.md) | `Generate INVEST-compliant user stories from a feature description. Use when the user says "user stories", "create user stories", "write user stories for X", "INVEST stories", "draft stories", or invokes `/user-stories-create`. Do NOT use for writing code, drafting a full PRD, refining a single existing story, or copying ready text into a tracker.` | - |
 
 #### `skills/03-prd`
 

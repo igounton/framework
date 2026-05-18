@@ -4,7 +4,7 @@ This release ships a full architecture rewrite. The legacy `commands/` directory
 
 If you were on `v3.x`, plan for breaking changes:
 
-- All `/command_name` slash commands are gone. They are now skills invoked via plugins (e.g. `/aidd-dev:02-implement`).
+- All `/command_name` slash commands are gone. They are now skills invoked via plugins (e.g. `/aidd-dev:02:implement`).
 - The repo is now a plugin **marketplace** (`.claude-plugin/marketplace.json`). You install the plugins you want; you do not clone the whole repo into your project.
 - Hooks, agents and templates moved into skill assets inside each plugin.
 
@@ -65,61 +65,61 @@ Drop-in mapping from `v3.9.1` commands to `v4.0.0` skills. Invocation syntax is 
 | v3 command | Status |
 |---|---|
 | `/auto_accept` | Removed — controlled via Claude Code settings now. |
-| `/implement_from_design` | Removed — covered by `aidd-dev:02-implement` with image input. |
+| `/implement_from_design` | Removed — covered by `aidd-dev:02:implement` with image input. |
 | `/run_projection` | Removed — projection is now part of the plan/implement loop. |
-| `/reflect_issue` | Removed — folded into `aidd-dev:08-debug`. |
-| `/reproduce` | Removed — folded into `aidd-dev:08-debug`. |
+| `/aidd-dev:08:debug` | Removed — folded into `aidd-dev:08:debug`. |
+| `/aidd-dev:08:debug` | Removed — folded into `aidd-dev:08:debug`. |
 
 ### Renamed / relocated
 
 | v3 command | v4 skill |
 |---|---|
-| `/onboard` | `/aidd-context:00-onboard` |
-| `/init` | `/aidd-context:02-project-init` |
-| `/learn` | `/aidd-context:05-learn` |
-| `/mermaid` | `/aidd-context:04-mermaid` |
-| `/generate_agent` | `/aidd-context:*` (generators folded into context skills) |
-| `/generate_architecture` | `/aidd-context:01-bootstrap` |
-| `/generate_command` | `/aidd-context:*` |
-| `/generate_rules` | `/aidd-context:*` |
-| `/generate_skill` | `/aidd-context:*` (also covered by Claude Code's built-in `skill-creator`) |
-| `/brainstorm` | `/aidd-refine:01-brainstorm` |
-| `/challenge` | `/aidd-refine:02-challenge` |
-| `/create_user_stories` | `/aidd-pm:02-user-stories-create` |
-| `/ticket_info` | `/aidd-pm:01-ticket-info` |
-| `/plan` | `/aidd-dev:01-plan` |
-| `/components_behavior` | `/aidd-dev:01-plan` (sub-flow) |
-| `/image_extract_details` | `/aidd-dev:01-plan` (sub-flow) |
-| `/implement` | `/aidd-dev:02-implement` |
-| `/assert` | `/aidd-dev:03-assert` |
-| `/assert_architecture` | `/aidd-dev:03-assert` (sub-flow) |
-| `/assert_frontend` | `/aidd-dev:03-assert` (sub-flow) |
-| `/review_code` | `/aidd-dev:05-review` |
-| `/review_functional` | `/aidd-dev:05-review` |
-| `/test` | `/aidd-dev:06-test` |
-| `/test_journey` | `/aidd-dev:06-test` (journey sub-flow) |
-| `/audit` | `/aidd-dev:04-audit` |
-| `/performance` | `/aidd-dev:07-refactor` |
-| `/security_refactor` | `/aidd-dev:07-refactor` |
-| `/debug` | `/aidd-dev:08-debug` |
-| `/commit` | `/aidd-vcs:01-commit` |
-| `/create_request` | `/aidd-vcs:02-pull-request` |
-| `/tag` | `/aidd-vcs:03-release-tag` |
-| `/new_issue` | `/aidd-vcs:04-issue-create` |
+| `/onboard` | `/aidd-context:00:onboard` |
+| `/init` | `/aidd-context:02:project-init` |
+| `/aidd-context:05:learn` | `/aidd-context:05:learn` |
+| `/aidd-context:04:mermaid` | `/aidd-context:04:mermaid` |
+| `/aidd-context:03:context-generate` | `/aidd-context:*` (generators folded into context skills) |
+| `/generate_architecture` | `/aidd-context:01:bootstrap` |
+| `/aidd-context:03:context-generate` | `/aidd-context:*` |
+| `/aidd-context:03:context-generate` | `/aidd-context:*` |
+| `/aidd-context:03:context-generate` | `/aidd-context:*` (also covered by Claude Code's built-in `skill-creator`) |
+| `/aidd-refine:01:brainstorm` | `/aidd-refine:01:brainstorm` |
+| `/aidd-refine:02:challenge` | `/aidd-refine:02:challenge` |
+| `/aidd-pm:02:user-stories-create` | `/aidd-pm:02:user-stories-create` |
+| `/aidd-pm:01:ticket-info` | `/aidd-pm:01:ticket-info` |
+| `/aidd-dev:01:plan` | `/aidd-dev:01:plan` |
+| `/components_behavior` | `/aidd-dev:01:plan` (sub-flow) |
+| `/aidd-dev:01:plan` | `/aidd-dev:01:plan` (sub-flow) |
+| `/aidd-dev:02:implement` | `/aidd-dev:02:implement` |
+| `/aidd-dev:03:assert` | `/aidd-dev:03:assert` |
+| `/aidd-dev:03:assert` | `/aidd-dev:03:assert` (sub-flow) |
+| `/aidd-dev:03:assert` | `/aidd-dev:03:assert` (sub-flow) |
+| `/aidd-dev:05:review` | `/aidd-dev:05:review` |
+| `/aidd-dev:05:review` | `/aidd-dev:05:review` |
+| `/aidd-dev:06:test` | `/aidd-dev:06:test` |
+| `/aidd-dev:06:test` | `/aidd-dev:06:test` (journey sub-flow) |
+| `/aidd-dev:04:audit` | `/aidd-dev:04:audit` |
+| `/performance` | `/aidd-dev:07:refactor` |
+| `/security_refactor` | `/aidd-dev:07:refactor` |
+| `/aidd-dev:08:debug` | `/aidd-dev:08:debug` |
+| `/aidd-vcs:01:commit` | `/aidd-vcs:01:commit` |
+| `/aidd-vcs:02:pull-request` | `/aidd-vcs:02:pull-request` |
+| `/aidd-vcs:03:release-tag` | `/aidd-vcs:03:release-tag` |
+| `/aidd-vcs:04:issue-create` | `/aidd-vcs:04:issue-create` |
 
 ### New in v4 (no v3 equivalent)
 
 | v4 skill | What it does |
 |---|---|
-| `/aidd-context:01-bootstrap` | Imagines a SaaS architecture from scratch. |
-| `/aidd-context:06-discovery` | Finds rules, hooks, memory across the project. |
-| `/aidd-dev:00-sdlc` | Orchestrates the full plan → ship loop interactively. |
-| `/aidd-dev:09-for-sure` | Validates assumptions before commit. |
+| `/aidd-context:01:bootstrap` | Imagines a SaaS architecture from scratch. |
+| `/aidd-context:06:discovery` | Finds rules, hooks, memory across the project. |
+| `/aidd-dev:00:sdlc` | Orchestrates the full plan → ship loop interactively. |
+| `/aidd-dev:09:for-sure` | Validates assumptions before commit. |
 | `/aidd-orchestrator:*` | Async, label-driven Claude runs from GitHub issues. |
-| `/aidd-pm:03-prd` | Builds PRD from requirements. |
-| `/aidd-pm:04-spec` | Writes tech spec. |
-| `/aidd-refine:03-condense` | Shrinks long docs without losing intent. |
-| `/aidd-refine:04-shadow-areas` | Detects blind spots in feature specs. |
+| `/aidd-pm:03:prd` | Builds PRD from requirements. |
+| `/aidd-pm:04:spec` | Writes tech spec. |
+| `/aidd-refine:03:condense` | Shrinks long docs without losing intent. |
+| `/aidd-refine:04:shadow-areas` | Detects blind spots in feature specs. |
 
 ---
 
@@ -129,7 +129,7 @@ Drop-in mapping from `v3.9.1` commands to `v4.0.0` skills. Invocation syntax is 
 2. **Delete the legacy `commands/` directory** from your project. That is the only folder that disappears: `aidd_docs/memory/` and any other project files stay as-is.
 3. **Add the marketplace** (see §3).
 4. **Install the plugins you use.** Most users start with `aidd-context` + `aidd-dev` + `aidd-vcs` + `aidd-refine`.
-5. **Re-bootstrap the project.** Run `/aidd-context:02-project-init` to wire the new plugin layout into `.claude/`. Use `/aidd-context:00-onboard` only when you want a guided walkthrough.
+5. **Re-bootstrap the project.** Run `/aidd-context:02:project-init` to wire the new plugin layout into `.claude/`. Use `/aidd-context:00:onboard` only when you want a guided walkthrough.
 6. **Translate your custom commands.** For each custom command you had under `commands/`, generate a skill (e.g. via the built-in `skill-creator`), place it in your own local plugin, and load it via `.claude/settings.json`.
 7. **Update CI references.** If your CI invoked `/some_command`, switch to the new skill invocation.
 

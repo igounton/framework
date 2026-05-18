@@ -10,7 +10,7 @@ ticketing tool once you validate the draft.
 
 - "user stories", "create user stories", "write user stories for X".
 - "INVEST stories", "draft stories".
-- Invoking `/create-user-stories`.
+- Invoking `/user-stories-create`.
 - Right after a brainstorming session, when scope is clear enough to slice.
 
 ## When NOT to use

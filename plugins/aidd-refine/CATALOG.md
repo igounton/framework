@@ -2,7 +2,7 @@
 
 Auto-generated index of skills, agents, references and assets shipped by the `aidd-refine` plugin.
 
-> This file is automatically updated by the `scripts/summarize-markdown.mjs` script.
+> This file is automatically updated by the `scripts/summarize-markdown.js` script.
 
 ## Table of Contents
 

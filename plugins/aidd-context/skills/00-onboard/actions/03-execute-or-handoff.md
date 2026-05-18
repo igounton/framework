@@ -34,6 +34,6 @@ The user sees one of five outcomes depending on `choice`. Every outcome ends wit
 
 - Choice 1 produces a skill invocation and ends with a yes/no/explain prompt.
 - Choice 2 produces a 3 to 5 line description and re-renders the menu without invoking anything.
-- Choice 3 produces an exact `/skill-id` invocation string and a `done` wait state.
+- Choice 3 produces an exact `/<skill-id>` invocation string and a `done` wait state.
 - Choice 4 only accepts one of the six aidd-context skill ids; any other input triggers a re-ask.
 - Choice 5 prints a goodbye and the skill exits. No further actions run.

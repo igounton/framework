@@ -1,6 +1,6 @@
 ---
 name: aidd-pm:02:user-stories-create
-description: Generate INVEST-compliant user stories from a feature description. Use when the user says "user stories", "create user stories", "write user stories for X", "INVEST stories", "draft stories", or invokes `/create-user-stories`. Do NOT use for writing code, drafting a full PRD, refining a single existing story, or copying ready text into a tracker.
+description: Generate INVEST-compliant user stories from a feature description. Use when the user says "user stories", "create user stories", "write user stories for X", "INVEST stories", "draft stories", or invokes `/user-stories-create`. Do NOT use for writing code, drafting a full PRD, refining a single existing story, or copying ready text into a tracker.
 ---
 
 # Create User Stories
