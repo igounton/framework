@@ -55,7 +55,7 @@
     },
     "plugins/aidd-pm": {
       "package-name": "aidd-pm",
-      "release-as": "1.0.0-rc.1",
+      "release-as": "1.0.0",
       "extra-files": [
         {
           "type": "json",
