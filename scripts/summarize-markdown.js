@@ -66,12 +66,8 @@ for (const arg of process.argv) {
 	}
 }
 
-import fs from "node:fs";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const fs = require("node:fs");
+const path = require("node:path");
 
 function parseFrontmatter(content) {
 	const lines = content.split("\n");
@@ -469,7 +465,7 @@ function generatePromptsDocumentation(customPath = null, customOutput = null) {
 		"Auto-generated framework content: agents, commands, rules, skills, and templates.";
 	let markdownContent = `# ${title}\n\n`;
 	markdownContent += `${tagline}\n\n`;
-	markdownContent += "> This file is automatically updated by the `scripts/summarize-markdown.mjs` script.\n\n";
+	markdownContent += "> This file is automatically updated by the `scripts/summarize-markdown.js` script.\n\n";
 	markdownContent += "## Table of Contents\n\n";
 	markdownContent += toc + "\n\n---\n\n";
 	markdownContent += sectionsContent;
@@ -496,7 +492,7 @@ function generatePromptsDocumentation(customPath = null, customOutput = null) {
 	}
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (require.main === module) {
 	try {
 		const customPath = process.argv[2];
 		const customOutput = process.argv[3];
@@ -507,7 +503,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
 	}
 }
 
-export {
+module.exports = {
 	generateMarkdownTable,
 	generatePromptsDocumentation,
 	generateTable,

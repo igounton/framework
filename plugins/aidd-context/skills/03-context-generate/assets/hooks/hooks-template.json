@@ -1,0 +1,12 @@
+{
+  "{{event_name}}": [
+    {
+      "matcher": "{{matcher}}",
+      "hooks": [
+        {
+          "type": "{{handler_type}}"
+        }
+      ]
+    }
+  ]
+}

@@ -12,7 +12,7 @@ Map generated context artifacts to the correct AI-specific paths, syntax, file e
 | Cursor         | `.cursor/agents/`           | `.cursor/commands/`                           | `.cursor/rules/`                         | `.cursor/skills/`                     | `AGENTS.md`                       |
 | OpenCode       | `.opencode/agents/`         | `.opencode/commands/`                         | `.opencode/rules/`                       | `.opencode/skills/`                   | `AGENTS.md`                       |
 | GitHub Copilot | `.github/agents/*.agent.md` | `.github/prompts/*.prompt.md`                 | `.github/instructions/*.instructions.md` | `.github/skills/`                     | `.github/copilot-instructions.md` |
-| Codex CLI      | `.codex/agents/{name}.toml` | `.agents/skills/aidd-{phase}-{name}/SKILL.md` | Not supported (skip rules at install)    | `.agents/skills/aidd-{name}/SKILL.md` | `AGENTS.md`                       |
+| Codex CLI      | `.codex/agents/{name}.toml` | `.agents/skills/aidd-{phase}-{name}/SKILL.md` (fallback: `.agents/skills/aidd-{name}/SKILL.md` when the command has no SDLC phase) | Not supported (skip rules at install)    | `.agents/skills/aidd-{name}/SKILL.md` | `AGENTS.md`                       |
 
 ## Claude Code
 
@@ -161,7 +161,7 @@ Map generated context artifacts to the correct AI-specific paths, syntax, file e
 
 ### File creation conventions
 
-- Commands are installed as phase-prefixed skills (`aidd-{phase}-{name}/SKILL.md`)
+- Commands are installed as phase-prefixed skills (`aidd-{phase}-{name}/SKILL.md`). When the command has no SDLC phase, drop the phase segment and use `aidd-{name}/SKILL.md` (same shape as plain skills).
 - Agents use TOML (`.codex/agents/{name}.toml`)
 - Skills are flat under `.agents/skills/aidd-{name}/SKILL.md`
 - Rules are not supported and should be skipped at install

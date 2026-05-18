@@ -108,7 +108,7 @@ pre-commit:
         fi
         for plugin in plugins/*/; do
           name=$(basename "$plugin")
-          node scripts/summarize-markdown.mjs "$plugin" "${plugin}CATALOG.md" \
+          node scripts/summarize-markdown.js "$plugin" "${plugin}CATALOG.md" \
             --depth=4 \
             --fields=description,argument-hint \
             --title="$name catalog" \

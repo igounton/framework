@@ -1,0 +1,12 @@
+[
+  { "prompt": "async dev", "expect_action": "dispatch" },
+  { "prompt": "/async-dev", "expect_action": "dispatch" },
+  { "prompt": "set up async dev and run on issue 42", "expect_action": "dispatch" },
+  { "prompt": "claude on issues", "expect_action": "dispatch" },
+  { "prompt": "process the async queue", "expect_action": "dispatch" },
+  { "prompt": "iterate on PR 17", "expect_action": "dispatch" },
+  { "prompt": "is async dev configured here?", "expect_action": "dispatch" },
+  { "prompt": "Setup async dev in this repo", "expect_action": null },
+  { "prompt": "Run async pipeline on issue #42", "expect_action": null },
+  { "prompt": "Handle review comments on PR 17", "expect_action": null }
+]
