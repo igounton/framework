@@ -34,7 +34,7 @@ The framework is built to be scalable, standardized, and customizable across any
 | Templates   | plugin `assets/` folders                       | Scaffolding for new skills, rules, agents                   |
 | Memory bank | `aidd_docs/memory/`                            | Architecture, codebase map, decisions, testing, vcs        |
 
-> See [CATALOG.md](CATALOG.md) for the exhaustive list of plugins and skills.
+> See [CATALOG.md](../docs/CATALOG.md) for the exhaustive list of plugins and skills.
 
 ### Framework Structure
 
