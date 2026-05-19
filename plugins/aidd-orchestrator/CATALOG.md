@@ -9,9 +9,6 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 - [`.claude-plugin`](#claude-plugin)
 - [`skills`](#skills)
   - [`skills/00-async-dev`](#skills00-async-dev)
-  - [`skills/01-setup-async-dev`](#skills01-setup-async-dev)
-  - [`skills/02-run-async-dev`](#skills02-run-async-dev)
-  - [`skills/03-review-async-dev`](#skills03-review-async-dev)
 
 ---
 
@@ -27,60 +24,8 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 
 | Group | File | Description |
 |-------|------|---|
-| `actions` | [01-dispatch.md](skills/00-async-dev/actions/01-dispatch.md) | - |
 | `evals` | [scenarios.json](skills/00-async-dev/evals/scenarios.json) | - |
 | `-` | [README.md](skills/00-async-dev/README.md) | - |
-| `-` | [SKILL.md](skills/00-async-dev/SKILL.md) | `Pure dispatcher for the async-dev pipeline. Use when the user says "async dev", "/async-dev", "claude on issues", or when the entry point is ambiguous (e.g. "set up async dev and run on issue 42"). Detects intent (setup vs run vs review) from `$ARGUMENTS`, trigger source (env, label, PR comment), and repo state, then delegates to the matching specialized skill. Holds no business logic; every step is delegated. Do NOT use when the user explicitly names setup, run, or review (invoke the matching skill directly), or for plain status checks on the async pipeline.` |
-
-#### `skills/01-setup-async-dev`
-
-| Group | File | Description |
-|-------|------|---|
-| `actions` | [01-detect-context.md](skills/01-setup-async-dev/actions/01-detect-context.md) | - |
-| `actions` | [02-ask-config.md](skills/01-setup-async-dev/actions/02-ask-config.md) | - |
-| `actions` | [03-generate-workflow.md](skills/01-setup-async-dev/actions/03-generate-workflow.md) | - |
-| `actions` | [04-generate-local-script.md](skills/01-setup-async-dev/actions/04-generate-local-script.md) | - |
-| `actions` | [05-write-config.md](skills/01-setup-async-dev/actions/05-write-config.md) | - |
-| `actions` | [06-bootstrap-labels.md](skills/01-setup-async-dev/actions/06-bootstrap-labels.md) | - |
-| `actions` | [07-install-user-scope-plugins.md](skills/01-setup-async-dev/actions/07-install-user-scope-plugins.md) | - |
-| `actions` | [08-configure-remote-secrets.md](skills/01-setup-async-dev/actions/08-configure-remote-secrets.md) | - |
-| `actions` | [09-bootstrap-scheduling.md](skills/01-setup-async-dev/actions/09-bootstrap-scheduling.md) | - |
-| `actions` | [10-commit-and-push.md](skills/01-setup-async-dev/actions/10-commit-and-push.md) | - |
-| `actions` | [11-smoke-test.md](skills/01-setup-async-dev/actions/11-smoke-test.md) | - |
-| `assets` | [config-template.json](skills/01-setup-async-dev/assets/config-template.json) | - |
-| `assets` | [local-daemon-template.sh](skills/01-setup-async-dev/assets/local-daemon-template.sh) | - |
-| `assets` | [local-poll-template.sh](skills/01-setup-async-dev/assets/local-poll-template.sh) | - |
-| `evals` | [scenarios.json](skills/01-setup-async-dev/evals/scenarios.json) | - |
-| `-` | [README.md](skills/01-setup-async-dev/README.md) | - |
-| `references` | [auth-modes.md](skills/01-setup-async-dev/references/auth-modes.md) | - |
-| `references` | [claude-action-auth.md](skills/01-setup-async-dev/references/claude-action-auth.md) | - |
-| `references` | [local-mode-scheduling.md](skills/01-setup-async-dev/references/local-mode-scheduling.md) | - |
-| `-` | [SKILL.md](skills/01-setup-async-dev/SKILL.md) | `Installs and configures the aidd-orchestrator plugin end-to-end in a target repo, up to and including the first triggered run. Use when the user runs "/setup async dev", "configure async dev", "install async-dev plugin", or asks to set up Claude auto-implementation on issues. Do NOT use for running the async pipeline (use the run skill) or handling PR review loops (use the review skill).` |
-
-#### `skills/02-run-async-dev`
-
-| Group | File | Description |
-|-------|------|---|
-| `actions` | [01-poll-ready.md](skills/02-run-async-dev/actions/01-poll-ready.md) | - |
-| `actions` | [02-resolve-deps.md](skills/02-run-async-dev/actions/02-resolve-deps.md) | - |
-| `actions` | [03-acquire-lock.md](skills/02-run-async-dev/actions/03-acquire-lock.md) | - |
-| `actions` | [04-check-sdlc.md](skills/02-run-async-dev/actions/04-check-sdlc.md) | - |
-| `actions` | [05-delegate-sdlc.md](skills/02-run-async-dev/actions/05-delegate-sdlc.md) | - |
-| `actions` | [06-write-audit.md](skills/02-run-async-dev/actions/06-write-audit.md) | - |
-| `evals` | [scenarios.json](skills/02-run-async-dev/evals/scenarios.json) | - |
-| `-` | [README.md](skills/02-run-async-dev/README.md) | - |
-| `-` | [SKILL.md](skills/02-run-async-dev/SKILL.md) | `Runs one async development pipeline cycle: polls issues labeled with the `to-implement` label (or its mention equivalent), resolves dependencies, locks the issue with `claude/working`, delegates implementation to whichever SDLC capability is loaded at runtime, verifies the outcome against the real state of git and the VCS host, and writes a `run-result.json` artifact for the workflow's post-job to finalize lifecycle effects. Use when a fresh issue is labeled or mentioned for implementation, or when the user says "run async dev", "implement ready issues", "process the async queue". Do NOT use for setup or for handling change-request review comment loops; other skills in this plugin cover those.` |
-
-#### `skills/03-review-async-dev`
-
-| Group | File | Description |
-|-------|------|---|
-| `actions` | [01-collect-comments.md](skills/03-review-async-dev/actions/01-collect-comments.md) | - |
-| `actions` | [02-detect-stop.md](skills/03-review-async-dev/actions/02-detect-stop.md) | - |
-| `actions` | [03-fix-iteration.md](skills/03-review-async-dev/actions/03-fix-iteration.md) | - |
-| `actions` | [04-finalize.md](skills/03-review-async-dev/actions/04-finalize.md) | - |
-| `evals` | [scenarios.json](skills/03-review-async-dev/evals/scenarios.json) | - |
-| `-` | [README.md](skills/03-review-async-dev/README.md) | - |
-| `references` | [stop-conditions.md](skills/03-review-async-dev/references/stop-conditions.md) | - |
-| `-` | [SKILL.md](skills/03-review-async-dev/SKILL.md) | `Handles the post-PR review-fix loop for runs created by this plugin's run skill. Triggered when the human labels the linked issue with `to-review` (or comments `@claude /review` on the PR). Collects review comments, decides whether to keep iterating, delegates fixes to whichever SDLC capability is loaded at runtime, replies to each addressed comment, resolves the threads, and posts a structured summary when stop conditions trigger. Use when the user (or a webhook / cron) says "handle review comments", "iterate on PR <n>", "address review feedback automatically", or invokes this skill on a specific PR. Do NOT use for the initial implementation or for setup; other skills in this plugin cover those.` |
+| `references` | [routing.md](skills/00-async-dev/references/routing.md) | - |
+| `-` | [SKILL.md](skills/00-async-dev/SKILL.md) | `Single entry point for the async-dev pipeline (setup, run, review). Hybrid router decides which sub-flow to execute from $ARGUMENTS keyword (`setup` / `run` / `review`), trigger source (label `to-implement` / `to-review`, comment `@claude /implement` / `/review`), repo state (workflow + config presence, PR linked to issue), or natural-language intent. Use when the user says "set up async dev", "run async dev on issue #N", "address review on PR #N", "/async-dev", "claude on issues", or when triggered by a webhook with the matching labels or comments. Do NOT use for plain status checks on the async pipeline or for SDLC orchestration unrelated to issue/PR automation.` |
 
