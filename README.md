@@ -85,7 +85,7 @@ Prefer browsing inside Claude Code? Run `/plugin` and open the **Discover** tab 
 
 `7 skills` · stable
 
-Project init, architecture, context generation, diagrams, learning, discovery.
+Project init, architecture, generation of Claude Code context artifacts (skills, agents, rules, commands, hooks, plugins, marketplaces), diagrams, learning, discovery.
 
 </td>
 <td width="33%" valign="top">
