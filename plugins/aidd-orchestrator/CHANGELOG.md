@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.1](https://github.com/ai-driven-dev/aidd-framework/compare/aidd-orchestrator-v1.0.0...aidd-orchestrator-v1.0.1) (2026-05-21)
+
+
+### Bug Fixes
+
+* **aidd-orchestrator:** correct broken link to 02-ask-config action ([#142](https://github.com/ai-driven-dev/aidd-framework/issues/142)) ([256c4f4](https://github.com/ai-driven-dev/aidd-framework/commit/256c4f42e31a64843384c99cc32082c0856d8154))
+* **aidd-orchestrator:** write to-review as a label, not a command ([#143](https://github.com/ai-driven-dev/aidd-framework/issues/143)) ([971fd9d](https://github.com/ai-driven-dev/aidd-framework/commit/971fd9d35befcad5951c62ccdb2cac21f132779d))
+
 ## [1.0.0](https://github.com/ai-driven-dev/aidd-framework/compare/aidd-orchestrator-v1.0.0...aidd-orchestrator-v1.0.0) (2026-05-19)
 
 
