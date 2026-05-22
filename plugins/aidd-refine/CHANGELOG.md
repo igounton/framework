@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.0](https://github.com/ai-driven-dev/aidd-framework/compare/aidd-refine-v1.0.0...aidd-refine-v1.1.0) (2026-05-21)
+
+
+### Features
+
+* **aidd-refine:** add fact-check skill ([#140](https://github.com/ai-driven-dev/aidd-framework/issues/140)) ([8b1eb77](https://github.com/ai-driven-dev/aidd-framework/commit/8b1eb77da505bae8a3a042fac7288a7d78eec760))
+
+
+### Documentation
+
+* fix coherence defects in README, docs, and plugin READMEs ([7bb04ac](https://github.com/ai-driven-dev/aidd-framework/commit/7bb04ac7f2fe922cdc2dc2402b592d5346e18166))
+* fix coherence defects in README, docs, and plugin READMEs ([afcbca3](https://github.com/ai-driven-dev/aidd-framework/commit/afcbca3babc6c64714b826a83937d74ebbf2317c))
+
 ## [1.0.0](https://github.com/ai-driven-dev/aidd-framework/compare/aidd-refine-v1.0.0...aidd-refine-v1.0.0) (2026-05-19)
 
 

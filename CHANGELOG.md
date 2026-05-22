@@ -1,5 +1,33 @@
 # Changelog
 
+## [4.1.0](https://github.com/ai-driven-dev/aidd-framework/compare/v4.0.0...v4.1.0) (2026-05-21)
+
+
+### Features
+
+* **aidd-refine:** add fact-check skill ([#140](https://github.com/ai-driven-dev/aidd-framework/issues/140)) ([8b1eb77](https://github.com/ai-driven-dev/aidd-framework/commit/8b1eb77da505bae8a3a042fac7288a7d78eec760))
+
+
+### Bug Fixes
+
+* **aidd-orchestrator:** correct broken link to 02-ask-config action ([#142](https://github.com/ai-driven-dev/aidd-framework/issues/142)) ([256c4f4](https://github.com/ai-driven-dev/aidd-framework/commit/256c4f42e31a64843384c99cc32082c0856d8154))
+* **aidd-orchestrator:** write to-review as a label, not a command ([#143](https://github.com/ai-driven-dev/aidd-framework/issues/143)) ([971fd9d](https://github.com/ai-driven-dev/aidd-framework/commit/971fd9d35befcad5951c62ccdb2cac21f132779d))
+
+
+### Miscellaneous
+
+* **ci:** drop aidd-cli from release, ship clean marketplace + plugin zips ([59e4e8d](https://github.com/ai-driven-dev/aidd-framework/commit/59e4e8d80eb38ea2173d3a94c9613c0518666949))
+* **ci:** stop using aidd-cli for release assets, ship a clean marketplace bundle ([9ecbf68](https://github.com/ai-driven-dev/aidd-framework/commit/9ecbf6876772a5deb17ec8fd908a5507f9f0188a))
+* **release-please:** drop per-plugin release-as pins after the v4.0.0 cut ([48d283e](https://github.com/ai-driven-dev/aidd-framework/commit/48d283e03c82685223a65bb855735cdff2f5d1ce))
+* **release-please:** drop per-plugin release-as pins after v4.0.0 ([ae5d16d](https://github.com/ai-driven-dev/aidd-framework/commit/ae5d16d6bbe534f5bdb99e9b681ce23d34a346bb))
+* repoint auto-add workflow to AIDD Roadmap project ([#8](https://github.com/ai-driven-dev/aidd-framework/issues/8)) ([#150](https://github.com/ai-driven-dev/aidd-framework/issues/150)) ([b7f4e8a](https://github.com/ai-driven-dev/aidd-framework/commit/b7f4e8a7f56f0e9f5613aabb863b453466e73b83))
+
+
+### Documentation
+
+* fix coherence defects in README, docs, and plugin READMEs ([7bb04ac](https://github.com/ai-driven-dev/aidd-framework/commit/7bb04ac7f2fe922cdc2dc2402b592d5346e18166))
+* fix coherence defects in README, docs, and plugin READMEs ([afcbca3](https://github.com/ai-driven-dev/aidd-framework/commit/afcbca3babc6c64714b826a83937d74ebbf2317c))
+
 ## [4.0.0](https://github.com/ai-driven-dev/aidd-framework/compare/v3.9.1...v4.0.0) (2026-05-19)
 
 
