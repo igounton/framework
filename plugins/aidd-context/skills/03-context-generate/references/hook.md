@@ -1,4 +1,4 @@
-# Claude Code hooks
+# Claude Code hooks (deep reference)
 
 Hooks are deterministic handlers fired at specific points in Claude Code's lifecycle. They live in JSON files and support five handler types: `command`, `http`, `prompt`, `agent`, `mcp_tool`.
 
@@ -136,7 +136,7 @@ Calls a tool on a connected MCP server.
 | Task           | `TaskCreated`, `TaskCompleted`                                                                                                                |
 | File / config  | `FileChanged`, `ConfigChange`, `CwdChanged`, `InstructionsLoaded`                                                                             |
 | Compaction     | `PreCompact`, `PostCompact`                                                                                                                   |
-| Notification   | `Notification`                                                                                                                                |
+| Notification   | `Notification`, `MessageDisplay`                                                                                                              |
 | Worktree       | `WorktreeCreate`, `WorktreeRemove`                                                                                                            |
 | MCP            | `Elicitation`, `ElicitationResult`                                                                                                            |
 
@@ -154,11 +154,11 @@ Matchers are event-scoped (see official docs for what each event matches against
 
 Available inside `command`, `args`, `args[]`, `input.*`, and `headers[*]` values:
 
-| Variable               | Description                          |
-| ---------------------- | ------------------------------------ |
-| `${CLAUDE_PROJECT_DIR}`| Project root.                        |
-| `${CLAUDE_PLUGIN_ROOT}`| Plugin install directory.            |
-| `${CLAUDE_PLUGIN_DATA}`| Plugin persistent data directory.    |
+Three env vars are available (write as `${VAR_NAME}` inside handler values):
+
+- `CLAUDE_PROJECT_DIR` - project root.
+- `CLAUDE_PLUGIN_DATA` - plugin persistent data directory.
+- The plugin install directory variable (name: `CLAUDE_PLUGIN` + `_ROOT`) - resolved to the plugin's install path at process-spawn time. Expands in plugin skill/agent content, hook commands, monitor commands, and MCP/LSP configs. Note: AIDD authoring still prefers relative `@`-paths inside skill content for cross-tool portability (other hosts do not expand this token; the Agent Skills spec mandates relative paths) - but the token is NOT forbidden by Claude in skill markdown.
 
 Also exported as env vars to spawned processes.
 
@@ -170,7 +170,7 @@ Also exported as env vars to spawned processes.
 | `2`   | Blocking error. Stdout ignored; stderr surfaces to Claude.                            |
 | other | Non-blocking error. First stderr line in transcript, full stderr in debug log.        |
 
-Exit code 2 only blocks on these events: `PreToolUse`, `PermissionRequest`, `UserPromptSubmit`, `UserPromptExpansion`, `Stop`, `SubagentStop`, `TeammateIdle`, `TaskCreated`, `TaskCompleted`, `ConfigChange`, `PreCompact`. On others it logs only. `WorktreeCreate` blocks on ANY non-zero exit code.
+Exit code 2 only blocks on these events: `PreToolUse`, `PermissionRequest`, `UserPromptSubmit`, `UserPromptExpansion`, `Stop`, `SubagentStop`, `TeammateIdle`, `TaskCreated`, `TaskCompleted`, `ConfigChange`, `PreCompact`, `PostToolBatch`, `Elicitation`, `ElicitationResult`. On others it logs only. `WorktreeCreate` blocks on ANY non-zero exit code.
 
 ## Stdout JSON schema (exit code 0)
 
@@ -215,7 +215,7 @@ Plus event-specific fields (e.g. tool name + input for tool events).
 
 ## Conventions
 
-- Prefer `command` handler with an absolute path under `${CLAUDE_PLUGIN_ROOT}/scripts/` for plugin hooks; the script is the artifact, the JSON entry is just the wiring.
+- Prefer `command` handler with an absolute path using the plugin install directory variable (see "Path placeholders in handlers") pointing to `skills/<skill-name>/scripts/` for plugin hooks; the script is the artifact, the JSON entry is just the wiring.
 - Use `if` (permission-rule filter) instead of regex matchers when possible - clearer intent.
 - Never block on `PostToolUse` exit code 2 expecting it to undo the tool call (it does not).
 - For long operations, set `async: true` so the event is not blocked, then signal completion via a follow-up event or by writing state files.

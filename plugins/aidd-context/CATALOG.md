@@ -103,17 +103,14 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 |-------|------|---|
 | `evals` | [scenarios.json](skills/03-context-generate/evals/scenarios.json) | - |
 | `-` | [README.md](skills/03-context-generate/README.md) | - |
-| `references` | [agents-coordination.md](skills/03-context-generate/references/agents-coordination.md) | `Multi-agent coordination and workflows template` |
 | `references` | [ai-mapping.md](skills/03-context-generate/references/ai-mapping.md) | - |
+| `references` | [command.md](skills/03-context-generate/references/command.md) | - |
 | `references` | [hook.md](skills/03-context-generate/references/hook.md) | - |
 | `references` | [marketplace.md](skills/03-context-generate/references/marketplace.md) | - |
-| `references` | [naming-conventions.md](skills/03-context-generate/references/naming-conventions.md) | - |
-| `references` | [plugin-manifest.md](skills/03-context-generate/references/plugin-manifest.md) | - |
-| `references` | [rule-structure.md](skills/03-context-generate/references/rule-structure.md) | - |
-| `references` | [rule-writing.md](skills/03-context-generate/references/rule-writing.md) | - |
-| `references` | [skill-structure.md](skills/03-context-generate/references/skill-structure.md) | - |
-| `references` | [slash-command.md](skills/03-context-generate/references/slash-command.md) | - |
-| `-` | [SKILL.md](skills/03-context-generate/SKILL.md) | `Generate context artifacts - skills (router-based), agents, rules, slash commands, hooks, plugins, and marketplaces. Use when the user wants to create, refactor, add or remove actions in a skill, migrate a legacy slash command into a router-based skill, or generate a new agent, rule, command, hook, plugin, or marketplace. Do NOT use for editing a single action inside an existing skill (edit directly), writing MCP servers, or modifying project-level files.` |
+| `references` | [rule.md](skills/03-context-generate/references/rule.md) | - |
+| `references` | [skill.md](skills/03-context-generate/references/skill.md) | - |
+| `references` | [tool-resolution.md](skills/03-context-generate/references/tool-resolution.md) | - |
+| `-` | [SKILL.md](skills/03-context-generate/SKILL.md) | `Generate context artifacts (skills, agents, rules, commands, hooks, plugins, marketplaces) across the host AI tool(s) the project uses. Use when the user wants to create, refactor, add or remove actions in a skill, migrate a legacy slash command into a router-based skill, or generate a new agent, rule, command, hook, plugin, or marketplace. Do NOT use for editing a single action inside an existing skill (edit directly), writing MCP servers, or modifying project-level files.` |
 
 #### `skills/04-mermaid`
 
@@ -152,5 +149,6 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | `actions` | [08-find-memory.md](skills/06-discovery/actions/08-find-memory.md) | - |
 | `evals` | [scenarios.json](skills/06-discovery/evals/scenarios.json) | - |
 | `-` | [README.md](skills/06-discovery/README.md) | - |
+| `references` | [ai-mapping.md](skills/06-discovery/references/ai-mapping.md) | - |
 | `-` | [SKILL.md](skills/06-discovery/SKILL.md) | `Enumerate installed surfaces of the AI tool (skills, agents, commands, plugins, MCP servers, rules, hooks, memory files) and recommend the best match for the user's stated intent. Use proactively whenever the user asks the model to list, show, enumerate, find, or pick among any of these surfaces - including imperative phrasings ("list hooks", "show me the rules", "enumerate skills", "find a memory file", "which agent reviews code"), question phrasings ("what's available?", "what hooks do we have?", "which rule applies here?", "what memory files do we have?"), and indirect phrasings ("what can I use for X?", "do we have something that does Y?"). Always pick this skill over scanning the filesystem with grep, find, ls, or reading action files directly when the user is enumerating a surface. Do NOT use for picking a specific item inside one plugin (the plugin's own onboard handles that), creating a new surface, or executing a recommended item (this skill only points; the user invokes).` |
 

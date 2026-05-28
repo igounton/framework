@@ -2,15 +2,15 @@
 
 # 03 - Context Generate
 
-Generates the seven context artifacts a project can consume:
+Generates the seven context artifacts a project can consume, across the host AI tool(s) detected in the project. Before writing any artifact the skill runs the Model Y gate: detect installed tools from D1 signals, propose the set to the user, wait for explicit confirmation (1..N), then for each (artifact, confirmed tool) look up `references/ai-mapping.md`; if unsupported, block with explanation (D2) and continue the rest.
 
 - **Skills** - router-based: `SKILL.md` router + atomic testable actions + minimal evals.
 - **Agents** - single-file agent definitions following the framework's agent template.
 - **Rules** - framework rule files governing editor / agent behaviour.
 - **Commands** - flat `.md` slash command files (frontmatter + body), for one-shot manual triggers without supporting files.
 - **Hooks** - JSON / TOML entries (or a JS/TS plugin module for OpenCode) for lifecycle events, written to the matching scope.
-- **Plugins** - full plugin scaffold (`.claude-plugin/plugin.json`, README, dirs, optional seed skill).
-- **Marketplaces** - `.claude-plugin/marketplace.json` catalogs that distribute one or more plugins.
+- **Plugins** - full plugin scaffold (a plugin manifest + README + slot dirs, path resolved per tool from `references/ai-mapping.md`; optional seed skill).
+- **Marketplaces** - a marketplace catalog file (path resolved per tool from `references/ai-mapping.md`) that distributes one or more plugins.
 
 Evaluations are declared before implementation; every action carries a `## Test`.
 
@@ -42,14 +42,14 @@ For skill generation, the skill walks 6 atomic actions:
 5. `write-actions` - write each action file.
 6. `validate` - spawn one agent per action, run its `## Test`, and aggregate into a pass/fail report.
 
-The other six artifact types have their own sub-flows under `actions/<sub-domain>/`:
+The other six artifact types have their own sub-flows under `actions/<sub-domain>/`. Each entry action runs the Model Y tool-resolution gate (detect -> propose -> confirm -> D2 block) before writing.
 
-- `actions/agents/` - single-action agent generation.
-- `actions/rules/` - single-action rule generation with deterministic category selection.
-- `actions/commands/` - single-action flat slash command generation.
-- `actions/hooks/` - single-action hook entry generation, branching on target tool (Claude/Cursor/Codex -> JSON; OpenCode -> JS module; Copilot -> plugin-bundled).
-- `actions/plugins/` - 4-action plugin scaffold flow (capture-intent -> scaffold-tree -> seed-first-skill -> validate).
-- `actions/marketplaces/` - 3-action marketplace catalog flow (init -> add-plugin-entry -> validate).
+- `actions/agents/` - single-action agent generation; writes once per confirmed tool.
+- `actions/rules/` - single-action rule generation with deterministic category selection; writes once per confirmed tool.
+- `actions/commands/` - single-action flat slash command generation; path resolved per tool from `ai-mapping.md`.
+- `actions/hooks/` - single-action hook entry generation; iterates over confirmed tools (Claude/Cursor/Codex -> JSON; OpenCode -> JS module; Copilot -> D2 block for project/user-scope hooks).
+- `actions/plugins/` - 4-action plugin scaffold flow (capture-intent -> scaffold-tree -> seed-first-skill -> validate); OpenCode D2-blocks (no plugin manifest).
+- `actions/marketplaces/` - 3-action marketplace catalog flow (init -> add-plugin-entry -> validate); OpenCode and Copilot D2-block for marketplaces.
 
 ## Outputs
 
@@ -58,8 +58,8 @@ The other six artifact types have their own sub-flows under `actions/<sub-domain
 - Or a generated rule file from `assets/rules/rule-template.md`.
 - Or a flat slash command file from `assets/commands/command-template.md`.
 - Or a hook entry merged into the matching scope's hooks surface (JSON file, TOML table, or JS module per target tool).
-- Or a fresh plugin tree with `.claude-plugin/plugin.json` + README + selected slot dirs.
-- Or a marketplace catalogue `.claude-plugin/marketplace.json` + one or more plugin entries.
+- Or a fresh plugin tree with a plugin manifest + README + selected slot dirs (path resolved per tool from `references/ai-mapping.md`).
+- Or a marketplace catalog file + one or more plugin entries (path resolved per tool from `references/ai-mapping.md`).
 
 ## Prerequisites
 
@@ -68,10 +68,10 @@ The other six artifact types have their own sub-flows under `actions/<sub-domain
 
 ## Rules
 
-R1-R10 in [`SKILL.md`](SKILL.md) are the non-bypassable invariants:
-`SKILL.md` is a pure router, one skill = one domain, references one-level deep, `SKILL.md` ≤ 500 lines, descriptions must include explicit triggers and a "Do NOT use for..." clause, every action has a `## Test`, and auto-trigger skills ship at least 3 eval scenarios.
+R1-R11 in [`SKILL.md`](SKILL.md) are the non-bypassable invariants:
+`SKILL.md` is a pure router, one skill = one domain, references one-level deep, `SKILL.md` ≤ 500 lines, descriptions must include explicit triggers and a "Do NOT use for..." clause, every action has a `## Test`, auto-trigger skills ship at least 3 eval scenarios, and the tool-resolution gate (detect -> propose -> confirm -> D2 block) runs before writing any artifact in generate mode.
 
 ## Technical details
 
 See [`SKILL.md`](SKILL.md) for the full action contract and rules,
-`actions/<sub-domain>/` for the sub-domain flows, and the `references/` and `assets/` directories for naming conventions, plugin/marketplace/hook/slash-command specs, and templates.
+`actions/<sub-domain>/` for the sub-domain flows, and the `references/` and `assets/` directories for the per-tool mapping, skill/command/rule authoring conventions, plugin/marketplace/hook specs, and templates.

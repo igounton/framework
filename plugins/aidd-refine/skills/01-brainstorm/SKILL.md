@@ -30,11 +30,11 @@ Sequential skill: `01 → 02 → 03 → 04 → 05`. Loop `02 → 03` until no am
 
 ## References
 
-- `references/ambiguity-detection.md`: How to identify and resolve unclear requirements.
+- `@references/ambiguity-detection.md`: How to identify and resolve unclear requirements.
 
 ## Assets
 
-- `assets/question-templates.md`: Reusable probing question categories.
+- `@assets/question-templates.md`: Reusable probing question categories.
 
 ## External data
 

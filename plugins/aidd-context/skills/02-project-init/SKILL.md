@@ -8,6 +8,10 @@ model: opus
 
 Bootstraps the AIDD context layer for a project: AI context files with memory block, `aidd_docs/` documentation structure, and the memory bank files. Rule directories are created lazily by `aidd-context:03:context-generate` when the first rule is written; project-init does not pre-scaffold them.
 
+## Prerequisites
+
+- This skill requires read access to its own `assets/` directory via `@<relative-path>` resolution. AI hosts that cannot resolve `@` paths to actual files on disk cannot run this skill. The actions self-check asset reachability at their first step and FAIL with `status: blocked_assets_unreachable` if access is denied.
+
 ## Available actions
 
 | #   | Action                | Role                                                              | Input                       |
@@ -24,16 +28,17 @@ Bootstraps the AIDD context layer for a project: AI context files with memory bl
 
 ## Transversal rules
 
-- Do not display content, just write the files
-- IMPORTANT : **If not applicable / found, remove entire section**
-- "?" means optional, do not add section if not applicable
-- Templates give optional sections, feel free to add or remove as needed
-- ZERO DUPLICATION: Focus only on template sections to avoid duplication
-- SUPER SHORT explicit and concise bullet points
-- Mention code using backticks
-- Internal doc: must be located in `aidd_docs/memory/internal/`
-- Do not anticipate needs or future changes, focus on current state only
-- No version in tech names, just the name (e.g., React, not React 19)
+- AI context files are EXCLUSIVELY the three canonical paths white-listed in action 01 step 1. Any other file (including agent/skill/vendor files with similar naming) is user project content and is OFF-LIMITS for this skill.
+- Blocking on user input: if a step asks a question, await an explicit answer; never invent or stub.
+- Templates structure the output; project facts come from the codebase scan. Never invent facts the repo does not contain. ALSO never pre-filter content as "not AIDD-relevant" - every file in the repo counts as project content, with the exception listed below.
+- Memory files document the USER'S project. AIDD's own scaffold (`aidd_docs/`, `AGENTS.md`, `CLAUDE.md`, `.github/copilot-instructions.md`, `.aidd/`) is framework metadata, never project content, and MUST NOT appear in memory files as if it were architecture or features of the project.
+- For ambiguous directories or files (anything that looks like tooling, IDE metadata, vendor cache, recording state, etc., not clearly project content), ASK the user before including OR excluding. No silent decision either way. Do not enumerate vendor folders in this rule - the principle holds for any unknown tool footprint.
+- Write files, do not display their content.
+- Drop unused sections; empty placeholders are not preserved.
+- Memory templates land at the root of `aidd_docs/memory/`. `aidd_docs/memory/internal/` is reserved for AIDD workflow traces (project-init audit notes, learn captures).
+- Bullets stay short. Code in backticks. No version numbers in tech names (`React`, not `React 19`).
+- Reflect current state only.
+- Output names and paths are derived from the framework's templates/mapping references, never invented. One output file per matching template; no consolidation; no inside-subdirectory placement unless the mapping explicitly says so.
 
 ### Schema rules to apply to generated Mermaid diagrams
 
@@ -41,15 +46,15 @@ When this skill emits Mermaid diagrams, follow the project's Mermaid conventions
 
 ## Assets
 
-- `assets/AGENTS.md` - canonical AI context file template
-- `assets/README.md` - `aidd_docs/README.md` template
-- `assets/GUIDELINES.md` - `aidd_docs/GUIDELINES.md` template
-- `assets/templates/memory/` - memory file templates (scope: `all` | `frontend` | `backend`)
+- `@assets/AGENTS.md` - canonical AI context file template
+- `@assets/README.md` - `aidd_docs/README.md` template
+- `@assets/GUIDELINES.md` - `aidd_docs/GUIDELINES.md` template
+- `@assets/templates/memory/` - memory file templates (scope: `all` | `frontend` | `backend`)
 
 ## References
 
-- `references/mapping-ai-context-file.md` - mapping of AI context files across tools
+- `@references/mapping-ai-context-file.md` - mapping of AI context files across tools
 
 ## External data
 
-- `../hooks/update_memory.js` - syncs `<aidd_project_memory>` block content across all context files
+- `../../hooks/update_memory.js` - syncs `<aidd_project_memory>` block content across all context files

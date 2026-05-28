@@ -4,7 +4,23 @@
   "version": "1.0.0",
   "description": "External artifacts: commit, pull-request, release-tag, issue-create",
   "author": {
-    "name": "AI-Driven Dev"
+    "name": "AI-Driven Dev",
+    "url": "https://github.com/ai-driven-dev"
   },
-  "strict": true
+  "skills": [
+    "./skills/01-commit",
+    "./skills/02-pull-request",
+    "./skills/03-release-tag",
+    "./skills/04-issue-create"
+  ],
+  "keywords": [
+    "git",
+    "commit",
+    "pull-request",
+    "release",
+    "version-control"
+  ],
+  "repository": "https://github.com/ai-driven-dev/aidd-framework",
+  "homepage": "https://ai-driven.dev",
+  "license": "MIT"
 }

@@ -1,84 +1,117 @@
 ---
 name: aidd-context:03:context-generate
-description: Generate context artifacts - skills (router-based), agents, rules, slash commands, hooks, plugins, and marketplaces. Use when the user wants to create, refactor, add or remove actions in a skill, migrate a legacy slash command into a router-based skill, or generate a new agent, rule, command, hook, plugin, or marketplace. Do NOT use for editing a single action inside an existing skill (edit directly), writing MCP servers, or modifying project-level files.
+model: opus
+description: Generate context artifacts (skills, agents, rules, commands, hooks, plugins, marketplaces) across the host AI tool(s) the project uses. Use when the user wants to create, refactor, add or remove actions in a skill, migrate a legacy slash command into a router-based skill, or generate a new agent, rule, command, hook, plugin, or marketplace. Do NOT use for editing a single action inside an existing skill (edit directly), writing MCP servers, or modifying project-level files.
 ---
 
 # Context Generate
 
-Generates the seven context artifacts a project consumes:
+Generates the seven context artifacts a project consumes, with per-tool path resolution.
 
 - **Skills** - router-based: `SKILL.md` router + atomic testable actions + minimal evals.
 - **Agents** - single-file agent definitions following the framework's agent template.
 - **Rules** - framework rule files governing editor/agent behavior.
 - **Commands** - flat `.md` slash command files (frontmatter + body), for one-shot manual triggers.
 - **Hooks** - JSON / TOML entries (or a JS/TS plugin module for OpenCode) bound to lifecycle events.
-- **Plugins** - full plugin scaffold (`.claude-plugin/plugin.json`, README, dirs, optional seed skill).
-- **Marketplaces** - `.claude-plugin/marketplace.json` catalogs that distribute one or more plugins.
+- **Plugins** - full plugin scaffold (a plugin manifest + README + slot dirs, path resolved per tool from `@references/ai-mapping.md`; optional seed skill).
+- **Marketplaces** - a marketplace catalog file (path resolved per tool from `@references/ai-mapping.md`) that distributes one or more plugins.
 
-## Skill-generation actions
+## Sub-flows
 
-| #   | Action              | Role                                          | Input              |
-| --- | ------------------- | --------------------------------------------- | ------------------ |
-| 01  | `capture-intent`    | Clarify output + decide generate vs modify    | user intent        |
-| 02  | `design-evals`      | Write minimal `scenarios.json`                | expected output    |
-| 03  | `decompose-actions` | List actions + their tests                    | evals + output     |
-| 04  | `draft-skill`       | Write SKILL.md router                         | decomposed actions |
-| 05  | `write-actions`     | Write each action file                        | validated SKILL.md |
-| 06  | `validate`          | Spawn one agent per action, run its `## Test`, aggregate into a pass/fail report | complete skill |
+Each artifact type has its own sub-flow under `@actions/<sub-domain>/`. All sub-flows are equal-weight siblings; pick the one matching the user's artifact type.
 
-Files: `actions/skills/01-capture-intent.md` … `actions/skills/06-validate.md`.
+| Sub-domain     | Actions count | Entry action                                                             | Flow type           |
+| -------------- | ------------- | ------------------------------------------------------------------------ | ------------------- |
+| `skills`       | 6             | `@actions/skills/01-capture-intent.md`                                   | sequential 01..06   |
+| `agents`       | 1             | `@actions/agents/01-generate-agent.md`                                   | single action       |
+| `rules`        | 1             | `@actions/rules/01-generate-rules.md`                                    | single action       |
+| `commands`     | 1             | `@actions/commands/01-generate-command.md`                               | single action       |
+| `hooks`        | 1             | `@actions/hooks/01-generate-hook.md`                                     | single action       |
+| `plugins`      | 4             | `@actions/plugins/01-capture-plugin-intent.md`                           | sequential 01..04   |
+| `marketplaces` | 3             | `@actions/marketplaces/01-init-marketplace.md`                           | sequential 01..03   |
 
-## Other generation actions
+## Default flow
 
-- `actions/agents/01-generate-agent.md` - generate an agent file from `assets/agents/agent-template.md`.
-- `actions/rules/01-generate-rules.md` - generate a rule file from `assets/rules/rule-template.md`.
-- `actions/commands/01-generate-command.md` - generate a flat slash command from `assets/commands/command-template.md`.
-- `actions/hooks/01-generate-hook.md` - generate a hook entry, branching on the target tool's hooks surface.
-- `actions/plugins/01..04` - plugin scaffold flow: capture-intent → scaffold-tree → seed-first-skill → validate.
-- `actions/marketplaces/01..03` - marketplace catalog flow: init-marketplace → add-plugin-entry → validate.
-
-## Default skill flow
-
-`01 → 02 → 03 → 04 → 05 → 06`. After each action, run its `## Test` before moving to the next. Action 02 self-skips when `01` outputs `invocation_mode = manual`.
+For sequential sub-flows, run actions in order. After each action, run its `## Test` before moving to the next. In the `skills` sub-flow, action 02 self-skips when `01` outputs `invocation_mode = manual`.
 
 ## Modify flow
 
-`01` (detects modify) → `03` (re-decompose if structure changes) → `05` (targeted edit) → `06` (re-validate).
+`01` of the matching sub-flow (detects modify) → re-decompose or re-edit as needed → final validate action of that sub-flow.
+
+Gate exception: in modify mode the target tool is fixed by the existing artifact's on-disk location. Skip detect, propose, confirm, and D2.
 
 ## Runtime tracking
 
-Materialize the flow as a task list at skill entry; a task closes only when its `## Test` passes.
+Materialize the sub-flow as a task list at skill entry; a task closes only when its `## Test` passes.
 
-## Rules
+## Transversal rules
 
-- **R1** - SKILL.md is a pure router: description + action table + transversal rules. Zero business logic.
-- **R2** - One skill = one domain (tool OR activity). Tool → singular noun (`slack`); activity → action verb (`review`). See `references/naming-conventions.md`.
-- **R3** - References one-level deep. Never chain reference → reference.
-- **R4** - SKILL.md ≤ 500 lines. If exceeded, split into references.
-- **R5** - Description must include: what, explicit triggers, "Do NOT use for..." clause.
-- **R6** - Zero duplication. Templates live in `assets/`; actions point to them via `@<path>`.
-- **R7** - `references/` = documents to READ (conventions, cheatsheets). `assets/` = files to COPY or INJECT (templates, ID tables).
-- **R8** - Every action has a `## Test`: one sentence describing how to verify its intent - a command to run, a concrete check on the produced artifact, or an observable side-effect (API/MCP/state).
-- **R9** - Auto-trigger skills (`disable-model-invocation: false`, default) ship `evals/scenarios.json` = JSON array of at least 3 `{prompt, expect_action}`. Manual-only skills skip.
-- **R10** - Generated skills are written in **English only** (frontmatter, body, actions, references, assets). Holds regardless of conversation language.
+- Writes are CWD-relative; the plugin install root is for reading templates only, never for prefixing a write target.
+- Skills sub-flow applies R1-R10 from `references/skill-authoring.md` to every generated skill. Other sub-flows follow their own conventions in `assets/` and `references/`.
+- R11 - Tool resolution gate (generate-only): detect, propose, confirm 1..N, then look up `references/ai-mapping.md` per (artifact, tool); block unsupported pairs (D2) and continue the rest. Skip the gate in modify mode (tool fixed by the existing artifact's on-disk location). Procedure: `references/tool-resolution.md`.
 
 ## References
 
-- `references/naming-conventions.md` - tool vs activity naming, hard constraints
-- `references/skill-structure.md` - skill anatomy
-- `references/agents-coordination.md` - multi-agent coordination patterns
-- `references/rule-structure.md` - rule file anatomy
-- `references/rule-writing.md` - rule authoring conventions
-- `references/ai-mapping.md` - syntax and file location reference for AI files (agents, commands, rules, skills)
+- `@references/tool-resolution.md` - shared detect/propose/confirm/D2 procedure (called by every entry action)
+- `@references/ai-mapping.md` - per-tool paths, frontmatter reconciliation, hooks/plugins/marketplaces map, event casing, validator commands
+- `@references/skill-authoring.md` - generated-skill authoring: R1-R10 rules, anatomy, naming
+- `@references/command.md` - generated-command authoring: forms, scopes, frontmatter, phases, arguments
+- `@references/rule.md` - generated-rule authoring: naming, category taxonomy, content format
+- `@references/hook.md` - Claude Code hooks deep reference: handler types, events, exit codes
+- `@references/marketplace.md` - marketplace catalog schema deep reference
 
 ## Assets (templates to copy)
 
-- `assets/skills/skill-template.md` - SKILL.md skeleton
-- `assets/skills/action-template.md` - action file skeleton
-- `assets/skills/evals-template.md` - `scenarios.json` minimal schema
-- `assets/agents/agent-template.md` - agent file skeleton
-- `assets/rules/rule-template.md` - rule file skeleton
-- `assets/commands/command-template.md` - flat slash command skeleton
-- `assets/hooks/hooks-template.json` - hook entry skeleton (JSON); `hook-template.js` for OpenCode
-- `assets/plugins/plugin-template.json` - plugin manifest skeleton; `plugin-readme-template.md`, `plugin-entry-template.json`
-- `assets/marketplaces/marketplace-template.json` - marketplace catalog skeleton
+Skills templates (cross-tool, shared):
+
+- `@assets/skills/skill-template.md` - SKILL.md skeleton
+- `@assets/skills/action-template.md` - action file skeleton
+- `@assets/skills/evals-template.md` - `scenarios.json` minimal schema
+
+Per-tool agent templates:
+
+- `@assets/agents/claude/agent-template.md`
+- `@assets/agents/cursor/agent-template.md`
+- `@assets/agents/opencode/agent-template.md`
+- `@assets/agents/copilot/agent-template.agent.md`
+- `@assets/agents/codex/agent-template.toml`
+
+Per-tool rule templates:
+
+- `@assets/rules/claude/rule-template.md`
+- `@assets/rules/cursor/rule-template.mdc`
+- `@assets/rules/copilot/instructions-template.md`
+
+Per-tool command templates:
+
+- `@assets/commands/claude/command-template.md`
+- `@assets/commands/cursor/command-template.md`
+- `@assets/commands/opencode/command-template.md`
+- `@assets/commands/copilot/prompt-template.prompt.md`
+
+Per-tool hook templates:
+
+- `@assets/hooks/claude/hooks-template.json`
+- `@assets/hooks/cursor/hooks-template.json`
+- `@assets/hooks/codex/hooks-template.json`
+- `@assets/hooks/copilot/hooks-template.json`
+- `@assets/hooks/opencode/hook-template.js`
+
+Per-tool plugin templates:
+
+- `@assets/plugins/claude/plugin-template.json`
+- `@assets/plugins/cursor/plugin-template.json`
+- `@assets/plugins/copilot/plugin-template.json`
+- `@assets/plugins/codex/plugin-template.json`
+- `@assets/plugins/plugin-readme-template.md` (shared)
+
+Per-tool marketplace templates:
+
+- `@assets/marketplaces/claude/marketplace-template.json`
+- `@assets/marketplaces/claude/plugin-entry-template.json`
+- `@assets/marketplaces/cursor/marketplace-template.json`
+- `@assets/marketplaces/cursor/plugin-entry-template.json`
+- `@assets/marketplaces/copilot/marketplace-template.json`
+- `@assets/marketplaces/copilot/plugin-entry-template.json`
+- `@assets/marketplaces/codex/marketplace-template.json`
+- `@assets/marketplaces/codex/plugin-entry-template.json`

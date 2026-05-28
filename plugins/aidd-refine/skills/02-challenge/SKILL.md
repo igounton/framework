@@ -27,7 +27,7 @@ Single action skill. The router dispatches to `challenge` whenever the trigger p
 
 ## References
 
-- `references/confidence-rubric.md`: tiered rubric for the confidence percentage.
+- `@references/confidence-rubric.md`: tiered rubric for the confidence percentage.
 
 ## Assets
 
