@@ -23,6 +23,7 @@ Closes #
 ## Checklist
 
 - [ ] Commit messages follow the conventional format and use a scope listed in `commitlint.config.cjs`.
+- [ ] Every commit is signed off (`git commit -s`) per the [DCO](../CONTRIBUTING.md#2-commit).
 - [ ] Documentation updated when behaviour or contracts changed (plugin README, skill README, references).
 - [ ] No cross-plugin references introduced in plugin docs.
 - [ ] Pre-commit hooks pass locally (`lefthook run pre-commit`).

@@ -108,7 +108,7 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | `references` | [hook.md](skills/03-context-generate/references/hook.md) | - |
 | `references` | [marketplace.md](skills/03-context-generate/references/marketplace.md) | - |
 | `references` | [rule.md](skills/03-context-generate/references/rule.md) | - |
-| `references` | [skill.md](skills/03-context-generate/references/skill.md) | - |
+| `references` | [skill-authoring.md](skills/03-context-generate/references/skill-authoring.md) | - |
 | `references` | [tool-resolution.md](skills/03-context-generate/references/tool-resolution.md) | - |
 | `-` | [SKILL.md](skills/03-context-generate/SKILL.md) | `Generate context artifacts (skills, agents, rules, commands, hooks, plugins, marketplaces) across the host AI tool(s) the project uses. Use when the user wants to create, refactor, add or remove actions in a skill, migrate a legacy slash command into a router-based skill, or generate a new agent, rule, command, hook, plugin, or marketplace. Do NOT use for editing a single action inside an existing skill (edit directly), writing MCP servers, or modifying project-level files.` |
 

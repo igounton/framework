@@ -1,5 +1,8 @@
 blank_issues_enabled: false
 contact_links:
+  - name: Question or idea (Discussions)
+    url: https://github.com/ai-driven-dev/aidd-framework/discussions
+    about: Ask a question, propose a feature, or vote on ideas. Support questions belong here, not in issues.
   - name: Discord community
     url: https://discord.gg/ai-driven-dev
     about: Ask questions, get help, or chat with the AI-Driven Dev community in real time.

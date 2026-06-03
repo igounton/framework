@@ -1,25 +1,13 @@
 # Roadmap
 
-Public direction. Intent, not commitments. Shipped reality lives in [`CHANGELOG.md`](./CHANGELOG.md).
-
-## Now
-
-- **Open source the repository.** Move from private to public, with everything an external contributor needs (issue templates, labels, branch protection on `main`).
-- **Keep growing the skill catalog.** Continuous improvement of existing skills and additions across every plugin.
-
-## Next
-
-- **Dynamic orchestration.** Extend `aidd-orchestrator` so it composes agents and skills on the fly, picking from whichever plugins the user has installed instead of hard-coded pipelines.
-- **`aidd-cli` integration.** First-class support for the cross-tool [`aidd-cli`](https://github.com/ai-driven-dev/aidd-cli) so the same marketplace ships to Cursor, Copilot, OpenCode.
-- **`aidd-pm` full project scope.** Skills covering greenfield bootstrap, brownfield audits, backlog grooming, and ongoing PM rituals.
-
-## Later
-
-- **Specialised plugins.** Topic-driven additions: craftsmanship (clean code, refactoring, design patterns), technology-specific plugins (per stack / per framework).
+The live roadmap - **Now / Next / Later** with per-item status across the framework and CLI - is the [AIDD Roadmap board](https://github.com/orgs/ai-driven-dev/projects/8). That board is the single source of truth; this file deliberately does not duplicate it. Shipped reality lives in [`CHANGELOG.md`](./CHANGELOG.md).
 
 ## How to influence
 
-- Open an issue with the `feat:` template.
-- Thumbs-up existing issues; reaction counts feed priority.
+Priority is set by a community vote - full mechanism (who votes, weighting, polls) in [`GOVERNANCE.md`](./GOVERNANCE.md#roadmap-voting). To influence it:
+
+- Open a `feat:` issue or an idea in [GitHub Discussions](https://github.com/ai-driven-dev/aidd-framework/discussions), and 👍 / upvote what you want - the signal that promotes an item to a vote.
 - Discuss on [Discord](https://discord.gg/ai-driven-dev).
 - Sponsored work: see [`.github/FUNDING.yml`](./.github/FUNDING.yml).
+
+Accepted items land on the [AIDD Roadmap board](https://github.com/orgs/ai-driven-dev/projects/8).

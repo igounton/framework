@@ -91,11 +91,17 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 
 | Group | File | Description | Argument Hint |
 |-------|------|---|---|
-| `actions` | [01-audit.md](skills/04-audit/actions/01-audit.md) | - | - |
+| `actions` | [01-code-quality.md](skills/04-audit/actions/01-code-quality.md) | - | - |
+| `actions` | [02-architecture.md](skills/04-audit/actions/02-architecture.md) | - | - |
+| `actions` | [03-security.md](skills/04-audit/actions/03-security.md) | - | - |
+| `actions` | [04-dependencies.md](skills/04-audit/actions/04-dependencies.md) | - | - |
+| `actions` | [05-performance.md](skills/04-audit/actions/05-performance.md) | - | - |
+| `actions` | [06-tests.md](skills/04-audit/actions/06-tests.md) | - | - |
+| `actions` | [07-ui.md](skills/04-audit/actions/07-ui.md) | - | - |
 | `assets` | [audit-template.md](skills/04-audit/assets/audit-template.md) | `Codebase audit report template` | - |
 | `evals` | [scenarios.json](skills/04-audit/evals/scenarios.json) | - | - |
 | `-` | [README.md](skills/04-audit/README.md) | - | - |
-| `-` | [SKILL.md](skills/04-audit/SKILL.md) | `Perform deep codebase analysis to identify technical debt, dead code, and improvement opportunities.` | - |
+| `-` | [SKILL.md](skills/04-audit/SKILL.md) | `Read-only codebase audit across quality pillars (code-quality, architecture, security, dependencies, performance, tests, ui). Diagnoses and reports findings; never edits code. Use when the user wants to assess, audit, or health-check a codebase or one dimension of it, then hands off to the act-skills (refactor, test, impeccable) to fix. Do NOT use for fixing the findings (hand off to refactor/test/impeccable), per-PR code review (use 05-review), or validating that a feature works (use 03-assert).` | - |
 
 #### `skills/05-review`
 
@@ -103,12 +109,11 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 |-------|------|---|---|
 | `actions` | [01-review-code.md](skills/05-review/actions/01-review-code.md) | - | - |
 | `actions` | [02-review-functional.md](skills/05-review/actions/02-review-functional.md) | - | - |
-| `assets` | [code-review-template.md](skills/05-review/assets/code-review-template.md) | `Code review checklist and scoring template` | - |
-| `assets` | [review-functional-template.md](skills/05-review/assets/review-functional-template.md) | `Functional review report template` | - |
-| `assets` | [review-template.md](skills/05-review/assets/review-template.md) | `Code review checklist and scoring template` | - |
+| `assets` | [review-code-template.md](skills/05-review/assets/review-code-template.md) | `Code review report template for a diff` | - |
+| `assets` | [review-functional-template.md](skills/05-review/assets/review-functional-template.md) | `Functional review report template for a diff against a plan` | - |
 | `evals` | [scenarios.json](skills/05-review/evals/scenarios.json) | - | - |
 | `-` | [README.md](skills/05-review/README.md) | - | - |
-| `-` | [SKILL.md](skills/05-review/SKILL.md) | `Review code quality against project rules and validate feature behavior against plan specifications.` | - |
+| `-` | [SKILL.md](skills/05-review/SKILL.md) | `Read-only review of a diff (a PR or working changes) - code quality against project rules, and feature behavior against the plan's acceptance criteria. Surfaces findings with a verdict; never patches. Use to review changes in progress. Do NOT use for a whole-codebase health check (use 04-audit), fixing the findings (hand off to 07-refactor / 02-implement / 08-debug), or validating a feature runs (use 03-assert).` | - |
 
 #### `skills/06-test`
 
@@ -126,9 +131,11 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 |-------|------|---|
 | `actions` | [01-performance.md](skills/07-refactor/actions/01-performance.md) | - |
 | `actions` | [02-security.md](skills/07-refactor/actions/02-security.md) | - |
+| `actions` | [03-cleanup.md](skills/07-refactor/actions/03-cleanup.md) | - |
+| `actions` | [04-architecture.md](skills/07-refactor/actions/04-architecture.md) | - |
 | `evals` | [scenarios.json](skills/07-refactor/evals/scenarios.json) | - |
 | `-` | [README.md](skills/07-refactor/README.md) | - |
-| `-` | [SKILL.md](skills/07-refactor/SKILL.md) | `Optimize code for performance and fix security vulnerabilities following OWASP guidelines.` |
+| `-` | [SKILL.md](skills/07-refactor/SKILL.md) | `Improve code without breaking behavior across four axes - cleanup (clean-code + tech debt), performance, security, architecture. Scans and fixes, or fixes the findings of an audit report pushed in by the caller. Use when the user wants to refactor, clean up, optimize, harden, or restructure code. Do NOT use for read-only diagnosis (use 04-audit), adding tests (use 06-test), or UI redesign (use the impeccable skill).` |
 
 #### `skills/08-debug`
 

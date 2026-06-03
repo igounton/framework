@@ -30,13 +30,9 @@ Do not file public issues for security problems. Public disclosure before a fix 
 | Previous major| Critical fixes only    |
 | Older majors  | No                     |
 
-## Operational risks worth knowing
+## Operational note
 
-These are documented design decisions, not vulnerabilities to report - but they should inform how you operate the framework.
-
-- **`--permission-mode bypassPermissions` inside GitHub Actions.** The orchestrator runs `claude-code-action` with bypassed permission prompts so the pipeline can complete unattended. Inside the runner Claude can execute any tool the runner allows (filesystem, network, shell, gh CLI). Anyone who can apply a trigger label or post a trigger mention is effectively running Claude on your repo. Restrict the trigger labels to trusted contributors via branch / repo settings if your repo accepts community input.
-- **PAT scope breadth.** The `github_write_auth` PAT carries `Contents`, `Pull requests`, `Issues`, `Workflows`, `Metadata` read/write on the target repo. Treat the secret as a powerful credential; rotate every 90 days; do not reuse across repos.
-- **Marketplace clone surface.** Installing this marketplace executes its `SKILL.md` actions, hooks, and any MCP servers it declares. Review the artifacts before adding the marketplace to a new repo.
+Installing this marketplace lets its plugins run `SKILL.md` actions, hooks, and any MCP servers they declare through your AI tool. Review a plugin's artifacts before installing it. Any plugin that runs in CI or with elevated permissions documents its own risks and required secrets in **that plugin's README** - read it before enabling such a plugin on a repo that accepts community input.
 
 ## Out of scope
 

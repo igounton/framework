@@ -27,11 +27,13 @@ flowchart TB
     Refine["aidd-refine"]
   end
 
-  subgraph SkillUnit["Each plugin ships"]
+  subgraph SkillUnit["A plugin may ship (Claude Code surfaces)"]
     Skills["skills/ (SKILL.md + actions + assets)"]
     Agents["agents/"]
-    Hooks["hooks/"]
-    Mcp["mcp/"]
+    Commands["commands/"]
+    Hooks["hooks/ (hooks.json)"]
+    Rules["rules/"]
+    Mcp[".mcp.json (MCP servers)"]
   end
 
   Editor -->|"/plugin marketplace add"| Manifest
@@ -54,9 +56,10 @@ Every plugin under `plugins/<plugin>/` follows the same shape:
 ```
 plugins/<plugin>/
 ├── .claude-plugin/
-│   └── plugin.json        # manifest (name, version, description, $schema)
+│   └── plugin.json        # manifest (name, version, description, skills[], $schema)
 ├── README.md              # human-facing landing page
 ├── CATALOG.md             # per-plugin auto-generated index
+├── CHANGELOG.md           # release-please-managed
 ├── skills/                # router-based skills
 │   └── <NN>-<name>/
 │       ├── SKILL.md        # contract (name, description, actions table)
@@ -65,12 +68,16 @@ plugins/<plugin>/
 │       ├── assets/         # templates and static files
 │       ├── references/     # extended docs the skill links into
 │       └── evals/          # scenario fixtures
-├── agents/                 # named AI agents (optional)
-├── hooks/                  # Claude Code hooks (optional)
-└── mcp/                    # MCP server configuration (optional)
+├── agents/                 # named AI agents          (optional)
+├── commands/               # slash commands           (optional)
+├── hooks/hooks.json        # lifecycle hooks          (optional)
+├── rules/                  # coding rules             (optional)
+└── .mcp.json               # MCP server configuration (optional)
 ```
 
-The `plugin.json` is validated against [`claude-code-plugin-manifest`](https://www.schemastore.org/claude-code-plugin-manifest.json) on every commit (via `lefthook`). The marketplace's `marketplace.json` is validated against [`claude-code-marketplace`](https://www.schemastore.org/claude-code-marketplace.json) the same way.
+A plugin bundles **any subset** of the Claude Code surfaces (skills, agents, commands, hooks, rules, MCP servers); only `skills/` and the manifest are universal. Browse the [plugins](../plugins/) to see which surfaces each one ships.
+
+The `plugin.json` is validated against [`claude-code-plugin-manifest`](https://www.schemastore.org/claude-code-plugin-manifest.json) by the `lefthook` pre-commit hook (when the JSON-schema validator, `pipx`/`check-jsonschema`, is available); the same hook validates `marketplace.json` against [`claude-code-marketplace`](https://www.schemastore.org/claude-code-marketplace.json). The `validate` workflow re-runs the hooks on every push and PR.
 
 ## Skills are routers
 
@@ -81,7 +88,7 @@ A skill's `SKILL.md` is a manifest plus an actions table. Claude Code loads the 
 title: skill router pattern
 ---
 flowchart LR
-  User["User: 'Use skill aidd-X:NN:name'"]
+  User["User: 'Use skill aidd-X:NN-name'"]
   Skill["SKILL.md (router)"]
   Action1["actions/01-step.md"]
   Action2["actions/02-step.md"]
@@ -97,32 +104,7 @@ flowchart LR
   ActionN --> Out
 ```
 
-Each action is a self-contained markdown file with inputs, outputs, depends-on, process steps, and a test checklist. Actions can call other skills via the `Skill` tool, enabling capability discovery and delegation across plugins.
-
-## SDLC capability discovery
-
-Two plugins (currently `aidd-dev:00:sdlc` and `aidd-orchestrator`) advertise themselves as SDLC orchestrators in their `description` frontmatter. Other plugins discover them at runtime by matching the description (never by hardcoded plugin name), which keeps the system swappable: replace `aidd-dev` with any plugin that advertises SDLC orchestration and the orchestrator's `00:async-dev` skill will delegate to it instead.
-
-```mermaid
----
-title: SDLC capability discovery
----
-flowchart TB
-  Run["aidd-orchestrator:00:async-dev (action=run)"]
-  Discover["check-sdlc action"]
-  Catalog["skill catalog (runtime)"]
-  SDLC1["aidd-dev:00:sdlc (matches)"]
-  SDLC2["custom-dev:00:sdlc (also matches)"]
-  Delegate["delegate-sdlc action"]
-  Result["PR with feat/<slug>, Closes #N"]
-
-  Run --> Discover
-  Discover --> Catalog
-  Catalog -->|description match| SDLC1
-  Catalog -->|description match| SDLC2
-  SDLC1 -->|first match wins| Delegate
-  Delegate --> Result
-```
+Each action is a self-contained markdown file with inputs, outputs, depends-on, process steps, and a test checklist. Actions can call other skills via the `Skill` tool, so a skill discovers a capability it needs at runtime (by matching skill descriptions, never by hardcoded plugin name) and delegates to it.
 
 ## Cross-plugin orthogonality
 
@@ -134,5 +116,4 @@ The rule is enforced both socially (PR template checklist) and mechanically (lef
 
 - [`CREATE_PLUGIN.md`](CREATE_PLUGIN.md) - build and publish your own plugin.
 - [`GLOSSARY.md`](GLOSSARY.md) - terminology used across the framework.
-- [`CATALOG.md`](CATALOG.md) - every skill in one index.
 - [`../CONTRIBUTING.md`](../CONTRIBUTING.md) - contribution flow.

@@ -1,23 +1,6 @@
 pre-commit:
   output: true
   commands:
-    run-parent-hooks:
-      skip:
-        - merge
-        - rebase
-      run: |
-        if [ "$LEFTHOOK_CHILD" = "1" ] || [ "${CI:-}" = "true" ]; then
-          [ "$LEFTHOOK_CHILD" = "1" ] && echo "⏭️  Already running from parent, skipping"
-          exit 0
-        fi
-        PARENT_DIR="$(cd .. && pwd)"
-        if [ -f "$PARENT_DIR/lefthook.yml" ]; then
-          echo "🔄 Running parent repo hooks..."
-          export LEFTHOOK_CHILD=1
-          cd "$PARENT_DIR" && pnpm exec lefthook run pre-commit --force
-        else
-          echo "ℹ️  Parent repo not found; running framework-local checks only"
-        fi
     json-validity:
       glob: "**/*.json"
       run: |
@@ -116,23 +99,14 @@ pre-commit:
             >/dev/null
           git add "${plugin}CATALOG.md" 2>/dev/null || true
         done
-
-pre-push:
-  commands:
-    run-parent-hooks:
+    sync-readme-counts:
       run: |
-        if [ "$LEFTHOOK_CHILD" = "1" ] || [ "${CI:-}" = "true" ]; then
-          [ "$LEFTHOOK_CHILD" = "1" ] && echo "⏭️  Already running from parent, skipping"
+        if ! command -v node >/dev/null 2>&1; then
+          echo "ℹ️  node not available; skipping sync-readme-counts"
           exit 0
         fi
-        PARENT_DIR="$(cd .. && pwd)"
-        if [ -f "$PARENT_DIR/lefthook.yml" ]; then
-          echo "🔄 Running parent repo hooks..."
-          export LEFTHOOK_CHILD=1
-          cd "$PARENT_DIR" && pnpm exec lefthook run pre-push --force
-        else
-          echo "⚠️  Parent repo not found, skipping hooks"
-        fi
+        node scripts/sync-readme-counts.mjs >/dev/null
+        git add README.md 2>/dev/null || true
 
 commit-msg:
   commands:

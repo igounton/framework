@@ -1,5 +1,7 @@
 # Upgrade guide - v3.9.1 to v4.x
 
+> **Historical, frozen document.** This is the one-time v3 → v4 migration. If you are already on v4+, you can ignore it. It is not kept in sync with ongoing changes - for those, see [`CHANGELOG.md`](CHANGELOG.md).
+
 This release is a full architecture rewrite. The legacy flat repo (`commands/`, `agents/`, `skills/`, `rules/`, `config/`, `dist/`) was replaced by a Claude Code **plugin marketplace** organised around skills.
 
 If you were on `v3.x`, expect breaking changes:
@@ -177,9 +179,7 @@ Invocation in v4 is `plugin:NN-action`. Where a column says "sub-flow", the old 
 
 **Will v3 keep working?** Yes, but it is no longer maintained. Pin to `v3.9.1` if you cannot migrate yet.
 
-**Do I need all 6 plugins?** No. Each is independent. Install only what you use.
-
-Recommanded : "aidd-context", "aidd-dev", "aidd-vcs", "aidd-refine"
+**Do I need all 6 plugins?** No. Each is independent. Install only what you use; a common starting set is `aidd-context`, `aidd-dev`, `aidd-vcs`, `aidd-refine`.
 
 **Where did my custom hooks go?** Framework hooks now live in the plugin that owns them, under `plugins/<plugin>/hooks/`. Your own project hooks stay in your project.
 

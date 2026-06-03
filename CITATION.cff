@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use the AI-Driven Dev framework, please cite it as below."
+title: "AI-Driven Dev Framework"
+abstract: >-
+  Community-maintained marketplace for Claude Code,
+  built around the AI-Driven Development methodology.
+type: software
+authors:
+  - name: "The AI-Driven Dev contributors"
+repository-code: "https://github.com/ai-driven-dev/aidd-framework"
+url: "https://www.ai-driven-dev.fr/"
+license: MIT
+keywords:
+  - ai-driven-development
+  - developer-tools
+  - llm-tooling
+  - prompt-engineering
+  - harness-engineering
+  - context-engineering
+  - agents
+  - skills
+  - rules
+  - hooks
+  - commands
+  - community
+  - collaboration
+  - marketplace
+  - open-source
+  - claude-code

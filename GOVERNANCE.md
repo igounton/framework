@@ -1,73 +1,90 @@
 # Governance
 
-How decisions get made in the AI-Driven Dev Framework.
+How decisions get made in the AI-Driven Dev Framework. Four roles form a
+**ladder** - each rung keeps every right of the rungs below and adds its own.
 
-## Project structure
+```mermaid
+---
+title: AIDD roles ladder
+---
+flowchart LR
+    Public["Public - free"]
+    CoreTeam["Core Team - AIDD member"]
+    Certifie["Certifie AIDD - certified"]
+    Habilite["Habilite AIDD - maintainer"]
 
-- **Maintainers**: a small group with merge rights on `main`. Listed in [`.github/CODEOWNERS`](./.github/CODEOWNERS) and on the GitHub organisation page.
-- **Plugin owners**: maintainers responsible for the day-to-day of a specific plugin (`aidd-context`, `aidd-dev`, etc.). They merge per-plugin PRs and triage per-plugin issues.
-- **Contributors**: anyone who opens a PR or issue. The contribution flow is documented in [`CONTRIBUTING.md`](./CONTRIBUTING.md).
-- **Community**: the wider AIDD community on Discord, YouTube, and LinkedIn. Sets direction by feedback, votes on roadmap items, and proposes new use cases.
+    Public -- join programme --> CoreTeam
+    CoreTeam -- pass certification --> Certifie
+    Certifie -- promoted --> Habilite
+```
 
-## How decisions are made
+## Roles
 
-The default is **lazy consensus**. Any maintainer can move forward on a PR if:
+| Tier | How you get there | Adds (on top of the rung below) | Team |
+| ---- | ----------------- | ------------------------------- | ---- |
+| **Public** | Free, any GitHub account | Open issues, comment, react / upvote ideas (signal only) | - |
+| **Core Team** | Active [AIDD programme](https://www.ai-driven-dev.fr/) member (training, community, coaching) | A **counted roadmap vote** + voice on direction | [`core-team`](https://github.com/orgs/ai-driven-dev/teams/core-team) |
+| **Certifié AIDD** | Pass the [AIDD certification](https://www.ai-driven-dev.fr/) | Open **pull requests** (framework + courses) | [`certified`](https://github.com/orgs/ai-driven-dev/teams/certified) |
+| **Habilité AIDD** | Promoted by a majority of Habilité | **Approve & merge** PRs, **quality veto**, appoint/promote, guard the standard | [`habilitated`](https://github.com/orgs/ai-driven-dev/teams/habilitated) |
 
-1. No other maintainer has expressed an objection within 72 hours.
-2. The PR has at least one approval from a maintainer (or from a plugin owner for plugin-scoped changes).
-3. The PR passes CI and lefthook checks.
+**Plugin owners** are Habilité scoped to one plugin (`aidd-context`, `aidd-dev`,
+…): they merge and triage for that plugin only.
 
-Anyone can pause a PR by leaving a `request-changes` review or a `block` comment explaining the concern. The PR cannot merge until the concern is resolved.
+## Roadmap voting
 
-For changes that affect more than one plugin, the contract surface (skill frontmatter, marketplace.json schema), or the project's licensing / governance, lazy consensus is replaced with **explicit consensus**: at least two maintainers approve, no maintainer objects.
+- **Public** reacts (👍 / upvote). This is a **signal**, not a counted vote; it
+  promotes an item to a formal vote.
+- **Core Team, Certifié, Habilité** each cast **one equal vote**. The vote is a
+  benefit of AIDD membership (the programme is a paid training / community /
+  coaching offering) - that is what turns a signal into a counted vote.
+- **Habilité** holds the tiebreak and a **quality veto** as the top rung.
+- A poll runs **≥ 7 days**. Accepted items land on the
+  [AIDD Roadmap board](https://github.com/orgs/ai-driven-dev/projects/8).
 
-## Adding a new plugin
+## Code decisions (merging)
 
-A new plugin lands through a regular pull request that:
+Merge authority is **Habilité only**. Default is **lazy consensus**: a Habilité
+may merge if no other Habilité objects within 72h, there is ≥1 Habilité approval,
+and CI passes. Any Habilité can block with a `request-changes` review (the
+**quality veto**) until resolved.
 
-1. Follows the layout described in [`docs/CREATE_PLUGIN.md`](docs/CREATE_PLUGIN.md).
-2. Includes a `description` frontmatter on every skill clear enough that a Claude session can discover it from intent alone.
-3. Declares at least one `evals/scenarios.json` fixture per skill.
-4. Adds the plugin entry to `.claude-plugin/marketplace.json` and registers it in `release-please-config.json`.
-5. Has a plugin owner ready to take ongoing responsibility for issues and PRs against the plugin.
+Cross-plugin changes, contract changes (skill frontmatter, `marketplace.json`),
+or licensing/governance changes need **explicit consensus**: ≥2 Habilité approve,
+none object.
 
-A new plugin starts at `status: experimental`. It moves to `release candidate` once at least one external user has installed and reported a successful run, and to `stable` after a maintainer review of the eval coverage and the documentation.
+## Promotion and inactivity
 
-## Removing or deprecating a plugin
+- **→ Certifié**: pass the AIDD certification → added to `certified`.
+- **→ Habilité**: a Habilité nominates a Certifié with a track record of merged,
+  standard-consistent work; a majority of Habilité approves → added to
+  `habilitated` and `CODEOWNERS`.
+- A Core Team / Habilité member inactive **6 months** may be moved to **emeritus**
+  by a Habilité majority (keeps recognition, loses vote/merge until they return).
 
-A plugin can be deprecated by any maintainer with a one-paragraph rationale and at least one alternative path (a sibling plugin, an external project) for users to migrate to. Deprecation moves the plugin to `status: deprecated` in the README table and adds a banner in the plugin's own README. After 90 days the plugin can be removed entirely; until then it stays installable.
+## Plugins, breaking changes, conflicts
 
-## Breaking changes
-
-Breaking changes follow Conventional Commits with the `!` suffix (`feat!:`, `refactor!:`, etc.). Major bumps trigger an automatic release-please PR. The release notes must document the migration path for any user-visible contract (skill name, manifest field, public env variable).
-
-Prompt-only changes that alter how a skill behaves without changing its name or inputs still constitute breaking changes from the user's perspective. They should be flagged in the PR description and announced on Discord before merge.
-
-## Conflicts of interest
-
-A maintainer or plugin owner with a direct stake in a PR (e.g. their employer or a paid integration) should disclose it in the PR description and abstain from being the sole approver. The lazy-consensus window stays the same, but a second maintainer approval becomes mandatory.
+- **New plugin**: lands via PR following [`docs/CREATE_PLUGIN.md`](docs/CREATE_PLUGIN.md)
+  (description on every skill, ≥1 `evals/scenarios.json`, registered in
+  `marketplace.json` + `release-please-config.json`, a Habilité owner). Starts
+  `experimental` → `release candidate` (one external success) → `stable` (Habilité
+  review).
+- **Deprecate/remove**: any Habilité, with a rationale + migration path; stays
+  installable 90 days.
+- **Breaking changes**: Conventional Commits `!` suffix; document the migration
+  path. Prompt-only behaviour changes also count - flag in the PR and announce on
+  Discord.
+- **Conflict of interest**: a Habilité with a stake in a PR discloses it and is
+  not the sole approver (a second Habilité approval becomes mandatory).
 
 ## Branch protection on `main`
 
-Direct pushes to `main` are forbidden; every change lands through a pull request that satisfies the rules below. The machine-readable form lives at [`.github/rulesets/main.json`](.github/rulesets/main.json) and can be applied with:
+No direct push, no force-push, no deletion; every change is a PR with ≥1 Habilité
+(CODEOWNERS) approval, passing checks (`lefthook (framework-local checks)`,
+`Commitlint`), and resolved threads. Machine-readable form:
+[`.github/rulesets/main.json`](.github/rulesets/main.json) (enforced once the repo
+is public / on a paid plan).
 
-```
-gh api -X POST /repos/ai-driven-dev/aidd-framework/rulesets --input .github/rulesets/main.json
-```
+## Code of Conduct & amendments
 
-Rules:
-
-- **Pull request required.** No direct push to `main`, no force-push, no deletion.
-- **At least one approving review** from a maintainer (CODEOWNERS-aware).
-- **Required status checks**: `lefthook (framework-local checks)` (the [`validate`](.github/workflows/validate.yml) workflow) and `Commitlint` (from the [`CI`](.github/workflows/ci.yml) workflow) must pass.
-- **Unresolved review threads block merge.**
-
-The ruleset depends on GitHub's repository-rulesets API, which is free on public repos and bundled with paid plans on private repos. While the repo is private and on the free plan the rules are documented but not enforced by GitHub; they are enforced socially by maintainers.
-
-## Code of Conduct
-
-All decisions and interactions are bound by the [Code of Conduct](./CODE_OF_CONDUCT.md). Enforcement contacts are listed there.
-
-## Amendments
-
-This document is itself versioned. Changes to governance follow the same explicit-consensus rule above.
+All interactions follow the [Code of Conduct](./CODE_OF_CONDUCT.md). Changes to
+this document follow the explicit-consensus rule above.

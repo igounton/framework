@@ -6,9 +6,8 @@
 #   for label in $(yq '.[].name' .github/labels.yml); do ... ; done
 #
 # or use a sync action (e.g. EndBug/label-sync@v2 driven by a workflow_dispatch
-# job). Kept here for visibility; orchestrator-related labels are also
-# created on-the-fly by aidd-orchestrator:00:async-dev (action=setup) on any repo
-# where the plugin is installed.
+# job). Plugins may create their own labels on install; those are documented in
+# the plugin, not here.
 
 # --- Triage --------------------------------------------------------------
 
@@ -59,25 +58,3 @@
 - name: "autorelease: tagged"
   description: Release Please release tagged
   color: ededed
-
-# --- Orchestrator lifecycle (managed by aidd-orchestrator) ---------------
-
-- name: to-implement
-  description: "Human request: Claude, implement this issue"
-  color: 0E8A16
-
-- name: to-review
-  description: "Human request: Claude, apply the review feedback on the linked PR"
-  color: 0E8A16
-
-- name: claude/working
-  description: Claude is working (lock)
-  color: FBCA04
-
-- name: claude/awaiting-review
-  description: Claude opened a PR; waiting for human review
-  color: 1D76DB
-
-- name: claude/blocked
-  description: Failure or dependency blocker; human takeover required
-  color: B60205
