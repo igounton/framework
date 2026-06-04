@@ -25,10 +25,8 @@
 [![Maintained](https://img.shields.io/badge/maintained-yes-success.svg)](https://github.com/ai-driven-dev/aidd-framework/commits/main)
 [![Made in France](https://img.shields.io/badge/made%20in-France-0055A4?labelColor=EF4135)](https://www.ai-driven-dev.fr/)
 
-<!-- TODO: re-enable these badges when the repo goes public; both shields.io and the GitHub Actions badge endpoint return "not found" while the repo is private:
 [![Latest Release](https://img.shields.io/github/v/release/ai-driven-dev/aidd-framework?include_prereleases&sort=semver)](https://github.com/ai-driven-dev/aidd-framework/releases)
 [![CI](https://github.com/ai-driven-dev/aidd-framework/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/ai-driven-dev/aidd-framework/actions/workflows/ci.yml)
--->
 
 </div>
 
