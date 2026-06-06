@@ -1,5 +1,7 @@
 <!--
-🤖 RULE (AI filling this template): less is more. Reviewers scan hundreds of PRs - optimize for at-a-glance. Keep every section short, concrete, skimmable. Cut anything readable from the diff or CI. Delete any section that adds nothing.
+🤖 RULES (filling this template):
+1. Less is more. Reviewers scan hundreds of PRs - keep every section short, concrete, skimmable. Cut anything readable from the diff or CI. Delete any section that adds nothing.
+2. Point to a file with a real markdown link and its line number, GitHub-style: [README.md:119](README.md#L119).
 -->
 
 ## 🎯 What & why
