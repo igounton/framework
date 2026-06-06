@@ -48,7 +48,9 @@ Before opening a PR, exercise the skills you touched in a real session. Clone th
 git clone https://github.com/ai-driven-dev/aidd-framework ~/projects/aidd-framework
 ```
 
-**With Claude Code (recommended)** - register the checkout as a local marketplace, then install the plugins you are working on:
+#### Claude Code
+
+Register the checkout as a local marketplace, then install the plugins:
 
 ```text
 /plugin marketplace add ~/projects/aidd-framework
@@ -62,7 +64,7 @@ git clone https://github.com/ai-driven-dev/aidd-framework ~/projects/aidd-framew
 
 After editing a `SKILL.md`, an agent, or any action, run `/reload-plugins` in the same session to pick up the change - no reinstall needed.
 
-**Pin the checkout from a personal project** - to keep one of your own projects wired to your local framework while you develop, add a `directory` marketplace in that project's `.claude/settings.local.json` (the personal, machine-local settings file, not the team-shared `settings.json`):
+To load the plugins into a personal project, point its `.claude/settings.local.json` at the checkout:
 
 ```json
 {
@@ -85,9 +87,9 @@ After editing a `SKILL.md`, an agent, or any action, run `/reload-plugins` in th
 }
 ```
 
-Claude Code then loads the plugins straight from your working tree: edit the framework, run `/reload-plugins`, and test the result in that project. The loop is edit - reload - try, with no publish step in between.
+#### Codex
 
-**With Codex** - Codex reads the same marketplace manifest, so register the cloned checkout with Codex's own CLI (pass an absolute path; `./` is rejected), then install the plugins:
+Register the checkout (pass an absolute path; `./` is rejected), then install the plugins:
 
 ```bash
 codex plugin marketplace add ~/projects/aidd-framework

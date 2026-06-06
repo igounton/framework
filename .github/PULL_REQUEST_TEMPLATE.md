@@ -41,7 +41,3 @@ Closes #
 - [ ] Docs updated to match the new behaviour.
 - [ ] I self-reviewed this PR.
 - [ ] No cross-plugin references introduced.
-
----
-
-🏷️ **Before submitting** - add the matching label (`documentation`, `enhancement`, `bug`, `security`, ...). Canonical list: [`labels.yml`](labels.yml).
