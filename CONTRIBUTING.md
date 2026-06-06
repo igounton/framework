@@ -42,7 +42,12 @@ Every commit then runs the framework checks (json/yaml validity, schema validati
 
 ### Test your changes locally
 
-Before opening a PR, load your working tree into a real project and exercise the skills you touched. This repository is itself a marketplace, so you point an assistant at your local checkout instead of a published release.
+Before opening a PR, exercise the skills you touched in a real session. Clone the framework, then point your assistant at the checkout instead of a published release:
+
+```bash
+git clone https://github.com/ai-driven-dev/aidd-framework
+cd aidd-framework
+```
 
 **With Claude Code (recommended)** - register the checkout as a local marketplace, then install the plugins you are working on:
 
@@ -77,18 +82,13 @@ After editing a `SKILL.md`, an agent, or any action, run `/reload-plugins` in th
 
 Claude Code then loads the plugins straight from your working tree: edit the framework, run `/reload-plugins`, and test the result in that project. The loop is edit - reload - try, with no publish step in between.
 
-**With Codex (or another non-Claude tool)** - the framework is authored in Claude Code syntax, so Codex needs a *built* distribution with codex-native plugin internals (`.codex-plugin/`, `codex-agents/`), not the working tree. Build it from your checkout (`--out` must sit outside `--source`), register the build with Codex's own CLI, then install the plugins:
+**With Codex (or another non-Claude tool)** - the framework is authored in Claude Code syntax, so Codex needs a *built* distribution with codex-native plugin internals (`.codex-plugin/`, `codex-agents/`), not the working tree. Build it from your checkout (`--out` must sit outside `--source`), register the build with Codex's own CLI, then install the plugins you are working on:
 
 ```bash
 # CLI version is pinned in .github/workflows/ci.yml (build-per-tool job)
 npx @ai-driven-dev/cli@4.6.1 framework build --source . --target codex --out /tmp/aidd-codex
 codex plugin marketplace add /tmp/aidd-codex
-
-# install + enable every plugin (same set as the Claude example above)
-for p in aidd-context aidd-dev aidd-vcs aidd-pm aidd-refine; do
-  codex plugin add "$p@aidd-framework"
-done
-codex plugin list      # STATUS -> installed, enabled
+codex plugin add aidd-dev@aidd-framework      # check status with `codex plugin list`
 ```
 
 Point Codex at the build, not the repo root: the root ships Claude-format internals, so Codex would list the plugins but fail to load their agents. No live reload - rebuild, then `codex plugin marketplace upgrade`, after each change. Swap `--target codex` for `cursor`, `copilot`, or `opencode` to target another tool.
