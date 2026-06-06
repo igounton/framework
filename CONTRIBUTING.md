@@ -83,7 +83,12 @@ Claude Code then loads the plugins straight from your working tree: edit the fra
 # CLI version is pinned in .github/workflows/ci.yml (build-per-tool job)
 npx @ai-driven-dev/cli@4.6.1 framework build --source . --target codex --out /tmp/aidd-codex
 codex plugin marketplace add /tmp/aidd-codex
-codex plugin add aidd-dev@aidd-framework      # repeat per plugin; check `codex plugin list`
+
+# install + enable every plugin (same set as the Claude example above)
+for p in aidd-context aidd-dev aidd-vcs aidd-pm aidd-refine; do
+  codex plugin add "$p@aidd-framework"
+done
+codex plugin list      # STATUS -> installed, enabled
 ```
 
 Point Codex at the build, not the repo root: the root ships Claude-format internals, so Codex would list the plugins but fail to load their agents. No live reload - rebuild, then `codex plugin marketplace upgrade`, after each change. Swap `--target codex` for `cursor`, `copilot`, or `opencode` to target another tool.
