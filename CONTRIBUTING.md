@@ -77,6 +77,16 @@ After editing a `SKILL.md`, an agent, or any action, run `/reload-plugins` in th
 
 Claude Code then loads the plugins straight from your working tree: edit the framework, run `/reload-plugins`, and test the result in that project. The loop is edit - reload - try, with no publish step in between.
 
+**With Codex (or another non-Claude tool)** - the framework is authored in Claude Code syntax, so Codex loads a *built* distribution, not the working tree. Build the target-native marketplace from your checkout (the `--out` must sit outside `--source`), then register it the same way the [README install table](./README.md#another-ai-tool) does for a release asset:
+
+```bash
+# CLI version is pinned in .github/workflows/ci.yml (build-per-tool job)
+npx @ai-driven-dev/cli@4.6.1 framework build --source . --target codex --out /tmp/aidd-codex
+aidd marketplace add aidd-framework /tmp/aidd-codex
+```
+
+No live reload here - rebuild and re-add after each change; that build step is exactly what Claude Code skips by reading the source directly. Swap `--target codex` for `cursor`, `copilot`, or `opencode` to test another tool.
+
 ## 2. Commit
 
 Format: `<type>(<scope>): description`, **signed off** for the [DCO](https://developercertificate.org/).
@@ -111,7 +121,18 @@ The [`DCO`](./.github/workflows/dco.yml) check fails any unsigned commit. Versio
 
 - Work on a branch, not `main`.
 - **Fill the PR template** (applied automatically): explain *what* changed and *how* you resolved it technically - that narrative is the point of the PR. The conventional title, DCO sign-off, and pre-commit hooks are already enforced by CI, so don't spend the description re-asserting them.
-- **Add the matching label** so reviewers and the [Roadmap board](https://github.com/orgs/ai-driven-dev/projects/8) triage at a glance: `bug` (a fix), `enhancement` (a new skill, agent, or feature), `documentation` (docs only), `security` (security-sensitive). `dependencies` / `npm` / `github-actions` / `autorelease: *` are set by automation, not by hand. Full list: [`.github/labels.yml`](./.github/labels.yml).
+- **Label the PR** so reviewers and the [Roadmap board](https://github.com/orgs/ai-driven-dev/projects/8) triage at a glance:
+
+  | Label | When to use |
+  | ----- | ----------- |
+  | `bug` | A fix for broken behaviour. |
+  | `enhancement` | A new skill, agent, rule, or feature. |
+  | `documentation` | A docs-only change (README, CONTRIBUTING, skill docs). |
+  | `security` | A security-sensitive change or fix. |
+  | `dependencies` / `npm` / `github-actions` | Dependency or workflow bumps - usually set by Dependabot, not by hand. |
+  | `autorelease: pending` / `autorelease: tagged` | Set by release-please; never applied by hand. |
+
+  Canonical list: [`.github/labels.yml`](./.github/labels.yml).
 - The PR title follows the same conventional format (the **Commitlint** CI job enforces it); PRs are squash-merged using that title.
 - A **Habilité** review gates every merge ([`CODEOWNERS`](./.github/CODEOWNERS)); Certifié contributors cannot self-merge.
 - Decision rules (lazy consensus, explicit consensus for cross-plugin/contract changes, the quality veto) live in [`GOVERNANCE.md`](./GOVERNANCE.md#code-decisions-merging).
