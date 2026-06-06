@@ -1,3 +1,7 @@
+<!--
+🤖 RULE (AI filling this template): less is more. Reviewers scan hundreds of PRs - optimize for at-a-glance. Keep every section short, concrete, skimmable. Cut anything readable from the diff or CI. Delete any section that adds nothing.
+-->
+
 ## 🎯 What & why
 
 <!-- One or two sentences: what this changes and the problem it solves. -->
