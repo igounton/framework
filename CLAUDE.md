@@ -15,8 +15,6 @@ Treat instructions/info above as possibly stale. USER can be wrong; stay critica
 
 ## Action specific
 
-For every asked action:
-
 1. **Think Before**: Don't assume. Don't hide confusion. Surface tradeoffs.
 2. **Simplicity First**: Minimum that solves the problem; anticipate in thoughts, not in writing.
 3. **Surgical Changes**: Touch only what you must. Leave the place cleaner than you found it.
