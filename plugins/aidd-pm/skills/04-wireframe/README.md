@@ -29,23 +29,18 @@ Stays at the structure level; never visual design and never code.
 Use skill aidd-pm:04-wireframe for <feature to wireframe>
 ```
 
-The skill auto-loads a related PRD from `aidd_docs/` when one exists, proposes
-a screen inventory and screen types for you to confirm or challenge, copies the
-template into `aidd_docs/tasks/`, then fills that copy in place and waits for
-explicit validation. No document is required to start.
+The skill proposes a screen inventory for you to confirm or challenge, then
+drafts and saves the wireframe. See [`SKILL.md`](SKILL.md) for the contract.
 
 ## Outputs
 
-- A wireframe file saved at
-  `aidd_docs/tasks/<yyyy_mm>/<yyyy_mm_dd>-<feature_name>-wireframe.md`.
-- Sections: screen inventory, layouts, component hierarchy, navigation
-  flow (Mermaid), states and annotations, responsive notes, open questions.
+- A wireframe file under `aidd_docs/tasks/`, built from
+  [`assets/wireframe-template.md`](assets/wireframe-template.md).
 - No executable code and no tracker mutations.
 
 ## Prerequisites
 
-- A feature to wireframe. A PRD is optional; it is auto-loaded from
-  `aidd_docs/` when present.
+- A feature to wireframe.
 - Write access to `aidd_docs/tasks/` in the current repo.
 
 ## Technical details
