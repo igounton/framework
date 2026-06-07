@@ -112,7 +112,7 @@ codex plugin list --marketplace aidd-framework   # confirm every plugin is `inst
 No live reload - run `codex plugin marketplace upgrade` after each change to refresh the marketplace snapshot. **A new skill needs a reinstall too** - Codex installs from a snapshot, so a fresh `skills[]` entry only surfaces after re-adding the plugin:
 
 ```bash
-codex plugin marketplace upgrade aidd-framework
+# codex plugin marketplace upgrade aidd-framework # ❌ only works if git installed marketplace
 codex plugin remove aidd-<plugin>
 codex plugin add aidd-<plugin>@aidd-framework
 ```
