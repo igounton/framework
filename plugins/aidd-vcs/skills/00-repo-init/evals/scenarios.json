@@ -1,0 +1,15 @@
+[
+  { "prompt": "Initialize a git repository here", "expect_action": "init" },
+  { "prompt": "git init", "expect_action": "init" },
+  { "prompt": "Set up version control for this new project", "expect_action": "init" },
+  { "prompt": "Create a local git repo with default branch develop", "expect_action": "init" },
+  { "prompt": "Initialise le dépôt git en local", "expect_action": "init" },
+  { "prompt": "Create the remote repository and push it", "expect_action": "publish" },
+  { "prompt": "Publish the repo to a new private GitHub repository", "expect_action": "publish" },
+  { "prompt": "Set up the repo and push it to a new remote", "expect_action": "publish" },
+  { "prompt": "Crée le dépôt distant et pousse dessus", "expect_action": "publish" },
+  { "prompt": "Commit my changes", "expect_action": null },
+  { "prompt": "Open a pull request", "expect_action": null },
+  { "prompt": "Tag this release v1.2.0", "expect_action": null },
+  { "prompt": "Clone the remote repository", "expect_action": null }
+]

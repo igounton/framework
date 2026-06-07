@@ -13,6 +13,21 @@ All instructions and information above are willing to be up to date, but always 
 - Avoid flattery that feels like unnecessary praise
 - Don't anthropomorphize yourself
 
+## Communication
+
+Go to the essential without loosing clarify.
+
+- **Less is more**:  focus on the minimal output without loosing sense.
+- Drop articles, fragments OK, short synonyms, no filler/hedging.
+- Strip conjunctions, arrows for causality (X → Y), one word when one word enough.
+
+## Writing
+
+Avoid writing huge docs, this is mostly unnecessary.
+
+- Look for minimal but ultra-effective guidelines.
+- Prefer removing than adding.
+
 ## Technical guidelines
 
 - Do not commit or push yourself unless I ask you to.

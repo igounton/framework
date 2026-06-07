@@ -70,7 +70,8 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | `actions` | [02-propose-candidates.md](skills/01-bootstrap/actions/02-propose-candidates.md) | - |
 | `actions` | [03-audit-candidates.md](skills/01-bootstrap/actions/03-audit-candidates.md) | - |
 | `actions` | [04-pick-and-design.md](skills/01-bootstrap/actions/04-pick-and-design.md) | - |
-| `actions` | [05-write-install-md.md](skills/01-bootstrap/actions/05-write-install-md.md) | - |
+| `actions` | [05-decide-architecture.md](skills/01-bootstrap/actions/05-decide-architecture.md) | - |
+| `actions` | [06-write-install-md.md](skills/01-bootstrap/actions/06-write-install-md.md) | - |
 | `assets` | [checklist.md](skills/01-bootstrap/assets/checklist.md) | - |
 | `assets` | [install-template.md](skills/01-bootstrap/assets/install-template.md) | - |
 | `evals` | [scenarios.json](skills/01-bootstrap/evals/scenarios.json) | - |
@@ -110,7 +111,7 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | `references` | [rule.md](skills/03-context-generate/references/rule.md) | - |
 | `references` | [skill-authoring.md](skills/03-context-generate/references/skill-authoring.md) | - |
 | `references` | [tool-resolution.md](skills/03-context-generate/references/tool-resolution.md) | - |
-| `-` | [SKILL.md](skills/03-context-generate/SKILL.md) | `Generate context artifacts (skills, agents, rules, commands, hooks, plugins, marketplaces) across the host AI tool(s) the project uses. Use when the user wants to create, refactor, add or remove actions in a skill, migrate a legacy slash command into a router-based skill, or generate a new agent, rule, command, hook, plugin, or marketplace. Do NOT use for editing a single action inside an existing skill (edit directly), writing MCP servers, or modifying project-level files.` |
+| `-` | [SKILL.md](skills/03-context-generate/SKILL.md) | `Generate context artifacts (skills, agents, rules, commands, hooks, plugins, marketplaces) across the host AI tool(s) the project uses. Use when the user wants to create, refactor, add or remove something related to skill, rule, command, agent, hook, plugin or marketplace. Do NOT use for editing a single action inside an existing skill (edit directly), writing MCP servers, or modifying project-level files.` |
 
 #### `skills/04-mermaid`
 

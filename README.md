@@ -7,7 +7,7 @@
 ### A community-maintained marketplace of skills, agents, and rules for Claude Code.
 
 <p>
-  <!--counts:start--><kbd>6 plugins</kbd> · <kbd>31 skills</kbd> · <kbd>3 agents</kbd><!--counts:end--> · <kbd>MIT</kbd>
+  <!--counts:start--><kbd>6 plugins</kbd> · <kbd>33 skills</kbd> · <kbd>3 agents</kbd><!--counts:end--> · <kbd>MIT</kbd>
 </p>
 
 <p>
@@ -155,7 +155,7 @@ SDLC loop: sdlc, plan, implement, assert, audit, review, test, refactor, debug, 
 
 ### 🌿 [aidd-vcs](plugins/aidd-vcs/README.md)
 
-`4 skills` · stable
+`5 skills` · stable
 
 Commits, pull / merge requests, release tags, issue creation.
 
@@ -184,7 +184,7 @@ Meta-cognition: brainstorm, challenge, condense, shadow-areas, fact-check.
 
 ### 🎼 [aidd-orchestrator](plugins/aidd-orchestrator/README.md)
 
-`1 skill` · stable (`async-dev`)
+`2 skills` · stable (`async-dev`)
 
 Label an issue, get a PR; re-label, get the review applied. Router-based skill: one entry point, three sub-flows (setup, run, review).
 

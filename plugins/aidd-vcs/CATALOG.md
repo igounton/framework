@@ -8,6 +8,7 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 
 - [`.claude-plugin`](#claude-plugin)
 - [`skills`](#skills)
+  - [`skills/00-repo-init`](#skills00-repo-init)
   - [`skills/01-commit`](#skills01-commit)
   - [`skills/02-pull-request`](#skills02-pull-request)
   - [`skills/03-release-tag`](#skills03-release-tag)
@@ -22,6 +23,16 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | [plugin.json](.claude-plugin/plugin.json) |
 
 ### `skills`
+
+#### `skills/00-repo-init`
+
+| Group | File | Description |
+|-------|------|---|
+| `actions` | [01-init.md](skills/00-repo-init/actions/01-init.md) | - |
+| `actions` | [02-publish.md](skills/00-repo-init/actions/02-publish.md) | - |
+| `evals` | [scenarios.json](skills/00-repo-init/evals/scenarios.json) | - |
+| `-` | [README.md](skills/00-repo-init/README.md) | - |
+| `-` | [SKILL.md](skills/00-repo-init/SKILL.md) | `Use when USER wants to initialize a repository or manually ask for skill: `00-repo-init`.` |
 
 #### `skills/01-commit`
 
