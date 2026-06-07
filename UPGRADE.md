@@ -156,7 +156,8 @@ Invocation in v4 is `plugin:NN-action`. Where a column says "sub-flow", the old 
 | `aidd-dev:09-for-sure` | Loops and retries a task until an explicit success condition is met. | 4.0 |
 | `aidd-orchestrator:00-async-dev` | Async, label/comment-driven runs from GitHub issues (setup / run / review). | 4.0 |
 | `aidd-pm:03-prd` | Builds a PRD from a feature description or user stories. | 4.0 |
-| `aidd-pm:04-spec` | Writes a normalised tech spec (the contract planning consumes). | 4.0 |
+| `aidd-pm:04-wireframe` | Produces low-fidelity wireframes (screens, layouts, navigation flow) from a PRD or feature description. | 4.5 |
+| `aidd-pm:05-spec` | Writes a normalised tech spec (the contract planning consumes). | 4.0 |
 | `aidd-refine:03-condense` | Terse output mode with token-savings reporting. | 4.0 |
 | `aidd-refine:04-shadow-areas` | Scans a spec for blind spots (missing actor, edge case, dependency, ...). | 4.0 |
 | `aidd-refine:05-fact-check` | Verifies factual claims against sources and rewrites with citations. | 4.1 |

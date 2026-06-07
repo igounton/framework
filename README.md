@@ -7,7 +7,7 @@
 ### A community-maintained marketplace of skills, agents, and rules for Claude Code.
 
 <p>
-  <!--counts:start--><kbd>6 plugins</kbd> · <kbd>31 skills</kbd> · <kbd>3 agents</kbd><!--counts:end--> · <kbd>MIT</kbd>
+  <!--counts:start--><kbd>6 plugins</kbd> · <kbd>32 skills</kbd> · <kbd>3 agents</kbd><!--counts:end--> · <kbd>MIT</kbd>
 </p>
 
 <p>
@@ -166,9 +166,9 @@ Commits, pull / merge requests, release tags, issue creation.
 
 ### 📋 [aidd-pm](plugins/aidd-pm/README.md)
 
-`4 skills` · stable
+`5 skills` · stable
 
-Ticket info, user stories, PRD, spec drafting.
+Ticket info, user stories, PRD, wireframe, spec drafting.
 
 </td>
 <td width="33%" valign="top">

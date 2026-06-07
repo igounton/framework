@@ -38,9 +38,13 @@
   { "prompt": "write product requirements", "expect": "aidd-pm:03-prd", "category": "prd-en" },
   { "prompt": "génère un PRD", "expect": "aidd-pm:03-prd", "category": "prd-fr" },
 
-  { "prompt": "build spec from PRD", "expect": "aidd-pm:04-spec", "category": "spec-en", "also_accept": ["aidd-pm:03-prd"] },
-  { "prompt": "refine spec with reviewer notes", "expect": "aidd-pm:04-spec", "category": "spec-en" },
-  { "prompt": "rédige la spec", "expect": "aidd-pm:04-spec", "category": "spec-fr" },
+  { "prompt": "wireframe the checkout screens", "expect": "aidd-pm:04-wireframe", "category": "wireframe-en" },
+  { "prompt": "create wireframes for the onboarding flow", "expect": "aidd-pm:04-wireframe", "category": "wireframe-en" },
+  { "prompt": "fais les wireframes de la feature login", "expect": "aidd-pm:04-wireframe", "category": "wireframe-fr" },
+
+  { "prompt": "build spec from PRD", "expect": "aidd-pm:05-spec", "category": "spec-en", "also_accept": ["aidd-pm:03-prd"] },
+  { "prompt": "refine spec with reviewer notes", "expect": "aidd-pm:05-spec", "category": "spec-en" },
+  { "prompt": "rédige la spec", "expect": "aidd-pm:05-spec", "category": "spec-fr" },
 
   { "prompt": "create implementation plan for auth", "expect": "aidd-dev:01-plan", "category": "plan-en" },
   { "prompt": "rédige un plan technique", "expect": "aidd-dev:01-plan", "category": "plan-fr" },

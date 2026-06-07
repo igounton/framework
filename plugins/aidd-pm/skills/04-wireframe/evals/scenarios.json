@@ -1,0 +1,15 @@
+[
+  { "prompt": "Wireframe the checkout feature", "expect_action": "wireframe" },
+  { "prompt": "Create wireframes for the onboarding flow", "expect_action": "wireframe" },
+  { "prompt": "Draw the screen layout for the dashboard", "expect_action": "wireframe" },
+  { "prompt": "Low-fi mockup of the search results page", "expect_action": "wireframe" },
+  { "prompt": "Wireframe the screens for billing from the PRD", "expect_action": "wireframe" },
+  { "prompt": "Lay out the screens and navigation for the settings area", "expect_action": "wireframe" },
+  { "prompt": "Fais les wireframes de la feature login", "expect_action": "wireframe" },
+  { "prompt": "Maquette fil de fer pour le panier", "expect_action": "wireframe" },
+  { "prompt": "Dessine les écrans du tableau de bord", "expect_action": "wireframe" },
+  { "prompt": "Draft a PRD for billing", "expect_action": null },
+  { "prompt": "Draft a spec from the PRD", "expect_action": null },
+  { "prompt": "Build the login page in React", "expect_action": null },
+  { "prompt": "Design a high-fidelity mockup with our brand colors", "expect_action": null }
+]

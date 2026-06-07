@@ -8,7 +8,7 @@ Product management plugin for the AI-Driven Development framework.
 
 First time? Install with `/plugin install aidd-pm@aidd-framework`, then run `aidd-pm:01-ticket-info`.
 
-Covers ticket information retrieval, user story creation, product requirement documents, and spec generation for downstream agents.
+Covers ticket information retrieval, user story creation, product requirement documents, low-fidelity wireframes, and spec generation for downstream agents.
 
 ## Skills
 
@@ -17,4 +17,5 @@ Covers ticket information retrieval, user story creation, product requirement do
 | [4.1] | [ticket-info](skills/01-ticket-info/README.md) | Retrieve and display ticket information from the configured ticketing tool. |
 | [4.2] | [user-stories-create](skills/02-user-stories-create/README.md) | Generate INVEST-compliant user stories from a feature description. |
 | [4.3] | [prd](skills/03-prd/README.md) | Generate a structured Product Requirements Document. |
-| [4.4] | [spec](skills/04-spec/README.md) | Generate and refine a project spec from a free-form human request. The spec is the immutable target a planner consumes. |
+| [4.4] | [wireframe](skills/04-wireframe/README.md) | Produce low-fidelity wireframes (screens, layouts, navigation flow) from a PRD or feature description. |
+| [4.5] | [spec](skills/05-spec/README.md) | Generate and refine a project spec from a free-form human request. The spec is the immutable target a planner consumes. |

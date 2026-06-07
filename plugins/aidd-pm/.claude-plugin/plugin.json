@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "aidd-pm",
   "version": "1.0.2",
-  "description": "Product management: ticket-info, user-stories-create, prd, spec",
+  "description": "Product management: ticket-info, user-stories-create, prd, wireframe, spec",
   "author": {
     "name": "AI-Driven Dev",
     "url": "https://github.com/ai-driven-dev"
@@ -11,12 +11,14 @@
     "./skills/01-ticket-info",
     "./skills/02-user-stories-create",
     "./skills/03-prd",
-    "./skills/04-spec"
+    "./skills/04-wireframe",
+    "./skills/05-spec"
   ],
   "keywords": [
     "product-management",
     "user-stories",
     "prd",
+    "wireframe",
     "specification",
     "tickets"
   ],

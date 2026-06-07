@@ -11,7 +11,8 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
   - [`skills/01-ticket-info`](#skills01-ticket-info)
   - [`skills/02-user-stories-create`](#skills02-user-stories-create)
   - [`skills/03-prd`](#skills03-prd)
-  - [`skills/04-spec`](#skills04-spec)
+  - [`skills/04-wireframe`](#skills04-wireframe)
+  - [`skills/05-spec`](#skills05-spec)
 
 ---
 
@@ -53,14 +54,24 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | `-` | [README.md](skills/03-prd/README.md) | - | - |
 | `-` | [SKILL.md](skills/03-prd/SKILL.md) | `Generate a structured Product Requirements Document from a feature description or user stories, validated with the user before save. Use when the user says "prd", "draft prd", "write prd", "product requirements for X", "generate a prd", or invokes `/prd`. Do NOT use for writing user stories, drafting a technical implementation plan, or writing source code.` | - |
 
-#### `skills/04-spec`
+#### `skills/04-wireframe`
+
+| Group | File | Description | Argument Hint |
+|-------|------|---|---|
+| `actions` | [01-wireframe.md](skills/04-wireframe/actions/01-wireframe.md) | - | - |
+| `assets` | [wireframe-template.md](skills/04-wireframe/assets/wireframe-template.md) | `Low-fidelity wireframe template (screens, layouts, navigation flow)` | - |
+| `evals` | [scenarios.json](skills/04-wireframe/evals/scenarios.json) | - | - |
+| `-` | [README.md](skills/04-wireframe/README.md) | - | - |
+| `-` | [SKILL.md](skills/04-wireframe/SKILL.md) | `Produce low-fidelity wireframes from a PRD or feature description, validated with the user before save. Use when the user says "wireframe", "wireframes", "wireframe the feature", "screen layout", "low-fi mockup", "maquette fil de fer", or asks for the screens and navigation flow of a feature. Do NOT use for high-fidelity visual design, generating UI code, drafting a PRD, or writing a spec.` | - |
+
+#### `skills/05-spec`
 
 | Group | File | Description |
 |-------|------|---|
-| `actions` | [01-build.md](skills/04-spec/actions/01-build.md) | - |
-| `actions` | [02-refine.md](skills/04-spec/actions/02-refine.md) | - |
-| `assets` | [spec-template.md](skills/04-spec/assets/spec-template.md) | - |
-| `evals` | [scenarios.json](skills/04-spec/evals/scenarios.json) | - |
-| `-` | [README.md](skills/04-spec/README.md) | - |
-| `-` | [SKILL.md](skills/04-spec/SKILL.md) | `Generate or refine a project spec from a free-form human request, an existing PRD, or reviewer findings. Use when the user says "draft spec", "spec for X", "refine the spec", "generate spec from prd", "/spec", or when an orchestrator needs a normalized contract before planning. Do NOT use for writing source code, drafting a full PRD, or modifying a validated and locked spec.` |
+| `actions` | [01-build.md](skills/05-spec/actions/01-build.md) | - |
+| `actions` | [02-refine.md](skills/05-spec/actions/02-refine.md) | - |
+| `assets` | [spec-template.md](skills/05-spec/assets/spec-template.md) | - |
+| `evals` | [scenarios.json](skills/05-spec/evals/scenarios.json) | - |
+| `-` | [README.md](skills/05-spec/README.md) | - |
+| `-` | [SKILL.md](skills/05-spec/SKILL.md) | `Generate or refine a project spec from a free-form human request, an existing PRD, or reviewer findings. Use when the user says "draft spec", "spec for X", "refine the spec", "generate spec from prd", "/spec", or when an orchestrator needs a normalized contract before planning. Do NOT use for writing source code, drafting a full PRD, or modifying a validated and locked spec.` |
 
