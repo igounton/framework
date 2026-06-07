@@ -62,7 +62,14 @@ Register the checkout as a local marketplace, then install the plugins:
 /plugin install aidd-refine@aidd-framework
 ```
 
-After editing a `SKILL.md`, an agent, or any action, run `/reload-plugins` in the same session to pick up the change - no reinstall needed.
+After **editing** an existing `SKILL.md`, agent, or action, run `/reload-plugins` in the same session to pick up the change - no reinstall needed.
+
+**Adding a _new_ skill is different.** A new `skills[]` entry in a `plugin.json` is not discovered by `/reload-plugins` (it only refreshes skills already loaded). Reinstall the plugin to surface it:
+
+```
+/plugin uninstall aidd-<plugin>
+/plugin install aidd-<plugin>@aidd-framework
+```
 
 To load the plugins into a personal project, point its `.claude/settings.local.json` at the checkout:
 
@@ -102,7 +109,13 @@ codex plugin add aidd-refine@aidd-framework
 codex plugin list --marketplace aidd-framework   # confirm every plugin is `installed, enabled`
 ```
 
-No live reload - run `codex plugin marketplace upgrade` after each change to refresh.
+No live reload - run `codex plugin marketplace upgrade` after each change to refresh the marketplace snapshot. **A new skill needs a reinstall too** - Codex installs from a snapshot, so a fresh `skills[]` entry only surfaces after re-adding the plugin:
+
+```bash
+codex plugin marketplace upgrade aidd-framework
+codex plugin remove aidd-<plugin>
+codex plugin add aidd-<plugin>@aidd-framework
+```
 
 ## 2. Commit
 
