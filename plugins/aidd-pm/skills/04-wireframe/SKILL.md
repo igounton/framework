@@ -40,4 +40,4 @@ Single action skill. The router dispatches to `wireframe` whenever a wireframe-g
 
 ## External data
 
-- None.
+- `aidd_docs/` (a PRD, user stories) - auto-loaded as optional context when present; never required.
