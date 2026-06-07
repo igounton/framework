@@ -12,6 +12,8 @@ Stays at the structure level; never visual design and never code.
 - "screen layout", "low-fi mockup", "maquette fil de fer".
 - When you need to lay out the screens and navigation of a feature, with or
   without an existing PRD.
+- At any stage, including a legacy project with no product docs, to capture
+  or redesign existing screens.
 
 ## When NOT to use
 

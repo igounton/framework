@@ -29,7 +29,7 @@ sections_present:
 
 ## Process
 
-1. **Gather context from `aidd_docs/`**. Search `aidd_docs/` for documents related to `feature_description` (a PRD, user stories) and load any that exist; they seed the screen inventory and `feature_name`. Treat them as optional context, never a precondition: when nothing is found, derive everything from `feature_description` and the clarify dialogue.
+1. **Gather any available context**. The skill is callable at any stage. Load related documents from `aidd_docs/` (a PRD, user stories) when they exist, and on an existing or legacy project take cues from the current screens or behavior the user points to. Treat all of it as optional context, never a precondition: with nothing available, derive everything from `feature_description` and the clarify dialogue.
 2. **Clarify before drawing**. Propose a screen inventory and, for each screen, the screen type (form, list, detail, dashboard, ...). Confirm `platform` (web / mobile / responsive) and the user flows in scope. Surface assumptions and ask the user to confirm or adjust. Iterate until the inventory and screen types are agreed; never start layouts on an unconfirmed inventory.
 3. **Draft**. Fill `assets/wireframe-template.md`: list every agreed screen, draw an ASCII layout and component hierarchy per screen, express the navigation flow as a Mermaid `flowchart`, annotate empty, loading, and error states, and note responsive behavior. Mark unknowns as `TBD: <question>`.
 4. **Validate**. Show the full draft to the user. Wait for explicit approval. Apply revisions and re-show on each iteration.
