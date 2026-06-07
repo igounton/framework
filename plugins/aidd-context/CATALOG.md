@@ -74,6 +74,8 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | `actions` | [06-write-install-md.md](skills/01-bootstrap/actions/06-write-install-md.md) | - |
 | `assets` | [checklist.md](skills/01-bootstrap/assets/checklist.md) | - |
 | `assets` | [install-template.md](skills/01-bootstrap/assets/install-template.md) | - |
+| `assets` | [INSTALL.md](skills/01-bootstrap/assets/INSTALL.md) | - |
+| `assets` | [README.md](skills/01-bootstrap/assets/README.md) | - |
 | `evals` | [scenarios.json](skills/01-bootstrap/evals/scenarios.json) | - |
 | `-` | [README.md](skills/01-bootstrap/README.md) | - |
 | `references` | [stack-heuristics.md](skills/01-bootstrap/references/stack-heuristics.md) | - |

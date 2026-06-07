@@ -30,6 +30,8 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 |-------|------|---|
 | `actions` | [01-init.md](skills/00-repo-init/actions/01-init.md) | - |
 | `actions` | [02-publish.md](skills/00-repo-init/actions/02-publish.md) | - |
+| `assets` | [contributing-template.md](skills/00-repo-init/assets/contributing-template.md) | - |
+| `assets` | [CONTRIBUTING.md](skills/00-repo-init/assets/CONTRIBUTING.md) | - |
 | `evals` | [scenarios.json](skills/00-repo-init/evals/scenarios.json) | - |
 | `-` | [README.md](skills/00-repo-init/README.md) | - |
 | `-` | [SKILL.md](skills/00-repo-init/SKILL.md) | `Use when USER wants to initialize a repository or manually ask for skill: `00-repo-init`.` |
