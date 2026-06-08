@@ -1,0 +1,7 @@
+[
+  { "prompt": "Scaffold the project from my INSTALL.md", "expect_action": "generate-architecture" },
+  { "prompt": "Initialize the project files and build the running skeleton", "expect_action": "generate-architecture" },
+  { "prompt": "Set up the actual project now that the stack and architecture are decided", "expect_action": "generate-architecture" },
+  { "prompt": "Choose the best stack and architecture for my new SaaS", "expect_action": null },
+  { "prompt": "Add a new settings page to my existing app", "expect_action": null }
+]
