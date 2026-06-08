@@ -17,6 +17,7 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
   - [`skills/04-mermaid`](#skills04-mermaid)
   - [`skills/05-learn`](#skills05-learn)
   - [`skills/06-discovery`](#skills06-discovery)
+  - [`skills/07-design-system`](#skills07-design-system)
 
 ---
 
@@ -78,7 +79,7 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | `evals` | [scenarios.json](skills/01-bootstrap/evals/scenarios.json) | - |
 | `-` | [README.md](skills/01-bootstrap/README.md) | - |
 | `references` | [stack-heuristics.md](skills/01-bootstrap/references/stack-heuristics.md) | - |
-| `-` | [SKILL.md](skills/01-bootstrap/SKILL.md) | `Imagine and validate the technical architecture of a new SaaS through interactive Q&A, candidate-stack comparison, multi-agent audit, and two project-root documents: `INSTALL.md` (the technologies installed, why they were chosen, and how to install them) and a `README.md`. Use when starting a new SaaS project, choosing a stack, designing the architecture pattern (monolith vs microservices vs serverless), or producing a project's INSTALL.md. Do NOT use for editing an existing project's stack, database schema design, or scaffolding actual files (this skill produces docs only, no code).` |
+| `-` | [SKILL.md](skills/01-bootstrap/SKILL.md) | `Imagine and validate the technical architecture of a new SaaS through interactive Q&A, candidate-stack comparison, multi-agent audit, and two project-root documents - `INSTALL.md` (the technologies installed, why they were chosen, and how to install them) and a `README.md`. Use when starting a new SaaS project, choosing a stack, designing the architecture pattern (monolith vs microservices vs serverless), or producing a project's INSTALL.md. Do NOT use for editing an existing project's stack, database schema design, or scaffolding actual files (this skill produces docs only, no code).` |
 
 #### `skills/02-project-init`
 
@@ -153,4 +154,12 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | `-` | [README.md](skills/06-discovery/README.md) | - |
 | `references` | [ai-mapping.md](skills/06-discovery/references/ai-mapping.md) | - |
 | `-` | [SKILL.md](skills/06-discovery/SKILL.md) | `Enumerate installed surfaces of the AI tool (skills, agents, commands, plugins, MCP servers, rules, hooks, memory files) and recommend the best match for the user's stated intent. Use proactively whenever the user asks the model to list, show, enumerate, find, or pick among any of these surfaces - including imperative phrasings ("list hooks", "show me the rules", "enumerate skills", "find a memory file", "which agent reviews code"), question phrasings ("what's available?", "what hooks do we have?", "which rule applies here?", "what memory files do we have?"), and indirect phrasings ("what can I use for X?", "do we have something that does Y?"). Always pick this skill over scanning the filesystem with grep, find, ls, or reading action files directly when the user is enumerating a surface. Do NOT use for picking a specific item inside one plugin (the plugin's own onboard handles that), creating a new surface, or executing a recommended item (this skill only points; the user invokes).` |
+
+#### `skills/07-design-system`
+
+| Group | File | Description |
+|-------|------|---|
+| `actions` | [01-create-design-system.md](skills/07-design-system/actions/01-create-design-system.md) | - |
+| `-` | [README.md](skills/07-design-system/README.md) | - |
+| `-` | [SKILL.md](skills/07-design-system/SKILL.md) | `Initialize a project's design system through a guided, ordered playbook that routes each step to the right Impeccable command - register and color strategy, palette with accessibility validation, typography, spacing, elevation, motion, components, and the canonical DESIGN.md.` |
 
