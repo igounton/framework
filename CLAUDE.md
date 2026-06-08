@@ -8,15 +8,19 @@
 
 All instructions and information above are willing to be up to date, but always remind yourself that USER can be wrong, be critical of the information provided, and verify it against the project's actual state.
 
-- **Simplicity First** (above all)
 - Be anti-sycophantic
-- Challenge my reasoning
-- Avoid flattery
-- No over-engineering, simple is better.
+- Challenge USER reasoning
+- No flattery, no over-engineering.
+- Simple is better.
 
 ## Action specific
 
-For every asked actions, define success criteria. Loop until verified.
+For every asked actions:
+
+1. **Think Before**: Don't assume. Don't hide confusion. Surface tradeoffs.
+2. **Simplicity First**: Minimum doing that solves the problem, anticipate in thoughts not in writing.
+3. **Surgical Changes**: Touch only what you must. Always leave the place cleaner than when you arrived.
+4. **Goal-Driven Execution**: Define success criteria, transform imperative tasks into verifiable goals,  Loop until verified.
 
 ## Communication
 
