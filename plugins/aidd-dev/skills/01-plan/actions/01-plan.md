@@ -46,12 +46,13 @@ applicable_rules: [{ name: <id>, path: aidd_docs/rules/<cat>/<slug>.md, why: <on
    - Flag blockers and risks that will arise if not addressed.
    - Check assumptions against official documentation.
    - Produce the architecture projection (three lists, each `path - one-line reason`): files to modify, files to create, files to delete.
-   - Inventory project rules from the canonical surface `aidd_docs/rules/` (tool-agnostic; one file per rule). Accept a silent empty array when the directory is absent or empty.
 4. **Architecture projection and rules - user validation (gate).**
-   - From the rules inventory, select rules that apply to the projection using each rule's `description` and `paths` when present. Justify every selected rule in one line.
+   - The projection's modify / create / delete lists are now the settled set of files the task will touch.
+   - **Inventory rules.** Run the `list-rules.mjs` script (this skill's plugin `scripts/list-rules.mjs`, resolved via the plugin install path) from the user's project root. It scans the canonical surface `aidd_docs/rules/` and returns `{ name, path, description, paths }` per rule; accept a silent empty array when the directory is absent or empty.
+   - **Match rules to the projection.** A rule applies when it has no `paths` (general rule) OR any glob in its `paths` matches a file in the projection's modify or create lists. Use `description` to confirm relevance. Justify every selected rule in one line.
    - Display: the three modify / create / delete lists; the table of applicable rules `name | path | why it applies`.
    - Ask: "Is this projection correct? Anything to add or remove? A missing rule?"
-   - WAIT FOR USER APPROVAL. Iterate until approved.
+   - WAIT FOR USER APPROVAL. Iterate until approved (re-run the match when the projection changes).
 5. **Task planning.** Define main phases at the macro level; do not mention specific files. Wait for user validation on the phases before moving on. For each phase, list minimal, specific, actionable tasks.
 6. **Generate and save the plan.**
    - Use the current `!`date`!` for the date stamp.
@@ -69,4 +70,4 @@ applicable_rules: [{ name: <id>, path: aidd_docs/rules/<cat>/<slug>.md, why: <on
 
 ## Test
 
-The plan file exists at `plan_path`; its frontmatter contains `objective`, a runnable `success_condition`, `iteration: 0`, and a valid `created_at`; the architecture projection (M / C / D) is non-empty and matches the validated lists; the applicable rules table is consistent with the `aidd_docs/rules/` inventory; confidence is `>= 9`.
+The plan file exists at `plan_path`; its frontmatter contains `objective`, a runnable `success_condition`, `iteration: 0`, and a valid `created_at`; the architecture projection (M / C / D) is non-empty and matches the validated lists; the applicable rules table is the `list-rules.mjs` output matched against the projection's modify/create files (general rules with no `paths` always included); confidence is `>= 9`.

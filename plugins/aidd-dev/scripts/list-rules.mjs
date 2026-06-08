@@ -1,7 +1,9 @@
 #!/usr/bin/env node
-// NOTE: synced from plugins/aidd-dev/scripts/list-rules.mjs. Keep in sync when the source changes.
 /**
- * list-rules.mjs
+ * list-rules.mjs (source)
+ *
+ * Synced to plugins/aidd-context/skills/06-discovery/scripts/list-rules.mjs.
+ * Keep both copies in sync when this source changes.
  *
  * Inventory project rules from the single canonical, tool-agnostic surface.
  *
