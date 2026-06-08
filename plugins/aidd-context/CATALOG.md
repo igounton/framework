@@ -73,13 +73,12 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | `actions` | [05-decide-architecture.md](skills/01-bootstrap/actions/05-decide-architecture.md) | - |
 | `actions` | [06-write-install-md.md](skills/01-bootstrap/actions/06-write-install-md.md) | - |
 | `assets` | [checklist.md](skills/01-bootstrap/assets/checklist.md) | - |
-| `assets` | [install-template.md](skills/01-bootstrap/assets/install-template.md) | - |
 | `assets` | [INSTALL.md](skills/01-bootstrap/assets/INSTALL.md) | - |
 | `assets` | [README.md](skills/01-bootstrap/assets/README.md) | - |
 | `evals` | [scenarios.json](skills/01-bootstrap/evals/scenarios.json) | - |
 | `-` | [README.md](skills/01-bootstrap/README.md) | - |
 | `references` | [stack-heuristics.md](skills/01-bootstrap/references/stack-heuristics.md) | - |
-| `-` | [SKILL.md](skills/01-bootstrap/SKILL.md) | `Imagine and validate the technical architecture of a new SaaS through interactive Q&A, candidate-stack comparison, multi-agent audit, and an INSTALL.md output. Use when starting a new SaaS project, choosing a stack, designing the architecture pattern (monolith vs microservices vs serverless), or producing a project's INSTALL.md. Do NOT use for editing an existing project's stack, database schema design, or scaffolding actual files (this skill produces docs only, no code).` |
+| `-` | [SKILL.md](skills/01-bootstrap/SKILL.md) | `Imagine and validate the technical architecture of a new SaaS through interactive Q&A, candidate-stack comparison, multi-agent audit, and two project-root documents: `INSTALL.md` (the technologies installed, why they were chosen, and how to install them) and a `README.md`. Use when starting a new SaaS project, choosing a stack, designing the architecture pattern (monolith vs microservices vs serverless), or producing a project's INSTALL.md. Do NOT use for editing an existing project's stack, database schema design, or scaffolding actual files (this skill produces docs only, no code).` |
 
 #### `skills/02-project-init`
 

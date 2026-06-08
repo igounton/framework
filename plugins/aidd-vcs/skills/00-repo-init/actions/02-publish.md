@@ -26,4 +26,4 @@ Create the project's remote repository on the resolved host and push to it. Outw
 
 ## Test
 
-`git -C <cwd> remote get-url origin` returns the created remote URL, the default branch exists on the remote, and the action printed the URL.
+- [ ] Remote URL printed to the user.

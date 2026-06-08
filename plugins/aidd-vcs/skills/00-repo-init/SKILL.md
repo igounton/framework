@@ -1,6 +1,6 @@
 ---
 name: 00-repo-init
-description: Use when USER wants to initialize a repository or manually ask for skill: `00-repo-init`.
+description: Initialize a project's repository - resolve the default branch and provider from the project's VCS docs or installed CLI, run git init with an initial commit, write CONTRIBUTING.md, and on request create the remote repository and push. Use when the user ask to init a project.
 ---
 
 # Repo Init
@@ -11,7 +11,7 @@ Initializes a project's repository - locally and, on request, on the remote host
 
 | #   | Action    | Role                                                                | Input                          |
 | --- | --------- | ------------------------------------------------------------------- | ------------------------------ |
-| 01  | `init`    | Resolve VCS config, `git init`, set the default branch (local only)  | cwd, default_branch, remote_url |
+| 01  | `init`    | Resolve VCS config, `git init`, set the default branch, write `CONTRIBUTING.md` | cwd, default_branch, remote_url |
 | 02  | `publish` | Create the remote repo on the resolved host and push; return its URL | cwd, non_interactive            |
 
 ## Default flow
@@ -24,6 +24,10 @@ The intent is to `01-init` then `02-publish`.
 - **`init` makes one bootstrap initial commit** (`--allow-empty`) so `HEAD` exists and is pushable; the project's real first commit (staged content) stays the commit skill's job.
 - **`publish` is outward-facing:** confirm before creating the remote unless `non_interactive` is set.
 - **Provider is open.** Resolve the host and its CLI from the VCS memory (see External data) when present, else from the installed VCS CLI; never restrict to a fixed list. `main` is the default-branch fallback.
+
+## Assets
+
+- `assets/CONTRIBUTING.md` - the project-root `CONTRIBUTING.md` template.
 
 ## External data
 
