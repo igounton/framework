@@ -2,6 +2,8 @@
 
 Items to initialize when scaffolding a project.
 
+> Beware to only use maintained stack libs.
+
 ## Assertive checklist
 
 ### Project
@@ -23,6 +25,7 @@ Items to initialize when scaffolding a project.
 
 - [ ] A unit test passes.
 - [ ] An end-to-end test passes.
+- [ ] Coverage.
 
 ### Deployment
 
@@ -38,5 +41,7 @@ Items to initialize when scaffolding a project.
 - [ ] A11y UI lib installed.
 - [ ] A form submits with validator lib and tested.
 - [ ] Lighthouse thresholds configured.
+- [ ] Accessibility tests.
+- [ ] Form system with validation.
 - [ ] Design System Created.
 - [ ] Default pages: 404, 403 etc.
