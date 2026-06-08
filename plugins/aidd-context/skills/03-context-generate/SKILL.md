@@ -1,7 +1,7 @@
 ---
 name: 03-context-generate
 model: opus
-description: Generate context artifacts (skills, agents, rules, commands, hooks, plugins, marketplaces) across the host AI tool(s) the project uses. Use when the user wants to create, refactor, add or remove actions in a skill, migrate a legacy slash command into a router-based skill, or generate a new agent, rule, command, hook, plugin, or marketplace. Do NOT use for editing a single action inside an existing skill (edit directly), writing MCP servers, or modifying project-level files.
+description: Generate context artifacts (skills, agents, rules, commands, hooks, plugins, marketplaces) across the host AI tool(s) the project uses. Use when the user wants to create, refactor, add or remove something related to skill, rule, command, agent, hook, plugin or marketplace. Do NOT use for editing a single action inside an existing skill (edit directly), writing MCP servers, or modifying project-level files.
 ---
 
 # Context Generate
@@ -32,7 +32,7 @@ Each artifact type has its own sub-flow under `@actions/<sub-domain>/`. All sub-
 
 ## Default flow
 
-For sequential sub-flows, run actions in order. After each action, run its `## Test` before moving to the next. In the `skills` sub-flow, action 02 self-skips when `01` outputs `invocation_mode = manual`.
+For sequential sub-flows, run actions in order. After each action, run its `## Test` before moving to the next. In the `skills` sub-flow, action 02 self-skips when `01` outputs `invocation_mode = manual`. Also in the `skills` sub-flow, action `03` carries a mandatory preview gate before any file is written in `04`+: it presents the full proposed file tree for human validation AND runs an AI review capability over the plan. Both must pass; no write proceeds otherwise.
 
 ## Modify flow
 
