@@ -1,27 +1,23 @@
 #!/usr/bin/env node
-// NOTE: synced from plugins/aidd-dev/scripts/list-rules.mjs. Keep in sync when the source changes.
 /**
  * list-rules.mjs
  *
- * Inventory project rules across every installed AI tool surface.
+ * Inventory project rules from the single canonical, tool-agnostic surface.
  *
- * Tools and locations (see aidd-context:03-context-generate/references/ai-mapping.md):
- *   - Claude Code:    .claude/rules/**\/*.md
- *   - Cursor:         .cursor/rules/**\/*.mdc
- *   - GitHub Copilot: .github/instructions/**\/*.instructions.md
- *   - OpenCode:       .opencode/rules/**\/*.md       (no frontmatter; name from filename)
- *   - Codex CLI:      rules not supported, skipped
+ * Location (see aidd-context:03-context-generate/references/ai-mapping.md,
+ * "## Rules (canonical, all tools)"):
+ *   - aidd_docs/rules/**\/*.md
  *
- * Frontmatter shapes differ per tool. The script normalises every entry to:
- *   { tool, path, name, description, paths }
+ * Rules are no longer per-tool. There is one shape, read by every tool.
+ * The script normalises every entry to:
+ *   { path, name, description, paths }
  *
- *   - tool        : claude | cursor | copilot | opencode
  *   - path        : path relative to --root (defaults to cwd)
- *   - name        : derived from the filename (without extension)
- *   - description : frontmatter `description` (Cursor, Copilot) or empty for OpenCode/Claude when absent
- *   - paths       : merged glob list from `paths` (Claude), `globs` (Cursor), `applyTo` (Copilot)
+ *   - name        : derived from the filename (without .md)
+ *   - description : frontmatter `description` (empty when absent)
+ *   - paths       : frontmatter `paths` glob array (omitted when absent = general rule)
  *
- * Exit code 0; empty array when no tool dir contains rules.
+ * Exit code 0; empty array when aidd_docs/rules does not exist or contains no rules.
  */
 
 import { existsSync } from 'node:fs';
@@ -29,12 +25,8 @@ import { readFile, readdir, stat } from 'node:fs/promises';
 import { join, relative, resolve } from 'node:path';
 import { argv, cwd, exit, stderr, stdout } from 'node:process';
 
-const TOOL_TARGETS = [
-  { tool: 'claude', dir: '.claude/rules', ext: '.md' },
-  { tool: 'cursor', dir: '.cursor/rules', ext: '.mdc' },
-  { tool: 'copilot', dir: '.github/instructions', ext: '.instructions.md' },
-  { tool: 'opencode', dir: '.opencode/rules', ext: '.md' },
-];
+const RULES_DIR = 'aidd_docs/rules';
+const EXT = '.md';
 
 function parseArgs(args) {
   let root = cwd();
@@ -141,52 +133,32 @@ function nameFromPath(relativePath, ext) {
   return base.endsWith(ext) ? base.slice(0, -ext.length) : base;
 }
 
-function normaliseGlobs(fm) {
-  const out = [];
-  if (Array.isArray(fm.paths)) out.push(...fm.paths);
-  if (Array.isArray(fm.globs)) out.push(...fm.globs);
-  if (typeof fm.applyTo === 'string' && fm.applyTo.trim()) out.push(fm.applyTo.trim());
-  return out;
-}
-
-async function inventoryTool(root, target) {
-  const absolute = join(root, target.dir);
-  if (!existsSync(absolute)) return [];
-
-  const dirStat = await stat(absolute).catch(() => null);
-  if (!dirStat || !dirStat.isDirectory()) return [];
-
-  const files = await walk(absolute, target.ext);
-  const entries = [];
-
-  for (const file of files) {
-    const relPath = relative(root, file);
-    const content = await readFile(file, 'utf8');
-    const rawFm = extractFrontmatter(content);
-    const fm = rawFm ? parseFrontmatter(rawFm) : {};
-
-    const entry = {
-      tool: target.tool,
-      path: relPath,
-      name: nameFromPath(relPath, target.ext),
-      description: typeof fm.description === 'string' ? fm.description : '',
-    };
-
-    const paths = normaliseGlobs(fm);
-    if (paths.length > 0) entry.paths = paths;
-    entries.push(entry);
-  }
-
-  return entries;
-}
-
 async function main() {
   const { root } = parseArgs(argv.slice(2));
+  const absolute = join(root, RULES_DIR);
 
   const aggregated = [];
-  for (const target of TOOL_TARGETS) {
-    const entries = await inventoryTool(root, target);
-    aggregated.push(...entries);
+
+  if (existsSync(absolute)) {
+    const dirStat = await stat(absolute).catch(() => null);
+    if (dirStat && dirStat.isDirectory()) {
+      const files = await walk(absolute, EXT);
+      for (const file of files) {
+        const relPath = relative(root, file);
+        const content = await readFile(file, 'utf8');
+        const rawFm = extractFrontmatter(content);
+        const fm = rawFm ? parseFrontmatter(rawFm) : {};
+
+        const entry = {
+          path: relPath,
+          name: nameFromPath(relPath, EXT),
+          description: typeof fm.description === 'string' ? fm.description : '',
+        };
+
+        if (Array.isArray(fm.paths) && fm.paths.length > 0) entry.paths = fm.paths;
+        aggregated.push(entry);
+      }
+    }
   }
 
   stdout.write(JSON.stringify(aggregated, null, 2) + '\n');

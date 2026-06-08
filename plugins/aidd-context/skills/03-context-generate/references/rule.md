@@ -1,16 +1,16 @@
 # Rule authoring
 
-Conventions for every rule file the `rules` sub-flow produces. These govern the CLIENT artifact (the rule written into the user's workspace), not this generator's own files. Frontmatter shape, file extension, glob syntax, and on-disk location are tool-specific: see `@ai-mapping.md`.
+Conventions for every rule file the `rules` sub-flow produces. These govern the CLIENT artifact (the rule written into the user's workspace), not this generator's own files. Rules are tool-agnostic: one canonical shape, one location, one extension - see `@ai-mapping.md` ("## Rules (canonical, all tools)").
 
 ## File naming
 
-Format: `#-rule-name[@version][-specificity].<ext>`
+Format: `#-rule-name[@version][-specificity].md`
 
 - `#` : Number based on category (00-09)
 - `-rule-name` : Slugified short rule name
 - `@version` : Optional framework/lib version
 - `-specificity` : Optional sub-part
-- `.<ext>` : Extension (tool-specific, see `@ai-mapping.md`)
+- `.md` : Extension (always `.md`; rules are not tool-specific)
 
 ## Directory structure
 
@@ -54,7 +54,7 @@ Naming example for React rules in `03-frameworks-and-libraries`: `3-react`, `3-r
 
 ## Code references
 
-- Existing code: use the tool's include syntax (see `@ai-mapping.md`).
+- A rule is read by every tool, so keep references portable: plain project-relative paths in backticks (no tool-specific `@`-includes).
 - Globs: format without `@`.
 - Inline code: use backticks.
 
@@ -65,6 +65,6 @@ Naming example for React rules in `03-frameworks-and-libraries`: `3-react`, `3-r
 
 ## Path convention
 
-The physical location of a rule encodes its `category` and `slug`. The category is the subdirectory; the slug is the file name (`<#-slug[@version][-specificity]>.<ext>`). Frontmatter never carries the rule path; downstream tools derive it from the file location alone.
+The physical location of a rule encodes its `category` and `slug`. The category is the subdirectory; the slug is the file name (`<#-slug[@version][-specificity]>.md`). Frontmatter never carries the rule path; downstream tools derive it from the file location alone.
 
-The base directory and the file extension are tool-specific. Refer to `@ai-mapping.md` for the exact path per AI tool, including tools where rules are not supported.
+Rules live in one canonical, tool-agnostic surface: `aidd_docs/rules/<NN-category>/<slug>.md`. The base directory and extension are the same for every tool. See `@ai-mapping.md` ("## Rules (canonical, all tools)").

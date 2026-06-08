@@ -1,6 +1,6 @@
 # 01 - Generate rules
 
-Generate or modify coding rules, either from user input (manual mode) or by scanning the codebase (auto mode), then write each rule to the confirmed AI tools' native rules surfaces.
+Generate or modify coding rules, either from user input (manual mode) or by scanning the codebase (auto mode), then write each rule once to the canonical, tool-agnostic surface `aidd_docs/rules/` and ensure every installed tool's context file references it.
 
 ## Inputs
 
@@ -13,10 +13,10 @@ arguments: <rule topic to write, or "auto"/"scan" to scan the codebase and propo
 ```yaml
 mode: auto | manual
 files_written:
-  - { tool: <id>, path: <tool rules root>/<category>/<slug>.<ext> }
+  - { path: <target_base>aidd_docs/rules/<NN-category>/<slug>.md }
   - ...
-blocked_tools:
-  - { tool: <id>, reason: <D2 explanation> }
+context_files_wired:
+  - { tool: <id>, path: <context file>, action: referenced | already-present }
 target_scope: project_root | plugin:<plugin-name>
 target_base: "" | "plugins/<plugin-name>/"
 ```
@@ -46,25 +46,26 @@ target_base: "" | "plugins/<plugin-name>/"
    - After topic is confirmed: remind project context (tech stack, versions, architecture, existing rules), define categories (one file per category), look for existing rules to update, plan the new rule(s) structure (file, groups and sub-groups, display the proposed architecture).
    - WAIT FOR USER APPROVAL on the architecture before proceeding to step 4.
 
-4. **Resolve target tools.** Follow `@../../references/tool-resolution.md` (detect, propose, confirm 1..N). For each confirmed tool, look up the rules surface in `@../../references/ai-mapping.md`; if the cell is marked unsupported, apply the D2 block for that tool and record it in `blocked_tools`. Continue with the remaining supported tools. The valid tool IDs are exactly those listed in `ai-mapping.md` - MUST NOT invent tool names. The known tool IDs are: `claude_code`, `cursor`, `opencode`, `github_copilot`, `codex_cli`.
+4. **Pick category + slug deterministically.** Apply the selection rubric in `@../../references/rule.md` (walk top to bottom, stop at first hit). The chosen category index drives the slug prefix (rules in `02-programming-languages/` start with `2-`; rules in `03-frameworks-and-libraries/` start with `3-`; etc.). State the chosen category + slug in writing before proceeding.
 
-5. **Pick category + slug deterministically.** Apply the selection rubric in `@../../references/rule.md` (walk top to bottom, stop at first hit). The chosen category index drives the slug prefix (rules in `02-programming-languages/` start with `2-`; rules in `03-frameworks-and-libraries/` start with `3-`; etc.). State the chosen category + slug in writing before proceeding.
+5. **Generate and write one canonical file.** Build one canonical rule from the user's intent using the conventions in `@../../references/rule.md` and `@../../references/ai-mapping.md` (## Rules (canonical, all tools)). Copy the canonical template `@../../assets/rules/rule-template.md`, fill the `{{placeholders}}`, and write it to `aidd_docs/rules/<NN-category>/<slug>.md`. Rules are tool-agnostic - write the file ONCE, regardless of which tools are installed. Prepend `target_base` to the write path. All paths are CWD-relative; the plugin install directory is for reading the template only - MUST NOT be used as a write target.
 
-6. **Generate and write.** Build one canonical rule from the user's intent using the conventions in `@../../references/ai-mapping.md`. For each confirmed (non-blocked) tool `<tool>`, copy the template under `@../../assets/rules/<tool>/` (where `<tool>` is the confirmed tool id: `claude`, `cursor`, `copilot`; note that `opencode` and `codex` have no rules template - they are D2-blocked for rules), fill the `{{placeholders}}`, and write it to the path and extension resolved from `@../../references/ai-mapping.md` for that tool. Prepend `target_base` to every write path. All paths are CWD-relative; the plugin install directory is for reading templates only - MUST NOT be used as a write target.
+6. **Wire the context files.** Resolve installed tools per `@../../references/tool-resolution.md` (detect, propose, confirm 1..N). For each confirmed tool, ensure its context file (`@../../references/ai-mapping.md` quick map: `CLAUDE.md`, `AGENTS.md`, `.github/copilot-instructions.md`) references the canonical rules surface so the tool loads rules from there. If the reference is already present, record `already-present`; otherwise add a one-line pointer to `aidd_docs/rules/` and record `referenced`. Do not duplicate an existing pointer. (OpenCode may instead list `aidd_docs/rules/**/*.md` under `instructions:` in `opencode.json`.)
 
 7. Apply the **write target validation** from `@../../references/tool-resolution.md` (## Write target validation).
 
 8. **Boundaries.**
    - Be concise. Less is more.
-   - If multiple examples warrant separate files, create multiple rule files.
+   - If multiple examples warrant separate files, create multiple rule files (each canonical, in `aidd_docs/rules/`).
 
 ## Test
 
 ```bash
-# Test: each written rule file exists, starts with YAML frontmatter, and respects target_scope
+# Test: each written rule file exists under aidd_docs/rules, starts with YAML frontmatter, and respects target_scope
 for path in "${files_written[@]}"; do
   test -f "$path" || exit 1
   head -1 "$path" | grep -q "^---$" || exit 1
+  [[ "$path" == *"aidd_docs/rules/"* ]] || exit 1
   case "$target_scope" in
     project_root)
       [[ "$path" != plugins/* ]] || exit 1 ;;

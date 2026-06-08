@@ -76,11 +76,9 @@ Per-tool agent templates:
 - `@assets/agents/copilot/agent-template.agent.md`
 - `@assets/agents/codex/agent-template.toml`
 
-Per-tool rule templates:
+Canonical rule template (tool-agnostic, written once to `aidd_docs/rules/`):
 
-- `@assets/rules/claude/rule-template.md`
-- `@assets/rules/cursor/rule-template.mdc`
-- `@assets/rules/copilot/instructions-template.md`
+- `@assets/rules/rule-template.md`
 
 Per-tool command templates:
 

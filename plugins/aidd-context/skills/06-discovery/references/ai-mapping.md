@@ -6,11 +6,13 @@ Where to look for each artifact type per AI tool. Scan-only: the paths and forma
 
 | AI             | Agents                      | Commands / Prompts                            | Rules                                    | Skills                                | Context file                      |
 | -------------- | --------------------------- | --------------------------------------------- | ---------------------------------------- | ------------------------------------- | --------------------------------- |
-| Claude Code    | `.claude/agents/`           | `.claude/commands/`                           | `.claude/rules/`                         | `.claude/skills/`                     | `CLAUDE.md`                       |
-| Cursor         | `.cursor/agents/`           | `.cursor/commands/`                           | `.cursor/rules/`                         | `.cursor/skills/`                     | `AGENTS.md`                       |
-| OpenCode       | `.opencode/agents/`         | `.opencode/commands/`                         | **Not supported** (fold into AGENTS.md)  | `.opencode/skills/`                   | `AGENTS.md`                       |
-| GitHub Copilot | `.github/agents/*.agent.md` | `.github/prompts/*.prompt.md`                 | `.github/instructions/*.instructions.md` | `.github/skills/`                     | `.github/copilot-instructions.md` |
-| Codex CLI      | `.codex/agents/{name}.toml` | **Not supported**                             | Not supported                            | `.agents/skills/aidd-{name}/SKILL.md` | `AGENTS.md`                       |
+| Claude Code    | `.claude/agents/`           | `.claude/commands/`                           | `aidd_docs/rules/`                        | `.claude/skills/`                     | `CLAUDE.md`                       |
+| Cursor         | `.cursor/agents/`           | `.cursor/commands/`                           | `aidd_docs/rules/`                        | `.cursor/skills/`                     | `AGENTS.md`                       |
+| OpenCode       | `.opencode/agents/`         | `.opencode/commands/`                         | `aidd_docs/rules/`                        | `.opencode/skills/`                   | `AGENTS.md`                       |
+| GitHub Copilot | `.github/agents/*.agent.md` | `.github/prompts/*.prompt.md`                 | `aidd_docs/rules/`                        | `.github/skills/`                     | `.github/copilot-instructions.md` |
+| Codex CLI      | `.codex/agents/{name}.toml` | **Not supported**                             | `aidd_docs/rules/`                        | `.agents/skills/aidd-{name}/SKILL.md` | `AGENTS.md`                       |
+
+> **Rules are tool-agnostic**: scan the single canonical surface `aidd_docs/rules/**/*.md` for every tool (no per-tool rules directory). `list-rules.mjs` reads only this path.
 
 ## AI quick map - hooks, plugins
 
@@ -34,13 +36,13 @@ Where to look for each artifact type per AI tool. Scan-only: the paths and forma
 
 ## Path layout per tool
 
-Rules and commands follow a two-layout scheme. Subdir-tools organize files under named category or phase subdirectories; flat-tools (GitHub Copilot) write all files directly into the surface root with a category or phase index as a filename prefix.
+Rules are tool-agnostic: one canonical Subdir layout under `aidd_docs/rules/` for every tool. Commands follow a two-layout scheme: Subdir-tools organize commands under phase subdirectories; flat-tools (GitHub Copilot) write commands directly into the surface root with a phase index as a filename prefix.
 
-| Layout          | Surface   | Tools                                    | Example                                                        |
-| --------------- | --------- | ---------------------------------------- | -------------------------------------------------------------- |
-| Subdir          | Rules     | Claude Code, Cursor                      | `<rules root>/02-programming-languages/2-typescript-naming.md` |
-| Subdir          | Commands  | Claude Code, Cursor, OpenCode            | `<commands root>/10_maintenance/fix-issue.md`                  |
-| Flat            | Both      | GitHub Copilot                           | `.github/instructions/02-typescript-naming.instructions.md`    |
+| Layout          | Surface   | Tools                                    | Example                                                            |
+| --------------- | --------- | ---------------------------------------- | ----------------------------------------------------------------- |
+| Subdir          | Rules     | All tools (canonical)                    | `aidd_docs/rules/02-programming-languages/2-typescript-naming.md` |
+| Subdir          | Commands  | Claude Code, Cursor, OpenCode            | `<commands root>/10_maintenance/fix-issue.md`                     |
+| Flat            | Commands  | GitHub Copilot                           | `.github/prompts/04-implement.prompt.md`                          |
 
 ## Plugin install locations per tool
 

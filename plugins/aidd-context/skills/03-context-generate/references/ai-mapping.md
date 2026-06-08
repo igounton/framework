@@ -8,23 +8,25 @@ Map generated context artifacts to the correct AI-specific paths, syntax, file e
 
 | AI             | Agents                      | Commands / Prompts                            | Rules                                    | Skills                                | Context file                      |
 | -------------- | --------------------------- | --------------------------------------------- | ---------------------------------------- | ------------------------------------- | --------------------------------- |
-| Claude Code    | `.claude/agents/`           | `.claude/commands/`                           | `.claude/rules/`                         | `.claude/skills/`                     | `CLAUDE.md`                       |
-| Cursor         | `.cursor/agents/`           | `.cursor/commands/`                           | `.cursor/rules/`                         | `.cursor/skills/`                     | `AGENTS.md`                       |
-| OpenCode       | `.opencode/agents/`         | `.opencode/commands/`                         | **Not supported** (fold into AGENTS.md)  | `.opencode/skills/`                   | `AGENTS.md`                       |
-| GitHub Copilot | `.github/agents/*.agent.md` | `.github/prompts/*.prompt.md`                 | `.github/instructions/*.instructions.md` | `.github/skills/`                     | `.github/copilot-instructions.md` |
-| Codex CLI      | `.codex/agents/{name}.toml` | **Not supported** (Codex CLI does not support custom slash commands; only built-ins) | Not supported (skip rules at install)    | `.agents/skills/aidd-{name}/SKILL.md` | `AGENTS.md`                       |
+| Claude Code    | `.claude/agents/`           | `.claude/commands/`                           | `aidd_docs/rules/`                        | `.claude/skills/`                     | `CLAUDE.md`                       |
+| Cursor         | `.cursor/agents/`           | `.cursor/commands/`                           | `aidd_docs/rules/`                        | `.cursor/skills/`                     | `AGENTS.md`                       |
+| OpenCode       | `.opencode/agents/`         | `.opencode/commands/`                         | `aidd_docs/rules/`                        | `.opencode/skills/`                   | `AGENTS.md`                       |
+| GitHub Copilot | `.github/agents/*.agent.md` | `.github/prompts/*.prompt.md`                 | `aidd_docs/rules/`                        | `.github/skills/`                     | `.github/copilot-instructions.md` |
+| Codex CLI      | `.codex/agents/{name}.toml` | **Not supported** (Codex CLI does not support custom slash commands; only built-ins) | `aidd_docs/rules/`                        | `.agents/skills/aidd-{name}/SKILL.md` | `AGENTS.md`                       |
+
+> **Rules are tool-agnostic.** Every tool reads rules from one canonical surface: `aidd_docs/rules/<NN-category>/<slug>.md` (plain `.md`, single frontmatter shape). No tool keeps a native rules directory - the canonical store works everywhere, Codex included. Tools do not auto-load this surface, so each tool's context file (column above) MUST reference `aidd_docs/rules/` so the assistant reads rules from there. Which rules apply to a given task is decided by the plan step (`aidd-dev:01-plan`), not by native glob auto-attach.
 
 ## Path layout per tool
 
-Rules and commands follow a two-layout scheme. Subdir-tools organize files under named category or phase subdirectories; flat-tools (GitHub Copilot) write all files directly into the surface root with a category or phase index as a filename prefix. Note: OpenCode and Codex CLI do not support a rules surface, so the Subdir layout applies to rules only for Claude Code and Cursor.
+Rules are tool-agnostic: one canonical Subdir layout under `aidd_docs/rules/` for every tool (see the rules note above). Commands still follow a two-layout scheme. Subdir-tools organize files under named category or phase subdirectories; flat-tools (GitHub Copilot) write commands directly into the surface root with a phase index as a filename prefix.
 
-| Layout          | Surface   | Tools                                    | Example                                                        |
-| --------------- | --------- | ---------------------------------------- | -------------------------------------------------------------- |
-| Subdir          | Rules     | Claude Code, Cursor                      | `<rules root>/02-programming-languages/2-typescript-naming.md` |
-| Subdir          | Commands  | Claude Code, Cursor, OpenCode            | `<commands root>/10_maintenance/fix-issue.md`                  |
-| Flat            | Both      | GitHub Copilot                           | `.github/instructions/02-typescript-naming.instructions.md`    |
+| Layout          | Surface   | Tools                                    | Example                                                            |
+| --------------- | --------- | ---------------------------------------- | ----------------------------------------------------------------- |
+| Subdir          | Rules     | All tools (canonical)                    | `aidd_docs/rules/02-programming-languages/2-typescript-naming.md` |
+| Subdir          | Commands  | Claude Code, Cursor, OpenCode            | `<commands root>/10_maintenance/fix-issue.md`                     |
+| Flat            | Commands  | GitHub Copilot                           | `.github/prompts/04-implement.prompt.md`                          |
 
-For flat-tools, the descriptive slug is the canonical slug with its leading `<n>-` category-index prefix stripped, then prefixed with the full two-digit category or phase index (e.g. canonical slug `2-typescript-naming` in category `02-programming-languages` becomes `02-typescript-naming`).
+For flat-tools (commands only), the descriptive slug is the canonical slug with its leading `<n>-` phase-index prefix stripped, then prefixed with the full two-digit phase index (e.g. canonical command slug `4-implement` in phase `04` becomes `04-implement`).
 
 ## Per-surface frontmatter reconciliation
 
@@ -43,11 +45,22 @@ When a frontmatter field is recognized by some tools but not others, apply this 
 | `context: fork`            | yes    | n/a    | n/a      | n/a     | n/a   | Drop. Equivalent OpenCode/Cursor behavior is the subagent model. |
 | `agent`                    | yes    | n/a    | n/a      | n/a     | n/a   | Drop.                                                        |
 | `hooks`                    | yes    | n/a    | n/a      | n/a     | n/a   | Drop (component-scoped hooks are a Claude-only feature).     |
-| `paths`                    | yes (array) | `globs` (comma-separated string) | n/a | `applyTo` (string) | n/a | Rename per target. Cursor `globs` and Copilot `applyTo` are both single glob STRINGs (not arrays): if the canonical artifact has multiple globs in `paths`, join with comma or pick the most-encompassing one. Drop where unsupported. |
+| `paths`                    | canonical (rules)              | - | - | - | - | Rules-only field. Rules are tool-agnostic now: keep `paths` as a glob array in the canonical `aidd_docs/rules/` file for every tool. No per-tool rename (`globs`/`applyTo` are retired). |
 | `shell`                    | yes    | n/a    | n/a      | n/a     | n/a   | Drop.                                                        |
 | `color`                    | yes    | n/a    | n/a      | n/a     | n/a   | Drop for all except Claude.                                  |
 
 General rule: **drop unsupported fields; never invent a substitute key**. When an intent (e.g. manual-only) is otherwise expressible in the body or description, preserve it there.
+
+## Rules (canonical, all tools)
+
+Rules are no longer a per-tool artifact. There is exactly one shape, written once, read by every tool.
+
+- **Location**: `aidd_docs/rules/<NN-category>/<slug>.md` (categories and slugs per `@rule.md`).
+- **Extension**: `.md` (no `.mdc`, no `.instructions.md`).
+- **Frontmatter**:
+  - `description`: one line, always emit (drives selection at plan time).
+  - `paths`: optional glob array; when omitted the rule is general (applies project-wide).
+- **Discovery**: each tool's context file references `aidd_docs/rules/` (see the rules note in the quick map). Tools do not auto-attach by glob; `aidd-dev:01-plan` selects the applicable rules per task.
 
 ## AI quick map - hooks, plugins, marketplaces
 
@@ -88,7 +101,7 @@ Used by the plugin and marketplace validate actions. When a tool has no validato
 ### File creation conventions
 
 - Commands: phase subfolders, underscore naming (`plugins/aidd-dev/skills/02-implement/SKILL.md`)
-- Rules: category subfolders (`plugins/aidd-context/skills/04-mermaid/references/mermaid-conventions.md`)
+- Rules: canonical, tool-agnostic (`aidd_docs/rules/`); see "## Rules (canonical, all tools)" above
 - Agents: flat (`agents/name.md`)
 - Skills: one subfolder per skill (`skills/skill-name/SKILL.md`)
 
@@ -110,9 +123,7 @@ Used by the plugin and marketplace validate actions. When a tool has no validato
   - `name`
   - `description`
   - `argument-hint` (if applicable)
-- Rules:
-  - `paths` (glob list)
-  - If `paths` is omitted, rule is always loaded
+- Rules: canonical shape, see "## Rules (canonical, all tools)" above
 
 ### MCP config
 
@@ -144,7 +155,7 @@ Used by the plugin and marketplace validate actions. When a tool has no validato
 ### File creation conventions
 
 - Commands: phase subfolders, underscore naming (`plugins/aidd-dev/skills/02-implement/SKILL.md`)
-- Rules: category subfolders, `.mdc` extension (default; `.md` also valid) (`plugins/aidd-context/skills/04-mermaid/references/mermaid-conventions.mdc`)
+- Rules: canonical, tool-agnostic (`aidd_docs/rules/`); see "## Rules (canonical, all tools)" above
 - Agents: flat (`agents/name.md`)
 - Skills: one subfolder per skill (`skills/skill-name/SKILL.md`)
 
@@ -156,7 +167,7 @@ Used by the plugin and marketplace validate actions. When a tool has no validato
 
 - Agents: `.md`
 - Commands: `.md` (plain Markdown, no frontmatter; name from filename; args via `$ARGUMENTS`)
-- Rules: `.mdc` (default; `.md` also valid)
+- Rules: `.md` (canonical; see "## Rules (canonical, all tools)" above)
 - Skills: `SKILL.md`
 
 ### Frontmatter
@@ -168,10 +179,7 @@ Used by the plugin and marketplace validate actions. When a tool has no validato
   - `readonly`
   - `is_background`
 - Commands: plain Markdown, no frontmatter; name from filename; args via `$ARGUMENTS`
-- Rules:
-  - `description`
-  - `globs` (comma-separated string, not an array; join multiple globs with comma)
-  - `alwaysApply`
+- Rules: canonical shape, see "## Rules (canonical, all tools)" above
 
 ### MCP config
 
@@ -224,9 +232,9 @@ Used by the plugin and marketplace validate actions. When a tool has no validato
   - Name is derived from filename
   - Use `$ARGUMENTS` or `$1`, `$2` for argument injection
 
-### Rules - Not supported
+### Rules - canonical
 
-OpenCode has no per-file rules/ directory. Project conventions belong in `AGENTS.md` (the context file) or the `instructions:` array in `opencode.json` (accepts local paths, globs, and remote URLs). Generators must D2-block on rule x OpenCode with a message: "OpenCode has no rules surface. Add project conventions directly to AGENTS.md or list instruction paths under the `instructions:` array in opencode.json instead."
+OpenCode reads rules from the canonical `aidd_docs/rules/` surface like every other tool (see "## Rules (canonical, all tools)" above). Reference the surface from `AGENTS.md`, or list `aidd_docs/rules/**/*.md` under the `instructions:` array in `opencode.json` (accepts local paths and globs) so OpenCode loads them.
 
 ### MCP config
 
@@ -258,7 +266,7 @@ Block message: "Plugin scaffold for OpenCode is not supported: OpenCode has no p
 ### File creation conventions
 
 - Prompts (commands): flat, phase-prefixed, hyphenated (`prompts/04-implement.prompt.md`)
-- Instructions (rules): flat, category-prefixed, hyphenated (`instructions/01-rule-writing.instructions.md`)
+- Rules: canonical, tool-agnostic (`aidd_docs/rules/`); see "## Rules (canonical, all tools)" above (no `.github/instructions/`)
 - Agents: flat, `.agent.md` suffix (`agents/name.agent.md`)
 - Skills: one subfolder per skill (`skills/skill-name/SKILL.md`)
 
@@ -271,7 +279,7 @@ Block message: "Plugin scaffold for OpenCode is not supported: OpenCode has no p
 
 - Agents: `.agent.md`
 - Prompts: `.prompt.md`
-- Instructions: `.instructions.md`
+- Rules: `.md` (canonical; see "## Rules (canonical, all tools)" above)
 - Skills: `SKILL.md`
 
 ### Frontmatter
@@ -283,8 +291,7 @@ Block message: "Plugin scaffold for OpenCode is not supported: OpenCode has no p
   - `name`
   - `description`
   - `argument-hint` (if applicable)
-- Instructions:
-  - `applyTo` (single glob STRING, NOT an array; use `**` for all files; combine multiple globs with commas if needed)
+- Rules: canonical shape, see "## Rules (canonical, all tools)" above
 
 ### MCP config
 
@@ -322,7 +329,7 @@ Block message: "Plugin scaffold for OpenCode is not supported: OpenCode has no p
 
 - Agents use TOML (`.codex/agents/{name}.toml`)
 - Skills are flat under `.agents/skills/aidd-{name}/SKILL.md`
-- Rules are not supported and should be skipped at install
+- Rules: canonical, tool-agnostic (`aidd_docs/rules/`); reference the surface from `AGENTS.md`. See "## Rules (canonical, all tools)" above. (This is what unblocked Codex rules - the native surface never existed.)
 
 ### Commands - Not supported
 
