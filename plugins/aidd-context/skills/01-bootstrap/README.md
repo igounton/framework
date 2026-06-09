@@ -2,19 +2,19 @@
 
 # 01 - Bootstrap
 
-Technical architect for a new SaaS project. Walks user through a 24-item checklist, proposes 2-3 candidate stacks, audits each via parallel agents, then produces a project-root `INSTALL.md` (ADR-style): technical vision, decisions, chosen stack, building blocks, architecture, install steps. Documentation only - no code, no scaffolding.
+Technical architect **and** builder for a new project. **Design** (actions 01-06): walk a 24-item checklist, propose 2-3 candidate stacks, audit each via parallel agents, and produce a validated project-root `INSTALL.md` + `README.md`. **Build** (actions 07-14): materialize that validated `INSTALL.md` into a running, proven skeleton through atomic, stack-agnostic `init-*` actions. Architecture-100% / business-0% - never writes business logic (per the firewall in `docs/ARCHITECTURE.md`).
 
 ## When to use
 
-- Starting a brand-new SaaS project and choosing a stack.
+- Starting a brand-new project and choosing a stack.
 - Deciding the architecture pattern (monolith vs microservices vs serverless).
-- Producing a project's `INSTALL.md` from a fresh idea.
+- Standing up the running skeleton from a fresh idea.
 
 ## When NOT to use
 
-- Editing an existing project's stack (audit too heavy for one swap-out).
+- Editing an existing project's stack (the audit is too heavy for one swap-out).
 - Database schema design or detailed data modeling.
-- Scaffolding actual files - this skill produces docs only.
+- Writing business logic (auth, domain rules, features).
 
 ## How to invoke
 
@@ -22,24 +22,38 @@ Technical architect for a new SaaS project. Walks user through a 24-item checkli
 Use skill aidd-context:01-bootstrap
 ```
 
-The skill walks 6 atomic actions in sequence:
+### Design phase → validated `INSTALL.md`
 
-1. `gather-needs` - Q&A across the 24-item checklist (18 user-input, 6 derived) plus selected building blocks.
-2. `propose-candidates` - derive 2-3 candidate stacks, render comparison table.
-3. `audit-candidates` - spawn parallel agents to validate each candidate, emit verdict; if every candidate fails, loop back to `02` or `01`.
+1. `gather-needs` - Q&A across the 24-item checklist plus selected building blocks.
+2. `propose-candidates` - derive 2-3 candidate stacks, render a comparison table.
+3. `audit-candidates` - parallel agents validate each candidate; if all fail, loop back to `02`/`01`.
 4. `pick-and-design` - user picks the winning stack.
 5. `decide-architecture` - fact-checked top-3 patterns, human-picked, plus a Mermaid module diagram.
-6. `write-install-md` - produce the project-root `INSTALL.md`.
+6. `write-install-md` - produce the project-root `INSTALL.md` + `README.md`.
+
+### Build phase → running skeleton
+
+No build action runs until `INSTALL.md` is validated; conditional actions skip per `INSTALL.md`.
+
+7. `init-structure` - folder tree + reachable route stubs.
+8. `init-dependencies` - dependency manager + building blocks (swappable) + boot.
+9. `init-env` - `.env.example` + config loading.
+10. `init-database` - engine + baseline migration + seed fixtures + round-trip *(conditional)*.
+11. `init-quality-gate` - typecheck + format + lint + commit-linter + pre-commit (one gate).
+12. `init-tests` - runner + unit + e2e + coverage *(delegated)*.
+13. `init-containers` - container ups & downs cleanly *(conditional)*.
+14. `init-design-system` - design system *(front-only, delegated)*.
+15. `init-ci` - pipeline runs the quality gate + tests, green on the server *(conditional)*.
 
 ## Outputs
 
-- A project-root `INSTALL.md`: vision, decisions, chosen stack, building blocks, architecture (Mermaid diagram), install steps.
+- A validated project-root `INSTALL.md` + `README.md`, then a running skeleton proven by each build action's gate.
 
 ## Prerequisites
 
 - A clear (or loosely-formed) product idea to discuss.
-- A working directory where `INSTALL.md` can be written.
+- A working directory.
 
 ## Technical details
 
-See [`SKILL.md`](SKILL.md) for the action contract, [`actions/`](actions/) for each step, `references/stack-heuristics.md` for input → recommended stack-family heuristics, and `assets/checklist.md` + `assets/INSTALL.md` for the canonical 24-item checklist and `INSTALL.md` skeleton. The Mermaid architecture diagram in action 05 is rendered via the sibling `04-mermaid` skill.
+See [`SKILL.md`](SKILL.md) for the action contract, [`actions/`](actions/) for each step, `references/stack-heuristics.md`, and `assets/`. The Mermaid diagram (action 05) renders via the sibling `04-mermaid` skill; `init-tests` and `init-design-system` delegate to the capability that owns them, discovered by description.

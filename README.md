@@ -103,6 +103,7 @@ flowchart TD
 
 - **New here?** Run `/aidd-context:00-onboard` - it inspects the project and guides you.
 - **Whole loop in one command?** `/aidd-dev:00-sdlc` runs plan → implement → review → ship.
+- **Starting from zero?** `/aidd-orchestrator:01-scaffold` walks idea → running skeleton (repo, stack, build, CI, context).
 - **More plugins?** Browse the [catalog](#plugins) or the `/plugin` Discover tab.
 
 ### Another AI tool?
@@ -184,9 +185,9 @@ Meta-cognition: brainstorm, challenge, condense, shadow-areas, fact-check.
 
 ### 🎼 [aidd-orchestrator](plugins/aidd-orchestrator/README.md)
 
-`2 skills` · stable (`async-dev`)
+`2 skills` · stable (`async-dev`) · experimental (`scaffold`)
 
-Label an issue, get a PR; re-label, get the review applied. Router-based skill: one entry point, three sub-flows (setup, run, review).
+Label an issue, get a PR (`async-dev`, router: setup / run / review). Scaffold a new project idea → running skeleton (`scaffold`, a pure-routing wizard).
 
 </td>
 </tr>

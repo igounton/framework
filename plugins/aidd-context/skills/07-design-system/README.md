@@ -16,4 +16,4 @@ The **Impeccable** skill (the playbook checks and guides install if missing).
 
 ## Not for
 
-UI/feature generation or redesign - use `impeccable` directly.
+Authoring page or component code - that is an implementation concern (Execution layer), where the implementer delegates the visual to Impeccable against this `DESIGN.md`. This skill only founds the system; Impeccable does the work and `DESIGN.md` stays canonical.

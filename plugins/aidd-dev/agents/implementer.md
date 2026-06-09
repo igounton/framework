@@ -84,6 +84,7 @@ Your output is complete when:
 - `aidd-dev:04-audit`
 - `aidd-dev:07-refactor`
 - `aidd-vcs:01-commit`
+- `impeccable` (visual authoring of dumb components only - declared external design tool)
 
 Anything else is out of bounds.
 

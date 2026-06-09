@@ -32,13 +32,8 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 
 #### `skills/01-scaffold`
 
-| Group | File | Description |
-|-------|------|---|
-| `actions` | [01-generate-architecture.md](skills/01-scaffold/actions/01-generate-architecture.md) | - |
-| `actions` | [02-implement-and-test.md](skills/01-scaffold/actions/02-implement-and-test.md) | - |
-| `actions` | [03-wire-ci.md](skills/01-scaffold/actions/03-wire-ci.md) | - |
-| `evals` | [scenarios.json](skills/01-scaffold/evals/scenarios.json) | - |
-| `-` | [README.md](skills/01-scaffold/README.md) | - |
-| `references` | [project-doc-spec.md](skills/01-scaffold/references/project-doc-spec.md) | - |
-| `-` | [SKILL.md](skills/01-scaffold/SKILL.md) | `Build a brand-new project into a running, proven skeleton. Interactively drives the design first (the stack, the architecture, and the technical building blocks the app needs, via the design layer, into an INSTALL.md), then generates the full folder and route tree (every page and API route wired with stub handlers), the selected building blocks as swappable abstractions, an installed test harness, a minimal CI pipeline, the base project docs, the AIDD context layer, and an initialized git repository - proven against a final checklist. Use when the user says scaffold the project, build a new project, initialize the project files, or build the running skeleton. Do NOT use for producing design or architecture docs only (that is the design layer's role), adding features to an existing project, or generating business logic.` |
+| File | Description |
+|------|---|
+| [README.md](skills/01-scaffold/README.md) | - |
+| [SKILL.md](skills/01-scaffold/SKILL.md) | `Sequencing tutorial that launches the right skills, in order, to turn a project idea into a running skeleton.` |
 

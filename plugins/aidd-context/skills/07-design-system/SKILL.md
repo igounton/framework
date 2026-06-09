@@ -24,3 +24,5 @@ Guided onboarding for authoring a quality design system. It does NOT generate th
 ## Default flow
 
 Single action. It confirms Impeccable is available, then drives the playbook.
+
+Authoring page code is **not** this skill's concern (Knowledge layer). A page's visual is produced at implementation time, where the implementer delegates the presentational layer to Impeccable against this `DESIGN.md`.
