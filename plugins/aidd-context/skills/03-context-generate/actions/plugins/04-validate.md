@@ -38,7 +38,7 @@ Resolve each tool's validator command and no-validator fallback from the **Plugi
 3. **Name parity.** For each tool: `plugin.json` `name` matches the directory name and matches the `<plugin>` segment used in every nested skill frontmatter `name:`.
 4. **Artifact-set parity.** For each slot enabled in `artifact_set`, at least one artifact file exists (or a `.gitkeep` is present and intentional). For each slot disabled, the corresponding subdir is absent.
    - Special case for `commands/`: if the tool is Codex CLI, the `commands/` subdir must be ABSENT regardless of `artifact_set.commands` value (scaffold skipped it per the Codex D2 rule). Record a warning finding if `commands/` exists under a Codex CLI plugin tree.
-5. **Seed-skill structure.** If a seed skill was created, run `@../skills/06-validate.md` against `<plugins-root>/<plugin_name>/skills/01-<seed_skill.name>/`; any `❌` row downgrades `validation_status` to `fail`.
+5. **Seed-skill structure.** If a seed skill was created, run `@../skills/05-validate.md` against `<plugins-root>/<plugin_name>/skills/01-<seed_skill.name>/`; any `❌` row downgrades `validation_status` to `fail`.
 6. **Plugin reload smoke.** For Claude Code only: when the host runtime supports it, invoke `/reload-plugins` and confirm the new plugin appears in the load report. Skip with a warning otherwise.
 7. Set `validation_status = pass` iff no `error`-severity finding was recorded across all confirmed tools.
 

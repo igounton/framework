@@ -4,7 +4,7 @@
 
 Generates the seven context artifacts a project can consume, across the host AI tool(s) detected in the project. Before writing any artifact the skill runs the Model Y gate: detect installed tools from D1 signals, propose the set to the user, wait for explicit confirmation (1..N), then for each (artifact, confirmed tool) look up `references/ai-mapping.md`; if unsupported, block with explanation (D2) and continue the rest.
 
-- **Skills** - router-based: `SKILL.md` router + atomic testable actions + minimal evals.
+- **Skills** - router-based: `SKILL.md` router + atomic testable actions.
 - **Agents** - single-file agent definitions following the framework's agent template.
 - **Rules** - framework rule files governing editor / agent behaviour.
 - **Commands** - flat `.md` slash command files (frontmatter + body), for one-shot manual triggers without supporting files.
@@ -12,7 +12,7 @@ Generates the seven context artifacts a project can consume, across the host AI 
 - **Plugins** - full plugin scaffold (a plugin manifest + README + slot dirs, path resolved per tool from `references/ai-mapping.md`; optional seed skill).
 - **Marketplaces** - a marketplace catalog file (path resolved per tool from `references/ai-mapping.md`) that distributes one or more plugins.
 
-Evaluations are declared before implementation; every action carries a `## Test`.
+Every action carries a `## Test`.
 
 ## When to use
 
@@ -33,14 +33,13 @@ Evaluations are declared before implementation; every action carries a `## Test`
 Use skill aidd-context:03-context-generate
 ```
 
-For skill generation, the skill walks 6 atomic actions:
+For skill generation, the skill walks 5 atomic actions:
 
 1. `capture-intent` - clarify the desired output and decide generate-vs-modify.
-2. `design-evals` - write a minimal `scenarios.json`.
-3. `decompose-actions` - list actions and their `## Test` sentences.
-4. `draft-skill` - write the `SKILL.md` router.
-5. `write-actions` - write each action file.
-6. `validate` - spawn one agent per action, run its `## Test`, and aggregate into a pass/fail report.
+2. `decompose-actions` - list actions and their `## Test` sentences.
+3. `draft-skill` - write the `SKILL.md` router.
+4. `write-actions` - write each action file.
+5. `validate` - spawn one agent per action, run its `## Test`, and aggregate into a pass/fail report.
 
 The other six artifact types have their own sub-flows under `actions/<sub-domain>/`. Each entry action runs the Model Y tool-resolution gate (detect -> propose -> confirm -> D2 block) before writing.
 
@@ -53,7 +52,7 @@ The other six artifact types have their own sub-flows under `actions/<sub-domain
 
 ## Outputs
 
-- A new or refactored skill directory: `SKILL.md` + `actions/*.md` + `evals/scenarios.json` (when auto-triggered) + optional `references/` and `assets/`.
+- A new or refactored skill directory: `SKILL.md` + `actions/*.md` + optional `references/` and `assets/`.
 - Or a generated agent file from `assets/agents/agent-template.md`.
 - Or a generated rule file from `assets/rules/rule-template.md`.
 - Or a flat slash command file from `assets/commands/command-template.md`.
@@ -68,8 +67,8 @@ The other six artifact types have their own sub-flows under `actions/<sub-domain
 
 ## Rules
 
-R1-R11 in [`SKILL.md`](SKILL.md) are the non-bypassable invariants:
-`SKILL.md` is a pure router, one skill = one domain, references one-level deep, `SKILL.md` ≤ 500 lines, descriptions must include explicit triggers and a "Do NOT use for..." clause, every action has a `## Test`, auto-trigger skills ship at least 3 eval scenarios, and the tool-resolution gate (detect -> propose -> confirm -> D2 block) runs before writing any artifact in generate mode.
+The invariants in [`SKILL.md`](SKILL.md) (R1-R9 plus the R10 tool-resolution gate) are non-bypassable:
+`SKILL.md` is a pure router, one skill = one domain, references one-level deep, `SKILL.md` ≤ 500 lines, descriptions must include explicit triggers and a "Do NOT use for..." clause, every action has a `## Test`, and the tool-resolution gate (detect -> propose -> confirm -> D2 block) runs before writing any artifact in generate mode.
 
 ## Technical details
 

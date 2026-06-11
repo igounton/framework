@@ -138,7 +138,6 @@ Inside the synchronous path, `aidd-dev:00-sdlc` is the Dev SDLC orchestrator tha
 - Skills must have an `## Available actions` table, `## Default flow`, `## Transversal rules`.
 - Actions must contain only `## Inputs`, `## Outputs`, `## Process`, `## Test`.
 - Tests must be observable: command, artifact check, or side effect.
-- Evals (`evals/scenarios.json`) ship for every auto-trigger skill.
 
 ---
 

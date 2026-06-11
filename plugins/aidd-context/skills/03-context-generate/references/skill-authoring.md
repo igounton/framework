@@ -4,7 +4,7 @@ Conventions for every skill the `skills` sub-flow produces. These govern the CLI
 
 ## Rules
 
-These rules apply EXCLUSIVELY to generated skills. They do NOT apply to agents, rules, commands, hooks, plugins, or marketplaces - each of those artifact types has its own conventions in `assets/` and `references/`. The `skills` sub-flow MUST enforce R1-R10 on every skill it generates.
+These rules apply EXCLUSIVELY to generated skills. They do NOT apply to agents, rules, commands, hooks, plugins, or marketplaces - each of those artifact types has its own conventions in `assets/` and `references/`. The `skills` sub-flow MUST enforce R1-R9 on every skill it generates.
 
 - **R1** - SKILL.md is a pure router: description + action table + transversal rules. Zero business logic.
 - **R2** - One skill = one domain (tool OR activity). Tool -> singular noun (`slack`); activity -> action verb (`review`). See `## Naming` below.
@@ -14,8 +14,7 @@ These rules apply EXCLUSIVELY to generated skills. They do NOT apply to agents, 
 - **R6** - Zero duplication. Templates live in `assets/`; actions point to them via `@<path>`.
 - **R7** - `references/` = documents to READ (conventions, cheatsheets). `assets/` = files to COPY or INJECT (templates, ID tables).
 - **R8** - Every action has a `## Test`: one sentence describing how to verify its intent - a command to run, a concrete check on the produced artifact, or an observable side-effect (API/MCP/state).
-- **R9** - Auto-trigger skills (`disable-model-invocation: false`, default) ship `evals/scenarios.json` = JSON array of at least 3 `{prompt, expect_action}`. Manual-only skills skip.
-- **R10** - Generated skills are written in **English only** (frontmatter, body, actions, references, assets). Holds regardless of conversation language.
+- **R9** - Generated skills are written in **English only** (frontmatter, body, actions, references, assets). Holds regardless of conversation language.
 
 ## Folder layout
 
@@ -26,7 +25,6 @@ These rules apply EXCLUSIVELY to generated skills. They do NOT apply to agents, 
   assets/             (optional) - templates and other files actions COPY / INJECT via @<path>
   references/         (optional) - documents actions READ when they need the knowledge
   scripts/            (optional) - skill-local executables called from actions
-  evals/              (optional) - auto-trigger probes; required when auto-invocation is on
   README.md           (optional) - human-facing summary; never loaded into the model context
 ```
 
@@ -85,20 +83,6 @@ Skill-local executables invoked from action `## Process` steps. Never inline `cu
 
 Skill secrets (`.env`, `.env.local`) live inside the skill folder, never at repo root, always gitignored.
 
-## `evals/scenarios.json`
-
-Required for auto-trigger skills (`disable-model-invocation: false`, the default). Minimum 3 entries:
-
-```json
-[
-  { "prompt": "<realistic user message>", "expect_action": "<slug or null>" }
-]
-```
-
-`expect_action: null` means the skill must NOT trigger for that prompt. Use both positive and negative cases.
-
-Manual-only skills (`disable-model-invocation: true`) skip evals.
-
 ## Naming
 
 ### Skill names
@@ -115,7 +99,7 @@ Two valid patterns, one per domain type.
 - Numbered prefix (`01-`, `02-`) when either applies:
   - Execution order is strict (sequential flow), OR
   - Visual grouping by family improves readability at a glance (e.g. setup -> run -> verify -> cleanup).
-  In both cases, the slug used everywhere else (SKILL.md action table, `evals/scenarios.json` `expect_action`) is the name without the prefix - validators strip `^\d+-` automatically.
+  In both cases, the slug used everywhere else (SKILL.md action table) is the name without the prefix - validators strip `^\d+-` automatically.
 - Avoid vague names: `helper`, `utils`, `main`, `do-stuff`.
 
 ### Action table numbering in SKILL.md

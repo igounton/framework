@@ -1,11 +1,11 @@
-# 05 - Write action files
+# 04 - Write action files
 
 One file per action in the plan, written under each confirmed tool's skills root.
 
 ## Inputs
 
-- `action_plan` (from 03)
-- `files_written`, `blocked_tools` (from 04)
+- `action_plan` (from 02)
+- `files_written`, `blocked_tools` (from 03)
 - `target_base` (from 01). Empty string means project root; `plugins/<plugin-name>/` means write under that plugin. Received via conversation context alongside `files_written`.
 
 ## Outputs
@@ -34,7 +34,7 @@ Action files written under each confirmed tool's skills root. Example layout for
 ## Process
 
 1. For each confirmed tool from `files_written`, resolve the skill root `<tool skills root>/<skill_name>/` from `@../../references/ai-mapping.md`. Prepend `target_base` to every write path (e.g. when `target_base = ""`: `.claude/skills/<skill_name>/actions/`; when `target_base = "plugins/my-plugin/"`: `plugins/my-plugin/.claude/skills/<skill_name>/actions/`). Paths are CWD-relative; write them directly under the workspace root. Never resolve paths relative to the plugin install directory. Skip any tool in `blocked_tools`.
-2. For each action in the plan: copy `@../../assets/skills/action-template.md`, fill each `<placeholder>` per its inline annotation. Transcribe the `test` cell from 03 **verbatim** into the `## Test` section. Write the file to `<target_base><tool skills root>/<skill_name>/actions/<NN>-<slug>.md`.
+2. For each action in the plan: copy `@../../assets/skills/action-template.md`, fill each `<placeholder>` per its inline annotation. Transcribe the `test` cell from 02 **verbatim** into the `## Test` section. Write the file to `<target_base><tool skills root>/<skill_name>/actions/<NN>-<slug>.md`.
 3. Secrets are **per-skill, never at repo root**. Each skill owns `<skill>/.env` (gitignored, real keys, one `KEY=value` per line) and `<skill>/.env.local` (gitignored, for each key: generation URL + one-line how-to with scopes / plan tier / dashboard path). Add the `<target_base><skill>/.env` and `<target_base><skill>/.env.local` patterns to `.gitignore`. Non-secret data follows R7 (see `@../../references/skill-authoring.md`): cross-skill -> shared root folder; skill-specific -> `<target_base><skill>/assets/` or `<target_base><skill>/references/`.
 
    Under Model Y (multi-tool fan-out), secrets fan out with the rest of the skill content: one `.env` per confirmed tool's skill root (e.g. `<target_base>.claude/skills/<name>/.env`, `<target_base>.cursor/skills/<name>/.env`, `<target_base>.github/skills/<name>/.env`). Add a `.gitignore` pattern for each location to `.gitignore`. The user is responsible for populating and protecting each file at its target location; this action only creates the file and records the `.gitignore` entry.

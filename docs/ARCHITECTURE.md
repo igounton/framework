@@ -66,8 +66,7 @@ plugins/<plugin>/
 │       ├── README.md       # human-facing skill landing
 │       ├── actions/        # atomic actions invoked by the router
 │       ├── assets/         # templates and static files
-│       ├── references/     # extended docs the skill links into
-│       └── evals/          # scenario fixtures
+│       └── references/     # extended docs the skill links into
 ├── agents/                 # named AI agents          (optional)
 ├── commands/               # slash commands           (optional)
 ├── hooks/hooks.json        # lifecycle hooks          (optional)

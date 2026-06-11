@@ -1,4 +1,4 @@
-# 04 - Draft SKILL.md router
+# 03 - Draft SKILL.md router
 
 Write the SKILL.md. Router only - no business logic.
 
@@ -7,7 +7,7 @@ Write the SKILL.md. Router only - no business logic.
 - `skill_name`, `domain_type`, `expected_output`, `invocation_mode` (from 01)
 - `confirmed_tools`, `blocked_tools` (from 01)
 - `target_base` (from 01). Empty string means project root; `plugins/<plugin-name>/` means write under that plugin.
-- `action_plan` (from 03)
+- `action_plan` (from 02)
 
 ## Outputs
 
@@ -47,4 +47,4 @@ done
 echo ok
 ```
 
-Quality: action table slugs match `action_plan` from 03; every non-null `expect_action` in `evals/scenarios.json` matches a slug in the action table (manual check).
+Quality: action table slugs match `action_plan` from 02 (manual check).

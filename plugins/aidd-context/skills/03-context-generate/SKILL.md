@@ -8,7 +8,7 @@ description: Generate context artifacts (skills, agents, rules, commands, hooks,
 
 Generates the seven context artifacts a project consumes, with per-tool path resolution.
 
-- **Skills** - router-based: `SKILL.md` router + atomic testable actions + minimal evals.
+- **Skills** - router-based: `SKILL.md` router + atomic testable actions.
 - **Agents** - single-file agent definitions following the framework's agent template.
 - **Rules** - framework rule files governing editor/agent behavior.
 - **Commands** - flat `.md` slash command files (frontmatter + body), for one-shot manual triggers.
@@ -22,7 +22,7 @@ Each artifact type has its own sub-flow under `@actions/<sub-domain>/`. All sub-
 
 | Sub-domain     | Actions count | Entry action                                                             | Flow type           |
 | -------------- | ------------- | ------------------------------------------------------------------------ | ------------------- |
-| `skills`       | 6             | `@actions/skills/01-capture-intent.md`                                   | sequential 01..06   |
+| `skills`       | 5             | `@actions/skills/01-capture-intent.md`                                   | sequential 01..05   |
 | `agents`       | 1             | `@actions/agents/01-generate-agent.md`                                   | single action       |
 | `rules`        | 1             | `@actions/rules/01-generate-rules.md`                                    | single action       |
 | `commands`     | 1             | `@actions/commands/01-generate-command.md`                               | single action       |
@@ -32,7 +32,7 @@ Each artifact type has its own sub-flow under `@actions/<sub-domain>/`. All sub-
 
 ## Default flow
 
-For sequential sub-flows, run actions in order. After each action, run its `## Test` before moving to the next. In the `skills` sub-flow, action 02 self-skips when `01` outputs `invocation_mode = manual`.
+For sequential sub-flows, run actions in order. After each action, run its `## Test` before moving to the next.
 
 ## Modify flow
 
@@ -47,14 +47,14 @@ Materialize the sub-flow as a task list at skill entry; a task closes only when 
 ## Transversal rules
 
 - Writes are CWD-relative; the plugin install root is for reading templates only, never for prefixing a write target.
-- Skills sub-flow applies R1-R10 from `references/skill-authoring.md` to every generated skill. Other sub-flows follow their own conventions in `assets/` and `references/`.
-- R11 - Tool resolution gate (generate-only): detect, propose, confirm 1..N, then look up `references/ai-mapping.md` per (artifact, tool); block unsupported pairs (D2) and continue the rest. Skip the gate in modify mode (tool fixed by the existing artifact's on-disk location). Procedure: `references/tool-resolution.md`.
+- Skills sub-flow applies R1-R9 from `references/skill-authoring.md` to every generated skill. Other sub-flows follow their own conventions in `assets/` and `references/`.
+- R10 - Tool resolution gate (generate-only): detect, propose, confirm 1..N, then look up `references/ai-mapping.md` per (artifact, tool); block unsupported pairs (D2) and continue the rest. Skip the gate in modify mode (tool fixed by the existing artifact's on-disk location). Procedure: `references/tool-resolution.md`.
 
 ## References
 
 - `@references/tool-resolution.md` - shared detect/propose/confirm/D2 procedure (called by every entry action)
 - `@references/ai-mapping.md` - per-tool paths, frontmatter reconciliation, hooks/plugins/marketplaces map, event casing, validator commands
-- `@references/skill-authoring.md` - generated-skill authoring: R1-R10 rules, anatomy, naming
+- `@references/skill-authoring.md` - generated-skill authoring: R1-R9 rules, anatomy, naming
 - `@references/command.md` - generated-command authoring: forms, scopes, frontmatter, phases, arguments
 - `@references/rule.md` - generated-rule authoring: naming, category taxonomy, content format
 - `@references/hook.md` - Claude Code hooks deep reference: handler types, events, exit codes
@@ -66,7 +66,6 @@ Skills templates (cross-tool, shared):
 
 - `@assets/skills/skill-template.md` - SKILL.md skeleton
 - `@assets/skills/action-template.md` - action file skeleton
-- `@assets/skills/evals-template.md` - `scenarios.json` minimal schema
 
 Per-tool agent templates:
 
