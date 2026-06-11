@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Skill: design-system
 
-Guided onboarding for authoring a quality design system. It does NOT generate the system - the [Impeccable](https://impeccable.design) skill already does (palette, typography, tokens, `DESIGN.md`). It adds the missing piece: an ordered playbook that routes each step to the right Impeccable command. Impeccable executes; `DESIGN.md` stays the single source of truth.
+Guided onboarding for authoring a quality design system. It does NOT generate the system - the [Impeccable](https://impeccable.style) skill already does (palette, typography, tokens, `DESIGN.md`). It adds the missing piece: an ordered playbook that routes each step to the right Impeccable command. Impeccable executes; `DESIGN.md` stays the single source of truth.
 
 ## Transversal rules
 
@@ -20,9 +20,10 @@ Guided onboarding for authoring a quality design system. It does NOT generate th
 | #   | Action                 | Role                                                        | Input              |
 | --- | ---------------------- | ---------------------------------------------------------- | ------------------ |
 | 01  | `create-design-system` | Walk the playbook to a quality design system via Impeccable | project (optional) |
+| 02  | `redesign-page`        | Critique → fix weak axes → loop until the score holds       | page (required)    |
 
 ## Default flow
 
-Single action. It confirms Impeccable is available, then drives the playbook.
+`01` founds the system (run once); `02` redesigns an existing page against it (run anytime, requires `DESIGN.md`). Both confirm Impeccable is available, then drive its commands.
 
-Authoring page code is **not** this skill's concern (Knowledge layer). A page's visual is produced at implementation time, where the implementer delegates the presentational layer to Impeccable against this `DESIGN.md`.
+Authoring **new** page code is not this skill's concern (Knowledge layer) - that happens at implementation time, where the implementer delegates the presentational layer to Impeccable against this `DESIGN.md`. Redesigning an **existing** page's visual (action 02) is routing, not authoring: Impeccable executes, this skill orders the loop.

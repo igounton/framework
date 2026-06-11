@@ -23,7 +23,7 @@ Run the commands in order. **Each step IS an Impeccable command**; tick its chec
 
 ### Step 0 - Ensure the engine
 
-- [ ] `/impeccable` responds (installed). If absent, guide install (<https://impeccable.design>), then stop. Never emulate it.
+- [ ] `/impeccable` responds (installed). If absent, guide install (<https://impeccable.style>), then stop. Never emulate it.
 
 ### Step 1 - `/impeccable init`
 
