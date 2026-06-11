@@ -18,9 +18,9 @@ The page, **described**: what it is, its components and their behavior, the dumb
 2. **Dumb/smart split.** Mark the **presentational (dumb)** components - props in, UI out, no data/logic/routing/state. Their visual is delegated to the design tool; its `shape` defines the visual behaviors (one line, not re-specified here).
 3. **Render decision.** Ask the user once: see the page rendered, or not?
 4. **Write the delegation prompt** for the implementer. It must:
-   - Build the smart layer in-house per the behaviors above.
-   - Author each dumb component's visual by calling the design tool with quotes: `Use skill "impeccable" with "shape <component> - dumb/presentational, props only, tokens from DESIGN.md"`.
-   - If render was requested, run under `/goal` (`aidd-dev:09-for-sure`): loop build ↔ `Use skill "impeccable" with "critique <page>"` until **zero P0**, then explicit user OK.
+   - Keep the smart layer (data, state, routing, wiring) in your own code. Author the visual via the design tool with quotes - never `craft` (that builds the feature): `Use skill "impeccable" with "shape <page/component> - dumb/presentational, props only, tokens from DESIGN.md"`.
+   - **If render was requested - visual-first.** Craft the page's visual **end-to-end first**, then **verify it in-browser before any wiring**: `Use skill "impeccable" with "live"` to iterate variants until visually good, with `Use skill "impeccable" with "critique <page>"` as the gate. Run under `/goal` (`aidd-dev:09-for-sure`): loop until **zero P0**, then explicit user OK. Only then **attach the verified visual to the code** (wire the smart layer onto it).
+   - **If not.** Author the dumb visuals inline and wire as you go - no `live`, no loop.
 5. **Present** the description + element list + delegation prompt. Wait for an explicit OK before exiting.
 
 ## Test

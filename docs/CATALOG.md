@@ -18,7 +18,7 @@ Bootstrap, project init, context-artifact generation, diagrams, learning, and di
 | Skill                  | Role                                                                          | Actions                                                                                                  |
 | ---------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
 | `00-onboard`           | Detect project state and open a hub of project actions                        | `01-detect-state`, `02-recommend-next`, `03-execute-or-handoff`                                          |
-| `01-bootstrap`         | Imagine and validate a new SaaS architecture, output an `INSTALL.md`          | `01-gather-needs`, `02-propose-candidates`, `03-audit-candidates`, `04-pick-and-design`, `05-write-install-md` |
+| `01-bootstrap`         | Design the stack into `INSTALL.md`, then materialize a running, proven skeleton | `01-check-prd`, `02-gather-needs`, `03-choose-stack`, `04-init-install-md`, `05-init-architecture`, `06-init-dependencies`, `07-init-env`, `08-init-database`, `09-init-quality-gate`, `10-init-tests`, `11-init-containers`, `12-init-design-system`, `13-init-ci` |
 | `02-project-init`      | Initialize or refresh the memory bank and AI context files                    | `01-init-context-file`, `02-scaffold-docs`, `03-generate-memory`, `04-review-memory`, `05-sync-memory`  |
 | `03-context-generate`  | Generate context artifacts across the host AI tool(s)                         | sub-generators: `agents`, `commands`, `hooks`, `marketplaces`, `plugins`, `rules`, `skills`             |
 | `04-mermaid`           | Generate Mermaid diagrams via a plan-validate workflow                        | `01-mermaid`                                                                                             |
@@ -83,3 +83,4 @@ Optional. Runs the SDLC asynchronously on labeled issues (webhook or cron). Most
 | Skill            | Role                                                  | Sub-flows                 |
 | ---------------- | ----------------------------------------------------- | ------------------------- |
 | `00-async-dev`   | Single entry point for the async-dev pipeline         | `setup`, `run`, `review`  |
+| `01-scaffold`    | Sequencing tutorial: idea → running skeleton by launching other skills | — |

@@ -24,7 +24,7 @@ notes:
 2. **Phase loop.** For each phase listed in the plan, in order:
    - Spawn the `implementer` agent via the `Task` tool, passing the phase scope and acceptance criteria.
    - Wait for the agent's structured output. If `completion_score < 100`, re-spawn with `items_remaining` until the phase reaches 100 %.
-3. **Frontend render.** If the design (`01-plan:02-design`) produced a render delegation prompt, launch the `implementer` with it as-is. That prompt carries the dumb-visual delegation and, when render was requested, the `/goal` build↔`critique` loop with its **zero P0 + explicit user OK** success condition. Don't re-specify it here; don't ship the visual on iteration count alone.
+3. **Frontend render.** If the design (`01-plan:02-design`) produced a render delegation prompt, launch the `implementer` with it **as-is**. The prompt is self-contained - it names whatever design tool, verification, and loop to run, and carries its success condition. Don't inspect or re-specify its contents; just pass it through. Don't ship the visual on iteration count alone.
 4. **Plan amendments.** If a phase is incorrect, incomplete, or blocked by missing information, amend the plan directly. Mark every change with 🤖 and a brief rationale.
 5. **Boundaries.** Never format code. Never run dev mode. Follow project rules already loaded in context.
 6. **Verify the feature.** Run validation commands, tests, and any manual checks required to confirm the feature works end to end.
