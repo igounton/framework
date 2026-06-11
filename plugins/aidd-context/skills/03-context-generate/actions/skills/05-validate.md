@@ -1,4 +1,4 @@
-# 06 - Validate end-to-end
+# 05 - Validate end-to-end
 
 Spawn one agent per action of the target skill, run its `## Test`, aggregate into a single pass/fail table.
 
@@ -16,7 +16,7 @@ A single markdown table delivered to the user. One row per action, in numeric or
 | `fetch-week-tasks`   | Queried Notion DB for user X, expected ≥ 1 result                 | ✅     |
 | `archive-channel`    | -                                                                 | ⏭️     |
 
-`✅` pass, `❌` fail, `⏭️` skipped (e.g. action 02 when manual-only).
+`✅` pass, `❌` fail, `⏭️` skipped (e.g. an action that self-skips for the current inputs).
 
 ## Process
 
@@ -29,8 +29,7 @@ A single markdown table delivered to the user. One row per action, in numeric or
    - **Instruction** : execute `## Process`, then run the `## Test`; report pass/fail and the cause if fail in ≤ 100 words.
 2. Capture for each action: slug, the `## Test` sentence verbatim, status. Add a row.
 3. On `❌`, the agent diagnoses the root cause, **resolves it in the real environment** (install MCP, generate API key per `.env.local`, authenticate, etc.), then **patches the action source file on disk** to point to the working solution. Re-run `## Test` via a fresh agent. Repeat until ✅. The patched action is the documentation - no separate change log.
-4. If `disable-model-invocation: false` in `<skill_path>/SKILL.md`: for each scenario in `<skill_path>/evals/scenarios.json`, spawn one fresh agent that reproduces the prompt verbatim and reports whether the dispatched action matches `expect_action`. Add one row per scenario.
-5. Always deliver the table at the end, even if every row is ✅.
+4. Always deliver the table at the end, even if every row is ✅.
 
 ## Test
 

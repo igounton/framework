@@ -20,7 +20,7 @@ This guide tells you exactly what disappears, what each old command becomes, and
 
 1. **Delivery: marketplace, not clone.** In `v3` an external CLI copied the whole repo into each project and generated per-tool copies (Claude Code, Cursor, Copilot). In `v4` you point Claude Code at the marketplace and install plugins on demand.
 2. **Split into 6 plugins.** Each plugin owns one slice of the SDLC and ships its own version.
-3. **Commands became skills.** Every former `/command` is a skill with structured frontmatter, references, assets and evals. A skill can auto-trigger from your intent or be invoked by name.
+3. **Commands became skills.** Every former `/command` is a skill with structured frontmatter, references, and assets. A skill can auto-trigger from your intent or be invoked by name.
 4. **Many commands were merged into routers.** Related v3 commands (the three `assert_*`, the two `review_*`, `performance` + `security_refactor`, the three debug-family commands, the five `generate_*`) collapsed into a single skill that routes to the right sub-action. See the mapping in section 4.
 5. **Agents, hooks, templates moved into their owning plugin** (for example `plugins/aidd-dev/agents/`).
 
@@ -42,7 +42,7 @@ Each plugin ships:
 - `.claude-plugin/plugin.json` (manifest + version)
 - `skills/NN-action-name/SKILL.md` (one skill per former command or command family)
 - `CATALOG.md` (auto-generated index of the plugin's skills)
-- its own assets, agents, references and evals
+- its own assets, agents, and references
 
 ---
 

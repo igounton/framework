@@ -15,6 +15,6 @@ claude plugin install {{plugin_name}}
 ## Layout
 
 - `.claude-plugin/plugin.json` - plugin manifest.
-- `skills/` - one folder per skill (each with `SKILL.md`, `actions/`, optional `assets/`, `references/`, `evals/`).
+- `skills/` - one folder per skill (each with `SKILL.md`, `actions/`, optional `assets/`, `references/`).
 - `agents/` - flat agent files (optional).
 - `hooks/` - hook scripts and `hooks.json` (optional).

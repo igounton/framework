@@ -156,7 +156,6 @@ When you change SKILL.md or actions, run `/reload-plugins` in the same Claude Co
 ## Step 5 - document, test, ship
 
 - Run `pnpm exec lefthook run pre-commit` to confirm JSON validity, YAML validity, and SKILL.md frontmatter checks pass. The pre-commit hook also regenerates your `plugins/aidd-example/CATALOG.md` automatically.
-- Add at least one scenario under `skills/01-hello/evals/scenarios.json` if you expect future evaluation runs.
 - Open a PR using the project template and pick the right commit scope (`feat(aidd-example): ...`). Listing the scope in `commitlint.config.cjs` is encouraged (an unlisted scope warns but does not block).
 
 ## Step 6 - release
