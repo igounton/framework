@@ -196,6 +196,28 @@ Each plugin's README links to per-skill READMEs covering when to use, how to inv
 
 ---
 
+## Recommended MCP servers
+
+> **Prefer the CLI over MCP. It is more efficient.**
+
+An MCP server loads its full tool schema into every turn. That bloats the context window and is less optimized.
+
+A CLI call costs a few tokens. It returns only what you ask for.
+
+Reach for MCP only when no CLI covers the service.
+
+**Always verify your sources. Audit what you install before connecting any server.**
+
+| Service | Official MCP | CLI alternative | Recommended |
+| --- | --- | --- | --- |
+| **GitHub** | [`api.githubcopilot.com/mcp/`](https://github.com/github/github-mcp-server) | [`gh`](https://cli.github.com/) | **CLI** - `gh` covers issues, PRs, releases, API at a fraction of the context |
+| **Atlassian** (Jira / Confluence) | [`mcp.atlassian.com/v1/mcp`](https://www.atlassian.com/platform/remote-mcp-server) | [`acli`](https://developer.atlassian.com/cloud/acli/guides/introduction/) (Jira only at GA) | **CLI** for Jira · **MCP** for Confluence (no CLI yet) |
+| **Playwright** | [`@playwright/mcp`](https://github.com/microsoft/playwright-mcp) | [`npx playwright`](https://playwright.dev/docs/test-cli) + [official skill](https://claude.com/plugins/playwright) | **CLI** - the CLI drives a real browser (`playwright open`, `codegen`, `--headed`). The skill wraps it |
+| **Figma** | [`mcp.figma.com/mcp`](https://developers.figma.com/docs/figma-mcp-server/remote-server-installation/) | none for design data | **MCP** |
+| **Notion** | [`mcp.notion.com/mcp`](https://developers.notion.com/guides/mcp/get-started-with-mcp) | none official | **MCP** |
+
+---
+
 ## How marketplaces work in Claude Code
 
 A marketplace is a Git repository that publishes plugins. When you run `/plugin marketplace add <owner>/<repo>`, Claude Code clones the repo, reads its `.claude-plugin/marketplace.json`, and offers the plugins listed there for install.
