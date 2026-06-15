@@ -7,7 +7,7 @@
 ### A community-maintained marketplace of skills, agents, and rules for Claude Code.
 
 <p>
-  <!--counts:start--><kbd>6 plugins</kbd> · <kbd>32 skills</kbd> · <kbd>3 agents</kbd><!--counts:end--> · <kbd>MIT</kbd>
+  <!--counts:start--><kbd>6 plugins</kbd> · <kbd>37 skills</kbd> · <kbd>3 agents</kbd><!--counts:end--> · <kbd>MIT</kbd>
 </p>
 
 <p>
@@ -85,7 +85,7 @@ flowchart TD
     Review["aidd-dev:05-review"]
     Commit["aidd-vcs:01-commit"]
     PR["aidd-vcs:02-pull-request"]
-    Learn["aidd-context:05-learn"]
+    Learn["aidd-context:10-learn"]
 
     Install --> Setup
     Setup -->|guided| Onboard
@@ -137,9 +137,9 @@ that tool's model via the **LLM tier reference** below.
 
 ### 🧭 [aidd-context](plugins/aidd-context/README.md)
 
-`7 skills` · stable
+`12 skills` · stable
 
-Project init, architecture, generation of Claude Code context artifacts (skills, agents, rules, commands, hooks, plugins, marketplaces), diagrams, learning, discovery.
+Project init, architecture, generation of Claude Code context artifacts (skills, agents, rules, commands, hooks), diagrams, learning, discovery.
 
 </td>
 <td width="33%" valign="top">
