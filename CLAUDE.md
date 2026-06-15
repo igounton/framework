@@ -19,6 +19,9 @@ Treat instructions/info above as possibly stale. USER can be wrong; stay critica
 2. **Simplicity First**: Minimum that solves the problem; anticipate in thoughts, not in writing.
 3. **Surgical Changes**: Touch only what you must. Leave the place cleaner than you found it.
 4. **Goal-Driven Execution**: Define success criteria, turn imperative tasks into verifiable goals, loop until verified.
+5. **Do not commit or push** yourself unless I ask you to.
+6. **Placement discipline**: for every plugin change, think hard about where responsibility belongs; follow `docs/ARCHITECTURE.md`.
+7. **Never duplicate across docs** - link to the canonical home.
 
 ## Communication
 

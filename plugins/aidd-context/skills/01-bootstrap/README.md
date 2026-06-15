@@ -54,4 +54,4 @@ No build action runs until `INSTALL.md` is written and validated; conditional ac
 
 ## Technical details
 
-See [`SKILL.md`](SKILL.md) for the action contract, [`actions/`](actions/) for each step, `references/stack-heuristics.md`, and `assets/`. The Mermaid diagram (action 03) renders via the sibling `04-mermaid` skill; `init-tests` and `init-design-system` delegate to the capability that owns them, discovered by description.
+See [`SKILL.md`](SKILL.md) for the action contract, [`actions/`](actions/) for each step, `references/stack-heuristics.md`, and `assets/`. The Mermaid diagram (action 03) renders via the sibling `09-mermaid` skill; `init-tests` and `init-design-system` delegate to the capability that owns them, discovered by description.

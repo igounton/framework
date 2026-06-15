@@ -59,4 +59,4 @@ Technical architect **and** builder for a new project. Two phases. **Design** (0
 
 ## External data
 
-- `aidd-context/skills/04-mermaid/SKILL.md` - invoked from `03-choose-stack` to render the architecture diagram
+- `aidd-context/skills/09-mermaid/SKILL.md` - invoked from `03-choose-stack` to render the architecture diagram

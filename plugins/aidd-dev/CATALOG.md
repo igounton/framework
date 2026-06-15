@@ -19,6 +19,7 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
   - [`skills/07-refactor`](#skills07-refactor)
   - [`skills/08-debug`](#skills08-debug)
   - [`skills/09-for-sure`](#skills09-for-sure)
+  - [`skills/10-todo`](#skills10-todo)
 
 ---
 
@@ -56,14 +57,17 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | Group | File | Description | Argument Hint |
 |-------|------|---|---|
 | `actions` | [01-plan.md](skills/01-plan/actions/01-plan.md) | - | - |
+| `actions` | [02-components-behavior.md](skills/01-plan/actions/02-components-behavior.md) | - | - |
 | `actions` | [02-design.md](skills/01-plan/actions/02-design.md) | - | - |
+| `actions` | [03-image-extract-details.md](skills/01-plan/actions/03-image-extract-details.md) | - | - |
 | `assets` | [master-plan-template.md](skills/01-plan/assets/master-plan-template.md) | `Parent plan template orchestrating multiple child plans with validation gates` | - |
-| `assets` | [plan-template.md](skills/01-plan/assets/plan-template.md) | `Living implementation plan - frozen objective, phases, and append-only execution Log. Used as input artifact AND as the autonomous-loop tracking file.` | - |
+| `assets` | [plan-template.md](skills/01-plan/assets/plan-template.md) | `Living implementation plan - frozen objective, phases, and acceptance criteria.` | - |
 | `assets` | [tech-choice-template.md](skills/01-plan/assets/tech-choice-template.md) | `Technology selection and comparison template` | - |
 | `evals` | [scenarios.json](skills/01-plan/evals/scenarios.json) | - | - |
 | `-` | [README.md](skills/01-plan/README.md) | - | - |
 | `references` | [mermaid-conventions.md](skills/01-plan/references/mermaid-conventions.md) | `Rules for generating valid, high-quality Mermaid diagrams. Apply when creating or reviewing any Mermaid diagram (flowchart, state, ER, sequence, gantt).` | - |
-| `-` | [SKILL.md](skills/01-plan/SKILL.md) | `Generate technical implementation plans, and define a frontend page's design - component behaviors as state machines plus the dumb/smart split that delegates the visual to the design tool.` | - |
+| `references` | [plan-status.md](skills/01-plan/references/plan-status.md) | `Plan lifecycle status field - values, meaning, who writes each, and when.` | - |
+| `-` | [SKILL.md](skills/01-plan/SKILL.md) | `Generate technical implementation plans, define component behaviors, and extract design details from images.` | - |
 
 #### `skills/02-implement`
 
@@ -72,6 +76,7 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | `actions` | [01-implement.md](skills/02-implement/actions/01-implement.md) | - |
 | `evals` | [scenarios.json](skills/02-implement/evals/scenarios.json) | - |
 | `-` | [README.md](skills/02-implement/README.md) | - |
+| `references` | [blocked.md](skills/02-implement/references/blocked.md) | `Conditions that make a plan blocked (needs a human).` |
 | `-` | [SKILL.md](skills/02-implement/SKILL.md) | `Execute an implementation plan phase by phase via the implementer agent, iterating until 100% completeness.` |
 
 #### `skills/03-assert`
@@ -151,13 +156,21 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 
 #### `skills/09-for-sure`
 
+| Group | File | Description | Argument Hint |
+|-------|------|---|---|
+| `actions` | [01-init-tracking.md](skills/09-for-sure/actions/01-init-tracking.md) | - | - |
+| `actions` | [02-auto-accept.md](skills/09-for-sure/actions/02-auto-accept.md) | - | - |
+| `actions` | [03-autonomous-loop.md](skills/09-for-sure/actions/03-autonomous-loop.md) | - | - |
+| `assets` | [plan-template.md](skills/09-for-sure/assets/plan-template.md) | `For Sure autonomous-loop tracking file. Extends the 01-plan format with `success_condition` and `iteration` (For-Sure-only), which the loop runs and increments.` | - |
+| `evals` | [scenarios.json](skills/09-for-sure/evals/scenarios.json) | - | - |
+| `-` | [README.md](skills/09-for-sure/README.md) | - | - |
+| `-` | [SKILL.md](skills/09-for-sure/SKILL.md) | `Iterative agent loop that tracks attempts and retries until a success condition is met. Use when the user says "for sure", "make sure", "keep trying until", "loop until done", "don't stop until", or needs guaranteed completion of a task with explicit success criteria.` | - |
+
+#### `skills/10-todo`
+
 | Group | File | Description |
 |-------|------|---|
-| `actions` | [01-init-tracking.md](skills/09-for-sure/actions/01-init-tracking.md) | - |
-| `actions` | [02-auto-accept.md](skills/09-for-sure/actions/02-auto-accept.md) | - |
-| `actions` | [03-autonomous-loop.md](skills/09-for-sure/actions/03-autonomous-loop.md) | - |
-| `assets` | [plan-template.md](skills/09-for-sure/assets/plan-template.md) | - |
-| `evals` | [scenarios.json](skills/09-for-sure/evals/scenarios.json) | - |
-| `-` | [README.md](skills/09-for-sure/README.md) | - |
-| `-` | [SKILL.md](skills/09-for-sure/SKILL.md) | `Iterative agent loop that tracks attempts and retries until a success condition is met. Use when the user says "for sure", "make sure", "keep trying until", "loop until done", "don't stop until", or needs guaranteed completion of a task with explicit success criteria.` |
+| `actions` | [01-todo.md](skills/10-todo/actions/01-todo.md) | - |
+| `-` | [README.md](skills/10-todo/README.md) | - |
+| `-` | [SKILL.md](skills/10-todo/SKILL.md) | `Split the user prompt into independent todos, run one implementer agent per todo in parallel (each refines its todo first), and report a minimal table. Use when the user says "todo", "/todo", or asks to fan out a multi-part request into parallel implementations.` |
 

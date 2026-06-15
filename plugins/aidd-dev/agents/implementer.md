@@ -84,7 +84,6 @@ Your output is complete when:
 - `aidd-dev:04-audit`
 - `aidd-dev:07-refactor`
 - `aidd-vcs:01-commit`
-- `impeccable` (visual authoring of dumb components only - declared external design tool)
 
 Anything else is out of bounds.
 
@@ -96,6 +95,7 @@ Anything else is out of bounds.
 
 - No TODOs in code, no skipped tests, no placeholder mocks.
 - No silent workarounds. If you bypass a constraint, declare it in `notes`.
+- When the work is physically impossible for the AI (see the implement skill's blocked reference for what counts), return `completion_score: 0` with `notes: "BLOCKED: <reason>"` — do not fake progress. You decide this block; the implement layer writes `status: blocked`.
 - Stay strictly inside the input scope.
 - Never modify the spec.
 - Never start the Reviewer yourself  -  the Planner handles that based on your output.

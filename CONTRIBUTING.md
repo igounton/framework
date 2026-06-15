@@ -108,7 +108,7 @@ Config: `release-please-config.json` + `.release-please-manifest.json` (pre-rele
 
 ## Reporting issues
 
-[Open an issue](https://github.com/ai-driven-dev/aidd-framework/issues/new/choose) (🐛 Bug or ✨ Feature). New issues are auto-added to the [AIDD Roadmap board](https://github.com/orgs/ai-driven-dev/projects/8). For **usage questions**, use [Discussions](https://github.com/ai-driven-dev/aidd-framework/discussions), not issues (see [`SUPPORT.md`](./.github/SUPPORT.md)).
+[Open an issue](https://github.com/ai-driven-dev/framework/issues/new/choose) (🐛 Bug or ✨ Feature). New issues are auto-added to the [AIDD Roadmap board](https://github.com/orgs/ai-driven-dev/projects/8). For **usage questions**, use [Discussions](https://github.com/ai-driven-dev/framework/discussions), not issues (see [`SUPPORT.md`](./.github/SUPPORT.md)).
 
 ## Reference
 
