@@ -35,12 +35,12 @@ Each tool exposes more moments than these. For the full list, read the tool's do
 
 | Tool           | File                                                              | Shape                                            |
 | -------------- | ---------------------------------------------------------------- | ------------------------------------------------ |
-| Claude Code    | `settings.json` (`hooks` key), plugin `hooks/hooks.json`, or component frontmatter | `{ "<Event>": [ { "matcher": "...", "hooks": [ { "type": "command", "command": "..." } ] } ] }` |
+| Claude Code    | `settings.json`, plugin `hooks/hooks.json`, or component frontmatter | `{ "hooks": { "<Event>": [ { "matcher": "...", "hooks": [ { "type": "command", "command": "..." } ] } ] } }` |
 | Codex CLI      | `~/.codex/hooks.json` or `[hooks]` in `config.toml`              | same entry shape as Claude.                       |
 | Cursor         | `.cursor/hooks.json`                                              | `{ "version": 1, "hooks": { "<event>": [ { "command": "..." } ] } }` |
 | GitHub Copilot | `.github/hooks/*.json` or a `hooks` block in `.github/copilot/settings.json` | `{ "version": 1, "hooks": { "<Event>": [ { "type": "command", "command": "..." } ] } }` |
 
-In a Claude/Codex `settings.json` or `config.toml` the entry sits under the `hooks` key. In a plugin or a standalone `hooks.json` the file is the hooks object itself.
+A Claude `settings.json` and a plugin or standalone `hooks/hooks.json` both wrap the event map under a top-level `hooks` key, so the file is `{ "hooks": { "<Event>": [ ... ] } }`. A Codex `config.toml` uses a `[hooks]` table instead.
 
 ## Scopes per tool
 
