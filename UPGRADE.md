@@ -86,8 +86,8 @@ Invocation in v4 is `plugin:NN-action`. Where a column says "sub-flow", the old 
 | `/generate_command` | `aidd-context:03-context-generate` (command sub-flow) |
 | `/generate_rules` | `aidd-context:03-context-generate` (rules sub-flow) |
 | `/generate_skill` | `aidd-context:03-context-generate` (skill sub-flow) - or the built-in `skill-creator` |
-| `/learn` | `aidd-context:05-learn` |
-| `/mermaid` | `aidd-context:04-mermaid` |
+| `/learn` | `aidd-context:10-learn` |
+| `/mermaid` | `aidd-context:09-mermaid` |
 
 ### product and refinement
 
@@ -151,7 +151,7 @@ Invocation in v4 is `plugin:NN-action`. Where a column says "sub-flow", the old 
 
 | v4 skill | What it does | Added in |
 |---|---|---|
-| `aidd-context:06-discovery` | Enumerates installed skills, agents, rules, hooks, memory and recommends a match. | 4.0 |
+| `aidd-context:11-discovery` | Enumerates installed skills, agents, rules, hooks, memory and recommends a match. | 4.0 |
 | `aidd-dev:00-sdlc` | Orchestrates the full plan to ship loop (auto or interactive). | 4.0 |
 | `aidd-dev:09-for-sure` | Loops and retries a task until an explicit success condition is met. | 4.0 |
 | `aidd-orchestrator:00-async-dev` | Async, label/comment-driven runs from GitHub issues (setup / run / review). | 4.0 |
@@ -171,7 +171,7 @@ Invocation in v4 is `plugin:NN-action`. Where a column says "sub-flow", the old 
 4. **Re-wire the project.** Run `aidd-context:02-project-init` to set up the new layout in `.claude/` and ensure the project memory block is present in your AI context files. Run `aidd-context:00-onboard` if you want a guided walkthrough of what to do next.
 5. **Translate each custom command into a skill.** Use the built-in `skill-creator` (or `aidd-context:03-context-generate`), put the result in your own local plugin, and load it through `.claude/settings.json`.
 6. **Update CI and scripts.** Anywhere CI called `/some_command`, switch to the new skill (auto-trigger by intent, or name `plugin:NN-action`). For `aidd-orchestrator`, see section 7.
-7. **Verify.** Run `aidd-context:06-discovery` to confirm the installed skills, agents, rules and hooks match what you expect.
+7. **Verify.** Run `aidd-context:11-discovery` to confirm the installed skills, agents, rules and hooks match what you expect.
 
 ---
 
