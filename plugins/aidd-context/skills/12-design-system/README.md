@@ -5,7 +5,7 @@ Guided onboarding for authoring a **quality design system**, wrapping the [Impec
 ## Usage
 
 ```
-/aidd-context:07-design-system
+/aidd-context:12-design-system
 ```
 
 Manual only. Two actions, both Impeccable runbooks with per-step checkboxes:

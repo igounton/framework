@@ -1,5 +1,5 @@
 ---
-name: 07-design-system
+name: 12-design-system
 description: Initialize a project's design system through a guided, ordered playbook that routes each step to the right Impeccable command - register and color strategy, palette with accessibility validation, typography, spacing, elevation, motion, components, and the canonical DESIGN.md.
 disable-model-invocation: true
 ---
