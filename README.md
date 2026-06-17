@@ -7,7 +7,7 @@
 ### Vibe Coding for professional developers — focused on 100% quality on AI-generated code.
 
 <p>
-  <!--counts:start--><kbd>6 plugins</kbd> · <kbd>37 skills</kbd> · <kbd>3 agents</kbd><!--counts:end--> · <kbd>MIT</kbd>
+  <!--counts:start--><kbd>6 plugins</kbd> · <kbd>38 skills</kbd> · <kbd>3 agents</kbd><!--counts:end--> · <kbd>MIT</kbd>
 </p>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -147,7 +147,7 @@ Six plugins covering the whole SDLC — **install all of them**; they're designe
 
 ### 🧭 [aidd-context](plugins/aidd-context/README.md)
 
-`12 skills` · stable
+`13 skills` · stable
 
 Project init, architecture, generation of Claude Code context artifacts (skills, agents, rules, commands, hooks), diagrams, learning, discovery.
 
