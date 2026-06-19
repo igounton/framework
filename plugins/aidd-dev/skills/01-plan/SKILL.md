@@ -1,44 +1,31 @@
 ---
 name: 01-plan
-description: Generate technical implementation plans, define component behaviors, and extract design details from images.
-argument-hint: plan | components-behavior | image-extract-details
-model: opus
-context: fork
-agent: planner
+description: Turn a request, ticket, or file into a phased implementation plan: gather the source, explore the codebase, optionally wireframe a screen, then plan. Use when the user wants to plan a feature, turn a ticket or requirements into a phased plan, or wireframe a screen before building. Do NOT use to write code (use 02-implement), review a diff (use 05-review), or audit code (use 04-audit).
+argument-hint: gather | explore | wireframe | plan
 ---
 
 # Skill: plan
 
-Produces implementation plans from requirements, state machines for component behavior, and structured component inventories from design images.
-
-## Agent delegation
-
-Spawn the `planner` agent to execute this skill. For tools that do not support `context: fork` frontmatter: invoke the `planner` agent explicitly with this skill's content as the prompt.
-
-## Available actions
-
-| #   | Action                   | When to use                                                                 |
-| --- | ------------------------ | --------------------------------------------------------------------------- |
-| 01  | `plan`                   | Turn requirements into a technical implementation plan saved to a task file |
-| 02  | `components-behavior`    | Define a frontend component's behavior as a state machine (Mermaid)         |
-| 03  | `image-extract-details`  | Analyze a design image into a hierarchical component inventory              |
-
-## Routing (run first)
-
-The planner auto-adapts to the INPUT - do not ask the user to choose. Detect the input type and route; do NOT always fall to action 01.
-
-- A design image or mockup is provided -> `03-image-extract-details` (then feed the inventory into planning).
-- The request is about a frontend component's behavior, states, or transitions -> `02-components-behavior`.
-- Anything else (requirements, a feature to build) -> `01-plan`.
-
-Actions may chain (e.g. extract from image, then plan). Read and follow each selected action file.
+Turn a gathered source into an implementation plan and its phase files. Never writes code.
 
 ## Actions
 
-- `@actions/01-plan.md`
-- `@actions/02-components-behavior.md`
-- `@actions/03-image-extract-details.md`
+| #   | Action      | Role                                                 | Input                      |
+| --- | ----------- | ---------------------------------------------------- | -------------------------- |
+| 01  | `gather`    | Collect and restate the source                       | user request               |
+| 02  | `explore`   | Read the codebase for projection, rules, feasibility | gathered source            |
+| 03  | `wireframe` | Sketch a screen at low fidelity, frontend only       | source + explore context   |
+| 04  | `plan`      | Break into phases, write the plan and phase files    | explore output + wireframe |
+
+Run them in order, `01 → 04`. The plan is the culmination. Skip `03` when there is no UI.
 
 ## References
 
-- `@references/plan-status.md` - plan lifecycle `status` values, meaning, and who writes each. All actions inherit it; do not re-specify the table elsewhere.
+- `references/mermaid-conventions.md`: conventions for the Mermaid diagrams a phase embeds.
+- `references/wireframe-conventions.md`: how to draw the ASCII wireframe a screen needs.
+- `references/plan-status.md`: the plan lifecycle `status` values and who writes each.
+
+## Assets
+
+- `assets/plan-template.md`: the `plan.md` scaffold.
+- `assets/phase-template.md`: the per-phase scaffold.
