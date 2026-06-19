@@ -204,5 +204,5 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | `-` | [README.md](skills/12-cook/README.md) | - |
 | `references` | [recipe-contract.md](skills/12-cook/references/recipe-contract.md) | - |
 | `references` | [research-playbook.md](skills/12-cook/references/research-playbook.md) | - |
-| `-` | [SKILL.md](skills/12-cook/SKILL.md) | `Manage the project's recipes/ how-to sheets: list, create or update, research, or apply a recipe. Use for "recipe", "cook", "/cook", "list/new/update/research/apply a recipe".` |
+| `-` | [SKILL.md](skills/12-cook/SKILL.md) | `Manage the project's recipes/ how-to sheets — list, create or update, research, or apply a recipe. Use for "recipe", "cook", "/cook", "list/new/update/research/apply a recipe".` |
 
