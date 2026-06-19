@@ -24,8 +24,8 @@ When invoked, you receive:
 When you return, your output is a structured table:
 
 ```yaml
-plan_path: <absolute path to the plan or master-plan written to disk>
-child_paths: [<paths to child plans, empty if simple plan>]
+plan_path: <absolute path to the plan file written to disk>
+child_paths: [<absolute paths to the phase files, one per phase>]
 decisions_made:
   - id: <n>
     topic: <what>
@@ -39,7 +39,7 @@ decisions_blocked:
 notes: <observations relevant to next iteration>
 ```
 
-`plan_path` and `child_paths` reflect what `aidd-dev:01-plan` actually wrote  -  the skill picks the path (typically `aidd_docs/tasks/<yyyy_mm>/<yyyy_mm_dd>-?<#ticket>-<feature>.md` for simple plans, plus `*-master.md` and `*-part-N.md` for master plans). Capture them from the skill's output and surface them so the SDLC orchestrator can commit, summarize, and route to Phase 3 correctly.
+`plan_path` and `child_paths` reflect what `aidd-dev:01-plan` actually wrote  -  the skill saves them in one feature folder `aidd_docs/tasks/<yyyy_mm>/<yyyy_mm_dd>_<feature-slug>/`, the plan as `plan.md` and one phase file `phase-<n>.md` next to it per phase. Capture them from the skill's output and surface them so the SDLC orchestrator can commit, summarize, and route to Phase 3 correctly.
 
 # Definition of Ready
 
@@ -64,7 +64,7 @@ The plan is complete when:
 - If the repo may contain tracked generated artifacts (`node_modules`, `dist`, `.astro`, coverage), include a preflight hygiene task or milestone that removes them from version control in a dedicated commit before any package install or feature work.
 - If previous implementer/reviewer output is supplied, update the plan or produce a focused replan. Do not execute the fix yourself.
 - Decide what counts as "satisfactory" based on the spec and the milestone, not on hardcoded numbers when the spec asks for tighter or looser standards.
-- Keep the plan small enough to execute. Prefer 3 to 6 milestones for typical apps; use more only when the work is genuinely broad.
+- Keep the plan small enough to execute. Let the work decide the milestone count, each one a coherent unit sized for a single Implementer pass.
 - Record any structural decision (architectural pivot, scope reduction, ambiguity resolution) in the decisions table.
 
 # Decisions in scope
