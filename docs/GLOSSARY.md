@@ -12,11 +12,11 @@ The Git repository that publishes plugins. When you run `/plugin marketplace add
 
 ## Memory bank
 
-Per-project context files under `aidd_docs/memory/` (architecture, conventions, decisions, and similar) that give the AI durable knowledge of your codebase. Built or refreshed by `aidd-context` (the onboard / project-init skills) and read by skills that need project context. "Onboard builds the memory bank" in the Quick start refers to this.
+Per-project context files under `aidd_docs/memory/` (architecture, conventions, decisions, and similar) that give the AI durable knowledge of your codebase. Built or refreshed by `aidd-context` (the onboard / project-memory skills) and read by skills that need project context. "Onboard builds the memory bank" in the Quick start refers to this.
 
 ## Skill
 
-A self-contained workflow under `plugins/<plugin>/skills/<NN-name>/`. Triggered by a user phrase, a slash command, or an explicit `Use skill <id>` invocation. A skill owns a `SKILL.md` router, one or more atomic actions, optional `assets/` and `evals/`. The `SKILL.md` `name:` is the folder slug (`00-onboard`); the invocation id is `<plugin>:<folder>`, for example `aidd-context:00-onboard`.
+A self-contained workflow under `plugins/<plugin>/skills/<NN-name>/`. Triggered by a user phrase, a slash command, or an explicit `Use skill <id>` invocation. A skill owns a `SKILL.md` router, one or more atomic actions, and optional `assets/` and `references/`. The `SKILL.md` `name:` is the folder slug (`00-onboard`); the invocation id is `<plugin>:<folder>`, for example `aidd-context:00-onboard`.
 
 ## Router-based skill
 

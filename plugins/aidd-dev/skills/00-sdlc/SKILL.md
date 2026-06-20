@@ -1,6 +1,7 @@
 ---
 name: 00-sdlc
 description: Pure orchestrator for the full AIDD development flow. Use when a human (or Gardener) needs to take a free-form request from idea to shipped code, end-to-end. Coordinates spec generation, planning, implementation, review, and shipping by composing other skills and agents. Supports two modes - `auto` (default, no human interaction) and `interactive` (pauses for human confirmation at key gates). Holds no business logic of its own; every step is delegated.
+argument-hint: spec | plan | implement | review | ship
 ---
 
 # Skill: sdlc
@@ -28,7 +29,7 @@ The flow has exactly ONE skippable step. Every other step is MANDATORY: it runs 
 
 Enforcement (self-check, not optional):
 
-- A mandatory step closes only when its `## Test` passes and its artifact exists: a plan file (02), implemented + verified milestones (03), a `04-review` verdict on the final diff (04), an opened change request (05).
+- A mandatory step closes only when its `## Test` passes and its artifact exists: a plan file (02), implemented + validated milestones (03), a `04-review` verdict on the final diff (04), an opened change request (05).
 - **`04-review` is non-negotiable: code is never shipped unreviewed.** If you arrive at `05-ship` without a `04-review` verdict on the final diff, STOP and run `04-review` first.
 - Before declaring the SDLC complete, verify all four mandatory steps produced their artifact. If any is missing, the run is NOT done - resume at the missing step. Do not report success with a skipped step.
 

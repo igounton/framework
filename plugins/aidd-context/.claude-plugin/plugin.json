@@ -1,8 +1,8 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "aidd-context",
-  "version": "1.1.2",
-  "description": "Knowledge production: project bootstrap, project init, generation of Claude Code context artifacts (skills, agents, rules, commands, hooks, plugins, marketplaces), mermaid diagrams, learn, discovery",
+  "version": "2.0.0",
+  "description": "Knowledge production: project bootstrap, project init, generation of context artifacts (skills, agents, rules, commands, hooks), mermaid diagrams, learn, explore, recipe how-to sheets",
   "author": {
     "name": "AI-Driven Dev",
     "url": "https://github.com/ai-driven-dev"
@@ -10,21 +10,27 @@
   "skills": [
     "./skills/00-onboard",
     "./skills/01-bootstrap",
-    "./skills/02-project-init",
+    "./skills/02-project-memory",
     "./skills/03-context-generate",
-    "./skills/04-mermaid",
-    "./skills/05-learn",
-    "./skills/06-discovery"
+    "./skills/04-skill-generate",
+    "./skills/05-rule-generate",
+    "./skills/06-agent-generate",
+    "./skills/07-command-generate",
+    "./skills/08-hook-generate",
+    "./skills/09-mermaid",
+    "./skills/10-learn",
+    "./skills/11-explore",
+    "./skills/12-cook"
   ],
   "keywords": [
     "context",
     "bootstrap",
-    "discovery",
+    "explore",
     "skills",
     "mermaid",
     "onboard"
   ],
-  "repository": "https://github.com/ai-driven-dev/aidd-framework",
+  "repository": "https://github.com/ai-driven-dev/framework",
   "homepage": "https://ai-driven.dev",
   "license": "MIT"
 }

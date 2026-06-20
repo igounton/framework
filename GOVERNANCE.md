@@ -64,7 +64,7 @@ none object.
 ## Plugins, breaking changes, conflicts
 
 - **New plugin**: lands via PR following [`docs/CREATE_PLUGIN.md`](docs/CREATE_PLUGIN.md)
-  (description on every skill, ≥1 `evals/scenarios.json`, registered in
+  (description on every skill, registered in
   `marketplace.json` + `release-please-config.json`, a Habilité owner). Starts
   `experimental` → `release candidate` (one external success) → `stable` (Habilité
   review).
@@ -76,13 +76,19 @@ none object.
 - **Conflict of interest**: a Habilité with a stake in a PR discloses it and is
   not the sole approver (a second Habilité approval becomes mandatory).
 
-## Branch protection on `main`
+## Branch protection on `main` and `next`
 
-No direct push, no force-push, no deletion; every change is a PR with ≥1 Habilité
-(CODEOWNERS) approval, passing checks (`lefthook (framework-local checks)`,
-`Commitlint`), and resolved threads. Machine-readable form:
-[`.github/rulesets/main.json`](.github/rulesets/main.json) (enforced once the repo
-is public / on a paid plan).
+`main` is production: no direct push, no force-push, no deletion; every change is
+a PR with ≥1 Habilité (CODEOWNERS) approval, passing checks (`lefthook
+(framework-local checks)`, `Commitlint`), and resolved threads. Machine-readable
+form: [`.github/rulesets/main.json`](.github/rulesets/main.json) (enforced once
+the repo is public / on a paid plan).
+
+`next` is the integration branch: PRs and passing checks, no direct push or
+deletion, but no required review so the week's work batches quickly. The release
+bot bypasses to push the automated back-merge. Machine-readable form:
+[`.github/rulesets/next.json`](.github/rulesets/next.json). The release flow is in
+[`RELEASE.md`](RELEASE.md).
 
 ## Code of Conduct & amendments
 

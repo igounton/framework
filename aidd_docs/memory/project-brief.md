@@ -28,13 +28,12 @@ AI-assisted software development tooling. The framework ships workflows, not cod
 | Memory | Structured context file loaded at conversation start | context file |
 | SDLC | Software Development Life Cycle — the end-to-end pipeline from idea to deployed PR | |
 | Marketplace | Central registry listing available plugins with version metadata | |
-| Eval | Scenario JSON file verifying a skill's routing logic | test |
 
 ## Features & Use-cases
 
 - Install plugins per AI tool with `aidd plugin add <plugin> --tool <tool>`
 - Execute skills via slash commands (`/sdlc`, `/commit`, `/plan`, etc.)
-- Bootstrap project memory bank and context files with `aidd-context:02-project-init`
+- Bootstrap project memory bank and context files with `aidd-context:02-project-memory`
 - Sync memory references across all AI context files automatically
 - Generate plans, assertions, reviews, and PRs through structured action chains
 - Run async development pipelines via `aidd-orchestrator`
