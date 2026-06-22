@@ -18,7 +18,7 @@
 <p><b>🇫🇷 The first French open-source framework for AI-driven development.</b></p>
 
 <p>
-  <!--counts:start--><kbd>6 plugins</kbd> · <kbd>38 skills</kbd> · <kbd>3 agents</kbd><!--counts:end--> · <kbd>MIT</kbd>
+  <!--counts:start--><kbd>7 plugins</kbd> · <kbd>39 skills</kbd> · <kbd>3 agents</kbd><!--counts:end--> · <kbd>MIT</kbd>
 </p>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -152,7 +152,7 @@ flowchart TD
 
 ## 🧩 Plugins
 
-Six plugins covering the whole SDLC — **install all of them**; they're designed to work together.
+Seven plugins covering the whole SDLC — **install all of them**; they're designed to work together. (`aidd-ui` is 🚧 **alpha — not ready for use**, off the curated install path.)
 
 <table>
 <tr>
@@ -210,6 +210,17 @@ Meta-cognition: brainstorm, challenge, condense, shadow-areas, fact-check.
 `1 skill` · stable (`async-dev`)
 
 Label an issue, get a PR; re-label, get the review applied.
+
+</td>
+</tr>
+<tr>
+<td width="33%" valign="top">
+
+### 🎨 [aidd-ui](plugins/aidd-ui/README.md) 🚧
+
+`1 skill` · **alpha — not ready**
+
+UI and UX: design, review, and improve frontend interfaces. ⚠️ Alpha (`0.1.0-alpha.0`), smoke-test only — do not rely on it yet.
 
 </td>
 </tr>
