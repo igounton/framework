@@ -1,31 +1,25 @@
 # 03 - Implement
 
-Build a milestone, apply a fix list, or finish a remaining scope via the implementer agent. Mandatory.
+Build the plan's code by spawning the `executor` agent to run the `aidd-dev:02-implement` recipe, which loops the phases, drives status, and validates. Mandatory.
 
-## Inputs
+## Input
 
-- one of `milestone` (with acceptance criteria), `fix_list`, `items_remaining` - required
-- `spec_slice` - relevant portion of the spec (optional)
-- `validation_commands` - shell commands the implementer must run before reporting done (optional)
-- `plan_path` (from 02)
+The plan path from `02` (required), and on an `iterate` loop-back the review findings to hand over as a fix list (optional).
 
-## Outputs
+## Output
 
-```yaml
-items_implemented: [...]
-items_remaining: [...]
-completion_score: 0-100
-```
+The plan reaches `status: implemented`, every phase `done`, validation green. Or it stops at `status: blocked` when a human is needed.
 
 ## Process
 
-1. **Mark in-progress.** Set `status: in-progress` in the plan frontmatter at `plan_path` (skip if already set). Status values and their meaning come from the plan-status reference (`01-plan/references/plan-status.md`) - the single source of truth; never restate the table here.
-2. **Spawn implementer** (`implementer` agent) with the inputs above. Brief: run `implement` for the milestone or fix list, then `assert` + `test`.
-3. **On failure**, run `debug` and re-spawn the implementer with the diagnostic notes until tests pass.
-4. **Blocked.** If the implementer surfaces `BLOCKED` in `notes`, write `status: blocked` in the plan frontmatter at `plan_path`, stop (do NOT proceed to 04), and escalate to a human.
-5. **Mark implemented.** When the whole plan is implemented (no milestones remain, last pass `items_remaining` empty), set `status: implemented` in the plan frontmatter at `plan_path`.
-6. **Return** the implementer's YAML as-is to the SDLC orchestrator.
+1. **Implement.** Spawn the `executor` agent and brief it to run the `aidd-dev:02-implement` recipe on `plan_path`. The agent branches, codes every phase, commits the code and the status transitions, and validates.
+2. **Iterate.** When the step runs after an `iterate` verdict, spawn the `executor` again and hand it the findings as a fix list. It codes the fixes against the current diff, then asserts and validates them before returning, exactly as the recipe gates a phase: a fix is finished only when it passes. Do not edit the plan or its phases: the loop fixes what was implemented, not the plan.
+3. **Resolve.** Read the plan's final `status`.
+   - `implemented`: the step is done.
+   - `blocked`: a human-only condition stopped the run. Do not continue. Escalate to a human.
 
 ## Test
 
-`completion_score` is an integer between 0 and 100; `items_implemented` and `items_remaining` are present; the validation commands return exit code 0; when fully implemented the plan's frontmatter `status` is `implemented` (or `blocked` if it surfaced a blocker, stopping before 04).
+- The plan `status` is `implemented`, or `blocked` when a human-only condition stopped it.
+- Every phase reads `status: done`.
+- The validation commands return exit code 0.

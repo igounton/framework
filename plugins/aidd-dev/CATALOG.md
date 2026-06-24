@@ -33,9 +33,8 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 
 | File | Description |
 |------|---|
-| [implementer.md](agents/implementer.md) | `Milestone executor. Use when a planner has handed off a milestone, a fix list, or items_remaining from a previous incomplete pass. Codes, tests, repairs. Returns what's done, what's remaining, and a completion score. Never replans, never judges.` |
-| [planner.md](agents/planner.md) | `Planning agent. Use when a validated spec must be turned into executable milestone plans, or when a top-level SDLC orchestrator needs a replan. Writes plans and decisions only. Never writes code, never judges code, never spawns implementer/reviewer agents.` |
-| [reviewer.md](agents/reviewer.md) | `Independent critic in fresh context. Use when an artifact (code, spec, plan, doc) needs verification against a validator (acceptance criteria, checklist file, or any explicit ruleset). Returns reviewed items, findings, completion score and quality score. Never edits the artifact, never decides what to do next.` |
+| [checker.md](agents/checker.md) | `Judges finished work against its validator and the real need, leaving nothing unchecked. Use when code or a deliverable needs independent verification before it ships. Never edits the work, never implements the fix.` |
+| [executor.md](agents/executor.md) | `Turns a dispatched task into working, validated code that fits the project. Use when an approved scope must become code. Never plans, never judges its own work.` |
 
 ### `skills`
 
@@ -49,7 +48,7 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | `actions` | [04-review.md](skills/00-sdlc/actions/04-review.md) | - |
 | `actions` | [05-ship.md](skills/00-sdlc/actions/05-ship.md) | - |
 | `-` | [README.md](skills/00-sdlc/README.md) | - |
-| `-` | [SKILL.md](skills/00-sdlc/SKILL.md) | `Pure orchestrator for the full AIDD development flow. Use when a human (or Gardener) needs to take a free-form request from idea to shipped code, end-to-end. Coordinates spec generation, planning, implementation, review, and shipping by composing other skills and agents. Supports two modes - `auto` (default, no human interaction) and `interactive` (pauses for human confirmation at key gates). Holds no business logic of its own; every step is delegated.` |
+| `-` | [SKILL.md](skills/00-sdlc/SKILL.md) | `Orchestrate the full dev flow, a free-form request to shipped code, every step delegated. Use to take a request end to end, not a single step. Interactive by default; say auto for unattended.` |
 
 #### `skills/01-plan`
 
@@ -65,16 +64,18 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | `references` | [mermaid-conventions.md](skills/01-plan/references/mermaid-conventions.md) | `Rules for generating valid, high-quality Mermaid diagrams. Apply when creating or reviewing any Mermaid diagram (flowchart, state, ER, sequence, gantt).` |
 | `references` | [plan-status.md](skills/01-plan/references/plan-status.md) | `Plan lifecycle status field - values, meaning, who writes each, and when.` |
 | `references` | [wireframe-conventions.md](skills/01-plan/references/wireframe-conventions.md) | - |
-| `-` | [SKILL.md](skills/01-plan/SKILL.md) | `Turn a request, ticket, or file into a phased implementation plan: gather the source, explore the codebase, optionally wireframe a screen, then plan. Use when the user wants to plan a feature, turn a ticket or requirements into a phased plan, or wireframe a screen before building. Do NOT use to write code (use 02-implement), review a diff (use 05-review), or audit code (use 04-audit).` |
+| `-` | [SKILL.md](skills/01-plan/SKILL.md) | `Turn a request, ticket, or file into a phased implementation plan. Use to plan a feature before building, or to turn a ticket into phases. Do NOT use to write code or review a diff.` |
 
 #### `skills/02-implement`
 
 | Group | File | Description |
 |-------|------|---|
-| `actions` | [01-implement.md](skills/02-implement/actions/01-implement.md) | - |
+| `actions` | [01-prepare.md](skills/02-implement/actions/01-prepare.md) | - |
+| `actions` | [02-execute.md](skills/02-implement/actions/02-execute.md) | - |
+| `actions` | [03-finalize.md](skills/02-implement/actions/03-finalize.md) | - |
 | `-` | [README.md](skills/02-implement/README.md) | - |
 | `references` | [blocked.md](skills/02-implement/references/blocked.md) | `Conditions that make a plan blocked (needs a human).` |
-| `-` | [SKILL.md](skills/02-implement/SKILL.md) | `Execute an implementation plan phase by phase via the implementer agent, iterating until 100% completeness.` |
+| `-` | [SKILL.md](skills/02-implement/SKILL.md) | `Write an existing plan's code, phase by phase, until every acceptance criterion holds. Use when a plan exists and needs implementing. Do NOT use to write a plan, review a diff.` |
 
 #### `skills/03-assert`
 
@@ -83,9 +84,9 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | `actions` | [01-assert.md](skills/03-assert/actions/01-assert.md) | - |
 | `actions` | [02-assert-architecture.md](skills/03-assert/actions/02-assert-architecture.md) | - |
 | `actions` | [03-assert-frontend.md](skills/03-assert/actions/03-assert-frontend.md) | - |
-| `assets` | [task-template.md](skills/03-assert/assets/task-template.md) | `Task tracking system to ensure all tasks are categorized and addressed` |
+| `assets` | [task-template.md](skills/03-assert/assets/task-template.md) | - |
 | `-` | [README.md](skills/03-assert/README.md) | - |
-| `-` | [SKILL.md](skills/03-assert/SKILL.md) | `Assert features work as intended - general assertions, architecture conformance, and frontend UI validation.` |
+| `-` | [SKILL.md](skills/03-assert/SKILL.md) | `Assert the work behaves: iterate the project's coding assertions until they pass, plus optional architecture and frontend facets. Use to validate an implementation. Do NOT use to review or write tests.` |
 
 #### `skills/04-audit`
 
@@ -108,10 +109,11 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 |-------|------|---|
 | `actions` | [01-review-code.md](skills/05-review/actions/01-review-code.md) | - |
 | `actions` | [02-review-functional.md](skills/05-review/actions/02-review-functional.md) | - |
-| `assets` | [review-code-template.md](skills/05-review/assets/review-code-template.md) | `Code review report template for a diff` |
-| `assets` | [review-functional-template.md](skills/05-review/assets/review-functional-template.md) | `Functional review report template for a diff against a plan` |
+| `actions` | [03-review-relevancy.md](skills/05-review/actions/03-review-relevancy.md) | - |
+| `assets` | [review-template.md](skills/05-review/assets/review-template.md) | - |
 | `-` | [README.md](skills/05-review/README.md) | - |
-| `-` | [SKILL.md](skills/05-review/SKILL.md) | `Read-only review of a diff (a PR or working changes) - code quality against project rules, and feature behavior against the plan's acceptance criteria. Surfaces findings with a verdict; never patches. Use to review changes in progress. Do NOT use for a whole-codebase health check (use 04-audit), fixing the findings (hand off to 07-refactor / 02-implement / 08-debug), or validating a feature runs (use 03-assert).` |
+| `references` | [review-rubric.md](skills/05-review/references/review-rubric.md) | - |
+| `-` | [SKILL.md](skills/05-review/SKILL.md) | `Read-only review of a diff on three axes, code, behavior versus the plan, and relevancy, into one verdict report. Use before shipping a change. Do NOT use to fix findings or audit a codebase.` |
 
 #### `skills/06-test`
 
@@ -162,5 +164,5 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 |-------|------|---|
 | `actions` | [01-todo.md](skills/10-todo/actions/01-todo.md) | - |
 | `-` | [README.md](skills/10-todo/README.md) | - |
-| `-` | [SKILL.md](skills/10-todo/SKILL.md) | `Split the user prompt into independent todos, run one implementer agent per todo in parallel (each refines its todo first), and report a minimal table. Use when the user says "todo", "/todo", or asks to fan out a multi-part request into parallel implementations.` |
+| `-` | [SKILL.md](skills/10-todo/SKILL.md) | `Split the user prompt into independent todos, run one executor agent per todo in parallel (each refines its todo first), and report a minimal table. Use when the user says "todo", "/todo", or asks to fan out a multi-part request into parallel implementations.` |
 

@@ -41,7 +41,7 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | `actions` | [01-commit.md](skills/01-commit/actions/01-commit.md) | - |
 | `assets` | [commit-template.md](skills/01-commit/assets/commit-template.md) | `VCS commit message template` |
 | `-` | [README.md](skills/01-commit/README.md) | - |
-| `-` | [SKILL.md](skills/01-commit/SKILL.md) | `Create an atomic git commit with conventional message format. Use when the user says "commit", "git commit", "create a commit", "commit my changes", "commit and push", or invokes `/commit`. Do NOT use for amending existing commits, force-pushing, rebasing, opening pull requests, or release tagging.` |
+| `-` | [SKILL.md](skills/01-commit/SKILL.md) | `Create an atomic git commit with a conventional message, optionally pushing. Use to commit changes ("commit", "/commit push"). Do NOT use to amend, rebase, open a PR, or tag a release.` |
 
 #### `skills/02-pull-request`
 
@@ -49,11 +49,9 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 |-------|------|---|
 | `actions` | [01-pull-request.md](skills/02-pull-request/actions/01-pull-request.md) | - |
 | `assets` | [branch.md](skills/02-pull-request/assets/branch.md) | `VCS branch naming convention template` |
-| `assets` | [CONTRIBUTING.md](skills/02-pull-request/assets/CONTRIBUTING.md) | `Project contribution guidelines template` |
 | `assets` | [pull_request.md](skills/02-pull-request/assets/pull_request.md) | `VCS pull/merge request template` |
-| `assets` | [README.md](skills/02-pull-request/assets/README.md) | `Project README template` |
 | `-` | [README.md](skills/02-pull-request/README.md) | - |
-| `-` | [SKILL.md](skills/02-pull-request/SKILL.md) | `Create a draft pull or merge request from the current branch. Use when the user ask to create a PR or invokes `/pull-request`.` |
+| `-` | [SKILL.md](skills/02-pull-request/SKILL.md) | `Create a draft pull or merge request from the current branch, in whatever VCS tool the project uses. Use to open a PR/MR ("open a pr", `/pull-request`). Do NOT use to commit, push, or merge a branch.` |
 
 #### `skills/03-release-tag`
 

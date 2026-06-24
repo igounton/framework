@@ -1,29 +1,21 @@
 # 02 - Plan
 
-Turn the spec (or raw request when spec was skipped) into a validated plan file. Mandatory.
+Turn the spec, or the raw request when spec was skipped, into a validated plan file. Mandatory.
 
-## Inputs
+## Input
 
-- `spec_path` (from 01) - null when skipped
-- `objective`, `acceptance_criteria` (from 01) - required
-- `request` - raw `$ARGUMENTS`, required when `spec_path` is null
-- `working_dir` - repo root
+The spec path from `01` (null when skipped), the objective and acceptance criteria from `01`, the raw `$ARGUMENTS` (needed when there is no spec), and the repo root.
 
-## Outputs
+## Output
 
-```yaml
-plan_path: <path>
-child_paths: [<path>]
-decisions_made: [...]
-decisions_blocked: [...]
-```
+The plan path and its phase paths, plus the decisions you made and any you could not make alone.
 
 ## Process
 
-1. **Spawn planner** (`planner` agent) with the inputs above. Brief: run `plan` end to end (URL detection, ticket fetch, normalization, architecture projection, rules selection, phase breakdown). Never inline raw ticket or spec as the plan body.
-2. **Read output.** Capture the YAML returned by the planner.
-3. **Return** it as-is to the SDLC orchestrator.
+1. **Author.** Run `aidd-dev:01-plan` end to end in your own context. You own the plan: it is the contract the executor may not rewrite, so you write it, never a worker. Never inline a raw ticket or spec as the plan body.
+2. **Capture.** Read the plan path, the phase paths, and the decisions the plan records.
+3. **Return.** Surface them for the next step.
 
 ## Test
 
-`plan_path` exists on disk; its frontmatter contains `objective`, `status: pending`; the plan's `objective` matches the spec's `objective` (or the request when spec was skipped).
+- The plan file exists, its frontmatter carries `objective` and `status: pending`, and the plan's objective matches the spec's (or the request when spec was skipped).
