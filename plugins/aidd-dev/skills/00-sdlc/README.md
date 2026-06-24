@@ -11,8 +11,8 @@ Holds no business logic of its own; every step is delegated.
 
 - A human (or upstream orchestrator) hands over a free-form request and you
   need to drive it end-to-end: spec, plan, implement, review, ship.
-- You want the default autonomous run (`auto` mode) with no human prompts.
-- You want the same flow but with confirmation gates (`interactive` mode).
+- You want the default run with confirmation gates (`interactive` mode).
+- You want an unattended run with no human prompts (`auto` mode).
 
 ## When NOT to use
 
@@ -29,17 +29,18 @@ Holds no business logic of its own; every step is delegated.
 ## How to invoke
 
 ```
-/sdlc <request>                # auto mode (default)
-/sdlc interactive <request>    # pauses at each gate for human confirmation
+/sdlc <request>                # interactive (default): pauses at each gate
+/sdlc auto <request>           # unattended: no human prompts
 ```
 
 The skill walks 5 actions:
 
 1. `spec` - consolidate sources, draft or refine the contract (skippable if
    the source ticket already carries objective + acceptance criteria).
-2. `plan` - produce the mandatory plan file via the `planner` agent.
-3. `implement` - loop milestones via the `implementer` agent until complete.
-4. `review` - verdict `ship` or `iterate` via the `reviewer` agent; on
+2. `plan` - produce the mandatory plan file by running `aidd-dev:01-plan` in
+   the orchestrator's own context (it owns the plan).
+3. `implement` - loop milestones via the `executor` agent until complete.
+4. `review` - verdict `ship` or `iterate` via the `checker` agent; on
    `iterate`, loop back to step 3 with findings.
 5. `ship` - commit and open the pull request.
 
@@ -47,15 +48,15 @@ The skill walks 5 actions:
 
 - A spec file (unless skipped).
 - A plan file in `aidd_docs/tasks/`.
-- Atomic commits on the active branch, one per ticked checkbox.
+- Atomic commits on the active branch, one per phase.
 - A pull request with title, body, base branch, and draft state.
-- Findings + completion + quality scores from the reviewer.
+- Findings + completion + quality scores from the checker.
 
 ## Prerequisites
 
 - HEAD is on a non-default branch when the run is meant to ship. `05-ship`
   aborts with `contract_violation: on_default_branch` otherwise.
-- The `planner`, `implementer`, and `reviewer` agents are available.
+- The `executor` and `checker` agents are available.
 - A VCS-providing capability is loaded at runtime for the ship step
   (commit + pull-request creation).
 

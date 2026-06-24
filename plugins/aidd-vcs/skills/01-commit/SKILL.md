@@ -1,13 +1,13 @@
 ---
 name: 01-commit
-description: Create an atomic git commit with conventional message format. Use when the user says "commit", "git commit", "create a commit", "commit my changes", "commit and push", or invokes `/commit`. Do NOT use for amending existing commits, force-pushing, rebasing, opening pull requests, or release tagging.
+description: Create an atomic git commit with a conventional message, optionally pushing. Use to commit changes ("commit", "/commit push"). Do NOT use to amend, rebase, open a PR, or tag a release.
 ---
 
 # Commit
 
-Generates atomic git commits with conventional messages, supporting interactive splits and agent-driven auto mode.
+Runs interactive with split approval, or auto for agents.
 
-## Available actions
+## Actions
 
 | #   | Action   | Role                                                          | Input                                       |
 | --- | -------- | ------------------------------------------------------------- | ------------------------------------------- |
@@ -26,22 +26,15 @@ When invoked as a slash command, the trailing argument controls the push behavio
 
 ## Transversal rules
 
+- Project first: follow `aidd_docs/memory/vcs.md` when it exists (message convention, scopes, branch naming); the rules below and the template are the fallback.
 - Commits stay atomic and focused on a single concern.
 - Messages use imperative mood ("Add feature" not "Added feature").
 - Explain "why" not "what" in the body.
 - Never `--force` push. `--force-with-lease` is acceptable when explicitly required.
-- Follow the conventional commit format defined in `@assets/commit-template.md`.
+- Follow the conventional commit format defined in `@assets/commit-template.md` when the project sets none.
 - Reference issues in the commit body when applicable.
 - `auto` mode never asks for confirmation. `interactive` mode requires user approval before staging and before committing splits.
-
-## References
-
-- None.
 
 ## Assets
 
 - `@assets/commit-template.md`: Conventional commit format reference.
-
-## External data
-
-- None.
