@@ -14,7 +14,7 @@ plugins/
     README.md
     skills/
       <skill>/
-        README.md -> ../../README.md
+        README.md -> SKILL.md
         SKILL.md
         actions/
         references/
@@ -34,9 +34,9 @@ plugins/
 
 ### `2)` Replace direct README files with symlinks
 
-> Convert every direct skill README landing page into the plugin README symlink convention.
+> Convert every direct skill README landing page into the local SKILL.md symlink convention.
 
-1. For every direct regular file at `plugins/<plugin>/skills/<skill>/README.md`, remove the file and create a symlink named `README.md` targeting `../../README.md`.
+1. For every direct regular file at `plugins/<plugin>/skills/<skill>/README.md`, remove the file and create a symlink named `README.md` targeting `SKILL.md`.
 2. Do not touch deeper README files under `assets/`, `references/`, templates, or generated-project templates.
 3. Ensure Git records the symlink mode change rather than a copied README file.
 
@@ -53,7 +53,7 @@ plugins/
 | Task | Acceptance criteria |
 | --- | --- |
 | 1 | The direct target list includes only paths exactly shaped as `plugins/<plugin>/skills/<skill>/README.md`; nested asset/template READMEs are excluded. |
-| 2 | Each direct skill `README.md` is a symlink whose `readlink` target is `../../README.md`, and `realpath` resolves to the owning plugin README. |
+| 2 | Each direct skill `README.md` is a symlink whose `readlink` target is `SKILL.md`, and `realpath` resolves to the local `SKILL.md`. |
 | 2 | `git status --short` shows mode/content changes for direct skill README paths only, with no accidental deletion of nested asset README files. |
 | 3 | Regenerated catalogs are either unchanged or changed only in ways explained by symlink handling. |
 
@@ -62,7 +62,7 @@ plugins/
 ```sh
 find plugins -mindepth 4 -maxdepth 4 -path 'plugins/*/skills/*/README.md' -print | sort
 find plugins -mindepth 5 -path 'plugins/*/skills/*/README.md' -print | sort
-while IFS= read -r f; do plugin=${f#plugins/}; plugin=${plugin%%/*}; expected="$(pwd -P)/plugins/$plugin/README.md"; test -L "$f" || { echo "not symlink: $f"; exit 1; }; target="$(readlink "$f")"; test "$target" = "../../README.md" || { echo "bad target: $f -> $target"; exit 1; }; actual="$(cd "$(dirname "$f")/$(dirname "$target")" && pwd -P)/$(basename "$target")"; test "$actual" = "$expected" || { echo "bad resolution: $f -> $actual, expected $expected"; exit 1; }; done < <(find plugins -mindepth 4 -maxdepth 4 -path 'plugins/*/skills/*/README.md' -print | sort)
+while IFS= read -r f; do expected="$(cd "$(dirname "$f")" && pwd -P)/SKILL.md"; test -L "$f" || { echo "not symlink: $f"; exit 1; }; target="$(readlink "$f")"; test "$target" = "SKILL.md" || { echo "bad target: $f -> $target"; exit 1; }; actual="$(cd "$(dirname "$f")" && realpath "$target")"; test "$actual" = "$expected" || { echo "bad resolution: $f -> $actual, expected $expected"; exit 1; }; done < <(find plugins -mindepth 4 -maxdepth 4 -path 'plugins/*/skills/*/README.md' -print | sort)
 find plugins -mindepth 5 -path 'plugins/*/skills/*/README.md' -type f -print | sort
 for plugin in plugins/*/; do name=$(basename "$plugin"); node scripts/summarize-markdown.js "$plugin" "${plugin}CATALOG.md" --depth=4 --fields=description,argument-hint --title="$name catalog" --tagline="Auto-generated index of skills, agents, references and assets shipped by the \`$name\` plugin." >/dev/null; done
 ```

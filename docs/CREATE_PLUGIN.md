@@ -41,7 +41,7 @@ plugins/aidd-example/
 ├── skills/
 │   └── 01-hello/
 │       ├── SKILL.md
-│       ├── README.md -> ../../README.md
+│       ├── README.md -> SKILL.md
 │       └── actions/
 │           └── 01-greet.md
 ├── agents/               # optional
@@ -97,13 +97,13 @@ Run action `01-greet` and return its message.
 
 ### `skills/01-hello/README.md`
 
-Create this as a symlink to the plugin-level README:
+Create this as a local symlink to the skill file:
 
 ```sh
-ln -s ../../README.md plugins/aidd-example/skills/01-hello/README.md
+ln -s SKILL.md plugins/aidd-example/skills/01-hello/README.md
 ```
 
-Do not write standalone per-skill README prose. Keep human-facing skill summaries in the plugin README's Skills table and keep execution details in `SKILL.md`, `actions/`, `references/`, and `assets/`.
+Do not write standalone per-skill README prose. Keep execution details in `SKILL.md`, `actions/`, `references/`, and `assets/`.
 
 ### `skills/01-hello/actions/01-greet.md`
 

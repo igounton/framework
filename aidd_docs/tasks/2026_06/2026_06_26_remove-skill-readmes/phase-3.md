@@ -19,7 +19,7 @@ plugins/
   <plugin>/
     CATALOG.md                 # generated, deterministic
     README.md
-    skills/<skill>/README.md -> ../../README.md
+    skills/<skill>/README.md -> SKILL.md
 ```
 
 ## Tasks to do
@@ -29,7 +29,7 @@ plugins/
 > Ensure generated catalogs and docs do not misrepresent symlinked skill READMEs as unique source files.
 
 1. Run catalog generation for every plugin and inspect how direct skill README symlinks appear.
-2. If catalog rows are misleading or duplicate plugin-level README metadata through the symlink, update `scripts/summarize-markdown.js` to handle symlinked direct skill READMEs deliberately.
+2. If catalog rows are misleading or duplicate `SKILL.md` metadata through the symlink, update `scripts/summarize-markdown.js` to handle symlinked direct skill READMEs deliberately.
 3. Preserve catalog coverage for nested asset/template README files, because those remain substantive files.
 
 ### `2)` Add or document focused validation
@@ -37,7 +37,7 @@ plugins/
 > Ensure future changes cannot reintroduce regular direct per-skill README files.
 
 1. Prefer adding a lightweight repository check if it fits existing hook style; otherwise document the required focused command in the relevant generator validation.
-2. The check must fail when any direct `plugins/<plugin>/skills/<skill>/README.md` is a regular file or points anywhere other than `../../README.md`.
+2. The check must fail when any direct `plugins/<plugin>/skills/<skill>/README.md` is a regular file or points anywhere other than `SKILL.md`.
 3. The check must not fail for nested asset/template README files.
 
 ### `3)` Validate repository and build-relevant surfaces
@@ -65,7 +65,7 @@ plugins/
 
 ```sh
 pnpm exec lefthook run pre-commit --all-files --force
-while IFS= read -r f; do plugin=${f#plugins/}; plugin=${plugin%%/*}; expected="$(pwd -P)/plugins/$plugin/README.md"; test -L "$f" || { echo "not symlink: $f"; exit 1; }; target="$(readlink "$f")"; test "$target" = "../../README.md" || { echo "bad target: $f -> $target"; exit 1; }; actual="$(cd "$(dirname "$f")/$(dirname "$target")" && pwd -P)/$(basename "$target")"; test "$actual" = "$expected" || { echo "bad resolution: $f -> $actual, expected $expected"; exit 1; }; done < <(find plugins -mindepth 4 -maxdepth 4 -path 'plugins/*/skills/*/README.md' -print | sort)
+while IFS= read -r f; do expected="$(cd "$(dirname "$f")" && pwd -P)/SKILL.md"; test -L "$f" || { echo "not symlink: $f"; exit 1; }; target="$(readlink "$f")"; test "$target" = "SKILL.md" || { echo "bad target: $f -> $target"; exit 1; }; actual="$(cd "$(dirname "$f")" && realpath "$target")"; test "$actual" = "$expected" || { echo "bad resolution: $f -> $actual, expected $expected"; exit 1; }; done < <(find plugins -mindepth 4 -maxdepth 4 -path 'plugins/*/skills/*/README.md' -print | sort)
 find plugins -mindepth 4 -maxdepth 4 -path 'plugins/*/skills/*/README.md' -type f -print | grep . && { echo "regular direct skill README remains"; exit 1; } || true
 find plugins -mindepth 5 -path 'plugins/*/skills/*/README.md' -type f -print | sort
 git diff --check

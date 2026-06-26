@@ -1,5 +1,5 @@
 ---
-objective: "Remove substantive per-skill README files and standardize direct skill README.md entries as symlinks to their plugin-level README.md."
+objective: "Remove substantive per-skill README files and standardize direct skill README.md entries as symlinks to SKILL.md."
 status: reviewed
 ---
 
@@ -9,24 +9,23 @@ status: reviewed
 
 | Field | Value |
 | --- | --- |
-| **Goal** | Direct skill directories keep `README.md` only as a symlink to the owning plugin README, and generators/catalogs/docs stop treating per-skill READMEs as substantive files. |
+| **Goal** | Direct skill directories keep `README.md` only as a symlink to local `SKILL.md`, and generators/catalogs/docs stop treating per-skill READMEs as substantive files. |
 | **Source** | Inline SDLC request from 2026-06-26. |
 
 ## Scope
 
 Target:
 
-- Replace committed files matching direct skill README paths (`plugins/<plugin>/skills/<skill>/README.md`) with symlinks resolving to `plugins/<plugin>/README.md`.
+- Replace committed files matching direct skill README paths (`plugins/<plugin>/skills/<skill>/README.md`) with symlinks resolving to the same directory's `SKILL.md`.
 - Update skill generation behavior so plugin-source skill creation creates or preserves the symlink convention without asking for or writing substantive per-skill README content.
-- Update validation, cataloging, plugin READMEs, and docs that assume direct skill READMEs contain unique content.
+- Update validation, cataloging, and docs that assume direct skill READMEs contain unique content.
 - Validate with repository checks plus focused symlink assertions.
 
 Hard constraints:
 
 - Do not edit nested asset/template READMEs such as `plugins/*/skills/*/assets/README.md`; those are not direct per-skill README landing pages.
-- Use a relative symlink target of `../../README.md` for every direct skill README so plugin directories remain relocatable.
+- Use a local symlink target of `SKILL.md` for every direct skill README so plugin directories remain relocatable.
 - Keep generated catalogs deterministic and compatible with `pnpm exec lefthook run pre-commit`.
-- Preserve plugin-level README files as the substantive documentation surface.
 
 Non-goals:
 
@@ -36,7 +35,7 @@ Non-goals:
 
 Done when:
 
-- Every direct skill README in committed plugin skill directories is a symlink resolving to the owning plugin's README.
+- Every direct skill README in committed plugin skill directories is a symlink resolving to the same directory's `SKILL.md`.
 - No direct committed skill README remains a regular file.
 - Skill generation no longer asks for or writes standalone per-skill README prose, and plugin-source generation creates or validates the symlink.
 - Catalogs/docs/checks reflect the symlink convention and no stale per-skill README assumption remains.
@@ -64,10 +63,10 @@ Done when:
 
 | Decision | Why |
 | --- | --- |
-| Use `../../README.md` as the symlink target for direct skill READMEs. | Every direct skill directory is two levels below the plugin root, and a relative target keeps plugin bundles relocatable. |
+| Use `SKILL.md` as the symlink target for direct skill READMEs. | The README alias stays local to the skill directory and follows the canonical skill file. |
 | Keep nested asset/template READMEs as regular files. | They are templates or documentation for generated assets, not per-skill landing pages. |
-| Keep plugin README skill-table links pointing at `skills/<skill>/README.md` unless implementation discovers a tool incompatibility. | The path remains valid through the symlink while preserving existing public link shape. |
-| Add focused validation beyond lefthook. | Existing hooks validate catalogs/frontmatter but do not prove direct skill README entries are symlinks to plugin READMEs. |
+| Keep plugin README skill-table links pointing at `skills/<skill>/README.md` unless implementation discovers a tool incompatibility. | The path remains valid through the local `SKILL.md` symlink while preserving existing public link shape. |
+| Add focused validation beyond lefthook. | Existing hooks validate catalogs/frontmatter but do not prove direct skill README entries are symlinks to `SKILL.md`. |
 
 ## Expected Commit Boundaries
 

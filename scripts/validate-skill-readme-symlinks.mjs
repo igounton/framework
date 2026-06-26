@@ -27,7 +27,6 @@ for (const pluginName of readdirSync(pluginsDir).sort()) {
 		continue;
 	}
 
-	const expectedReadme = realpathSync(join(pluginDir, "README.md"));
 	for (const skillName of readdirSync(skillsDir).sort()) {
 		const skillDir = join(skillsDir, skillName);
 		if (!lstatSync(skillDir).isDirectory()) {
@@ -35,6 +34,8 @@ for (const pluginName of readdirSync(pluginsDir).sort()) {
 		}
 
 		const readmePath = join(skillDir, "README.md");
+		const expectedTarget = "SKILL.md";
+		const expectedResolved = realpathSync(join(skillDir, expectedTarget));
 
 		let readmeStat;
 		try {
@@ -51,15 +52,15 @@ for (const pluginName of readdirSync(pluginsDir).sort()) {
 		}
 
 		const target = readlinkSync(readmePath);
-		if (target !== "../../README.md") {
+		if (target !== expectedTarget) {
 			fail(`bad target: plugins/${pluginName}/skills/${skillName}/README.md -> ${target}`);
 			continue;
 		}
 
 		const resolved = realpathSync(readmePath);
-		if (resolved !== expectedReadme) {
+		if (resolved !== expectedResolved) {
 			fail(
-				`bad resolution: plugins/${pluginName}/skills/${skillName}/README.md -> ${resolved}, expected ${expectedReadme}`,
+				`bad resolution: plugins/${pluginName}/skills/${skillName}/README.md -> ${resolved}, expected ${expectedResolved}`,
 			);
 		}
 	}

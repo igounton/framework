@@ -22,7 +22,7 @@ plugins/aidd-context/skills/04-skill-generate/
     skill-template.md
 
 plugins/<plugin>/skills/<generated-skill>/
-  README.md -> ../../README.md     # plugin-source mode only
+  README.md -> SKILL.md     # plugin-source mode only
   SKILL.md
   actions/
 ```
@@ -33,8 +33,8 @@ plugins/<plugin>/skills/<generated-skill>/
 
 > Make plugin-source skill generation create or preserve the symlink convention without writing substantive per-skill README prose.
 
-1. Update `plugins/aidd-context/skills/04-skill-generate/actions/03-draft-skill.md` so plugin-source rendering writes `SKILL.md` and ensures `README.md -> ../../README.md`.
-2. Keep host-project skill generation focused on the target tool's `SKILL.md`; do not require a README when there is no plugin-level README.
+1. Update `plugins/aidd-context/skills/04-skill-generate/actions/03-draft-skill.md` so plugin-source rendering writes `SKILL.md` and ensures `README.md -> SKILL.md`.
+2. Keep host-project skill generation focused on the target tool's `SKILL.md`; do not require a README.
 3. In modify mode, preserve a correct symlink, replace only a direct regular per-skill README in plugin-source mode, and avoid touching nested README templates.
 
 ### `2)` Update capture, authoring, and validation guidance
@@ -42,22 +42,22 @@ plugins/<plugin>/skills/<generated-skill>/
 > Remove stale assumptions that a new skill needs dedicated README prose.
 
 1. Update skill-generate capture/reference wording if it asks for or implies substantive per-skill README content.
-2. Add validation guidance in `05-validate.md` or the relevant reference so plugin-source skills pass only when `README.md` is a symlink to `../../README.md`.
+2. Add validation guidance in `05-validate.md` or the relevant reference so plugin-source skills pass only when `README.md` is a symlink to `SKILL.md`.
 3. Keep asset README references in unrelated skills intact when they describe generated project docs or templates.
 
 ### `3)` Update plugin/docs references that describe per-skill READMEs as content surfaces
 
-> Align documentation with the plugin README as the canonical human-facing surface.
+> Align documentation with `SKILL.md` as the canonical skill file.
 
 1. Search `plugins/`, `scripts/`, `aidd_docs/`, and root docs for wording like `skill README`, `per-skill README`, or links that imply unique per-skill content.
-2. Rewrite stale prose to reference plugin-level README/catalog entries or the symlink convention.
+2. Rewrite stale prose to reference `SKILL.md`, catalog entries, or the symlink convention.
 3. Leave historical changelog entries unchanged unless they are part of generated current docs.
 
 ## Acceptance criteria
 
 | Task | Acceptance criteria |
 | --- | --- |
-| 1 | Plugin-source skill generation instructions explicitly ensure `README.md -> ../../README.md` and do not ask the user for README prose. |
+| 1 | Plugin-source skill generation instructions explicitly ensure `README.md -> SKILL.md` and do not ask the user for README prose. |
 | 1 | Host-project skill generation instructions do not create or require README files. |
 | 2 | Validation guidance includes a deterministic check for plugin-source skill README symlinks. |
 | 2 | References to asset README templates remain intact where they are not direct skill landing pages. |

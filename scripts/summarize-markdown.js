@@ -178,7 +178,7 @@ function isDirectSkillReadmeSymlink(itemPath, relativePath, filename) {
 	if (relativePath.split(path.sep).length !== 1) {
 		return false;
 	}
-	return fs.lstatSync(itemPath).isSymbolicLink() && fs.readlinkSync(itemPath) === "../../README.md";
+	return fs.lstatSync(itemPath).isSymbolicLink() && fs.readlinkSync(itemPath) === "SKILL.md";
 }
 
 /**

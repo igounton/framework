@@ -1,1 +1,1 @@
-../../README.md
+SKILL.md
