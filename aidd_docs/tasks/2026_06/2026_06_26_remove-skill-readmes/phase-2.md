@@ -37,12 +37,12 @@ plugins/<plugin>/skills/<generated-skill>/
 2. Keep host-project skill generation focused on the target tool's `SKILL.md`; do not require a README.
 3. In modify mode, preserve a correct symlink, replace only a direct regular per-skill README in plugin-source mode, and avoid touching nested README templates.
 
-### `2)` Update capture, authoring, and validation guidance
+### `2)` Update capture, authoring, and seed guidance
 
 > Remove stale assumptions that a new skill needs dedicated README prose.
 
 1. Update skill-generate capture/reference wording if it asks for or implies substantive per-skill README content.
-2. Add validation guidance in `05-validate.md` or the relevant reference so plugin-source skills pass only when `README.md` is a symlink to `SKILL.md`.
+2. Add seed guidance in `03-draft-skill.md` or the relevant reference so new plugin-source skills create `README.md` as a symlink to `SKILL.md` immediately after `SKILL.md` is written.
 3. Keep asset README references in unrelated skills intact when they describe generated project docs or templates.
 
 ### `3)` Update plugin/docs references that describe per-skill READMEs as content surfaces
@@ -59,7 +59,7 @@ plugins/<plugin>/skills/<generated-skill>/
 | --- | --- |
 | 1 | Plugin-source skill generation instructions explicitly ensure `README.md -> SKILL.md` and do not ask the user for README prose. |
 | 1 | Host-project skill generation instructions do not create or require README files. |
-| 2 | Validation guidance includes a deterministic check for plugin-source skill README symlinks. |
+| 2 | Creation guidance explicitly seeds the plugin-source skill README symlink before the action reports files written. |
 | 2 | References to asset README templates remain intact where they are not direct skill landing pages. |
 | 3 | Current docs no longer claim direct skill READMEs contain distinct per-skill documentation. |
 

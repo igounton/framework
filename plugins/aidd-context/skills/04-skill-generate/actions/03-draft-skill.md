@@ -24,8 +24,8 @@ One SKILL.md per confirmed tool, the plugin-source README symlink when applicabl
    - External call or secrets: state it here, leave the wiring to the user.
 4. **Render.** Per the write mode:
    - **Host**: once per confirmed tool at its path (`@../references/tool-paths.md`). Do not create or require a README.
-   - **Plugin source**: once at `plugins/<plugin>/skills/<name>/`. Ensure `README.md` exists as a symlink to `SKILL.md`.
-     Preserve a correct symlink. In modify mode, replace only a direct regular `README.md` in the skill root. Do not touch nested README files under `assets/`, `references/`, templates, or generated project docs.
+   - **Plugin source**: once at `plugins/<plugin>/skills/<name>/`. On create, seed `README.md` immediately after writing `SKILL.md` as a symlink whose target is exactly `SKILL.md`.
+     Preserve a correct symlink in modify mode. Replace only a direct regular `README.md` in the skill root. Do not touch nested README files under `assets/`, `references/`, templates, or generated project docs.
 5. **Validate.** Run the write-target validation (`@../references/tool-paths.md`).
 
 ## Test
