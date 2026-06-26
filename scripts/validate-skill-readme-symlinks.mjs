@@ -40,6 +40,7 @@ for (const pluginName of readdirSync(pluginsDir).sort()) {
 		try {
 			readmeStat = lstatSync(readmePath);
 		} catch {
+			fail(`missing README symlink: plugins/${pluginName}/skills/${skillName}/README.md`);
 			continue;
 		}
 		checked += 1;

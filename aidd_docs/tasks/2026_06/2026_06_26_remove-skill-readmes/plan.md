@@ -54,7 +54,7 @@ Done when:
 
 | Source | Verified |
 | --- | --- |
-| `plugins/*/skills/*/README.md` direct filesystem scan | There are 37 direct skill README regular files to convert. |
+| `plugins/*/skills/*/README.md` direct filesystem scan | There were 37 direct skill README regular files to convert and one direct skill directory missing the symlink. |
 | `plugins/*/skills/*/assets/**/README.md` scan | Nested asset/template READMEs exist and are outside the conversion scope. |
 | `plugins/aidd-context/skills/04-skill-generate/**` | Skill generation writes `SKILL.md` and actions; plugin-source behavior needs explicit README symlink handling and docs. |
 | `scripts/summarize-markdown.js` and `lefthook.yml` | Catalog generation currently scans symlink targets via `fs.statSync`; validation must account for symlink convention. |
