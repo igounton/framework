@@ -33,6 +33,14 @@ pre-commit:
             exit 1
           fi
         done
+    skill-readme-symlinks:
+      run: |
+        [ -d plugins ] || exit 0
+        if ! command -v node >/dev/null 2>&1; then
+          echo "❌ node not available; cannot validate skill README symlinks"
+          exit 1
+        fi
+        node scripts/validate-skill-readme-symlinks.mjs
     summarize-plugin-catalogs:
       run: |
         [ -d plugins ] || exit 0

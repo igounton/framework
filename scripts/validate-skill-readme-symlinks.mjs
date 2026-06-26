@@ -1,0 +1,69 @@
+#!/usr/bin/env node
+
+import { lstatSync, readdirSync, readlinkSync, realpathSync } from "node:fs";
+import { join } from "node:path";
+
+const root = process.cwd();
+const pluginsDir = join(root, "plugins");
+let checked = 0;
+
+function fail(message) {
+	console.error(message);
+	process.exitCode = 1;
+}
+
+for (const pluginName of readdirSync(pluginsDir).sort()) {
+	const pluginDir = join(pluginsDir, pluginName);
+	if (!lstatSync(pluginDir).isDirectory()) {
+		continue;
+	}
+
+	const skillsDir = join(pluginDir, "skills");
+	try {
+		if (!lstatSync(skillsDir).isDirectory()) {
+			continue;
+		}
+	} catch {
+		continue;
+	}
+
+	const expectedReadme = realpathSync(join(pluginDir, "README.md"));
+	for (const skillName of readdirSync(skillsDir).sort()) {
+		const skillDir = join(skillsDir, skillName);
+		if (!lstatSync(skillDir).isDirectory()) {
+			continue;
+		}
+
+		const readmePath = join(skillDir, "README.md");
+
+		let readmeStat;
+		try {
+			readmeStat = lstatSync(readmePath);
+		} catch {
+			continue;
+		}
+		checked += 1;
+
+		if (!readmeStat.isSymbolicLink()) {
+			fail(`not a symlink: plugins/${pluginName}/skills/${skillName}/README.md`);
+			continue;
+		}
+
+		const target = readlinkSync(readmePath);
+		if (target !== "../../README.md") {
+			fail(`bad target: plugins/${pluginName}/skills/${skillName}/README.md -> ${target}`);
+			continue;
+		}
+
+		const resolved = realpathSync(readmePath);
+		if (resolved !== expectedReadme) {
+			fail(
+				`bad resolution: plugins/${pluginName}/skills/${skillName}/README.md -> ${resolved}, expected ${expectedReadme}`,
+			);
+		}
+	}
+}
+
+if (!process.exitCode) {
+	console.log(`Skill README symlink validation passed for ${checked} direct README entries.`);
+}
